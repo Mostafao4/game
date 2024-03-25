@@ -1,47 +1,77 @@
-# Dice Realms: Quest for the Elemental Crests Game
+# Project Skeleton
 
-This repository contains the skeleton for a Dice Realms: Quest for the Elemental Crests Java-based game. It uses the Maven build system and JUnit4 for testing. Below are instructions on how to get started.
+## Folder Structure
 
-## Setup
-
-1. Clone the Repository: Clone this repository to your local machine.
-2. Import into IDE: Import the project into your preferred Java IDE (e.g., VS Code).
-3. Install Dependencies: Maven will automatically download the required dependencies. Otherwise, you can manually import it.
-4. Familiarize yourself with the provided files:
-   - `GameController.java`: Do not make any changes to this file as it serves as the common blueprint for different controllers.
-   - `Main.java`: This file contains the main method to start the game.
+```
+Dice-Realms/
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── game/
+│   │   │       ├── collectibles/
+│   │   │       │
+│   │   │       ├── creatures/
+│   │   │       │
+│   │   │       ├── dice/
+│   │   │       │
+│   │   │       ├── engine/
+│   │   │       │   ├── GameController.java
+│   │   │       │
+│   │   │       ├── exceptions/
+│   │   │       │
+│   │   │       ├── gui/
+│   │   │       │
+│   │   │       └── Main.java
+│   │   │
+│   │   └── resources/
+│   │       ├── images/
+│   │       └── config/
+│   │
+│   └── test/
+│       └── java/
+│           └── game/
+│               ├── collectibles/
+│               ├── creatures/
+│               ├── dice/
+│               ├── engine/
+│               ├── exceptions/
+│               └── gui/
+│
+└── README.md
+```
 
 ## Packages
-
-### game.engine
-
-This package contains the core engine components of the game, including the abstract classes and interfaces that define the game's structure and functionality. It serves as the foundation for implementing various game controllers and managing game logic. Additional classes related to game mechanics and control can be added to this package as needed.
-
-### game.dice
-
-The `game.dice` package encompasses classes related to dice functionality within the game. It includes implementations for rolling dice, managing dice states, and handling dice-related actions and interactions.
-
-### game.creatures
-
-In the `game.creatures` package, you'll find classes representing creatures in their corresponding realms; including all necessary features about how to attack them or their current status to update the score sheet accordingly.
 
 ### game.collectibles
 
 The `game.collectibles` package contains classes for the various collectible items within the game; such as power-ups, elemental crest, color bonus, or the essence bonus.
 
-### game.gui
+### game.creatures
 
-The `game.gui` package houses classes related to the graphical user interface (GUI) of the game. This includes components for rendering game graphics, handling user input, and managing the visual presentation of game elements.
+In the `game.creatures` package, you'll find classes representing creatures in their corresponding realms; including all necessary features about how to attack them or their current status to update the score sheet accordingly.
+
+### game.dice
+
+The `game.dice` package encompasses classes related to dice functionality within the game. It includes implementations for rolling dice, managing dice states, and handling dice-related actions and interactions.
+
+### game.engine
+
+This package contains the core engine components of the game, including the abstract classes and interfaces that define the game's structure and functionality. It serves as the foundation for implementing various game controllers and managing game logic. Additional classes related to game mechanics and control can be added to this package as needed.
 
 ### game.exceptions
 
 The `game.exceptions` package provides classes for defining custom exceptions specific to the game. These exceptions help handle error conditions and unexpected situations, providing meaningful feedback to the player or developer.
 
-## Implementation
+### game.gui
 
-You are provided with the following files:
+The `game.gui` package houses classes related to the graphical user interface (GUI) of the game. This includes components for rendering game graphics, handling user input, and managing the visual presentation of game elements.
 
-### `GameController.java`
+## Classes
+
+For each package, add the skeleton details for the class and duplicate as much as needed. As an example, the `GameController.java` skeleton is provided as guideline.
+
+### `GameController` class
 
 - **Package**: `game.engine`
 - **Type**: Abstract Class
@@ -158,48 +188,17 @@ You are provided with the following files:
       - `true` if the move is successfully completed,
       - `false` otherwise.
 
-### `Main.java`
+### `Template` class
 
-- This file contains the main method to start the game.
+- **Package**: `game.?`
+- **Type**: ? Class
+- **Description**: This class represents ?
 
----
+#### Methods:
 
-## Milestone 1: Project Hierarchy and Skeleton - Preparation Instructions
-
-- You are tasked with implementing Dice Realms: Quest for the Elemental Crests game project.
-- The project will involve creating various classes and interfaces to handle game logic, user interaction, and testing.
-- This milestone focuses on establishing the project hierarchy and skeleton by listing the files, classes, interfaces, and enums you need to implement.
-
-### Submission Deadline: April 10, 2024
-
-- Submit your project hierarchy and skeleton by pushing an updated `ProjectSkeleton.md` file to the repo root folder before **April 10, 2024**.
-
-### Tasks
-
-1. **Update the Project Structure**:
-
-   - Review the project structure to understand where to place your implementation files and test files and make modifications where necessary.
-
-2. **Identify Classes to Implement**:
-
-   - Review the provided GameController and identify the classes, interfaces, and enums you need to implement.
-
-3. **Create Project Skeleton**:
-
-   - Update the `ProjectSkeleton.md` file with the following details for each class you plan to implement:
-     - **Class Name**
-     - **Package**
-     - **Type** (Class, Abstract Class, Interface, or Enum)
-     - **Description**
-     - **Methods** (List of methods with descriptions, parameters, and return types)
-
-4. **Submission**:
-
-   - Before the deadline, push your updated `ProjectSkeleton.md` file to the repository root folder to indicate your submission and make a Pull Request titled `Milestone 1 Submission`
-
-5. **Review and Feedback**:
-   - Once the deadline passes, review any feedback provided by the instructor and prepare for the next milestone accordingly.
-
----
-
-_Note: Refer to the provided test files for guidance on implementing the required classes and methods. Reach out to the instructor if you encounter any issues or have questions._
+1. `void startGame()`
+   - **Description**: ?
+   - **Parameters**:
+     - `?`: ?
+   - **Return Type**: `?`
+     - `?` ?
