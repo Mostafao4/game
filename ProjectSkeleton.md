@@ -210,12 +210,6 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 
 
-
-
-
-
-
-
 ### `Player` class
 
 - **Package**: `game.engine`
@@ -230,6 +224,9 @@ For each package, add the skeleton details for the class and duplicate as much a
         - ``:
     - **Return Type**: ``
         - ``
+
+
+
 
 
 
@@ -253,7 +250,7 @@ DONE ### `Dice_Color` class
 
 - **Package**: `game.dice`
 - **Type**: enum
-- **Description**: This class represents instance variable diceColor of Dice class.
+- **Description**: This class represents instance variable diceColor of 'Dice' class.
 
 
 
@@ -354,42 +351,6 @@ DONE ### `Dice_Color` class
         - ``
 
 
-    
-
-
-!!DONE!!
-### `Arcaneboost` class
-
-- **Package**: `game.collectibles`
-- **Type**: Class
-- **Description**: This class represents the Arcane Boost power and how many the player has.
-
-#### Methods:
-
-1. `int getCount()`
-    - **Description**: returns the number of Arcane boost powers the player currently has.
-    - **Return Type**: `int`
-        - the number of arcane boosts.
-
-
-
-
-
-
-DONE
-### `Timewarp` class
-
-- **Package**: `game.collectibles`
-- **Type**: Class
-- **Description**: This class represents the Time Warp power and its status and how many the player has.
-
-#### Methods:
-
-1. `int getCount()`
-    - **Description**: returns the number of timewarp powers the player has.
-    - **Return Type**: `int`
-        - the number of time warp powers the player has.
-
 
 
 
@@ -402,17 +363,25 @@ DONE
 
 #### Methods:
 
-1. `void startGame()`
-    - **Description**:
-    - **Parameters**:
-        - ``:
-    - **Return Type**: ``
+
+1. `Collectible checkBonus(int[][] dragonParts) method`
+    - **Description**: Checks whether the player gets the bonus or not after eliminating a part in all dragons.
+    - **Parameters**: 2d array
+        - An array that contains all hitpoints of the four dragons with their corresponding dice numbers.
+    - **Return Type**: `Collectible`
         - ``
-
-
-
-
-
+2. `int getPoints(int[][] dragonParts) method`
+    - **Description**: To check whether the player will get the points or not after killing a dragon.
+    - **Parameters**: 2d array
+        - ``:
+    - **Return Type**: `int`
+        - ``
+3. `void changeScoretoZero(Player move) method`
+    - **Description**: To change the hit area the player chose to zero to indicate that this place is already hit.
+    - **Parameters**: 2d array
+        - ``:
+    - **Return Type**: `void`
+        - ``
 
 
 ### `Gaia_Guardian` class
@@ -429,12 +398,6 @@ DONE
         - ``:
     - **Return Type**: ``
         - ``
-
-
-
-
-
-
 
 
 
@@ -522,22 +485,16 @@ DONE
 
 
 
-### `Elemental_Crests` class
+
+
+
+
+
+### `Collectibles` class
 
 - **Package**: `game.collectibles`
-- **Type**: Class
-- **Description**: This class represents the Elemental Crest collectibles and their status.
-
-#### Methods:
-
-1. `void startGame()`
-    - **Description**:
-    - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``
-
-
+- **Type**: Abstract Class
+- **Description**: This abstract class serves as a blueprint for all the bonuses and boosts.
 
 
 
@@ -548,42 +505,41 @@ DONE
 - **Type**: Class
 - **Description**: This class represents
 
-#### Methods:
-
-1. `void startGame()`
-    - **Description**:
-    - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``
 
 
 
-
-
-
-
-
-### `Essence` class
+### `Essence_Bonus` class
 
 - **Package**: `game.collectibles`
 - **Type**: Class
 - **Description**: This class represents
 
-#### Methods:
-
-1. `void startGame()`
-    - **Description**:
-    - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - `` 
 
 
+
+### `Arcane_Boost` class
+
+- **Package**: `game.collectibles`
+- **Type**: Class
+- **Description**: This class represents the Arcane Boost power and how many the player has.
 
 
 
 
+### `Timewarp` class
+
+- **Package**: `game.collectibles`
+- **Type**: Class
+- **Description**: This class represents the Time Warp power and its status and how many the player has.
+
+
+
+
+### `Elemental_Crests` class
+
+- **Package**: `game.collectibles`
+- **Type**: Class
+- **Description**: This class represents the Elemental Crest collectibles and their status.
 
 
 
