@@ -202,3 +202,389 @@ For each package, add the skeleton details for the class and duplicate as much a
      - `?`: ?
    - **Return Type**: `?`
      - `?` ?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### `Player` class
+
+- **Package**: `game.engine`
+- **Type**: Class
+- **Description**: This class represents the 2 players' names, active or passive, and score.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+### `Dice` class
+
+- **Package**: `game.dice`
+- **Type**: Class
+- **Description**: This class represents the dice that will be rolled each turn.
+
+#### Methods:
+
+1. ``
+    - **Description**:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+DONE ### `Dice_Color` class 
+
+- **Package**: `game.dice`
+- **Type**: enum
+- **Description**: This class represents instance variable diceColor of Dice class.
+
+
+
+
+
+### `Move` class
+
+- **Package**: `game.dice`
+- **Type**: Class
+- **Description**: This class represents the possible actions a player can take.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+### `Gameboard` class
+
+- **Package**: `game.engine`
+- **Type**: Class
+- **Description**: This class represents the current game board, including players, scoresheets, and creatures.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+### `Scoresheet` class
+
+- **Package**: `game.engine`
+- **Type**: Class
+- **Description**: This class represents the Scoresheet where all the scores and collectibles will be stored.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+
+### `Gamestatus` class
+
+- **Package**: `game.engine`
+- **Type**: Class
+- **Description**: This class represents the current game status including active player, round, and turn. 
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+
+
+### `Gamescore` class
+
+- **Package**: `game.engine`
+- **Type**: Class
+- **Description**: This class represents current score of the game, including scores in each realm, number of elemental crests, and the total score for the current active player.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+    
+
+
+!!DONE!!
+### `Arcaneboost` class
+
+- **Package**: `game.collectibles`
+- **Type**: Class
+- **Description**: This class represents the Arcane Boost power and how many the player has.
+
+#### Methods:
+
+1. `int getCount()`
+    - **Description**: returns the number of Arcane boost powers the player currently has.
+    - **Return Type**: `int`
+        - the number of arcane boosts.
+
+
+
+
+
+
+DONE
+### `Timewarp` class
+
+- **Package**: `game.collectibles`
+- **Type**: Class
+- **Description**: This class represents the Time Warp power and its status and how many the player has.
+
+#### Methods:
+
+1. `int getCount()`
+    - **Description**: returns the number of timewarp powers the player has.
+    - **Return Type**: `int`
+        - the number of time warp powers the player has.
+
+
+
+
+
+### `Pyroclast_Dragon` class
+
+- **Package**: `game.creatures`
+- **Type**: Class
+- **Description**: This class represents the Dragons of the Red Realm and their structure, hitpoints, and currently alive or dead.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+
+
+### `Gaia_Guardian` class
+
+- **Package**: `game.creatures`
+- **Type**: Class
+- **Description**: This class represents the Guardians of the Green Realm and their structure, hitpoints, and currently alive or dead.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+
+
+
+
+
+
+
+### `Hydra_Serpent` class
+
+- **Package**: `game.creatures`
+- **Type**: Class
+- **Description**: This class represents the Serpents of the Blue Realm and their structure, hitpoints, and currently alive or dead.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+
+### `Majestic_Phoenix` class
+
+- **Package**: `game.creatures`
+- **Type**: Class
+- **Description**: This class represents the Phoenixes of the Magenta Realm and their structure, hitpoints, and currently alive or dead.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+### `Solar_Lion` class
+
+- **Package**: `game.creatures`
+- **Type**: Class
+- **Description**: This class represents the Lions of the Yellow Realm and their structure, hitpoints, and currently alive or dead.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+
+
+
+### `Forgotten_Realm` class
+
+- **Package**: `game.engine`
+- **Type**: Class
+- **Description**: This class represents the Forgotten Realm and the dice contained in it.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+
+### `Elemental_Crests` class
+
+- **Package**: `game.collectibles`
+- **Type**: Class
+- **Description**: This class represents the Elemental Crest collectibles and their status.
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+
+### `Color_Bonus` class
+
+- **Package**: `game.collectibles`
+- **Type**: Class
+- **Description**: This class represents
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``
+
+
+
+
+
+
+
+
+### `Essence` class
+
+- **Package**: `game.collectibles`
+- **Type**: Class
+- **Description**: This class represents
+
+#### Methods:
+
+1. `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - `` 
+
+
+
+
+
+
+
+
+
+
