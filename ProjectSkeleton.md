@@ -351,6 +351,12 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 
 
+### `Creatures` class
+
+- **Package**: `game.engine`
+- **Type**: Class
+- **Description**: This class represents the creatures in all realms. 
+
 
 
 ### `Pyroclast_Dragon` class
@@ -429,20 +435,53 @@ For each package, add the skeleton details for the class and duplicate as much a
 - **Type**: Class
 - **Description**: This class represents the Serpents of the Blue Realm and their structure, hit-points, and currently alive or dead.
 
+<<<<<<< HEAD
+=======
+#### Methods:
+
+>>>>>>> f833c84a3b9e5d792b92d2d99b896c613c67812d
 1. `void Serpant CreateSerpant(int[11] heads)`
     - **Description**: This method creates a new serpant using a 1d array.
     - **Parameters**:
         - ``: It takes number of heads of the serpant
+<<<<<<< HEAD
     - **Return Type**: void
+=======
+    - **Return Type**: `void`
+>>>>>>> f833c84a3b9e5d792b92d2d99b896c613c67812d
         - ``
 
 
 
+<<<<<<< HEAD
 2. `int getpoints(int[] SerpantHeads, int dice)` 
     - **Description**: The method returns the points the player will get after killing a serpant head from the correspoding dice number he got.
     - **Parameters**:
         - ``: 1d int array, int dice
     - **Return Type**: int
+=======
+2. `int getpoints(int[] SerpantHeads, int dice) method`
+    - **Description**: The method returns the points the player will get after killing a serpant head from the correspoding dice number he got.
+    - **Parameters**:
+        - ``: 1d int array, int dice
+    - **Return Type**: `int`
+        - ``
+
+
+ 3.   `int BlueScore( int getPoints) method`
+    - **Description**: Calculates the accumulative score the player got from the blue realm. 
+    - **Parameters**:
+        - ``: int getPoints
+    - **Return Type**: `int`
+        - `` 
+
+
+4. `void SerpantStatus()`
+    - **Description**: Print the head that will be hit next by getting the index.
+    - **Parameters**:
+        - ``: It has no parameters
+    - **Return Type**: `void`
+>>>>>>> f833c84a3b9e5d792b92d2d99b896c613c67812d
         - ``
 
 
