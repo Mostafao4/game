@@ -81,112 +81,112 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 1. `void startGame()`
 
-   - **Description**: Initializes necessary components and starts the game loop.
+    - **Description**: Initializes necessary components and starts the game loop.
 
 2. `boolean switchPlayer()`
 
-   - **Description**: Switches the role of the current active player to passive and vice versa, ensuring that the turn-taking mechanism functions correctly.
-   - **Return Type**: `boolean`
-     - `true` if the switch was successful,
-     - `false` otherwise.
+    - **Description**: Switches the role of the current active player to passive and vice versa, ensuring that the turn-taking mechanism functions correctly.
+    - **Return Type**: `boolean`
+        - `true` if the switch was successful,
+        - `false` otherwise.
 
 3. `Dice[] rollDice()`
 
-   - **Description**: Rolls all available dice for the current turn, assigning each a random number from 1 to 6.
-   - **Return Type**: Array of `Dice`
-     - An array of the currently rolled dice.
+    - **Description**: Rolls all available dice for the current turn, assigning each a random number from 1 to 6.
+    - **Return Type**: Array of `Dice`
+        - An array of the currently rolled dice.
 
 4. `Dice[] getAvailableDice()`
 
-   - **Description**: Gets the dice available for rolling or rerolling.
-   - **Return Type**: Array of `Dice`
-     - An array of dice available for the current turn.
+    - **Description**: Gets the dice available for rolling or rerolling.
+    - **Return Type**: Array of `Dice`
+        - An array of dice available for the current turn.
 
 5. `Dice[] getAllDice()`
 
-   - **Description**: Gets all six dice, providing their current state and value within the game regardless of their location or status.
-   - **Return Type**: Array of `Dice`
-     - An array of all six dice, with each die's state and value.
+    - **Description**: Gets all six dice, providing their current state and value within the game regardless of their location or status.
+    - **Return Type**: Array of `Dice`
+        - An array of all six dice, with each die's state and value.
 
 6. `Dice[] getForgottenRealmDice()`
 
-   - **Description**: Gets the dice currently available in the Forgotten Realm.
-   - **Return Type**: Array of `Dice`
-     - An array of dice that are currently in the Forgotten Realm.
+    - **Description**: Gets the dice currently available in the Forgotten Realm.
+    - **Return Type**: Array of `Dice`
+        - An array of dice that are currently in the Forgotten Realm.
 
 7. `Move[] getAllPossibleMoves()`
 
-   - **Description**: Gets all possible moves for all currently rolled dice for the active player.
-   - **Return Type**: Array of `Move`
-     - An array of all possible moves for all rolled dice.
+    - **Description**: Gets all possible moves for all currently rolled dice for the active player.
+    - **Return Type**: Array of `Move`
+        - An array of all possible moves for all rolled dice.
 
 8. `Move[] getPossibleMoves(Dice dice)`
 
-   - **Description**: Gets all possible moves for a given dice for the active player.
-   - **Parameters**:
-     - `dice`: The dice to determine possible moves for.
-   - **Return Type**: Array of `Move`
-     - An array of possible moves for the given dice.
+    - **Description**: Gets all possible moves for a given dice for the active player.
+    - **Parameters**:
+        - `dice`: The dice to determine possible moves for.
+    - **Return Type**: Array of `Move`
+        - An array of possible moves for the given dice.
 
 9. `GameBoard getGameBoard()`
 
-   - **Description**: Gets the current game board, including all players and all score sheets.
-   - **Return Type**: `GameBoard`
-     - The current game board object.
+    - **Description**: Gets the current game board, including all players and all score sheets.
+    - **Return Type**: `GameBoard`
+        - The current game board object.
 
 10. `Player getPlayer()`
 
     - **Description**: Gets the current active player's information.
     - **Return Type**: `Player`
-      - The active player object.
+        - The active player object.
 
 11. `ScoreSheet getScoreSheet()`
 
     - **Description**: Gets the score sheet for the current active player.
     - **Return Type**: `ScoreSheet`
-      - The score sheet object for the current active player.
+        - The score sheet object for the current active player.
 
 12. `GameStatus getGameStatus()`
 
     - **Description**: Gets the current game status, including round and turn information for the current active player.
     - **Return Type**: `GameStatus`
-      - The current game status object.
+        - The current game status object.
 
 13. `GameScore getGameScore()`
 
     - **Description**: Gets the current score of the game, including scores in each realm, number of elemental crests, and the total score for the current active player.
     - **Return Type**: `GameScore`
-      - The current game score object.
+        - The current game score object.
 
 14. `TimeWarp getTimeWarpPowers()`
 
     - **Description**: Gets the number of TimeWarp powers the active player has and their status.
     - **Return Type**: `TimeWarp`
-      - The TimeWarp object for the current active player.
+        - The TimeWarp object for the current active player.
 
 15. `ArcaneBoost getArcaneBoostPowers()`
 
     - **Description**: Gets the number of ArcaneBoost powers the active player has and their status.
     - **Return Type**: `ArcaneBoost`
-      - The ArcaneBoost object for the current active player.
+        - The ArcaneBoost object for the current active player.
 
 16. `boolean selectDice(Dice dice)`
 
     - **Description**: Selects a dice and adds it to the current turn of the active player, moving all other dice with less value to the Forgotten Realm.
     - **Parameters**:
-      - `dice`: The dice to be selected.
+        - `dice`: The dice to be selected.
     - **Return Type**: `boolean`
-      - `true` if the selection was successful,
-      - `false` otherwise.
+        - `true` if the selection was successful,
+        - `false` otherwise.
 
 17. `boolean makeMove(Dice dice, Creature creature)`
     - **Description**: Executes a move using the selected dice on a specified creature.
     - **Parameters**:
-      - `dice`: The dice selected by the active player for the move.
-      - `creature`: The target creature that the move is against.
+        - `dice`: The dice selected by the active player for the move.
+        - `creature`: The target creature that the move is against.
     - **Return Type**: `boolean`
-      - `true` if the move is successfully completed,
-      - `false` otherwise.
+        - `true` if the move is successfully completed,
+        - `false` otherwise.
 
 ### `Template` class
 
@@ -197,11 +197,11 @@ For each package, add the skeleton details for the class and duplicate as much a
 #### Methods:
 
 1. `void startGame()`
-   - **Description**: ?
-   - **Parameters**:
-     - `?`: ?
-   - **Return Type**: `?`
-     - `?` ?
+    - **Description**: ?
+    - **Parameters**:
+        - `?`: ?
+    - **Return Type**: `?`
+        - `?` ?
 
 
 
@@ -245,7 +245,7 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 
 
-### `Color` class 
+### `Color` class
 
 - **Package**: `game.engine`
 - **Type**: enum
@@ -317,7 +317,7 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 - **Package**: `game.engine`
 - **Type**: Class
-- **Description**: This class represents the current game status including active player, round, and turn. 
+- **Description**: This class represents the current game status including active player, round, and turn.
 
 #### Methods:
 
@@ -350,12 +350,6 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 
 
-
-### `Creatures` class
-
-- **Package**: `game.engine`
-- **Type**: Class
-- **Description**: This class represents the creatures in all realms. 
 
 
 
@@ -406,7 +400,7 @@ For each package, add the skeleton details for the class and duplicate as much a
     - **Parameters**:
         - `guardians`: Table that contains corresponding dice number for each Gaia Guardian.
     - **Return Type**: `Collectibles`
-        - Object that represents the collectible that the player may earn after finishing a column. 
+        - Object that represents the collectible that the player may earn after finishing a column.
 
 3. `Collectibles getHorizontalBonus(int[][] guardians)`
     - **Description**: Checks whether the wizard finished all the guardians in one row.
@@ -435,62 +429,29 @@ For each package, add the skeleton details for the class and duplicate as much a
 - **Type**: Class
 - **Description**: This class represents the Serpents of the Blue Realm and their structure, hit-points, and currently alive or dead.
 
-<<<<<<< HEAD
-=======
-#### Methods:
-
->>>>>>> f833c84a3b9e5d792b92d2d99b896c613c67812d
 1. `void Serpant CreateSerpant(int[11] heads)`
     - **Description**: This method creates a new serpant using a 1d array.
     - **Parameters**:
         - ``: It takes number of heads of the serpant
-<<<<<<< HEAD
     - **Return Type**: void
-=======
-    - **Return Type**: `void`
->>>>>>> f833c84a3b9e5d792b92d2d99b896c613c67812d
         - ``
 
 
 
-<<<<<<< HEAD
-2. `int getpoints(int[] SerpantHeads, int dice)` 
+2. `int getpoints(int[] SerpantHeads, int dice)`
     - **Description**: The method returns the points the player will get after killing a serpant head from the correspoding dice number he got.
     - **Parameters**:
         - ``: 1d int array, int dice
     - **Return Type**: int
-=======
-2. `int getpoints(int[] SerpantHeads, int dice) method`
-    - **Description**: The method returns the points the player will get after killing a serpant head from the correspoding dice number he got.
-    - **Parameters**:
-        - ``: 1d int array, int dice
-    - **Return Type**: `int`
         - ``
 
 
- 3.   `int BlueScore( int getPoints) method`
-    - **Description**: Calculates the accumulative score the player got from the blue realm. 
+3.   `int BlueScore(int getPoints)`
+    - **Description**: Calculates the accumulative score the player got from the blue realm.
     - **Parameters**:
-        - ``: int getPoints
-    - **Return Type**: `int`
-        - `` 
-
-
-4. `void SerpantStatus()`
-    - **Description**: Print the head that will be hit next by getting the index.
-    - **Parameters**:
-        - ``: It has no parameters
-    - **Return Type**: `void`
->>>>>>> f833c84a3b9e5d792b92d2d99b896c613c67812d
-        - ``
-
-
-3.   `int BlueScore(int getPoints)` 
-     - **Description**: Calculates the accumulative score the player got from the blue realm.
-     - **Parameters**:
-    - ``: int getPoints
-      - **Return Type**: int
-    - ``
+      - ``: int getPoints
+    - **Return Type**: int
+      - ``
 
 
 4. `void SerpentStatus()`
@@ -524,9 +485,9 @@ For each package, add the skeleton details for the class and duplicate as much a
         - `Collectibles`
 
 3.    `int GetScore()`
-    - **Description**:get score added from Attack method
-    - **Return Type**: ``
-        - `int`    
+      - **Description**:get score added from Attack method
+      - **Return Type**: ``
+    - `int`
 
 
 
@@ -583,7 +544,7 @@ For each package, add the skeleton details for the class and duplicate as much a
     - **Description**: Compares selected die with the remaining and adds the lower valued dice to the forgotten realm.
     - **Parameters**: Dice[] dice
         -  Array of dice that was rolled at the beginning of the turn.
-        - 
+        -
 
 
 
@@ -634,7 +595,7 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 
 
-### `Elemental_Crests` class 
+### `Elemental_Crests` class
 
 - **Package**: `game.collectibles`
 - **Type**: Class
