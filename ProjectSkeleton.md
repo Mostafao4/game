@@ -420,6 +420,14 @@ DONE ### `Dice_Color` class
         - ``
 
 
+ 2.   `void startGame()`
+    - **Description**:
+    - **Parameters**:
+        - ``:
+    - **Return Type**: ``
+        - ``    
+
+
 
 
 
@@ -432,13 +440,26 @@ DONE ### `Dice_Color` class
 
 #### Methods:
 
-1. `void startGame()`
-    - **Description**:
+1. `int Attack (int[] array )`
+    - **Description**:chceks if the current dice is greater than previous and can be played and checks the "Rewards" method
+    - **Parameters**:
+        - `array of integers`:save hits on Phoenix
+    - **Return Type**: ``
+        - `int`
+
+2.  `Collectibles Rewards(int index, Collectibles[] reward)`
+    - **Description**:check array of reward using index to know which reward
+    - **Parameters**:
+        - `int index, Collectibles[] reward`:integer index and array of Collectibles
+    - **Return Type**: ``
+        - `Collectibles`
+
+3.    `int GetScore()`
+    - **Description**:get score added from Attack method
     - **Parameters**:
         - ``:
     - **Return Type**: ``
-        - ``
-
+        - `int`    
 
 
 
@@ -479,13 +500,6 @@ DONE ### `Dice_Color` class
         - ``:
     - **Return Type**: ``
         - ``
-
-
-
-
-
-
-
 
 
 
