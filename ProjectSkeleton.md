@@ -218,7 +218,7 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 #### Methods:
 
-1. `void startGame()`
+1. ``
     - **Description**:
     - **Parameters**:
         - ``:
@@ -238,11 +238,12 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 #### Methods:
 
-1. ``
+1. `void startGame()`
     - **Description**:
+    - **Parameters**:
+        - ``:
     - **Return Type**: ``
         - ``
-
 
 
 
@@ -343,14 +344,18 @@ DONE ### `Dice_Color` class
 
 #### Methods:
 
-1. `void startGame()`
+1. `String toString()`
+    - **Description**: returns all the available scores
+
+    - **Return Type**: `String`
+        - ``
+
+2  `void startGame()`
     - **Description**:
     - **Parameters**:
         - ``:
     - **Return Type**: ``
         - ``
-
-
 
 
 
@@ -441,7 +446,7 @@ DONE ### `Dice_Color` class
 #### Methods:
 
 1. `int Attack (int[] array )`
-    - **Description**:chceks if the current dice is greater than previous and can be played and checks the "Rewards" method
+    - **Description**:checks if the current dice is greater than previous and can be played and checks the "Rewards" method
     - **Parameters**:
         - `array of integers`:save hits on Phoenix
     - **Return Type**: ``
