@@ -238,20 +238,18 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 #### Methods:
 
-1. `void startGame()`
-    - **Description**:
-    - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``
+1. `int roll()`
+    - **Description**: Rolls a die and returns a random int between 1 & 6, inclusive.
+    - **Return Type**: `int`
+        - Possible outcomes: 1 -> 6
 
 
 
-DONE ### `Dice_Color` class 
+### `Color` class 
 
-- **Package**: `game.dice`
+- **Package**: `game.engine`
 - **Type**: enum
-- **Description**: This class represents instance variable diceColor of 'Dice' class.
+- **Description**: This class represents instance variable Color of various classes.
 
 
 
@@ -265,7 +263,7 @@ DONE ### `Dice_Color` class
 
 #### Methods:
 
-1. `void startGame()`
+1. `int getAvailableMoves()`
     - **Description**:
     - **Parameters**:
         - ``:
@@ -350,12 +348,7 @@ DONE ### `Dice_Color` class
     - **Return Type**: `String`
         - ``
 
-2  `void startGame()`
-    - **Description**:
-    - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``
+
 
 
 
@@ -369,11 +362,11 @@ DONE ### `Dice_Color` class
 #### Methods:
 
 
-1. `Collectible checkBonus(int[][] dragonParts) method`
+1. `Collectibles checkBonus(int[][] dragonParts) method`
     - **Description**: Checks whether the player gets the bonus or not after eliminating a part in all dragons.
     - **Parameters**: 2d array
         - An array that contains all hitpoints of the four dragons with their corresponding dice numbers.
-    - **Return Type**: `Collectible`
+    - **Return Type**: `Collectibles`
         - ``
 2. `int getPoints(int[][] dragonParts) method`
     - **Description**: To check whether the player will get the points or not after killing a dragon.
@@ -393,16 +386,37 @@ DONE ### `Dice_Color` class
 
 - **Package**: `game.creatures`
 - **Type**: Class
-- **Description**: This class represents the Guardians of the Green Realm and their structure, hitpoints, and currently alive or dead.
+- **Description**: This class represents the Guardians of the Green Realm and their structure, hit-points, and currently alive or dead.
 
 #### Methods:
 
-1. `void startGame()`
-    - **Description**:
+1. `int getScoreGaia()`
+    - **Description**: Gets the current score by looking for the number of Gaia defeated.
+    - **Return Type**: `int`
+        - Represents the score from the green realm.
+
+2.  `Collectibles getVerticalBonus(int[][] guardians)`
+    - **Description**: Checks whether the wizard finished all the guardians in one column.
     - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``
+        - `guardians`: Table that contains corresponding dice number for each Gaia Guardian.
+    - **Return Type**: `Collectibles`
+        - Object that represents the collectible that the player may earn after finishing a column. 
+
+3. `Collectibles getHorizontalBonus(int[][] guardians)`
+    - **Description**: Checks whether the wizard finished all the guardians in one row.
+    - **Parameters**:
+        - `guardians`: Table that contains corresponding dice number for each Gaia Guardian.
+    - **Return Type**: `Collectibles`
+        - Object that represents the collectible that the player may earn after finishing a row.
+
+4. `Collectibles checkBonusGaia(Collectibles horizontal, Collectibles vertical)`
+    - **Description**: Shows all collectibles that the wizard earned. Uses getVerticalBonus(int[][]) and getHorizontalBonus(int[][]).
+    - **Parameters**:
+        - horizontal: Bonus earned after finishing a row.
+        - vertical: Bonus earned after finishing a column.
+    - **Return Type**: `Collectibles`
+        - Returns the collectible that the player earned.
+
 
 
 
@@ -413,27 +427,38 @@ DONE ### `Dice_Color` class
 
 - **Package**: `game.creatures`
 - **Type**: Class
-- **Description**: This class represents the Serpents of the Blue Realm and their structure, hitpoints, and currently alive or dead.
+- **Description**: This class represents the Serpents of the Blue Realm and their structure, hit-points, and currently alive or dead.
 
-#### Methods:
-
-1. `void startGame()`
-    - **Description**:
+1. `void Serpant CreateSerpant(int[11] heads)`
+    - **Description**: This method creates a new serpant using a 1d array.
     - **Parameters**:
-        - ``:
-    - **Return Type**: ``
+        - ``: It takes number of heads of the serpant
+    - **Return Type**: void
         - ``
 
 
- 2.   `void startGame()`
-    - **Description**:
+
+2. `int getpoints(int[] SerpantHeads, int dice)` 
+    - **Description**: The method returns the points the player will get after killing a serpant head from the correspoding dice number he got.
     - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``    
+        - ``: 1d int array, int dice
+    - **Return Type**: int
+        - ``
 
 
+3.   `int BlueScore(int getPoints)` 
+     - **Description**: Calculates the accumulative score the player got from the blue realm.
+     - **Parameters**:
+    - ``: int getPoints
+      - **Return Type**: int
+    - ``
 
+
+4. `void SerpentStatus()`
+    - **Description**: Print the head that will be hit next by getting the index.
+    - **Parameters**:
+        - ``: It has no parameters
+    - **Return Type**: void
 
 
 
@@ -461,8 +486,6 @@ DONE ### `Dice_Color` class
 
 3.    `int GetScore()`
     - **Description**:get score added from Attack method
-    - **Parameters**:
-        - ``:
     - **Return Type**: ``
         - `int`    
 
@@ -477,13 +500,31 @@ DONE ### `Dice_Color` class
 
 #### Methods:
 
-1. `void startGame()`
-    - **Description**:
+1. `int score()`
+    - **Description**: takes the dice number and makes it the new score
     - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``
+      - 
+    - **Return Type**: int
+      - 
 
+2. `int multiplyScore()`
+    - **Description**: finds the multiplier by checking the number of hits and an array of multipliers then multiplies the score by the chosen multiplier. Returns the new score.
+    - **Parameters**:int hitNum, int score,int[] multipliers
+        - ?: ?
+    - **Return Type**: int
+
+3. `int TotalScore()`
+    - **Description**: takes the score from method multiplyScore and adds it total score. returns the new total score.
+    - **Parameters**:int score, int total score
+      - 
+    - **Return Type**: int
+        - `
+
+4. `object getReward()`
+    - **Description**: compares hit number with an array of rewards and returns the chosen reward
+    - **Parameters**:int hitNum, object[] rewards
+      - 
+    - **Return Type**object
 
 
 
@@ -499,13 +540,11 @@ DONE ### `Dice_Color` class
 
 #### Methods:
 
-1. `void startGame()`
-    - **Description**:
-    - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``
-
+1. `void addDiceToForgottenRealm(Dice[] dice)`
+    - **Description**: Compares selected die with the remaining and adds the lower valued dice to the forgotten realm.
+    - **Parameters**: Dice[] dice
+        -  Array of dice that was rolled at the beginning of the turn.
+        - 
 
 
 
@@ -522,7 +561,9 @@ DONE ### `Dice_Color` class
 
 - **Package**: `game.collectibles`
 - **Type**: Class
-- **Description**: This class represents
+- **Description**: This class represents the color bonus power and its status.
+
+
 
 
 
@@ -554,11 +595,27 @@ DONE ### `Dice_Color` class
 
 
 
-### `Elemental_Crests` class
+### `Elemental_Crests` class 
 
 - **Package**: `game.collectibles`
 - **Type**: Class
 - **Description**: This class represents the Elemental Crest collectibles and their status.
+
+#### Methods:
+
+1. `int getLowestScore(Scoresheet scoresheet)`
+    - **Description**: Scans the scoresheet for the lowest score across the five realms.
+    - **Parameters**:Scoresheet
+        - ``: the scoresheet that stores all the scores.
+    - **Return Type**: `int`
+        - `the value of the score of the lowest realm.`
+
+2.  `int multiplyScores(int score)`
+    - **Description**: returns the value of the lowest score after applying the elemental crests multiplier.
+    - **Parameters**: int score
+        - `the lowest score across the realms`:
+    - **Return Type**: `int`
+        - `the value of the score after multiplying`
 
 
 
