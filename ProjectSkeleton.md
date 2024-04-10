@@ -188,26 +188,6 @@ For each package, add the skeleton details for the class and duplicate as much a
         - `true` if the move is successfully completed,
         - `false` otherwise.
 
-### `Template` class
-
-- **Package**: `game.?`
-- **Type**: ? Class
-- **Description**: This class represents ?
-
-#### Methods:
-
-1. `void startGame()`
-    - **Description**: ?
-    - **Parameters**:
-        - `?`: ?
-    - **Return Type**: `?`
-        - `?` ?
-
-
-
-
-
-
 
 
 ### `Player` class
@@ -218,17 +198,13 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 #### Methods:
 
-1. ``
-    - **Description**:
-    - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``
+1. `boolean isActive()`
+    - **Description**: Checks whether the player is currently active or passive.
+    - **Return Type**: `boolean`
+        - `true` if the player is active
+        - `false` if the player is passive
 
-
-
-
-
+    
 
 ### `Dice` class
 
@@ -261,36 +237,23 @@ For each package, add the skeleton details for the class and duplicate as much a
 - **Type**: Class
 - **Description**: This class represents the possible actions a player can take.
 
-#### Methods:
-
-1. `int getAvailableMoves()`
-    - **Description**:
-    - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``
-
-
-
 
 
 ### `Gameboard` class
 
 - **Package**: `game.engine`
 - **Type**: Class
-- **Description**: This class represents the current game board, including players, scoresheets, and creatures.
+- **Description**: This class represents the current game board, including players, score-sheets, and creatures.
 
 #### Methods:
 
-1. `void startGame()`
-    - **Description**:
-    - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``
+1. `int remainingRounds()`
+    - **Description**: Returns the number of rounds left to be played.
+    - **Return Type**: `int`
+        - number of rounds left
 
-
-
+2.  `Player currentPlayer()`
+    - **Description**: 
 
 
 ### `Scoresheet` class
@@ -301,12 +264,12 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 #### Methods:
 
-1. `void startGame()`
-    - **Description**:
+1. `String toString()`
+    - **Description**: returns all the scores and collectibles.
     - **Parameters**:
         - ``:
-    - **Return Type**: ``
-        - ``
+    - **Return Type**: `String`
+        - `prints the data stored in the scoresheet.`
 
 
 
@@ -321,12 +284,12 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 #### Methods:
 
-1. `void startGame()`
-    - **Description**:
+1. `String toString()`
+    - **Description**:returns game status, active player, current round and turn.
     - **Parameters**:
         - ``:
-    - **Return Type**: ``
-        - ``
+    - **Return Type**: `String`
+        - `prints the games status.`
 
 
 
@@ -350,6 +313,11 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 
 
+### `Creature` class
+
+- **Package**: `game.creatures`
+- **Type**: Abstract Class
+- **Description**: This class represents all creatures of all realms.
 
 
 
@@ -390,7 +358,7 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 #### Methods:
 
-1. `int getScoreGaia()`
+1. `int getPoints()`
     - **Description**: Gets the current score by looking for the number of Gaia defeated.
     - **Return Type**: `int`
         - Represents the score from the green realm.
@@ -409,56 +377,42 @@ For each package, add the skeleton details for the class and duplicate as much a
     - **Return Type**: `Collectibles`
         - Object that represents the collectible that the player may earn after finishing a row.
 
-4. `Collectibles checkBonusGaia(Collectibles horizontal, Collectibles vertical)`
+4. `Collectibles checkBonusGaia()`
     - **Description**: Shows all collectibles that the wizard earned. Uses getVerticalBonus(int[][]) and getHorizontalBonus(int[][]).
-    - **Parameters**:
-        - horizontal: Bonus earned after finishing a row.
-        - vertical: Bonus earned after finishing a column.
     - **Return Type**: `Collectibles`
         - Returns the collectible that the player earned.
 
-
-
-
-
-
-
+    
 ### `Hydra_Serpent` class
 
 - **Package**: `game.creatures`
 - **Type**: Class
 - **Description**: This class represents the Serpents of the Blue Realm and their structure, hit-points, and currently alive or dead.
 
-1. `void Serpant CreateSerpant(int[11] heads)`
-    - **Description**: This method creates a new serpant using a 1d array.
-    - **Parameters**:
-        - ``: It takes number of heads of the serpant
-    - **Return Type**: void
-        - ``
+
+1. void Attack(int[] heads, int dice)
+    - *Description*: This method compares the dice number with the head of serpent that is currently in the index if it is higher it hit the head if not the method breaks.
+    - *Parameters*:
+      -'1d array, int dice': It takes the array of the heads and the number of the die.
+
+      
+2. int getScore() method
+    - *Description*: The method returns the points the player will get after killing a serpent head by looking for the number of heads killed.
+    - *Return Type*: int
+        - It returns the Score the player gets from the blue realm.
 
 
 
-2. `int getpoints(int[] SerpantHeads, int dice)`
-    - **Description**: The method returns the points the player will get after killing a serpant head from the correspoding dice number he got.
-    - **Parameters**:
-        - ``: 1d int array, int dice
-    - **Return Type**: int
-        - ``
+3. void SerpentStatus()
+    - *Description*: Print the head that will be hit next by getting the index.
 
 
-3.   `int BlueScore(int getPoints)`
-    - **Description**: Calculates the accumulative score the player got from the blue realm.
-    - **Parameters**:
-      - ``: int getPoints
-    - **Return Type**: int
-      - ``
 
+4. Collectibles checkBonus() method
+    - *Description*: The method checks if the current head hit has bonus or not.
+    - *Return Type*: Collectibles
+        - It returns the Collectibles the player gets from the head attacked.
 
-4. `void SerpentStatus()`
-    - **Description**: Print the head that will be hit next by getting the index.
-    - **Parameters**:
-        - ``: It has no parameters
-    - **Return Type**: void
 
 
 
@@ -481,13 +435,12 @@ For each package, add the skeleton details for the class and duplicate as much a
     - **Description**:check array of reward using index to know which reward
     - **Parameters**:
         - `int index, Collectibles[] reward`:integer index and array of Collectibles
-    - **Return Type**: ``
+    - **Return Type**:
         - `Collectibles`
-
-3.    `int GetScore()`
+        - 
+3. `int getPoints()`
       - **Description**:get score added from Attack method
-      - **Return Type**: ``
-    - `int`
+      - **Return Type**: `int`
 
 
 
@@ -499,32 +452,30 @@ For each package, add the skeleton details for the class and duplicate as much a
 - **Description**: This class represents the Lions of the Yellow Realm and their structure, hitpoints, and currently alive or dead.
 
 #### Methods:
+ 
 
-1. `int score()`
-    - **Description**: takes the dice number and makes it the new score
-    - **Parameters**:
-      - 
-    - **Return Type**: int
-      - 
+1. int multiplyScore(int hitNum, int diceNum, int[] multipliers)
+    - *Description*: finds the multiplier by checking the number of hits and an array of multipliers then multiplies the dice number by the chosen multiplier. Returns the new score.
+    - *Parameters*: multipliers
+        - int hitNum: number of times the lion was hit.
+        - int DiceNum: the number on the dice after it was rolled.
+        - int[] multipliers: array that shows how much the score should be multiplied by.
+    - *Return Type*: int
 
-2. `int multiplyScore()`
-    - **Description**: finds the multiplier by checking the number of hits and an array of multipliers then multiplies the score by the chosen multiplier. Returns the new score.
-    - **Parameters**:int hitNum, int score,int[] multipliers
-        - ?: ?
-    - **Return Type**: int
-
-3. `int TotalScore()`
-    - **Description**: takes the score from method multiplyScore and adds it total score. returns the new total score.
-    - **Parameters**:int score, int total score
-      - 
-    - **Return Type**: int
+2. int TotalScore(int score, int totalScore)
+    - *Description*: takes the score from method multiplyScore and adds it total score. returns the new total score.
+    - *Parameters*:
+        - int score: score from method multiplyScore.
+        - int totalScore: total score of points
+    - *Return Type*: int
         - `
 
-4. `object getReward()`
-    - **Description**: compares hit number with an array of rewards and returns the chosen reward
-    - **Parameters**:int hitNum, object[] rewards
-      - 
-    - **Return Type**object
+3. object getReward(int Hitnum, object[] rewards)
+    - *Description*: compares hit number with an array of rewards and returns the chosen reward
+    - *Parameters*:int hitNum, object[] rewards
+        - int Hitnum: number of times the lion was hit.
+        - object[] rewards: array that shows the reward of the given turn.
+    - *Return Type*:object
 
 
 
@@ -553,6 +504,22 @@ For each package, add the skeleton details for the class and duplicate as much a
 - **Package**: `game.collectibles`
 - **Type**: Abstract Class
 - **Description**: This abstract class serves as a blueprint for all the bonuses and boosts.
+- 
+- #### Methods:
+- 
+1. `abstract int getCount()`
+    - **Description**: returns number of item the player currently has.
+    - **Return Type**: `int`
+        - `number of items`
+
+2.  `abstract void usePower()`
+    - **Description**: activates the selected power.
+    - **Parameters**:
+        - ``:
+    - **Return Type**: `void`
+        - ``
+
+
 
 
 
