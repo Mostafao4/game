@@ -358,6 +358,12 @@ DONE ### `Dice_Color` class
         - ``
 
 
+### `Creatures` class
+
+- **Package**: `game.engine`
+- **Type**: Class
+- **Description**: This class represents the creatures in all realms. 
+
 
 
 ### `Pyroclast_Dragon` class
@@ -417,20 +423,37 @@ DONE ### `Dice_Color` class
 
 #### Methods:
 
-1. `void startGame()`
-    - **Description**:
+1. `void Serpant CreateSerpant(int[11] heads)`
+    - **Description**: This method creates a new serpant using a 1d array.
     - **Parameters**:
-        - ``:
-    - **Return Type**: ``
+        - ``: It takes number of heads of the serpant
+    - **Return Type**: `void`
         - ``
 
 
- 2.   `void startGame()`
-    - **Description**:
+
+2. `int getpoints(int[] SerpantHeads, int dice) method`
+    - **Description**: The method returns the points the player will get after killing a serpant head from the correspoding dice number he got.
     - **Parameters**:
-        - ``:
-    - **Return Type**: ``
-        - ``    
+        - ``: 1d int array, int dice
+    - **Return Type**: `int`
+        - ``
+
+
+ 3.   `int BlueScore( int getPoints) method`
+    - **Description**: Calculates the accumulative score the player got from the blue realm. 
+    - **Parameters**:
+        - ``: int getPoints
+    - **Return Type**: `int`
+        - `` 
+
+
+4. `void SerpantStatus()`
+    - **Description**: Print the head that will be hit next by getting the index.
+    - **Parameters**:
+        - ``: It has no parameters
+    - **Return Type**: `void`
+        - ``
 
 
 
