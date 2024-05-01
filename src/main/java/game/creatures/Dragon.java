@@ -9,7 +9,7 @@ public class Dragon {
         dragonParts[2][0] = 1; dragonParts[2][1] = 0; dragonParts[2][2] = 2; dragonParts[2][3] = 4;
         dragonParts[3][0] = 0; dragonParts[3][1] = 3; dragonParts[3][2] = 4; dragonParts[3][3] = 6;
     }
-    public collectibles checkBonus (int[][] dragonParts){
+    public Collectibles checkBonus (int[][] dragonParts){
         int x = 0;
         for (int i = 0; i < dragonParts.length; i++){
             int c = 0;
@@ -39,6 +39,7 @@ public class Dragon {
         if (x == 16){
             return ArcaneBoostPower;
         }
+        return null;
     }
     public int getPoints (int[][] dragonParts){
         for (int j = 0; j < dragonParts.length; j++){
@@ -65,6 +66,7 @@ public class Dragon {
                 }
             }
         }
+        return 0;
     }
     public void changeScoretoZero (Player move){
 
