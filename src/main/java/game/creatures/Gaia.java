@@ -24,12 +24,13 @@ public class Gaia extends Creature{
     }
 
     public void attack(Dice first, Dice second) throws InvalidDiceSelectionException{
-        if(!(first instanceof GreenDice) || !(second instanceof ArcanePrism)){
+        if(!(first instanceof GreenDice) || !(second instanceof ArcanePrism) ||
+             !(second instanceof GreenDice) || !(first instanceof ArcanePrism)){
             throw new InvalidDiceSelectionException("Wrong Dice Selection");
         } else {
             for(int i = 0; i < gaias.length;i++){
                 for(int j = 0; j < gaias[i].length;j++){
-                    if(gaias[i][j] != ((GreenDice)first).getValue() + ((ArcanePrism)second).getValue()){
+                    if(gaias[i][j] != first.getValue() + second.getValue()){
                         gaias[i][j] = 0;
                         defeatedGaias++;
                         break;
@@ -37,11 +38,12 @@ public class Gaia extends Creature{
                 }
             }
         }
-        editBonuses();
-        showAvailableBonuses();
+        editRewards();
+        showAvailableRewards();
+        useImmediateBonus();
     }
 
-    public void editBonuses(){
+    public void editRewards(){
         int count = 0;
         for(int j = 0; j < gaias[0].length;j++){
             for(int i = 0; i < gaias.length; i++){
@@ -65,12 +67,12 @@ public class Gaia extends Creature{
         }
     }
 
-    public void showAvailableBonuses(){
-        showHorizontalBonus();
-        showVerticalBonus();
+    public void showAvailableRewards(){
+        showHorizontalRewards();
+        showVerticalRewards();
     }
 
-    public void showHorizontalBonus(){
+    public void showHorizontalRewards(){
         for(int i = 0; i < horizontalBonus.length; i++){
             if(horizontalBonus[i]){
                 switch (i) {
@@ -89,7 +91,7 @@ public class Gaia extends Creature{
         }
     }
 
-    public void showVerticalBonus(){
+    public void showVerticalRewards(){
         for(int i = 0; i < verticalBonus.length; i++){
             if(verticalBonus[i]){
                 switch (i) {
@@ -110,15 +112,32 @@ public class Gaia extends Creature{
         }
     }
 
+    public void useImmediateBonus(){
+        System.out.println(
+            horizontalBonus[0]?"Use the yellow bonus!":
+            horizontalBonus[1]?"Use the red bonus!":
+            verticalBonus[1]?"Use the blue bonus!":
+            verticalBonus[2]?"Use the magenta bonus!":
+            "No immediate bonuses available!"
+        );
+    }
+
+    public void useRewards(){
+        for(boolean f:horizontalBonus){
+            if(f)
+                System.out.println("Use the reward!");
+        }
+    }
+
     public int getPoints(){
         return scores[defeatedGaias - 1];
     }
 
-    public int defeatedGaias(){
+    public int getDefeatedGaias(){
         return defeatedGaias;
     }
 
-    public int aliveGaias(){
+    public int getAliveGaias(){
         return 11 - defeatedGaias;
     }
 
