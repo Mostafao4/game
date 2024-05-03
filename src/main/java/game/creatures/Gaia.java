@@ -2,6 +2,7 @@ package game.creatures;
 
 import game.dice.*;
 import game.collectibles.*;
+import game.exceptions.*;
 
 public class Gaia extends Creature{
     private int defeatedGaias;
@@ -22,13 +23,17 @@ public class Gaia extends Creature{
         this.defeatedGaias = 0;
     }
 
-    public void attack(GreenDice green, ArcanePrism white){
-        for(int i = 0; i < gaias.length;i++){
-            for(int j = 0; j < gaias[i].length;j++){
-                if(gaias[i][j] == green.getValue() + white.getValue()){
-                    gaias[i][j] = 0;
-                    defeatedGaias++;
-                    break;
+    public void attack(Dice first, Dice second) throws InvalidDiceSelectionException{
+        if(!(first instanceof GreenDice) || !(second instanceof ArcanePrism)){
+            throw new InvalidDiceSelectionException("Wrong Dice Selection");
+        } else {
+            for(int i = 0; i < gaias.length;i++){
+                for(int j = 0; j < gaias[i].length;j++){
+                    if(gaias[i][j] != ((GreenDice)first).getValue() + ((ArcanePrism)second).getValue()){
+                        gaias[i][j] = 0;
+                        defeatedGaias++;
+                        break;
+                    }
                 }
             }
         }

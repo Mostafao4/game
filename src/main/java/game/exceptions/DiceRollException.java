@@ -1,4 +1,4 @@
 package game.exceptions;
 
-public class DiceRollException {
+public class DiceRollException extends Exception{
 }

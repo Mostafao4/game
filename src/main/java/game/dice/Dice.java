@@ -1,4 +1,6 @@
 package game.dice;
 
-public class Dice {
+public abstract class Dice {
+
+    public abstract boolean status();
 }
