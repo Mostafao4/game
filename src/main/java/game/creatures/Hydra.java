@@ -3,7 +3,7 @@ package game.creatures;
 import game.collectibles.ElementalCrest;
 import game.collectibles.TimeWarp;
 
-public class Hydra extends Creature{
+public class Hydra extends Creature {
     private int[] Hydra1;
     private int[] Hydra2;
     public Hydra(){
