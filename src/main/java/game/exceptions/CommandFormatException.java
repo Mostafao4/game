@@ -1,4 +1,4 @@
 package game.exceptions;
 
-public class CommandFormatException {
+public class CommandFormatException extends Exception{
 }

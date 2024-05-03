@@ -1,13 +1,13 @@
 package game.dice;
 
-public class ArcanePrism{
-    private int value;
+public class ArcanePrism extends Dice{
+    private boolean status;
 
     public ArcanePrism(int value){
-        this.value = value;
+        super(value);
     }
 
-    public int getValue(){
-        return this.value;
+    public boolean status(){
+        return status;
     }
 }
