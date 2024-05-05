@@ -1,4 +1,4 @@
 package game.collectibles;
 
-public class Reward {
+public abstract class Reward {
 }
