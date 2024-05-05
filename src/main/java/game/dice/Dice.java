@@ -6,11 +6,17 @@ public abstract class Dice {
     public Dice(int value){
         this.value = value;
     }
-    public void roll(){
+    public final void roll(){
         value = (int) (Math.random() * 6) + 1;
     }
     public int getValue(){
         return this.value;
     }
-    public abstract boolean status();
+
+    public DiceStatus getDiceStatus() {
+        return diceStatus;
+    }
+    public void setDiceStatus(DiceStatus diceStatus) {
+        this.diceStatus = diceStatus;
+    }
 }
