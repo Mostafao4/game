@@ -1,4 +1,4 @@
 package game.collectibles;
 
-public class Power {
+public abstract class Power extends Reward{
 }
