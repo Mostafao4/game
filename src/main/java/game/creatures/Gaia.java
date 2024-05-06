@@ -14,6 +14,7 @@ public class Gaia extends Creature{
     };
     private boolean[] columnFlag = {true,true,true,true};
     private boolean[] rowFlag = {true,true,true,true};
+
     private boolean[] verticalBonus = {false,false,false,false};
     private boolean[] horizontalBonus = {false,false,false};
     private int[] scores = {1, 2, 4, 7, 11, 16, 22, 29, 37, 46, 56};
@@ -26,7 +27,7 @@ public class Gaia extends Creature{
     public void attack(Dice first, Dice second) throws InvalidDiceSelectionException{
         if(!(first instanceof GreenDice) || !(second instanceof ArcanePrism) ||
              !(second instanceof GreenDice) || !(first instanceof ArcanePrism)){
-            throw new InvalidDiceSelectionException("Wrong Dice Selection");
+            throw new InvalidDiceSelectionException("Wrong Dice Selection!");
         } else {
             for(int i = 0; i < gaias.length;i++){
                 for(int j = 0; j < gaias[i].length;j++){
@@ -114,7 +115,7 @@ public class Gaia extends Creature{
 
     public void useImmediateBonus(){
         System.out.println(
-            horizontalBonus[0]?"Use the yellow bonus!":
+            horizontalBonus[0]?"Use the yellow bonus!": //Make it false after it is used.
             horizontalBonus[1]?"Use the red bonus!":
             verticalBonus[1]?"Use the blue bonus!":
             verticalBonus[2]?"Use the magenta bonus!":
@@ -139,6 +140,22 @@ public class Gaia extends Creature{
 
     public int getAliveGaias(){
         return 11 - defeatedGaias;
+    }
+
+    public void scoreSheet(){
+        System.out.println("Terra's Heartland: Gaia Guardians (GREEN REALM): ");
+        System.out.println("+-----------------------------------+");
+        System.out.println("|  #  |1    |2    |3    |4    |R    |");
+        System.out.println("+-----------------------------------+");
+        System.out.println("|  1  |X    |2    |3    |4    |YB   |");
+        System.out.println("|  2  |5    |6    |7    |8    |RB   |");
+        System.out.println("|  3  |9    |10   |11   |12   |EC   |");
+        System.out.println("+-----------------------------------+");
+        System.out.println("|  R  |TW   |BB   |MB   |AB   |     |");
+        System.out.println("+-----------------------------------------------------------------------------+");
+        System.out.println("|  S  |0    |1    |2    |4    |7    |11   |16   |22   |29   |37   |46   |56   |");
+        System.out.println("+-----------------------------------------------------------------------------+");
+
     }
 
 }
