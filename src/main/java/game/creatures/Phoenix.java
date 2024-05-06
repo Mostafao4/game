@@ -3,17 +3,17 @@ import game.dice.*;
 import game.collectibles.*;
 
 public class Phoenix extends Creature {
-    int health;
+    
     int count=0;
     MagentaDice dice;
     int[] attack;
     Reward[] rewards;
     int score;
 
-    public Phoenix(int health,MagentaDice dice,int[] attack, Reward[] rewards){
+    public Phoenix(MagentaDice dice Reward[] rewards){
         this.health=health;
         this.dice=dice;
-        this.attack=attack;
+        this.attack=new int[11];
         this.rewards=rewards;
         
     }
