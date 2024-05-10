@@ -1,70 +1,51 @@
 package game.creatures;
+
 import game.collectibles.*;
-public class Lion{
-    private int hitNum;
-    private int diceNum;
-    private int[] multipliers={1,1,1,2,1,1,2,1,3};
+public class Lion {
+    private static int hitNum=-1;
+   private static int[] diceNum={0,0,0,0,0,0,0,0,0,0,0};
+   private int dice;
+    private int [] multipliers={1,1,1,2,1,1,2,1,2,1,3};
     private int score;
-    private int totalScore;
-    private collectibles[] rewards={0,0,TimeWarp,0,RedBonus,ArcaneBoost,0,ElementalCrest,0,MagnetaBonus,0};
+    private static int totalScore=0; 
+    private String[] rewards= {"" , "", "TimeWarp","" , "RedBonus", "ArcaneBoost","" , "ElementalCrest", "",  "MagnetaBonus",  ""}; ;
     
-    public Lion(int hitNum, int diceNum, int[] multipliers, int score, int totalScore, collectibles[] rewards) {
-        this.hitNum = hitNum;
-        this.diceNum = diceNum;
-        this.multipliers = multipliers;
-        this.score = score;
-        this.totalScore = totalScore;
-        this.rewards = rewards;
+
+    public Lion( int dice) {
+        
+        this.dice = dice;  
     }
 
+public static void move(){
+    hitNum++;
+    diceNum[hitNum]=dice;
+}
+public void attack(){
 
+}
 
-public int getHitNum() {
-    return hitNum;
-}
-public void setHitNum(int hitNum) {
-    this.hitNum = hitNum;
-}
-public int getDiceNum() {
-    return diceNum;
-}
-public void setDiceNum(int diceNum) {
-    this.diceNum = diceNum;
-}
-public int[] getMultipliers() {
-    return multipliers;
-}
-public void setMultipliers(int[] multipliers) {
-    this.multipliers = multipliers;
-}
-public int getScore() {
-    return score;
-}
-public void setScore(int score) {
-    this.score = score;
-}
-public int getTotalScore() {
-    return totalScore;
-}
-public void setTotalScore(int totalScore) {
-    this.totalScore = totalScore;
-}
-public Object[] getRewards() {
-    return rewards;
-}
-public void setRewards(collectibles[] rewards) {
-    this.rewards = rewards;
-}
-public static int multiplyScore(int hitNum,int diceNum,int[] multipliers){
-    int score=multipliers[hitNum]*diceNum;
+public static int multiplyScore(int hitNum,int diceNum[],int[] multipliers){
+    int score=multipliers[hitNum]*diceNum[hitNum];
      return score;
  }
- public int TotalScore(int score, int totalScore){
+ public int getScore(int score, int totalScore){
      totalScore+=score;
      return totalScore;
  }
-public collectibles getReward(int hitNum, collectibles[] rewards){
+public String getReward(int hitNum, String[] rewards){
     return rewards[hitNum];
+ }
+ public String getsScoreSheet(){
+
+   return "Radiant Savanna: Solar Lion (YELLOW REALM):\n" +
+    "+-----------------------------------------------------------------------+\n" +
+    "|  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
+    "+-----------------------------------------------------------------------+\n" +
+    "|  H  |"+diceNum[0]+"    |"+diceNum[1]+"    |"+diceNum[2]+"    |"+diceNum[3]+"    |"+diceNum[4]+"    |"+diceNum[5]+"    |"+diceNum[6]+"    |"+diceNum[7]+"    |"+diceNum[8]+"    |"+diceNum[9]+"    |"+diceNum[10]+"    |\n" +
+    "|  M  |     |     |     |x2   |     |     |x2   |     |x2   |     |x3   |\n" +
+    "|  R  |     |     |TW   |     |RB   |AB   |     |EC   |     |MB   |     |\n" +
+    "+-----------------------------------------------------------------------+\n\n";
+
  }
  
  }
