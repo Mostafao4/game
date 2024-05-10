@@ -1,6 +1,8 @@
 package game.creatures;
 
-public class Dragon {
+import game.engine.Player;
+
+public class Dragon extends Creature {
     int [][] dragonParts;
     public Dragon() {
         this.dragonParts = new int[4][4];
@@ -9,7 +11,7 @@ public class Dragon {
         dragonParts[2][0] = 1; dragonParts[2][1] = 0; dragonParts[2][2] = 2; dragonParts[2][3] = 4;
         dragonParts[3][0] = 0; dragonParts[3][1] = 3; dragonParts[3][2] = 4; dragonParts[3][3] = 6;
     }
-    public Collectibles checkBonus (int[][] dragonParts){
+    public Reward checkBonus (int[][] dragonParts){
         int x = 0;
         for (int i = 0; i < dragonParts.length; i++){
             int c = 0;
@@ -41,7 +43,9 @@ public class Dragon {
         }
         return null;
     }
+
     public int getPoints (int[][] dragonParts){
+        int score = 0;
         for (int j = 0; j < dragonParts.length; j++){
             int c = 0;
             for (int i = 0; i < dragonParts[i].length; i++){
@@ -52,23 +56,26 @@ public class Dragon {
             if (c == dragonParts[j].length){
                 switch (j){
                     case 0:
-                        return 10;
+                        score = score +  10;
                         break;
                     case 1:
-                        return 14;
+                        score = score + 14;
                         break;
                     case 2:
-                        return 16;
+                        score = score + 16;
                         break;
                     case 3:
-                        return 20;
+                        score = score + 20;
                         break;
                 }
             }
         }
-        return 0;
+        return score;
     }
+
     public void changeScoretoZero (Player move){
 
     }
+
+
 }
