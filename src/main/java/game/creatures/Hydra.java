@@ -3,9 +3,9 @@ package game.creatures;
 import game.collectibles.ElementalCrest;
 import game.collectibles.TimeWarp;
 
-public class Hydra {
-    int[] Hydra1;
-    int[] Hydra2;
+public class Hydra extends Creature {
+    private int[] Hydra1;
+    private int[] Hydra2;
     public Hydra(){
         this.Hydra1 = new int[5];
         this.Hydra2 = new int[6];
