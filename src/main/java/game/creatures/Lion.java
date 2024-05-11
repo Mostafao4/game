@@ -1,6 +1,8 @@
 package game.creatures;
 import java.util.*;
 import game.collectibles.*;
+import game.dice.Dice;
+import game.dice.YellowDice;
 import game.engine.Move;
 import game.engine.Player;
 public class Lion {
@@ -9,21 +11,19 @@ public class Lion {
 
     private static int hitNum=-1;
     private static int[] diceNum={0,0,0,0,0,0,0,0,0,0,0};
-    private  int dice;
     private int [] multipliers={1,1,1,2,1,1,2,1,2,1,3};
     private int score;
     private static int totalScore=0; 
-    private String[] rewards= {"" , "", "TimeWarp","" , "RedBonus", "ArcaneBoost","" , "ElementalCrest", "",  "MagnetaBonus",  ""}; ;
+    private String[] rewards= {null , null, "TimeWarp",null, "RedBonus", "ArcaneBoost",null , "ElementalCrest", null,  "MagnetaBonus",  null}; 
     private Move[] x =new Move[1];
-
-    public Lion( int dice) {
-        
-        this.dice = dice;  
+    
+    public Lion( ) {
+       
     }
 
-public static void move(){
+public static void move(Dice dice){
     hitNum++;
-    diceNum[hitNum]=dice;
+    diceNum[hitNum]=(int)dice.getValue();
 }
 public int getYellowRealmScore(){
 int score= multiplyScore(hitNum,diceNum, multipliers);
