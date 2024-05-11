@@ -1,4 +1,7 @@
 package game.dice;
 
-public class YellowDice {
+public class YellowDice extends Dice{
+    public YellowDice(int value) {
+        super(value);
+    }
 }
