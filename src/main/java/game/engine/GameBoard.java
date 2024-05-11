@@ -8,7 +8,7 @@ public class GameBoard {
     private GameStatus gameStatus;
     private Dice[] dice;
 
-    public GameBoard(Player player1, Player player2,) {
+    public GameBoard(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
         dice = new Dice[6];
@@ -17,11 +17,18 @@ public class GameBoard {
     public Dice[] getDice() {
         return dice;
     }
+    public void setDice(Dice[] dice) {
+        this.dice = dice;
+    }
 
     public Player getPlayer1() {
         return player1;
     }
     public Player getPlayer2() {
         return player2;
+    }
+
+    public GameStatus getGameStatus() {
+        return gameStatus;
     }
 }

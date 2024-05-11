@@ -8,7 +8,7 @@ import game.dice.DiceStatus;
 import java.util.Scanner;
 
 public class CLIGameController extends GameController {
-
+    public GameBoard gameBoard;
     @Override
     public void startGame() {
         Scanner scanner = new Scanner(System.in);
@@ -20,12 +20,14 @@ public class CLIGameController extends GameController {
         scanner.close();
         Player p1 = new Player(s1,PlayerStatus.ACTIVE);
         Player p2 = new Player(s2,PlayerStatus.PASSIVE);
-        GameBoard gameBoard = new GameBoard(p1,p2);
+        gameBoard = new GameBoard(p1,p2);
     }
 
     @Override
     public boolean switchPlayer() {
-
+        this.getActivePlayer().setPlayerStatus(PlayerStatus.PASSIVE);
+        this.getPassivePlayer().setPlayerStatus(PlayerStatus.ACTIVE);
+        return true;
     }
 
     @Override
@@ -55,9 +57,10 @@ public class CLIGameController extends GameController {
     @Override
     public Dice[] getForgottenRealmDice() {
         Dice[] dice = this.getAvailableDice();
-        for(int i = 0; i < dice.length; i++){
-            if(dice[])
-        }
+        for(int i = 0; i < dice.length; i++)
+            if(dice[i].getDiceStatus()!=DiceStatus.FORGOTTEN_REALM)
+                dice[i]=null;
+        return dice;
     }
 
     @Override
@@ -77,32 +80,38 @@ public class CLIGameController extends GameController {
 
     @Override
     public GameBoard getGameBoard() {
-        return null;
+        return gameBoard;
     }
 
     @Override
     public Player getActivePlayer() {
-        return null;
+        if(gameBoard.getPlayer1().getPlayerStatus()==PlayerStatus.ACTIVE)
+            return gameBoard.getPlayer1();
+        else
+            return gameBoard.getPlayer2();
     }
 
     @Override
     public Player getPassivePlayer() {
-        return null;
+        if(gameBoard.getPlayer1().getPlayerStatus()==PlayerStatus.PASSIVE)
+            return gameBoard.getPlayer1();
+        else
+            return gameBoard.getPlayer2();
     }
 
     @Override
     public ScoreSheet getScoreSheet(Player player) {
-        return null;
+        return player.getScoreSheet();
     }
 
     @Override
     public GameStatus getGameStatus() {
-        return null;
+        return gameBoard.getGameStatus();
     }
 
     @Override
     public GameScore getGameScore(Player player) {
-        return null;
+        return player.getGameScore();
     }
 
     @Override
@@ -117,7 +126,15 @@ public class CLIGameController extends GameController {
 
     @Override
     public boolean selectDice(Dice dice, Player player) {
-        return false;
+        Dice[] diceArray = this.getAvailableDice();
+        player.setSelectedDice(dice);
+        int x = dice.getValue();
+        for(int i = 0; i < diceArray.length; i++){
+            int y = diceArray[i].getValue();
+            if(y<x)
+                diceArray[i].setDiceStatus(DiceStatus.FORGOTTEN_REALM);
+        }
+        return true;
     }
 
     @Override

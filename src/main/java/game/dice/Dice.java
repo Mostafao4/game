@@ -1,8 +1,12 @@
 package game.dice;
 
+import game.creatures.Realm;
+
 public abstract class Dice {
     private int value;
     private DiceStatus diceStatus;
+    private Realm realm;
+
     public Dice(int value){
         this.value = value;
     }
@@ -15,6 +19,13 @@ public abstract class Dice {
     }
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public Realm getRealm() {
+        return color;
+    }
+    public void setRealm(Realm realm) {
+        this.realm = realm;
     }
 
     public DiceStatus getDiceStatus() {
