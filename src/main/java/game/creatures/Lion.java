@@ -25,9 +25,9 @@ public static void move(){
     hitNum++;
     diceNum[hitNum]=dice;
 }
-public void attack(){
+public int getYellowRealmScore(){
 int score= multiplyScore(hitNum,diceNum, multipliers);
-getScore( score, totalScore);
+return getScore( score, totalScore);
 }
 
 public static int multiplyScore(int hitNum,int diceNum[],int[] multipliers){
@@ -49,7 +49,7 @@ public String getReward(int hitNum, String[] rewards){
      return x;
 
  }
- public String getsScoreSheet(){
+ public String getScoreSheet(){
 
    return "Radiant Savanna: Solar Lion (YELLOW REALM):\n" +
     "+-----------------------------------------------------------------------+\n" +
