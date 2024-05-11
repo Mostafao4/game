@@ -9,8 +9,12 @@ public abstract class Dice {
     public final void roll(){
         value = (int) (Math.random() * 6) + 1;
     }
+
     public int getValue(){
         return this.value;
+    }
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public DiceStatus getDiceStatus() {
