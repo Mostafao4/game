@@ -8,7 +8,8 @@ import game.dice.DiceStatus;
 import java.util.Scanner;
 
 public class CLIGameController extends GameController {
-    public GameBoard gameBoard;
+    private GameBoard gameBoard;
+
     @Override
     public void startGame() {
         Scanner scanner = new Scanner(System.in);
@@ -116,12 +117,12 @@ public class CLIGameController extends GameController {
 
     @Override
     public TimeWarp[] getTimeWarpPowers(Player player) {
-        return new TimeWarp[0];
+        return player.getTimeWarp();
     }
 
     @Override
     public ArcaneBoost[] getArcaneBoostPowers(Player player) {
-        return new ArcaneBoost[0];
+        return player.getArcaneBoost();
     }
 
     @Override
@@ -129,10 +130,10 @@ public class CLIGameController extends GameController {
         Dice[] diceArray = this.getAvailableDice();
         player.setSelectedDice(dice);
         int x = dice.getValue();
-        for(int i = 0; i < diceArray.length; i++){
-            int y = diceArray[i].getValue();
-            if(y<x)
-                diceArray[i].setDiceStatus(DiceStatus.FORGOTTEN_REALM);
+        for (Dice value : diceArray) {
+            int y = value.getValue();
+            if (y < x)
+                value.setDiceStatus(DiceStatus.FORGOTTEN_REALM);
         }
         return true;
     }

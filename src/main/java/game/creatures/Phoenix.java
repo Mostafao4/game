@@ -10,8 +10,7 @@ public class Phoenix extends Creature {
     Reward[] rewards;
     int score;
 
-    public Phoenix(MagentaDice dice Reward[] rewards){
-        this.health=health;
+    public Phoenix(MagentaDice dice, Reward[] rewards){
         this.dice=dice;
         this.attack=new int[11];
         this.rewards=rewards;
@@ -32,7 +31,7 @@ public class Phoenix extends Creature {
 
     
     }
-    public static collectibles Rewards(int index ){
+    public static Reward Rewards(int index ){
        return  rewards[index];
     }
     public static int getPoints(){

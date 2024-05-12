@@ -12,4 +12,29 @@ public class GameStatus {
         String s = status?"Game is ongoing.":"Game has ended.";
         return "Round number: " + round + "/nTurn: " + turn + "/nStatus: " + s;
     }
+
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }

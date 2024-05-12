@@ -22,7 +22,7 @@ public abstract class Dice {
     }
 
     public Realm getRealm() {
-        return color;
+        return realm;
     }
     public void setRealm(Realm realm) {
         this.realm = realm;
