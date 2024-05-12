@@ -10,11 +10,12 @@ public class Phoenix extends Creature {
     private Reward[] rewards;
     private int score_int;
     private int[] score_array;
-    public Phoenix(MagentaDice dice ,Reward[] rewards){
+    public Phoenix(MagentaDice dice ){
         this.dice=dice;
         this.attack=new int[11];
         this.rewards=new Reward[11];
         this.score_array=new int[11];
+
         
     }
     public void Attack() {
@@ -47,16 +48,43 @@ public class Phoenix extends Creature {
     public Reward Rewards(int index ){
        return  rewards[index];
     }
-    public int getPoints(){
+    public int getMagentaRealmScore(){
         return score_int;
     }
+    
 
 
-//Move[] getAllPossibleMoves
-//Move[] getPossibleMovesForADie
-//getMagentaRealmScore();
-Dice dice = new Dice(2);
-array[i] = new Move(dice,Phoenix);
+
+public Move[] getAllPossibleMoves(){
+    Move[] possibleMoves = new Move[6];
+    int lastNumber= (int)attack[count];
+    if(lastNumber==6){
+        for(int j;j<6;j++){
+            possibleMoves[j]=new Move(new MagentaDice(j+1),new Phoenix(dice));
+        }
+        return possibleMoves;
+    }
+    for(int i;lastNumber<6;i++){
+        lastNumber+=1;
+        possibleMoves[i]=new Move(new MagentaDice(lastNumber),new Phoenix(dice));
+    }
+    return possibleMoves;
+
+}
+// public Move[] getPossibleMovesForADie(Dice die){
+    
+// }
+public String scoreSheet_method(){
+    return  "    Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
+    "            +-----------------------------------------------------------------------+\n" +
+    "            |  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
+    "            +-----------------------------------------------------------------------+\n" +
+    "            |  H  |"+attack[0]+"|"+attack[1]+" |"+attack[2]+"|"+attack[3]+"|"+attack[4]+"|"+attack[5]+"|"+attack[6]+"|"+attack[7]+"|"+attack[8]+"|"+attack[9]+"|"+attack[10]+"|\n" +
+    "            |  C  |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |\n" +
+    "            |  R  |     |     |TW   |GB   |AB   |RB   |EC   |TW   |BB   |YB   |AB   |\n" +
+    "            +-----------------------------------------------------------------------+\n";
+}
+
 
 
 }
