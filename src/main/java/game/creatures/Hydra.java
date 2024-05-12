@@ -2,39 +2,41 @@ package game.creatures;
 
 import game.collectibles.ElementalCrest;
 import game.collectibles.TimeWarp;
+import game.dice.Dice;
+import game.engine.Move;
 
 public class Hydra {
 
-    private int[] Hydra;
+    private int[] hydra;
     public Hydra(){
-        this.Hydra = new int[11];
-        Hydra[0] = 1;   Hydra[5] = 1;
-        Hydra[1] = 2;   Hydra[6] = 2;
-        Hydra[2] = 3;   Hydra[7] = 3;
-        Hydra[3] = 4;   Hydra[8] = 4;
-        Hydra[4] = 5;   Hydra[9] = 5;
-                         Hydra[10] = 6;                
+        this.hydra = new int[11];
+        hydra[0] = 1;   hydra[5] = 1;
+        hydra[1] = 2;   hydra[6] = 2;
+        hydra[2] = 3;   hydra[7] = 3;
+        hydra[3] = 4;   hydra[8] = 4;
+        hydra[4] = 5;   hydra[9] = 5;
+                         hydra[10] = 6;                
     }
 
 
-    public static void currHydra(int[] Hydra){
+    public static void currhydra(){
         int i = 0;
         if( i > 4){
-            System.out.println("You killed first Hydra and will attack the new Hydra with 6 heads");
+            System.out.println("You killed first hydra and will attack the new hydra with 6 heads");
         }
         else{
-            System.out.println("You will attack the first Hydra");
+            System.out.println("You will attack the first hydra");
             i++;
         }
     }
 
 
 
-    public Collectibles checkBonus(int[] Hydra){
+    public Collectibles checkBonus(){
         int i = 0;
             if(i <= 4){
-                if(Hydra[i] == 4){
-                       return ArcaneBoostPower;
+                if(hydra[i] == 4){
+                       return ArcaneBoost;
                        break;
                     }
                 else{
@@ -43,25 +45,25 @@ public class Hydra {
                 }
             else{
                 for(int j = 5; j <= 10; j++){
-                    switch (Hydra[j]) {
-                            case 1:
-                                return GreenBonus;
-                                break;
+                    switch (hydra[j]) {
+                        case 1:
+                            return GreenBonus; 
+                            break;
         
-                            case 2:
-                                return ElementalCrest; 
-                                break;   
+                        case 2:
+                            return ElementalCrest; 
+                            break;   
                             
-                            case 4:
-                                return MagentaBonus;
-                                break;
+                        case 4:
+                            return MagentaBonus;
+                            break;
         
-                            case 5:
-                                return TimeWarpPower;
-                                break; 
+                        case 5:
+                            return TimeWarp;
+                            break; 
         
-                            default:
-                                break;
+                        default:
+                            break;
                         }
                     }
                 }
@@ -69,13 +71,13 @@ public class Hydra {
                     }
     
             
-    public int getScore(int[]hydra){
-        return score(hydra);
+    public int getScore(){
+        return this.score();
     }
 
-    private int score(int[]hydra){
+    private int score(){ 
         int score;
-        int c = HeadsKilled(Hydra);
+        int c = HeadsKilled(hydra);
         switch (c) {
         case 1:
             score = 1;
@@ -128,10 +130,77 @@ public class Hydra {
             return i;
         }
 
+
+
+    public String[] XinScoresheet(){
+        String[] Xs = new String[11];
+        for(int i = 0; i < 11; i++){
+            if(hydra[i] == 0){
+                Xs[i] = "X";
+            }
+            else{
+                Xs[i] = "---";
+            }
+        }
+        return Xs;
+
+    } 
+
+
+    public String getScoresheet(){
+        String[] Xs = this.XinScoresheet();
+        return ("Tide Abyss: hydra Serpents (BLUE REALM):\n" +
+        "+-----------------------------------------------------------------------+\n" +
+        "|  #  |H11  |H12  |H13  |H14  |H15  |H21  |H22  |H23  |H24  |H25  |H26  |\n" +
+        "+-----------------------------------------------------------------------+\n" +
+        "|  H " +Xs[0] +Xs[1] +Xs[2]  +Xs[3] +Xs[4] +Xs[5] +Xs[6] +Xs[7] +Xs[8] +Xs[9] +Xs[10] + "|\n" +
+        "|  C  |≥1   |≥2   |≥3   |≥4   |≥5   |≥1   |≥2   |≥3   |≥4   |≥5   |≥6   |\n" +
+        "|  R  |     |     |     |AB   |     |GB   |EC   |     |MB   |TW   |     |\n" +
+        "+-----------------------------------------------------------------------+\n" +
+        "|  S  |1    |3    |6    |10   |15   |21   |28   |36   |45   |55   |66   |\n" +
+        "+-----------------------------------------------------------------------+\n\n");
+        }
+
+
+        public void attack(Dice dice){
+            int value = dice.getValue();
+            for (int i = 0; i <= 4; i++) {
+                  if (value >= i && hydra[i] != 0) {
+                        System.out.println("Head " + i + " successfully attacked!");
+                        hydra[i] = 0;
+                        break;
+                      } 
+                 }
+            for(int j = 5; j <= 10; j++){
+                if (value >= j && hydra[j] != 0) {
+                    System.out.println("Head " + j + " successfully attacked!");
+                    hydra[j] = 0;
+                    break;
+                  }
+            }     
+        }
+            
+        
+
+
+        public Move[] getAllPossibleMoves(){
+            if(hydra[0] == 0){
+            }
+
+        }
+
+
+
+
+
+}
+
+
     
+
     
 
            
-}
+
 
   
