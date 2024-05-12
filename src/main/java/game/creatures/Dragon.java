@@ -74,26 +74,14 @@ public class Dragon extends Creature {
         return score;
     }
 
-    public void attack (){
-        int [] x = new int[2];
-        x = move (r,  c);
-        if (x[0] != 10 && x[1] != 10){
-            dragonParts[x[0]][x[1]] = 0;
-        }
-    }
 
-    public int [] move (RedDice r, Creature c) throws Exception{
+    public void move (RedDice r, Creature c) throws Exception{
         int c = 0;
-        int [] x = new int[2];
-      //  x [0] = 10;
-       // x [1] = 10;
         for (int i = 0; i < dragonParts.length; i++){
             for (int j = 0; j < dragonParts[i].length; j++){
                 if (r.getNo == dragonParts [i][j] && c == j ) {
                     if (dragonParts[i][j] != 0) {
-                        x [0]= i;
-                        x [1]= j;
-                        return x;
+                        dragonParts[i][j] = 0;
                         break;
                     } else {
                         c++;
@@ -102,8 +90,7 @@ public class Dragon extends Creature {
             }
         }
         if (c == 16){
-            throw new Exception();
+            throw new Exception("This dragon has been attacked!");
         }
-        return x;
     }
 }
