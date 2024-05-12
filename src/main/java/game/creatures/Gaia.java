@@ -2,7 +2,7 @@ package game.creatures;
 
 import game.dice.*;
 //import game.collectibles.*;
-import game.exceptions.*;
+//import game.exceptions.*;
 
 public class Gaia extends Creature{
     private int defeatedGaias;
@@ -151,11 +151,11 @@ public class Gaia extends Creature{
         + "|  #  |1    |2    |3    |4    |R    | \n"
         + "+-----------------------------------+ \n"
         // + "|  1  |X    |2    |3    |4    |YB   | \n"
-        + "|  1  " + scoreSheetHelper(0) + "|" + (horizontalBonus[0]?"X":"YB") + "    \n"
+        + "|  1  " + scoreSheetHelper(0) + "|" + (horizontalBonus[0]?"X":"YB") + "    |\n"
         // + "|  2  |5    |6    |7    |8    |RB   | \n"
-        + "|  2  " + scoreSheetHelper(1) + "|" + (horizontalBonus[1]?"X":"RB") + "    \n"
+        + "|  2  " + scoreSheetHelper(1) + "|" + (horizontalBonus[1]?"X":"RB") + "   |\n"
         // + "|  3  |9    |10   |11   |12   |EC   | \n"
-        + "|  3  " + scoreSheetHelper(2) + "|" + (horizontalBonus[2]?"X":"EC") + "    \n"
+        + "|  3  " + scoreSheetHelper(2) + "|" + (horizontalBonus[2]?"X":"EC") + "   |\n"
         + "+-----------------------------------+ \n"
         + "|  R  |TW   |BB   |MB   |AB   |     | \n"
         + "+-----------------------------------------------------------------------------+ \n"
@@ -186,9 +186,9 @@ public class Gaia extends Creature{
         } else {
             for(int i = 0; i < scores[rowNum].length; i++){
                 if(scores[rowNum][i])
-                    s+= "|X   ";
+                    s+= "|X    ";
                 else 
-                    s+= "|" + this.gaias[rowNum][i] + "   ";
+                    s+= "|" + this.gaias[rowNum][i] + ((this.gaias[rowNum][i] > 9)?"   ":"    ");;
             }
         }
         
@@ -197,6 +197,20 @@ public class Gaia extends Creature{
 
 
     public static void main(String[] args){
-
+        Gaia g = new Gaia();
+        GreenDice die1 = new GreenDice(4);
+        ArcanePrism die2 = new ArcanePrism(3);
+        GreenDice die3 = new GreenDice(1);
+        ArcanePrism die4 = new ArcanePrism(1);
+        GreenDice die5 = new GreenDice(2);
+        ArcanePrism die6 = new ArcanePrism(1);
+        GreenDice die7 = new GreenDice(3);
+        ArcanePrism die8 = new ArcanePrism(1);
+        g.attack(die1, die2);
+        g.attack(die7, die8);
+        g.attack(die3, die4);
+        g.scoreSheet();
+        g.attack(die5, die6);
+        g.scoreSheet();
     }
 }
