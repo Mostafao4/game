@@ -1,9 +1,10 @@
 package game.creatures;
 
+import game.dice.RedDice;
 import game.engine.Player;
 
 public class Dragon extends Creature {
-    int [][] dragonParts;
+    private int [][] dragonParts;
     public Dragon() {
         this.dragonParts = new int[4][4];
         dragonParts[0][0] = 3; dragonParts[0][1] = 6; dragonParts[0][2] = 5; dragonParts[0][3] = 0;
@@ -73,9 +74,36 @@ public class Dragon extends Creature {
         return score;
     }
 
-    public void changeScoretoZero (Player move){
-
+    public void attack (){
+        int [] x = new int[2];
+        x = move (r,  c);
+        if (x[0] != 10 && x[1] != 10){
+            dragonParts[x[0]][x[1]] = 0;
+        }
     }
 
-
+    public int [] move (RedDice r, Creature c) throws Exception{
+        int c = 0;
+        int [] x = new int[2];
+      //  x [0] = 10;
+       // x [1] = 10;
+        for (int i = 0; i < dragonParts.length; i++){
+            for (int j = 0; j < dragonParts[i].length; j++){
+                if (r.getNo == dragonParts [i][j] && c == j ) {
+                    if (dragonParts[i][j] != 0) {
+                        x [0]= i;
+                        x [1]= j;
+                        return x;
+                        break;
+                    } else {
+                        c++;
+                    }
+                }
+            }
+        }
+        if (c == 16){
+            throw new Exception();
+        }
+        return x;
+    }
 }
