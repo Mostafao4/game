@@ -1,41 +1,62 @@
 package game.creatures;
 import game.dice.*;
+import game.engine.Move;
 import game.collectibles.*;
-
 public class Phoenix extends Creature {
     
-    int count=0;
-    MagentaDice dice;
-    int[] attack;
-    Reward[] rewards;
-    int score;
-
-    public Phoenix(MagentaDice dice Reward[] rewards){
-        this.health=health;
+    private int count=0;
+    private MagentaDice dice;
+    private int[] attack;
+    private Reward[] rewards;
+    private int score_int;
+    private int[] score_array;
+    public Phoenix(MagentaDice dice ,Reward[] rewards){
         this.dice=dice;
         this.attack=new int[11];
-        this.rewards=rewards;
+        this.rewards=new Reward[11];
+        this.score_array=new int[11];
         
     }
-
-    public int Attack() {
-        if((int)dice.getValue()>(int)attack[count]){
-            attack[count+1]=(int)dice.getValue();
+    public void Attack() {
+    if(count>=11){System.out.println("You reached the maximum possible times of plays"); return;}
+    if(count==0){   
+            attack[count]=(int)dice.getValue();
+            score_int+=(int)dice.getValue();
+            score_array[count]=(int)dice.getValue();
             count+=1;
-            score+=(int)dice.getValue();
-        }
-        else if((int)attack[count]==6){
-            attack[count+1]=(int)dice.getValue();
-            count+=1;
-            score+=(int)dice.getValue();
-        }
-
-    
     }
-    public static collectibles Rewards(int index ){
+    if(count!=0){
+        if((int)dice.getValue()>(int)attack[count]){
+            
+            attack[count+1]=(int)dice.getValue();
+            score_int+=(int)dice.getValue();
+            score_array[count]=(int)dice.getValue();
+            count+=1;
+        }
+        if((int)attack[count]==6){
+            attack[count+1]=(int)dice.getValue();
+            count+=1;
+            score_int+=(int)dice.getValue();
+        }
+        else{System.out.println("Dice value is less than last chosen value");  return;}
+
+
+
+    }
+    }
+    public Reward Rewards(int index ){
        return  rewards[index];
     }
-    public static int getPoints(){
-        return score;
+    public int getPoints(){
+        return score_int;
     }
+
+
+//Move[] getAllPossibleMoves
+//Move[] getPossibleMovesForADie
+//getMagentaRealmScore();
+Dice dice = new Dice(2);
+array[i] = new Move(dice,Phoenix);
+
+
 }
