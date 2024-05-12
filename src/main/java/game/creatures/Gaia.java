@@ -1,11 +1,12 @@
 package game.creatures;
 
 import game.dice.*;
-import game.collectibles.*;
+//import game.collectibles.*;
 import game.exceptions.*;
 
 public class Gaia extends Creature{
     private int defeatedGaias;
+    private int totalGaias;
     private int[][] gaias = 
     {
         {0,2,3,4},
@@ -22,25 +23,27 @@ public class Gaia extends Creature{
 
     public Gaia(){
         this.defeatedGaias = 0;
+        this.totalGaias = 11;
     }
 
-    public void attack(Dice first, Dice second) throws InvalidDiceSelectionException{
-        if(!(first instanceof GreenDice) || !(second instanceof ArcanePrism) ||
-             !(second instanceof GreenDice) || !(first instanceof ArcanePrism)){
-            throw new InvalidDiceSelectionException("Wrong Dice Selection!");
-        } else {
+    public void attack(Dice first, Dice second) {//throws InvalidDiceSelectionException{
+        // if(!(first instanceof GreenDice) || !(second instanceof ArcanePrism) ||
+        //      !(second instanceof GreenDice) || !(first instanceof ArcanePrism)){
+        //     throw new InvalidDiceSelectionException("Wrong Dice Selection!");
+        // } else {
+            int total = first.getValue() + second.getValue();
             for(int i = 0; i < gaias.length;i++){
                 for(int j = 0; j < gaias[i].length;j++){
-                    if(gaias[i][j] != first.getValue() + second.getValue()){
+                    if(gaias[i][j] == total){
                         gaias[i][j] = 0;
                         defeatedGaias++;
                         break;
                     }
                 }
             }
-        }
+        // }
         editRewards();
-        showAvailableRewards();
+        //showAvailableRewards();
         useImmediateBonus();
     }
 
@@ -115,7 +118,7 @@ public class Gaia extends Creature{
 
     public void useImmediateBonus(){
         System.out.println(
-            horizontalBonus[0]?"Use the yellow bonus!": //Make it false after it is used.
+            horizontalBonus[0]?"Use the yellow bonus!": //TODO: Make it false after it is used.
             horizontalBonus[1]?"Use the red bonus!":
             verticalBonus[1]?"Use the blue bonus!":
             verticalBonus[2]?"Use the magenta bonus!":
@@ -138,24 +141,62 @@ public class Gaia extends Creature{
         return defeatedGaias;
     }
 
-    public int getAliveGaias(){
-        return 11 - defeatedGaias;
+    public int getRemainingGaias(){
+        return this.totalGaias - defeatedGaias;
     }
 
     public void scoreSheet(){
-        System.out.println("Terra's Heartland: Gaia Guardians (GREEN REALM): ");
-        System.out.println("+-----------------------------------+");
-        System.out.println("|  #  |1    |2    |3    |4    |R    |");
-        System.out.println("+-----------------------------------+");
-        System.out.println("|  1  |X    |2    |3    |4    |YB   |");
-        System.out.println("|  2  |5    |6    |7    |8    |RB   |");
-        System.out.println("|  3  |9    |10   |11   |12   |EC   |");
-        System.out.println("+-----------------------------------+");
-        System.out.println("|  R  |TW   |BB   |MB   |AB   |     |");
-        System.out.println("+-----------------------------------------------------------------------------+");
-        System.out.println("|  S  |0    |1    |2    |4    |7    |11   |16   |22   |29   |37   |46   |56   |");
-        System.out.println("+-----------------------------------------------------------------------------+");
-
+        System.out.println("Terra's Heartland: Gaia Guardians (GREEN REALM): \n"
+        + "+-----------------------------------+ \n"
+        + "|  #  |1    |2    |3    |4    |R    | \n"
+        + "+-----------------------------------+ \n"
+        // + "|  1  |X    |2    |3    |4    |YB   | \n"
+        + "|  1  " + scoreSheetHelper(0) + "|" + (horizontalBonus[0]?"X":"YB") + "    \n"
+        // + "|  2  |5    |6    |7    |8    |RB   | \n"
+        + "|  2  " + scoreSheetHelper(1) + "|" + (horizontalBonus[1]?"X":"RB") + "    \n"
+        // + "|  3  |9    |10   |11   |12   |EC   | \n"
+        + "|  3  " + scoreSheetHelper(2) + "|" + (horizontalBonus[2]?"X":"EC") + "    \n"
+        + "+-----------------------------------+ \n"
+        + "|  R  |TW   |BB   |MB   |AB   |     | \n"
+        + "+-----------------------------------------------------------------------------+ \n"
+        + "|  S  |0    |1    |2    |4    |7    |11   |16   |22   |29   |37   |46   |56   | \n"
+        + "+-----------------------------------------------------------------------------+");
+    }
+    
+    private boolean[][] checkZero(){
+        boolean[][] zeros = new boolean[3][4];
+        for(int i = 0; i < gaias.length; i++){
+            for(int j = 0; j < gaias[i].length; j++){
+                if(gaias[i][j] == 0)
+                    zeros[i][j] = true;
+            }
+        }
+        return zeros;
+    }
+    private String scoreSheetHelper(int rowNum){
+        boolean[][] scores = checkZero();
+        String s = "";
+        if(rowNum != 2){
+            for(int i = 0; i < scores[rowNum].length; i++){
+                if(scores[rowNum][i])
+                    s+= "|X    ";
+                else
+                    s+= "|" + this.gaias[rowNum][i] + "    ";
+            }
+        } else {
+            for(int i = 0; i < scores[rowNum].length; i++){
+                if(scores[rowNum][i])
+                    s+= "|X   ";
+                else 
+                    s+= "|" + this.gaias[rowNum][i] + "   ";
+            }
+        }
+        
+        return s;
     }
 
+
+    public static void main(String[] args){
+
+    }
 }
