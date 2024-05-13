@@ -2,6 +2,7 @@ package game.creatures;
 
 import game.dice.RedDice;
 import game.engine.Player;
+import game.collectibles.*;
 
 public class Dragon extends Creature {
     private int [][] dragonParts;
@@ -40,7 +41,7 @@ public class Dragon extends Creature {
             }
         }
         if (x == 16){
-            return ArcaneBoostPower;
+            return ArcaneBoost;
         }
         return null;
     }
