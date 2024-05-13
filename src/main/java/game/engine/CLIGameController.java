@@ -26,8 +26,14 @@ public class CLIGameController extends GameController {
 
     @Override
     public boolean switchPlayer() {
-        this.getActivePlayer().setPlayerStatus(PlayerStatus.PASSIVE);
-        this.getPassivePlayer().setPlayerStatus(PlayerStatus.ACTIVE);
+        if(gameBoard.getPlayer1().getPlayerStatus()==PlayerStatus.ACTIVE) {
+            gameBoard.getPlayer1().setPlayerStatus(PlayerStatus.PASSIVE);
+            gameBoard.getPlayer2().setPlayerStatus(PlayerStatus.ACTIVE);
+        }
+        else{
+            gameBoard.getPlayer1().setPlayerStatus(PlayerStatus.ACTIVE);
+            gameBoard.getPlayer2().setPlayerStatus(PlayerStatus.PASSIVE);
+        }
         return true;
     }
 
