@@ -4,6 +4,7 @@ import game.collectibles.*;
 import game.dice.RedDice;
 import game.engine.Move;
 import game.engine.Player;
+import game.collectibles.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -62,7 +63,9 @@ public class Dragon extends Creature {
             }
         }
         if (x == 16){
-            return new ArcaneBoostPower();
+
+            return ArcaneBoost;
+
         }
         return null;
     }
