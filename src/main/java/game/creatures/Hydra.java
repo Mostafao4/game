@@ -5,9 +5,11 @@ import game.collectibles.TimeWarp;
 import game.dice.Dice;
 import game.engine.Move;
 
-public class Hydra {
+
+public class Hydra extends Creature {
 
     private int[] hydra;
+
     public Hydra(){
         this.hydra = new int[11];
         hydra[0] = 1;   hydra[5] = 1;
