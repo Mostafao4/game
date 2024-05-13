@@ -1,18 +1,17 @@
 package game.creatures;
 
 import game.collectibles.*;
+import game.dice.Dice;
 import game.dice.RedDice;
 import game.engine.Move;
 import game.engine.Player;
 import game.collectibles.*;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java. io.IOException;
 import java.util.Properties;
 
 public class Dragon extends Creature {
-
     private int [][] dragonParts;
 
     public Dragon() {
@@ -39,34 +38,29 @@ public class Dragon extends Creature {
         int x = 0;
         for (int i = 0; i < dragonParts.length; i++){
             int c = 0;
-            for (int j = 0; j < dragonParts[i].length; j++){
+            for (int j = 0; j < dragonParts.length; j++){
                 if (dragonParts[i][j] == 0){
                     c++;
                     x++;
                 }
             }
-            if (c == dragonParts[i].length){
+            if (c == dragonParts.length){
                 switch (i){
                     case 0:
                         return new GreenBonus();
-                        break;
                     case 1:
                         return  new YellowBonus();
-                        break;
                     case 2:
                         return new BlueBonus();
-                        break;
                     case 3:
                         return new ElementalCrest();
+                    default:
                         break;
                 }
             }
         }
-        if (x == 16){
-
-            return ArcaneBoost;
-
-        }
+        if (x == 16)
+            return new ArcaneBoost();
         return null;
     }
 
@@ -99,24 +93,47 @@ public class Dragon extends Creature {
         return score;
     }
 
-    public void makeMove (Player player, Move[] a) throws Exception{
-        int x = 0;
+    public Move[] getPossibleMovesForADie (Player player, Dice dice){
+        Move [] move = new Move[];
+        int a = ((RedDice)dice).getValue();
+        Dice b = player.getSelectedDice();
         for (int i = 0; i < dragonParts.length; i++){
-            for (int j = 0; j < dragonParts[i].length; j++){
-                if (player.getSelectedDice().getValue() == dragonParts [i][j] && /*selectsDragon*/x == j ) {
-                    if (dragonParts[i][j] != 0) {
-                        dragonParts[i][j] = 0;
-                        break;
-                    } else {
-                        x++;
+            for (int j = 0; j < dragonParts[i].length && move.length < 2; j++){
+                if (a == dragonParts [i][j] && dragonParts[i][j] != 0)
+                    move[i] = new Move(dice, Realm.RED);
+                if (move.length < 2)
+                    break;
+            }
+            if (move.length < 2)
+                break;
+        }
+        return move;
+    }
+
+    public void makeMove (Player player, Move a) throws Exception{
+        int x = 0;
+        Move [] b = getPossibleMovesForADie(player, player.getSelectedDice());
+        boolean flag = true;
+        for (int i = 0; i < b.length; i++){
+            // make sure that the Move a is included in the array Move [] b
+        }
+        if (b.length != 0 && flag == true){
+            for (int i = 0; i < dragonParts.length; i++){
+                for (int j = 0; j < dragonParts[i].length; j++){
+                    if (player.getSelectedDice().getValue() == dragonParts [i][j] && ((RedDice)(player.getSelectedDice())).selectsDragon(i)== j ) {
+                        if (dragonParts[i][j] != 0) {
+                            dragonParts[i][j] = 0;
+                            break;
+                        }
+                        else
+                            x++;
                     }
                 }
             }
         }
-        if (c == 16){
+        else
             throw new Exception("This dragon has been attacked!");
         }
-    }
 
     public void scoreSheet(){
         String expectedScoreSheet = "\n\nScoreSheet\n\n" +
@@ -143,29 +160,4 @@ public class Dragon extends Creature {
         }
     }
 
-
-
-    /*
-    comment: add this class in RedDice
-    "please select a dragon to attack, choose from 1 to 4"
-    public int selectsDragon (int dragonNumber[i]){
-        return dragonNumber[i];
-    }
-    public Move[] getPossibleMovesForADie (Player player, Dice dice){
-        Move move = new Move();
-        int a = dice.getValue();
-        Dice player = player.getSelectedDice();
-        for (int i = 0; i < dragonParts.length; i++){
-            for (int j = 0; j < dragonParts[i].length && move.length < 2; j++){
-                if (a == dragonParts [i][j] && dragonParts[i][j] != 0)
-                    move =
-                if (move.length < 2)
-                break
-            }
-            if (move.length < 2)
-                break
-        }
-        return move;
-    }
-    */
 }
