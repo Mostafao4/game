@@ -162,7 +162,7 @@ public class Hydra {
         }
 
 
-        public void attack(Dice dice){
+        public void makeMove(Dice dice){
             int value = dice.getValue();
             for (int i = 0; i <= 4; i++) {
                   if (value >= i && hydra[i] != 0) {
