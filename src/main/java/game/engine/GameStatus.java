@@ -5,7 +5,10 @@ public class GameStatus {
     private int turn;
     private boolean status;
 
-    public GameStatus(int round, int turn, boolean status) {}
+    public GameStatus() {
+        round = 1;
+        turn = 1;
+    }
 
     @Override
     public String toString() {
@@ -18,16 +21,21 @@ public class GameStatus {
         return round;
     }
 
-    public void setRound(int round) {
-        this.round = round;
+    public void incrementRound(int round) {
+        round++;
+        turn = 1;
     }
 
     public int getTurn() {
         return turn;
     }
 
-    public void setTurn(int turn) {
-        this.turn = turn;
+    public void incrementTurn() {
+        turn++;
+    }
+
+    public void resetTurn(int turn) {
+        turn = 1;
     }
 
     public boolean isStatus() {
