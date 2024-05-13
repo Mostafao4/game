@@ -25,6 +25,7 @@ public class Main {
                     System.out.println("You received a Time Warp!");
                 default:
             }
+            while(int t <= 3){
             gc.getGameBoard().setDice(gc.rollDice());
             System.out.println("Do you want to use Time Warp?");
             String input = sc.nextLine();
@@ -44,7 +45,7 @@ public class Main {
             }
             gc.makeMove(gc.getActivePlayer(),new Move(gc.getGameBoard().getSelectedDice(),gc.getGameBoard().getSelectedDice().getRealm()));
             if(gc.getAvailableDice().length>0)
-                
+
 
 
 
