@@ -47,7 +47,7 @@ public class Player {
         this.gameScore = gameScore;
     }
 
-    public String getPlayer_name() {
+    public String getPlayerName() {
         return playerName;
     }
     public void setPlayer_name(String playerName) {
