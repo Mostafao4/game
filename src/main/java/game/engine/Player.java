@@ -13,10 +13,13 @@ public class Player {
     private PlayerStatus playerStatus;
     private Dice selectedDice;
     private ArcaneBoost[] arcaneBoost;
-    private int ABcounter;
+    private int ABfirst;
+    private int ABlast;
     private TimeWarp[] timeWarp;
-    private int TWcounter;
+    private int TWfirst;
+    private int TWlast;
     private ElementalCrest[] elementalCrest;
+    private int elementalCrestCounter;
 
 
     public Player(String playerName, PlayerStatus playerStatus) {
@@ -24,12 +27,7 @@ public class Player {
         this.playerStatus = playerStatus;
         arcaneBoost = new ArcaneBoost[10];
         timeWarp = new TimeWarp[10];
-        elementalCrest = new ElementalCrest[]{
-                new ElementalCrest(Realm.RED),
-                new ElementalCrest(Realm.GREEN),
-                new ElementalCrest(Realm.BLUE),
-                new ElementalCrest(Realm.MAGENTA),
-                new ElementalCrest(Realm.YELLOW),};
+        elementalCrest = new ElementalCrest[5];
         }
 
 
@@ -59,25 +57,29 @@ public class Player {
         return arcaneBoost;
     }
     public void addArcaneBoost() {
-        arcaneBoost[ABcounter++] = new ArcaneBoost();
+        arcaneBoost[ABlast++] = new ArcaneBoost();
     }
-    public void deleteArcaneBoost() {
-
+    public boolean deleteArcaneBoost() {
+        if(ABfirst<=ABlast){
+            ABfirst++; return true;}
+        else return false;
     }
     public TimeWarp[] getTimeWarp() {
         return timeWarp;
     }
-    public void setTimeWarp(TimeWarp[] timeWarp) {
-        this.timeWarp = timeWarp;
+    public void addTimeWarp() {
+        timeWarp[TWlast++] =  new TimeWarp();
+    }
+    public boolean deleteTimeWarp() {
+        if(TWfirst<=TWlast){
+            TWfirst++; return true;}
+        else return false;
     }
     public ElementalCrest[] getElementalCrest() {
         return elementalCrest;
     }
-    public void setElementalCrest(ElementalCrest ec){
-        Realm r = ec.getRealm();
-        for(ElementalCrest e :elementalCrest)
-            if(r.equals(e.getRealm()))
-                e.setStatus();
+    public void addElementalCrest(ElementalCrest ec){
+        elementalCrest[elementalCrestCounter++] = ec;
     }
 
     public ScoreSheet getScoreSheet() {
