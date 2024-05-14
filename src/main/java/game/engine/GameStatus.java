@@ -3,6 +3,7 @@ package game.engine;
 public class GameStatus {
     private int round;
     private int turn;
+    private int partOfRound;
     private boolean status;
 
     public GameStatus() {
@@ -21,9 +22,22 @@ public class GameStatus {
         return round;
     }
 
-    public void incrementRound(int round) {
+    public void incrementRound() {
         round++;
         turn = 1;
+    }
+
+
+    public int getPartOfRound() {
+        return partOfRound;
+    }
+
+    public void incrementPartOfRound() {
+        partOfRound++;
+    }
+
+    public void resetPartofRound(){
+        partOfRound = 0;
     }
 
     public int getTurn() {
@@ -34,7 +48,7 @@ public class GameStatus {
         turn++;
     }
 
-    public void resetTurn(int turn) {
+    public void resetTurn() {
         turn = 1;
     }
 

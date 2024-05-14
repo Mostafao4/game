@@ -148,4 +148,11 @@ public class CLIGameController extends GameController {
     public boolean makeMove(Player player, Move move) {
         return false;
     }
+    public boolean areThereAvailableDice(){
+        Dice[] dice = this.getAvailableDice();
+        for (Dice die : dice)
+            if (die.getDiceStatus() == DiceStatus.AVAILABLE)
+                return true;
+        return false;
+    }
 }
