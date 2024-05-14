@@ -11,12 +11,24 @@ public class Move implements Comparable{
         this.realm = realm;
     }
 
-
     @Override
     public int compareTo(Object o) {
         return 0;
     }
-    public Dice[] getDice() {
-        return new Dice[0];
+
+    public Dice getDice() {
+        return dice;
+    }
+
+    public void setDice(Dice dice) {
+        this.dice = dice;
+    }
+
+    public Realm getRealm() {
+        return realm;
+    }
+
+    public void setRealm(Realm realm) {
+        this.realm = realm;
     }
 }
