@@ -128,14 +128,15 @@ public Reward getReward(){
     return pm1;
 }
     else{
-    Move[] pm2=new Move[1];
-    pm2[0]=new Move(0,DiceStatus.YELLOW);
+    Move[] pm2=new Move[0];
     return pm2;
     }
  }
  //returns possible moves when dice is rolled (dicenumber)
  public Move[] getPossibleMovesForADie(YellowDice dice){
-    return new Move(dice,Realm.YELLOW);
+    Move[] pmd=new Move[1];
+    pmd[0]=new Move(dice,Realm.YELLOW);
+    return pmd;
  }
 //returns the scoresheet & creates string for rewards & multipliers
  public String getScoreSheet(){
