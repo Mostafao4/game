@@ -64,26 +64,29 @@ public class Phoenix extends Creature {
 public Move[] getAllPossibleMoves(){
     Move[] possibleMoves = new Move[6];
     int lastNumber= (int)attack[count];
-    Dice dice;
+    // Dice Temp_dice=new MagentaDice(0);
     if(lastNumber==6){
-        for(int j;j<6;j++){
-            dice=new Dice(j+1)
-            possibleMoves[j]=new Move(dice,Realm.MAGENTA);
+        for(int j=0; j<6;j++){
+            // Temp_dice.setValue(j+1);
+            possibleMoves[j]=new Move(new MagentaDice(j+1),Realm.MAGENTA);
         } 
         return possibleMoves;
     }
-    for(int i;lastNumber<=6;i++){
-        possibleMoves[i]=new Move(new Dice(lastNumber),Realm.MAGENTA);
+    else{
+    for(int i=0;lastNumber<=6;i++){
+        // Temp_dice.setValue(lastNumber);
+        possibleMoves[i]=new Move(new MagentaDice(lastNumber),Realm.MAGENTA);
         lastNumber+=1;
     }
     return possibleMoves;
+}
 
 }
-///////process
+///////Done
 
-public Move[] getPossibleMovesForADie(Dice die){
+// public Move[] getPossibleMovesForADie (Player player, Dice dice){
     
-}
+// }
 /////process
 public String scoreSheet_method(){
     return  "    Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
