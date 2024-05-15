@@ -10,4 +10,5 @@ public class ArcanePrism extends Dice{
     public boolean status(){
         return status;
     }
+
 }

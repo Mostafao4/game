@@ -7,6 +7,10 @@ public abstract class Dice {
     private DiceStatus diceStatus;
     private Realm realm;
 
+    public Dice(int value){
+        this.value = value;
+    }
+
     public final void roll(){
         value = (int) (Math.random() * 6) + 1;
     }
