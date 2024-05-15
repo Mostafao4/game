@@ -6,12 +6,18 @@ import game.dice.BlueDice;
 import game.dice.Dice;
 import game.engine.Move;
 import game.collectibles.Reward;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 import game.collectibles.Bonus;
 
 
 public class Hydra extends Creature {
 
     private int[] hydra;
+    private int[]scores;
 
     public Hydra(){
         this.hydra = new int[11];
@@ -20,11 +26,61 @@ public class Hydra extends Creature {
         hydra[2] = 3;   hydra[7] = 3;
         hydra[3] = 4;   hydra[8] = 4;
         hydra[4] = 5;   hydra[9] = 5;
-                         hydra[10] = 6;                
+                         hydra[10] = 6;   
+         
+        //config file for the rewards//
+        try{
+
+            Properties prop = new Properties();
+            FileInputStream rewardConfig = new FileInputStream("config/TideAbyssRewards.properties");
+            prop.load(rewardConfig);
+            String reward1 = prop.getProperty("null");
+            String reward2 = prop.getProperty("null");
+            String reward3 = prop.getProperty("null");
+            String reward4 = prop.getProperty("ArcaneBoost");
+            String reward5 = prop.getProperty("null");
+            String reward6 = prop.getProperty("GreenBonus");
+            String reward7 = prop.getProperty("ElementalCrest");
+            String reward8 = prop.getProperty("null");
+            String reward9 = prop.getProperty("MagentaBonus");
+            String reward10 = prop.getProperty("TimeWarp");
+            String reward11 = prop.getProperty("null");
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }               
+       
+       //config file for the scores//
+        try{
+
+            Properties prop1 = new Properties();
+            FileInputStream scoreConfig = new FileInputStream("config/TideAbyssScore.properties");
+            prop1.load(scoreConfig);
+            int score1 = Integer.parseInt(prop1.getProperty("col1"));
+            int score2 = Integer.parseInt(prop1.getProperty("col2"));
+            int score3 = Integer.parseInt(prop1.getProperty("col3"));
+            int score4 = Integer.parseInt(prop1.getProperty("col4"));
+            int score5 = Integer.parseInt(prop1.getProperty("col5"));
+            int score6 = Integer.parseInt(prop1.getProperty("col6"));
+            int score7 = Integer.parseInt(prop1.getProperty("col7"));
+            int score8 = Integer.parseInt(prop1.getProperty("col8"));
+            int score9 = Integer.parseInt(prop1.getProperty("col9"));
+            int score10 = Integer.parseInt(prop1.getProperty("col10"));
+            int score11 = Integer.parseInt(prop1.getProperty("col11"));
+            scores = new int[]{score1,score2,score3,score4,score5,score6,score7,score8,score9,score10,score11};
+            
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+        
+    
 
-    public String currhydra(int i){
+
+
+    private String currhydra(int i){
         if( hydra[i] > 4){
             System.out.println("You killed first hydra and will attack the new hydra with 6 heads");
             return "Hydra 2";
@@ -85,37 +141,37 @@ public class Hydra extends Creature {
         int c = HeadsKilled(hydra);
         switch (c) {
         case 1:
-            score = 1;
-
+           return score = scores[0];
+            
         case 2: 
-            score = 3;
+            return score = scores[1];
 
         case 3: 
-            score = 6;
+            return score = scores[2];
 
         case 4: 
-            score = 10;
+            return score = scores[3];
 
         case 5: 
-            score = 15;
+            return score = scores[4];
 
         case 6: 
-            score = 21;
+            return score = scores[5];
 
         case 7: 
-            score = 28;
+            return score = scores[6];
 
         case 8: 
-            score = 36;
+            return score = scores[7];
 
         case 9: 
-            score = 45;
+            return score = scores[8];
 
         case 10: 
-            score = 55;
+            return score = scores[9];
 
         default: 
-            return score = 66;  
+            return score = scores[10];  
         }
     }
 
@@ -137,7 +193,7 @@ public class Hydra extends Creature {
 
 
 
-    public String[] XinScoresheet(){
+    private String[] XinScoresheet(){
         String[] Xs = new String[11];
         for(int i = 0; i < 11; i++){
             if(hydra[i] == 0){
@@ -167,15 +223,15 @@ public class Hydra extends Creature {
         }
 
 
-        public void makeMove(Dice dice){
-            int value = dice.getValue();
-            for (int i = 0; i <= 4; i++) {
-                  if (value >= i && hydra[i] != 0) {
-                        System.out.println("Head " + i + " successfully attacked!");
-                        hydra[i] = 0;
-                        break;
-                      } 
-                 }
+    public void makeMove(Move move){
+        int value = move.getDice().getValue();
+        for (int i = 0; i <= 4; i++) {
+                if (value >= i && hydra[i] != 0) {
+                    System.out.println("Head " + i + " successfully attacked!");
+                    hydra[i] = 0;
+                    break;
+                  } 
+             }
             for(int j = 5; j <= 10; j++){
                 if (value >= j && hydra[j] != 0) {
                     System.out.println("Head " + j + " successfully attacked!");
@@ -188,22 +244,35 @@ public class Hydra extends Creature {
         
 
 
-        public Move[] getAllPossibleMoves(){ 
+    public Move[] getAllPossibleMoves(){ 
             Move[] moves = new Move[6];
-            Move move;
             int i = 0;
             if(i <= 4){
                 for(int j = 0; j <= 4; j++){
                     if(hydra[j] != 0){
                         int val = hydra[j];
-                        move = new Move(new BlueDice(val), this); 
+                        moves[j] = new Move(new BlueDice(val), this); 
                     }
-                    else{moves[j] = Move()}
-
+                    else{
+                        moves[j] = null;
+                    }
+                    i++;
                 }
+                return moves;
             }
-
+            else{
+                for(int c = 0; c <= 5; c++){
+                    if(hydra[c] != 0){
+                        int val = hydra[c];
+                        moves[c] = new Move(new BlueDice(val), this); 
+                    }
+                    else{
+                        moves[c] = null;
+                    }
+                }
+                return moves;
             }
+        }
 
 
 }
