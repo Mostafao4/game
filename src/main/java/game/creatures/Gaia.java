@@ -8,15 +8,16 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
 
+
 import game.dice.*;
-//import game.collectibles.*;
+import game.engine.GameBoard;
+import game.collectibles.*;
 import game.exceptions.*;
 
 public class Gaia extends Creature{
 
-    InputStream inputStream;
-    private String[] rowRewards;
-    private String[] columnRewards;
+    private Reward[] rowRewards;
+    private Reward[] columnRewards;
     private int defeatedGaias;
     private int totalGaias;
     private int[][] gaias = 
@@ -36,93 +37,113 @@ public class Gaia extends Creature{
     public Gaia(){
         this.defeatedGaias = 0;
         this.totalGaias = 11;
-        try {
-            Properties prop = new Properties();
-            String propFileName = "src/main/resources/config/TerrasHeartlandRewards.properties";
-            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-            if (inputStream != null) {
-                prop.load(inputStream);
-            } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-            }
-            rowRewards = new String[]{prop.getProperty("row1Reward"),prop.getProperty("row2Reward"),prop.getProperty("row3Reward")};
-            columnRewards = new String[]{prop.getProperty("column1Reward"),prop.getProperty("column2Reward"),prop.getProperty("column3Reward"),prop.getProperty("column3Reward")};
-        } catch (IOException e) {
-            System.out.println("Exception: " + e);
-        }// } finally {
-        //     inputStream.close();
-        // }
-        try {
-            Properties prop = new Properties();
-            String propFileName = "src/main/resources/config/TerrasHeartland.properties";
-            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-            if (inputStream != null) {
-                prop.load(inputStream);
-            } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-            }
-            String sco = prop.getProperty("score");
-            scores = Arrays.stream(sco.split(","))
-            .mapToInt(Integer::parseInt)
-            .toArray();
-        } catch (IOException e) {
-            System.out.println("Exception: " + e);
-        }// } finally {
-        //     inputStream.close();
-        // }
-        // Properties prop = new Properties();
-        // String fileName = "TerrasHeartlandRewards.properties";
-        // String fileName2 = "TerrasHeartland.properties";
-        // try (FileInputStream fis = new FileInputStream(fileName)) {
-        //     prop.load(fis);
-        //     rowRewards = new String[]{prop.getProperty("row1Reward"),prop.getProperty("row2Reward"),prop.getProperty("row3Reward")};
-        //     columnRewards = new String[]{prop.getProperty("column1Reward"),prop.getProperty("column2Reward"),prop.getProperty("column3Reward"),prop.getProperty("column3Reward")};
-        // } 
-        // catch (FileNotFoundException e) {
-        //     System.out.println("Config file was not found!"); // FileNotFoundException catch is optional and can be collapsed
-        // } catch (IOException ex) {
-        //     System.out.println(ex.getMessage());
-        // }
-        // try (FileInputStream fis2 = new FileInputStream(fileName2)){
-        //     prop.load(fis2);
-        //     String sco = prop.getProperty("score");
-        //     scores = Arrays.stream(sco.split(","))
-        //     .mapToInt(Integer::parseInt)
-        //     .toArray();
-        // }
-        // catch (FileNotFoundException e) {
-        //     System.out.println("Config file was not found!"); // FileNotFoundException catch is optional and can be collapsed
-        // } catch (IOException ex) {
-        //     System.out.println(ex.getMessage());
-        // }
+        rowRewards = new Reward[3];
+        columnRewards = new Reward[4];
+        readConfig();
     }
 
-    public void attackGaia(Dice first, Dice second) {//throws InvalidDiceSelectionException{
-        // if(!(first instanceof GreenDice) || !(second instanceof ArcanePrism) ||
-        //      !(second instanceof GreenDice) || !(first instanceof ArcanePrism)){
-        //     throw new InvalidDiceSelectionException("Wrong Dice Selection!");
-        // } else {
-            boolean flag = false;
-            int total = first.getValue() + second.getValue();
-            for(int i = 0; i < gaias.length && !flag;i++){
-                for(int j = 0; j < gaias[i].length && !flag;j++){
-                    if(gaias[i][j] == total){
-                        gaias[i][j] = 0;
-                        defeatedGaias++;
-                        flag = true;
-                    }
+    private void readConfig(){
+        String[] rowStrings = new String[3];
+        String[] colStrings = new String[4];
+        Properties prop = new Properties();
+        try{
+            
+            InputStream inputStream = Gaia.class.getClassLoader().getResourceAsStream("TerrasHeartlandRewards.properties");
+            //prop.load(Gaia.class.getClassLoader().getResourceAsStream("src\\main\\resources\\config\\TerrasHeartlandRewards.properties"));
+            if(inputStream == null){
+                System.out.println("Resource not found!");
+            }
+            prop.load(inputStream);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        rowStrings[0] = prop.getProperty("row1Reward");
+        rowStrings[1] = prop.getProperty("row2Reward");
+        rowStrings[2] = prop.getProperty("row3Reward");
+
+        colStrings[0] = prop.getProperty("column1Reward");
+        colStrings[1] = prop.getProperty("column2Reward");
+        colStrings[2] = prop.getProperty("column3Reward");
+        colStrings[3] = prop.getProperty("column4Reward");
+
+        for(int i = 0; i < rowStrings.length; i++){
+            Realm r;
+            switch (rowStrings[i]){
+                case "YellowBonus":
+                    r = Realm.YELLOW;
+                    rowRewards[i] = new Bonus(r);
+                    break;
+                case "RedBonus":
+                    r = Realm.RED;
+                    rowRewards[i] = new Bonus(r);
+                    break;
+                case "ElementalCrest":
+                    r = Realm.GREEN;
+                    rowRewards[i] = new ElementalCrest(r);
+                default:
+                    break;
+            }
+        }
+
+        for(int i = 0; i < colStrings.length; i++){
+            Realm r;
+            switch (colStrings[i]){
+                case "TimeWarp":
+                    r = Realm.YELLOW;
+                    columnRewards[i] = new Bonus(r);
+                    break;
+                case "BlueBonus":
+                    r = Realm.BLUE;
+                    columnRewards[i] = new Bonus(r);
+                    break;
+                case "MagentaBonus":
+                    r = Realm.MAGENTA;
+                    columnRewards[i] = new ElementalCrest(r);
+                    break;
+                case "ArcaneBoost":
+                    columnRewards[i] = new ArcaneBoost();
+                default:
+                    break;
+            }
+        }
+
+    }
+
+
+    public void attackGaia(Dice first, Dice second) {
+        boolean flag = false;
+        int total = first.getValue() + second.getValue();
+
+        for(int i = 0; i < gaias.length && !flag;i++){
+            for(int j = 0; j < gaias[i].length && !flag;j++){
+                if(gaias[i][j] == total){
+                    gaias[i][j] = 0;
+                    defeatedGaias++;
+                    flag = true;
+                    System.out.println("You have successfully attacked a Gaia Guardian!");
                 }
             }
-            if(!flag){
-                System.out.println("No valid moves!");
-                return;
-            }
+        }
 
-        // }
+        if(!flag){
+            System.out.println("No valid moves!");
+            return;
+        }
+
         editRewards();
-        // showAvailableRewards();
         useImmediateBonus();
+        showAvailableRewards();
     }
+
+    // public void makeMove(Realm realm, Dice dice){
+    //     GameBoard g = getGameBoard();
+    //     Dice[] myDice = getAvailableDice();
+    //     if(dice instanceof GreenDice){
+    //         if(ArcanePrism in myDice)
+    //     }
+    // }
+
 
     private void editRewards(){
         int count = 0;
@@ -153,75 +174,72 @@ public class Gaia extends Creature{
         showVerticalRewards();
     }
 
-    private void showHorizontalRewards(){
+    private Reward showHorizontalRewards(){
         for(int i = 0; i < horizontalBonus.length; i++){
             if(horizontalBonus[i]){
                 switch (i) {
                     case 0:
-                        System.out.println(rowRewards[0]);
+                        return rowRewards[0];
                     case 1:
-                        System.out.println(rowRewards[1]);
+                        return rowRewards[1];
                     case 2:
-                        System.out.println(rowRewards[2]);
+                        return rowRewards[2];
                     default:
                         break;
                 }
+                horizontalBonus[i] = false;
             }
-            horizontalBonus[i] = false;
         }
+        return null;
     }
 
-    private void showVerticalRewards(){
+    private Reward showVerticalRewards(){
         for(int i = 0; i < verticalBonus.length; i++){
             if(verticalBonus[i]){
                 switch (i) {
                     case 0:
-                        System.out.println(columnRewards[0]);
+                        return columnRewards[0];
                     case 1:
-                        System.out.println(columnRewards[1]);
+                        return columnRewards[1];
                     case 2:
-                        System.out.println(columnRewards[2]);
+                        return columnRewards[2];
                     case 3:
-                        System.out.println(columnRewards[3]);
+                        return columnRewards[3];
                     default:
                         break;
                 }
+                verticalBonus[i] = false;
             }
-            horizontalBonus[i] = false;
         }
+        return null;
     }
 
-    private void useImmediateBonus(){
+    public void useImmediateBonus(){
         useImmediateBonusHelper();
     }
 
-    private void useImmediateBonusHelper(){
+    private Reward useImmediateBonusHelper(){
         if(horizontalBonus[0]){
-            System.out.println("Use the yellow bonus! ");
             horizontalBonus[0] = false;
+            return rowRewards[0];
         }
         else if(horizontalBonus[1]){
-            System.out.println("Use the red bonus!");
             horizontalBonus[1] = false;
+            return rowRewards[1];
         }
         else if(verticalBonus[1]){
-            System.out.println("Use the blue bonus!");
             verticalBonus[1] = false;
+            return columnRewards[1];
         }
         else if(verticalBonus[2]){
-            System.out.println("Use the magenta bonus");
             verticalBonus[2] = false;
+            return columnRewards[2];
         }
         else
-            System.out.println("No immediate bonuses available!");
+            return null;
     }
 
-    private void useRewards(){
-        for(boolean f:horizontalBonus){
-            if(f)
-                System.out.println("Use the reward!");
-        }
-    }
+
 
     public int getGreenRealmScore(){
         return scores[defeatedGaias - 1];
@@ -236,12 +254,12 @@ public class Gaia extends Creature{
     }
 
     public void scoreSheet(){
-        System.out.println("Terra's Heartland: Gaia Guardians (GREEN REALM): \n"
+        System.out.println("Terra's Heartland: Gaia Guardians (GREEN REALM): \n\n"
         + "+-----------------------------------+ \n"
         + "|  #  |1    |2    |3    |4    |R    | \n"
         + "+-----------------------------------+ \n"
         // + "|  1  |X    |2    |3    |4    |YB   | \n"
-        + "|  1  " + scoreSheetHelper(0) + "|" + (horizontalBonus[0]?"X":"YB") + "    |\n"
+        + "|  1  " + scoreSheetHelper(0) + "|" + (horizontalBonus[0]?"X":"YB") + "   |\n"
         // + "|  2  |5    |6    |7    |8    |RB   | \n"
         + "|  2  " + scoreSheetHelper(1) + "|" + (horizontalBonus[1]?"X":"RB") + "   |\n"
         // + "|  3  |9    |10   |11   |12   |EC   | \n"
@@ -250,7 +268,7 @@ public class Gaia extends Creature{
         + "|  R  |TW   |BB   |MB   |AB   |     | \n"
         + "+-----------------------------------------------------------------------------+ \n"
         + "|  S  |0    |1    |2    |4    |7    |11   |16   |22   |29   |37   |46   |56   | \n"
-        + "+-----------------------------------------------------------------------------+");
+        + "+-----------------------------------------------------------------------------+ \n\n");
     }
     
     private boolean[][] checkZero(){
@@ -285,42 +303,6 @@ public class Gaia extends Creature{
         return s;
     }
 
-    public void getPropValues() throws IOException {
-        // try {
-        //     Properties prop = new Properties();
-        //     String propFileName = "TerrasHeartlandRewards.properties";
-        //     inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-        //     if (inputStream != null) {
-        //         prop.load(inputStream);
-        //     } else {
-        //         throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-        //     }
-        //     rowRewards = new String[]{prop.getProperty("row1Reward"),prop.getProperty("row2Reward"),prop.getProperty("row3Reward")};
-        //     columnRewards = new String[]{prop.getProperty("column1Reward"),prop.getProperty("column2Reward"),prop.getProperty("column3Reward"),prop.getProperty("column3Reward")};
-        // } catch (IOException e) {
-        //     System.out.println("Exception: " + e);
-        // } finally {
-        //     inputStream.close();
-        // }
-        // try {
-        //     Properties prop = new Properties();
-        //     String propFileName = "TerrasHeartland.properties";
-        //     inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-        //     if (inputStream != null) {
-        //         prop.load(inputStream);
-        //     } else {
-        //         throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-        //     }
-        //     String sco = prop.getProperty("score");
-        //     scores = Arrays.stream(sco.split(","))
-        //     .mapToInt(Integer::parseInt)
-        //     .toArray();
-        // } catch (IOException e) {
-        //     System.out.println("Exception: " + e);
-        // } finally {
-        //     inputStream.close();
-        // }
-    }
 
     public static void main(String[] args){
         Gaia g = new Gaia();
