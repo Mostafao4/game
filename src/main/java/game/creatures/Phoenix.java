@@ -2,7 +2,7 @@ package game.creatures;
 import game.dice.*;
 import game.engine.*;
 import game.collectibles.*;
-import game.exceptions.*;
+// import game.exceptions.*;
 import java.io.*;
 import java.util.Properties;
 public class Phoenix extends Creature {
@@ -21,7 +21,7 @@ public class Phoenix extends Creature {
 
         
     }
-    public void Attack(MagentaDice dice) {
+    public void makeMove(MagentaDice dice) {
     if(count>=11){System.out.println("You reached the maximum possible times of plays"); return;}
     if(count==0){   
             attack[count]=(int)dice.getValue();
@@ -53,7 +53,7 @@ public class Phoenix extends Creature {
     }
     //////Done
 
-    public Reward Rewards(int index ){
+    public Reward getRewards(int index ){
        return  rewards[index];
     }
     private Reward rewardFromString(String N){
@@ -133,7 +133,7 @@ public Move[] getAllPossibleMoves(){
     
 // }
 /////process
-public String scoreSheet_method(){
+public String scoreSheet(){
     return  "    Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
     "            +-----------------------------------------------------------------------+\n" +
     "            |  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
@@ -154,8 +154,25 @@ private String scoreSheet_helper(Reward[] rewards,int index, String s){
     }
 
     
-}
+
 //Done
+public static void main(String[] args){
+    Phoenix x=new Phoenix();
+    MagentaDice a=new MagentaDice(1);
+    MagentaDice b=new MagentaDice(2);
+    MagentaDice c=new MagentaDice(3);
+    MagentaDice d=new MagentaDice(4);
+    MagentaDice e=new MagentaDice(5);
+    MagentaDice f=new MagentaDice(6);
+    x.makeMove(a);
+    x.makeMove(b);
+    x.makeMove(c);
+    x.makeMove(d);
+    x.makeMove(e);
+    x.makeMove(f);
+    System.out.println(x.scoreSheet());
+}
+}
 
 
 
