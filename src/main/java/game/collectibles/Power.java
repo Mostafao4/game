@@ -3,6 +3,10 @@ package game.collectibles;
 public abstract class Power extends Reward{
     private boolean status;
 
+    public Power(){
+        
+    }
+
     public boolean getStatus() {
         return status;
     }
