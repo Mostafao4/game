@@ -1,8 +1,10 @@
 package game.engine;
 
 import game.collectibles.ArcaneBoost;
+import game.collectibles.Bonus;
 import game.collectibles.TimeWarp;
-import game.dice.Dice;
+import game.creatures.Realm;
+import game.dice.*;
 import game.dice.DiceStatus;
 
 import java.util.Scanner;
@@ -123,12 +125,20 @@ public class CLIGameController extends GameController {
 
     @Override
     public TimeWarp[] getTimeWarpPowers(Player player) {
-        return player.getTimeWarp();
+        int x = getActivePlayer().getTimeWarpCount();
+        TimeWarp[] powers = new TimeWarp[x];
+        for (TimeWarp tw : powers)
+            tw = new TimeWarp();
+        return powers;
     }
 
     @Override
     public ArcaneBoost[] getArcaneBoostPowers(Player player) {
-        return player.getArcaneBoost();
+        int x = getActivePlayer().getArcaneBoostCount();
+        ArcaneBoost[] powers = new ArcaneBoost[x];
+        for (ArcaneBoost ab : powers)
+            ab = new ArcaneBoost();
+        return powers;
     }
 
     @Override
@@ -154,5 +164,22 @@ public class CLIGameController extends GameController {
             if (die.getDiceStatus() == DiceStatus.AVAILABLE)
                 return true;
         return false;
+    }
+    public void useBonus(Bonus bonus){
+        System.out.println("Choose a number to attack");
+        System.out.println(this.getActivePlayer().getScoreSheet());
+        Scanner sc = new Scanner(System.in);
+        int x = sc.nextInt();
+        sc.close();
+        Realm r = bonus.getRealm();
+        Dice d = new Dice;
+        switch(r){
+            case RED: d = (RedDice) new RedDice(x); break;
+            case GREEN: d = (GreenDice) new GreenDice(x); break;
+            case BLUE: d = (BlueDice) new BlueDice(x); break;
+            case MAGENTA: d = (MagentaDice) new MagentaDice(x); break;
+            case YELLOW: d = (YellowDice) new YellowDice(x); break;
+        }
+        this.makeMove(this.getActivePlayer(),new Move(d,this.getActivePlayer().getScoreSheet().getCreatureByRealm(d)));
     }
 }
