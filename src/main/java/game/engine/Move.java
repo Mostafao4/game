@@ -5,10 +5,10 @@ import game.dice.Dice;
 
 public class Move implements Comparable{
     private Dice dice;
-    private Realm realm;
-    public Move(Dice dice, Realm realm) {
+    private Creature creature;
+    public Move(Dice dice, Creature creature) {
         this.dice = dice;
-        this.realm = realm;
+        this.creature = creature;
     }
 
     @Override
@@ -24,11 +24,9 @@ public class Move implements Comparable{
         this.dice = dice;
     }
 
-    public Realm getRealm() {
-        return realm;
+    public Creature getCreature() {
+        return creature;
     }
 
-    public void setRealm(Realm realm) {
-        this.realm = realm;
-    }
+
 }

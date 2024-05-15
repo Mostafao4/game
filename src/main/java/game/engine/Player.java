@@ -82,6 +82,14 @@ public class Player {
         elementalCrest[elementalCrestCounter++] = ec;
     }
 
+    public Dice getSelectedDice() {
+        return selectedDice;
+    }
+    public void setSelectedDice(Dice selectedDice) {
+        this.selectedDice = selectedDice;
+    }
+
+
     public ScoreSheet getScoreSheet() {
         return scoreSheet;
     }

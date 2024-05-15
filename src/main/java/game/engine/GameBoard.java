@@ -7,7 +7,7 @@ public class GameBoard {
     private Player player2;
     private GameStatus gameStatus;
     private Dice[] dice;
-    private Dice selectedDice;
+
 
     public GameBoard(Player player1, Player player2) {
         this.player1 = player1;
@@ -22,12 +22,6 @@ public class GameBoard {
         this.dice = dice;
     }
 
-    public Dice getSelectedDice() {
-        return selectedDice;
-    }
-    public void setSelectedDice(Dice selectedDice) {
-        this.selectedDice = selectedDice;
-    }
 
     public Player getPlayer1() {
         return player1;
