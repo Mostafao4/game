@@ -40,10 +40,11 @@ public class Gaia extends Creature{
         this.totalGaias = 11;
         rowRewards = new Reward[3];
         columnRewards = new Reward[4];
-        readConfig();
+        readConfigRewards();
+        readConfigScores();
     }
 
-    private void readConfig(){
+    private void readConfigRewards(){
         String[] rowStrings = new String[3];
         String[] colStrings = new String[4];
 
@@ -60,23 +61,23 @@ public class Gaia extends Creature{
             colStrings[3] = prop1.getProperty("column4Reward");
 
             for(int i = 0; i < rowStrings.length; i++){
-            Realm r;
-            switch (rowStrings[i]){
-                case "YellowBonus":
-                    r = Realm.YELLOW;
-                    rowRewards[i] = new Bonus(r);
-                    break;
-                case "RedBonus":
-                    r = Realm.RED;
-                    rowRewards[i] = new Bonus(r);
-                    break;
-                case "ElementalCrest":
-                    r = Realm.GREEN;
-                    rowRewards[i] = new ElementalCrest(r);
-                default:
-                    break;
+                Realm r;
+                switch (rowStrings[i]){
+                    case "YellowBonus":
+                        r = Realm.YELLOW;
+                        rowRewards[i] = new Bonus(r);
+                        break;
+                    case "RedBonus":
+                        r = Realm.RED;
+                        rowRewards[i] = new Bonus(r);
+                        break;
+                    case "ElementalCrest":
+                        r = Realm.GREEN;
+                        rowRewards[i] = new ElementalCrest(r);
+                    default:
+                        break;
+                }
             }
-        }
 
             for(int i = 0; i < colStrings.length; i++){
             Realm r;
@@ -108,7 +109,23 @@ public class Gaia extends Creature{
     }
 
 
-    public void attackGaia(Dice first, Dice second) {
+    private void readConfigScores(){
+        String scrs;
+        Properties prop2 = new Properties();
+        try{
+            prop2.load(Gaia.class.getClassLoader().getResourceAsStream("TerrasHeartland.properties"));
+            scrs = prop2.getProperty("scores");
+            String[] scoreString = scrs.split(",");
+            for(int i = 0; i < scores.length; i++){
+                scores[i] = Integer.parseInt(scoreString[i]);
+            }
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    private void attackGaia(Dice first, Dice second) {
         boolean flag = false;
         int total = first.getValue() + second.getValue();
 
@@ -140,8 +157,7 @@ public class Gaia extends Creature{
     }
 
     public void makeMove(Dice dice){
-        Dice d = new Dice(0);
-        attackGaia(dice, d);
+        attackGaia(dice, new GreenDice(0));
     }
 
     @Override
@@ -265,7 +281,6 @@ public class Gaia extends Creature{
         else
             return null;
     }
-
 
 
     public int getGreenRealmScore(){
