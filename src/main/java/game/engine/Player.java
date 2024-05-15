@@ -1,6 +1,7 @@
 package game.engine;
 import game.collectibles.ArcaneBoost;
 import game.collectibles.ElementalCrest;
+import game.collectibles.Reward;
 import game.collectibles.TimeWarp;
 import game.creatures.Realm;
 import game.dice.Dice;
@@ -82,7 +83,21 @@ public class Player {
         elementalCrest[elementalCrestCounter++] = ec;
     }
 
+    public Dice getSelectedDice() {
+        return selectedDice;
+    }
+    public void setSelectedDice(Dice selectedDice) {
+        this.selectedDice = selectedDice;
+    }
+
+
     public ScoreSheet getScoreSheet() {
         return scoreSheet;
+    }
+
+
+    public Reward getRoundReward(int i){
+        
+
     }
 }
