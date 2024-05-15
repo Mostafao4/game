@@ -64,9 +64,12 @@ public static void editMultipliers(){
 
 
 //increments hitnum(counter) & adds dice value to array diceNum 
-public static void move(YellowDice dice){
+public static void makeMove(YellowDice dice){
+    if (hitNum<11){
     hitNum++;
-    diceNum[hitNum]=(int)dice.getValue();
+    diceNum[hitNum]=(int)dice.getValue();}
+    else
+    System.out.print("move is not possible");
 }
 
 
@@ -93,28 +96,28 @@ public Reward getReward(){
             return ArcaneBoost;
     case "BlueBonus": 
             rew[hitNum]="X";
-            return BlueBonus;
+            return new Bonus(Realm.BLUE);
     case "ElementalCrest": 
             rew[hitNum]="X";
-            return ElementalCrest;
+            return new ElementalCrest;
     case "EssenceBonus":
             rew[hitNum]="X";
-            return EssenceBonus;
+            return new EssenceBonus;
     case "GreenBonus":
             rew[hitNum]="X";
-            return GreenBonus;
+            return new Bonus(Realm.GREEN);
     case "MagentaBonus": 
             rew[hitNum]="X";
-            return MagentaBonus;
+            return new Bonus(Realm.MAGENTA);
     case "RedBonus": 
             rew[hitNum]="X";
-            return RedBonus;
+            return new Bonus(Realm.RED);
     case "TimeWarp":
             rew[hitNum]="X";
-            return TimeWarp;
+            return new TimeWarp;
     case "YellowBonus": 
             rew[hitNum]="X";
-            return YellowBonus;
+            return new Bonus(Realm.YELLOW);
     default: return null;
     }
  }
