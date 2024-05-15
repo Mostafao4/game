@@ -15,10 +15,11 @@ public class Dragon extends Creature {
     private int [][] dragonParts;
     private int [] score;
     private boolean [] bounsBoolean;
-    private String [] rewardString;
+    private Reward [] rewardString;
 
     public Dragon() {
 
+        // config file to get the score for each column
         try {
             Properties prop1 = new Properties();
             FileInputStream scoreConfig = new FileInputStream("config/EmberfallDominionScore.properties");
@@ -28,12 +29,11 @@ public class Dragon extends Creature {
             int score3 = Integer.parseInt(prop1.getProperty("col3Score"));
             int score4 = Integer.parseInt(prop1.getProperty("col4Score"));
             score = new int[]{score1, score2, score3,score4};
-
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-
+        // config file to get the reward for each row
         try {
             Properties prop2 = new Properties();
             FileInputStream rewardConfig = new FileInputStream("config/EmberfallDominionRewards.properties");
@@ -43,11 +43,12 @@ public class Dragon extends Creature {
             String Reward3 = prop2.getProperty("row3Reward");
             String Reward4 = prop2.getProperty("row4Reward");
             String Reward5 = prop2.getProperty("diagonalReward");
+
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-
+        // config file to get the DiceValue for each row
         try {
             Properties prop3 = new Properties();
             FileInputStream rewardConfig = new FileInputStream("config/EmberfallDominionRewards.properties");
@@ -79,7 +80,6 @@ public class Dragon extends Creature {
         catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public Reward checkBonus (int[][] dragonParts){
@@ -141,29 +141,29 @@ public class Dragon extends Creature {
         return sum;
     }
 
-    public Move[] getPossibleMovesForADie (Player player, Dice dice){
-        Move [] move = new Move[2];
+    public Move[] getPossibleMovesForADie (Dice dice) throws Exception {
+        Move [] moves = new Move[2];
         int a = ((RedDice)dice).getValue();
-        /*Dice b = player.getSelectedDice();
-
-
-         */
+        boolean flag = false;
         for (int i = 0; i < dragonParts.length; i++){
-            for (int j = 0; j < dragonParts[i].length && move.length < 2; j++){
-                if (a == dragonParts [i][j] && dragonParts[i][j] != 0)
-                    move[i] = new Move(dice, Realm.RED);
-                if (move.length < 2)
-                    break;
+            for (int j = 0; j < dragonParts.length; j++){
+                if (a == dragonParts [i][j] && dragonParts[i][j] != 0) {
+                    moves[i] = new Move(dice, this, j);
+                    flag = true;
+                }
             }
-            if (move.length < 2)
-                break;
         }
-        return move;
+        if (flag == false){
+            throw new Exception("There is no possible moves for this die value");
+        }
+        else {
+            return moves;
+        }
     }
 
-    public void makeMove (Player player, Move a) throws Exception{
+    public void makeMove (Move a) throws Exception {
         int x = 0;
-        Move [] b = getPossibleMovesForADie(player, a.getDice());
+        Move [] b = getPossibleMovesForADie(a.getDice());
         boolean flag = true;
         for (int i = 0; i < b.length; i++){
             // make sure that the Move a is included in the array Move [] b
@@ -182,8 +182,7 @@ public class Dragon extends Creature {
                 }
             }
         }
-        else
-            throw new Exception("This dragon has been attacked!");
+
         }
 
     public void scoreSheet(){
@@ -211,5 +210,26 @@ public class Dragon extends Creature {
         }
     }
 
+    public Move[] getAllPossibleMoves(){
+        int c = 0;
 
+        for (int i = 0; i < dragonParts.length; i++) {
+            for (int j = 0; j < dragonParts.length; j++) {
+                if (dragonParts[i][j] != 0)
+                    c++;
+            }
+        }
+        Move [] moves = new Move[c];
+        int x = 0;
+        for (int i = 0; i < dragonParts.length; i++) {
+            for (int j = 0; j < dragonParts.length; j++) {
+                if (dragonParts[i][j] != 0) {
+                    Dice dice = new RedDice (dragonParts[i][j]);
+                    moves[x] = new Move(dice, this, j);
+                    x++;
+                }
+            }
+        }
+        return moves;
+    }
 }

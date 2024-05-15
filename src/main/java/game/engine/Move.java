@@ -6,9 +6,15 @@ import game.dice.Dice;
 public class Move implements Comparable{
     private Dice dice;
     private Creature creature;
+    private int dragonNumber;
     public Move(Dice dice, Creature creature) {
         this.dice = dice;
         this.creature = creature;
+    }
+    public Move(Dice dice, Creature creature, int dragonNumber) {
+        this.dice = dice;
+        this.creature = creature;
+        this.dragonNumber = dragonNumber;
     }
 
     @Override
@@ -28,5 +34,7 @@ public class Move implements Comparable{
         return creature;
     }
 
-
+    public void setCreature(Creature creature) {
+        this.creature = creature;
+    }
 }
