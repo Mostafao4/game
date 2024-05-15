@@ -1,30 +1,33 @@
 package game.creatures;
 import game.dice.*;
-import game.engine.Move;
+import game.engine.*;
 import game.collectibles.*;
+import game.exceptions.*;
+import java.io.*;
+import java.util.Properties;
 public class Phoenix extends Creature {
     
     private int count=0;
-    private MagentaDice dice;
     private int[] attack;
     private Reward[] rewards;
     private int score_int;
     private int[] score_array;
-    public Phoenix(MagentaDice dice ){
-        this.dice=dice;
+    private int player;
+    public Phoenix(){
+        // this.player=numberOfPlayer;
         this.attack=new int[11];
         this.rewards=new Reward[11];
         this.score_array=new int[11];
 
         
     }
-    public void Attack() {
+    public void Attack(MagentaDice dice) {
     if(count>=11){System.out.println("You reached the maximum possible times of plays"); return;}
     if(count==0){   
             attack[count]=(int)dice.getValue();
             score_int+=(int)dice.getValue();
             score_array[count]=(int)dice.getValue();
-            count+=1;
+            count++;
     }
     if(count!=0){
         if((int)dice.getValue()>(int)attack[count]){
@@ -39,18 +42,21 @@ public class Phoenix extends Creature {
             count+=1;
             score_int+=(int)dice.getValue();
         }
-        else{System.out.println("Dice value is less than last chosen value");  return;}
-
-
+        else{System.out.println("Dice value is not more than the last chosen value");  return;}
 
     }
     }
+    //////Done
+
     public Reward Rewards(int index ){
        return  rewards[index];
     }
+    ////////Process
+
     public int getMagentaRealmScore(){
         return score_int;
     }
+    ///////Done
     
 
 
@@ -58,22 +64,27 @@ public class Phoenix extends Creature {
 public Move[] getAllPossibleMoves(){
     Move[] possibleMoves = new Move[6];
     int lastNumber= (int)attack[count];
+    Dice dice;
     if(lastNumber==6){
         for(int j;j<6;j++){
-            possibleMoves[j]=new Move(new MagentaDice(j+1),new Phoenix(dice));
-        }
+            dice=new Dice(j+1)
+            possibleMoves[j]=new Move(dice,Realm.MAGENTA);
+        } 
         return possibleMoves;
     }
-    for(int i;lastNumber<6;i++){
+    for(int i;lastNumber<=6;i++){
+        possibleMoves[i]=new Move(new Dice(lastNumber),Realm.MAGENTA);
         lastNumber+=1;
-        possibleMoves[i]=new Move(new MagentaDice(lastNumber),new Phoenix(dice));
     }
     return possibleMoves;
 
 }
-// public Move[] getPossibleMovesForADie(Dice die){
+///////process
+
+public Move[] getPossibleMovesForADie(Dice die){
     
-// }
+}
+/////process
 public String scoreSheet_method(){
     return  "    Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
     "            +-----------------------------------------------------------------------+\n" +
@@ -84,7 +95,7 @@ public String scoreSheet_method(){
     "            |  R  |     |     |TW   |GB   |AB   |RB   |EC   |TW   |BB   |YB   |AB   |\n" +
     "            +-----------------------------------------------------------------------+\n";
 }
-
+//process
 
 
 }
