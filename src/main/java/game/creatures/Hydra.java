@@ -2,8 +2,11 @@ package game.creatures;
 
 import game.collectibles.ElementalCrest;
 import game.collectibles.TimeWarp;
+import game.dice.BlueDice;
 import game.dice.Dice;
 import game.engine.Move;
+import game.collectibles.Reward;
+import game.collectibles.Bonus;
 
 
 public class Hydra extends Creature {
@@ -21,20 +24,20 @@ public class Hydra extends Creature {
     }
 
 
-    public static void currhydra(){
-        int i = 0;
-        if( i > 4){
+    public String currhydra(int i){
+        if( hydra[i] > 4){
             System.out.println("You killed first hydra and will attack the new hydra with 6 heads");
+            return "Hydra 2";
         }
         else{
             System.out.println("You will attack the first hydra");
-            i++;
+            return "Hydra 1";
         }
     }
 
 
 
-    public Collectibles checkBonus(){
+    public Reward checkBonus(){
         int i = 0;
             if(i <= 4){
                 if(hydra[i] == 4){
@@ -49,19 +52,19 @@ public class Hydra extends Creature {
                 for(int j = 5; j <= 10; j++){
                     switch (hydra[j]) {
                         case 1:
-                            return GreenBonus; 
+                            return new Bonus(Realm.GREEN); 
                             break;
         
                         case 2:
-                            return ElementalCrest; 
+                            return new ElementalCrest; 
                             break;   
                             
                         case 4:
-                            return MagentaBonus;
+                            return new Bonus(Realm.MAGENTA);
                             break;
         
                         case 5:
-                            return TimeWarp;
+                            return new TimeWarp;
                             break; 
         
                         default:
@@ -185,14 +188,22 @@ public class Hydra extends Creature {
         
 
 
-        public Move[] getAllPossibleMoves(){
-            if(hydra[0] == 0){
+        public Move[] getAllPossibleMoves(){ 
+            Move[] moves = new Move[6];
+            Move move;
+            int i = 0;
+            if(i <= 4){
+                for(int j = 0; j <= 4; j++){
+                    if(hydra[j] != 0){
+                        int val = hydra[j];
+                        move = new Move(new BlueDice(val), this); 
+                    }
+                    else{moves[j] = Move()}
+
+                }
             }
 
-        }
-
-
-
+            }
 
 
 }
