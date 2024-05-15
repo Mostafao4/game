@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import game.dice.*;
 import game.engine.GameBoard;
+import game.engine.Move;
 import game.collectibles.*;
 import game.exceptions.*;
 
@@ -45,29 +46,20 @@ public class Gaia extends Creature{
     private void readConfig(){
         String[] rowStrings = new String[3];
         String[] colStrings = new String[4];
-        Properties prop = new Properties();
+
+        Properties prop1 = new Properties();
+
         try{
-            
-            InputStream inputStream = Gaia.class.getClassLoader().getResourceAsStream("TerrasHeartlandRewards.properties");
-            //prop.load(Gaia.class.getClassLoader().getResourceAsStream("src\\main\\resources\\config\\TerrasHeartlandRewards.properties"));
-            if(inputStream == null){
-                System.out.println("Resource not found!");
-            }
-            prop.load(inputStream);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-        rowStrings[0] = prop.getProperty("row1Reward");
-        rowStrings[1] = prop.getProperty("row2Reward");
-        rowStrings[2] = prop.getProperty("row3Reward");
+            prop1.load(Gaia.class.getClassLoader().getResourceAsStream("TerrasHeartlandRewards.properties"));
+            rowStrings[0] = prop1.getProperty("row1Reward");
+            rowStrings[1] = prop1.getProperty("row2Reward");
+            rowStrings[2] = prop1.getProperty("row3Reward");
+            colStrings[0] = prop1.getProperty("column1Reward");
+            colStrings[1] = prop1.getProperty("column2Reward");
+            colStrings[2] = prop1.getProperty("column3Reward");
+            colStrings[3] = prop1.getProperty("column4Reward");
 
-        colStrings[0] = prop.getProperty("column1Reward");
-        colStrings[1] = prop.getProperty("column2Reward");
-        colStrings[2] = prop.getProperty("column3Reward");
-        colStrings[3] = prop.getProperty("column4Reward");
-
-        for(int i = 0; i < rowStrings.length; i++){
+            for(int i = 0; i < rowStrings.length; i++){
             Realm r;
             switch (rowStrings[i]){
                 case "YellowBonus":
@@ -86,7 +78,7 @@ public class Gaia extends Creature{
             }
         }
 
-        for(int i = 0; i < colStrings.length; i++){
+            for(int i = 0; i < colStrings.length; i++){
             Realm r;
             switch (colStrings[i]){
                 case "TimeWarp":
@@ -107,6 +99,11 @@ public class Gaia extends Creature{
                     break;
             }
         }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        
 
     }
 
@@ -136,13 +133,43 @@ public class Gaia extends Creature{
         showAvailableRewards();
     }
 
-    // public void makeMove(Realm realm, Dice dice){
-    //     GameBoard g = getGameBoard();
-    //     Dice[] myDice = getAvailableDice();
-    //     if(dice instanceof GreenDice){
-    //         if(ArcanePrism in myDice)
-    //     }
-    // }
+    @Override
+    public void makeMove() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'makeMove'");
+    }
+
+    public void makeMove(Dice dice){
+        Dice d = new Dice(0);
+        attackGaia(dice, d);
+    }
+
+    @Override
+    public Move[] getAllPossibleMoves() {
+        Move[] allPossibleMoves = new Move[11];
+        int count = 0;
+
+        for(int i = 0; i < this.gaias.length; i++){
+
+            for(int j = 0; j < this.gaias[i].length; i++){
+                if(gaias[i][j] != 0){
+                    int val = gaias[i][j];
+                    allPossibleMoves[count] = new Move(new GreenDice(val), this);
+                }
+                count++;
+            }
+        }
+
+        return allPossibleMoves;
+    }
+
+    @Override
+    public Move[] getPossibleMovesForADie(Dice die) {
+        Move[] possibleMovesForADie = new Move[11];
+        int val = die.getValue();
+        possibleMovesForADie[val - 1] = new Move(new GreenDice(val), this);
+        return possibleMovesForADie;
+    }
 
 
     private void editRewards(){
@@ -303,25 +330,7 @@ public class Gaia extends Creature{
         return s;
     }
 
-
-    public static void main(String[] args){
-        Gaia g = new Gaia();
-        GreenDice die1 = new GreenDice(4);
-        ArcanePrism die2 = new ArcanePrism(3);
-        GreenDice die3 = new GreenDice(1);
-        ArcanePrism die4 = new ArcanePrism(1);
-        GreenDice die5 = new GreenDice(2);
-        ArcanePrism die6 = new ArcanePrism(1);
-        GreenDice die7 = new GreenDice(3);
-        ArcanePrism die8 = new ArcanePrism(1);
-        GreenDice die9 = new GreenDice(3);
-        ArcanePrism die10 = new ArcanePrism(1);
-        g.attackGaia(die1, die2);
-        g.attackGaia(die7, die8);
-        g.attackGaia(die3, die4);
-        g.scoreSheet();
-        g.attackGaia(die5, die6);
-        g.attackGaia(die9, die10);
-        g.scoreSheet();
+    public static void main(String[] args) {
+        
     }
 }
