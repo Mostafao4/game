@@ -12,17 +12,17 @@ public class Main {
         while (gc.getGameBoard().getGameStatus().getRound() <= 6) {
             switch (gc.getGameBoard().getGameStatus().getRound()) {
                 case 1:
-                    gc.getActivePlayer().addTimeWarp();
+                    gc.getActivePlayer().addTimeWarpCount();
                     System.out.println("You received a Time Warp!");
                 case 2:
-                    gc.getActivePlayer().addArcaneBoost();
-                    System.out.println("You received a Time Warp!");
+                    gc.getActivePlayer().addArcaneBoostCount();
+                    System.out.println("You received an Arcane Boost!");
                 case 3:
-                    gc.getActivePlayer().addTimeWarp();
+                    gc.getActivePlayer().addTimeWarpCount();
                     System.out.println("You received a Time Warp!");
                 case 4:
-                    gc.getActivePlayer().addEssenceBonus();
-                    System.out.println("You received a Time Warp!");
+                    System.out.println("You received an Essence Bonus!");
+                    gc.getActivePlayer().useEssenceBonus();
                 default:
             }
             while (gc.getGameBoard().getGameStatus().getTurn() <= 3 && gc.areThereAvailableDice()) {
@@ -34,34 +34,12 @@ public class Main {
                 System.out.println(gc.getActivePlayer().getScoreSheet());
                 System.out.println("Select a die");
                 int intput = sc.nextInt();
-                switch (intput) {
-                    case 1:
-                        gc.selectDice(gc.getGameBoard().getDice()[1], gc.getActivePlayer());
-                        break;
-                    case 2:
-                        gc.selectDice(gc.getGameBoard().getDice()[2], gc.getActivePlayer());
-                        break;
-                    case 3:
-                        gc.selectDice(gc.getGameBoard().getDice()[3], gc.getActivePlayer());
-                        break;
-                    case 4:
-                        gc.selectDice(gc.getGameBoard().getDice()[4], gc.getActivePlayer());
-                        break;
-                    case 5:
-                        gc.selectDice(gc.getGameBoard().getDice()[5], gc.getActivePlayer());
-                        break;
-                    case 6:
-                        gc.selectDice(gc.getGameBoard().getDice()[6], gc.getActivePlayer());
-                        break;
-                    default:
-                }
-                gc.makeMove(gc.getActivePlayer(), new Move(gc.getGameBoard().getSelectedDice(), gc.getGameBoard().getSelectedDice().getRealm()));
-
-
+                gc.selectDice(gc.getGameBoard().getDice()[intput], gc.getActivePlayer());
+                gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
                 System.out.println(gc.getPassivePlayer().getScoreSheet());
                 System.out.println("Select a die from the forgotten realm");
                 intput = sc.nextInt();
-                gc.makeMove(gc.getPassivePlayer(),new Move(gc.getForgottenRealmDice()[intput],gc.getForgottenRealmDice()[intput].getRealm()));
+                gc.makeMove(gc.getPassivePlayer(),new Move(gc.getForgottenRealmDice()[intput],gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getForgottenRealmDice()[intput])));
                 System.out.println("Does "+gc.getActivePlayer().getPlayerName()+" want to use Arcane Boost?");
                 input = sc.nextLine();
                 if(input.equals("yes")) {
@@ -91,7 +69,13 @@ public class Main {
             System.out.println(gc.getGameBoard().getPlayer1()+" has won the game!");
         else
             System.out.println(gc.getGameBoard().getPlayer2()+" has won the game!");
+
+
+
         }
 
     }
+
+
+
 
