@@ -1,6 +1,7 @@
 package game.engine;
 import game.collectibles.ArcaneBoost;
 import game.collectibles.ElementalCrest;
+import game.collectibles.Reward;
 import game.collectibles.TimeWarp;
 import game.creatures.Realm;
 import game.dice.Dice;
@@ -92,5 +93,11 @@ public class Player {
 
     public ScoreSheet getScoreSheet() {
         return scoreSheet;
+    }
+
+
+    public Reward getRoundReward(int i){
+        
+
     }
 }
