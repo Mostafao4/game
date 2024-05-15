@@ -85,7 +85,13 @@ public class Main {
                     }
                 }
             }
-        int s1 = gc.getGameBoard().getPlayer1().getGameScore();
+        int s1 = gc.getGameBoard().getPlayer1().getGameScore().getScore();
+        int s2 = gc.getGameBoard().getPlayer2().getGameScore().getScore();
+        if(s1>s2)
+            System.out.println(gc.getGameBoard().getPlayer1()+" has won the game!");
+        else
+            System.out.println(gc.getGameBoard().getPlayer2()+" has won the game!");
         }
+
     }
 
