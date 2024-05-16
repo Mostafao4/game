@@ -21,7 +21,7 @@ public class Move implements Comparable<Move>{
     @Override
     public int compareTo(Move o) {
         if(o.creature instanceof Dragon){
-            if(this.dice.getValue() == o.getDice().getValue() && this.dice.getRealm() == o.getDice().getRealm() ){
+            if(this.dice.getValue() == o.getDice().getValue() && this.dice.getRealm() == o.getDice().getRealm() && this.dragonNumber == o.dragonNumber){
                 return 0;
             }
         }

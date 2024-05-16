@@ -13,11 +13,11 @@ public class Dragon extends Creature {
     private int [][] dragonParts;
     private int [] score;
     private String [] reward;
-    private boolean [] bounsBoolean;
+    private boolean [] bonusBoolean;
     private Reward [] rewardString;
 
     public Dragon() {
-        bounsBoolean = new boolean[4];
+        bonusBoolean = new boolean[4];
         // config file to get the score for each column
         try {
             Properties prop1 = new Properties();
@@ -101,27 +101,27 @@ public class Dragon extends Creature {
             if (c == dragonParts.length){
                 switch (i){
                     case 0:
-                        if (bounsBoolean[0] == false){
+                        if (bonusBoolean[0] == false){
                             bonus [0] = checkBonusHelper(reward[0]);
-                            bounsBoolean[0] = true;
+                            bonusBoolean[0] = true;
                             break;
                         }
                     case 1:
-                        if (bounsBoolean[1] == false){
+                        if (bonusBoolean[1] == false){
                             bonus [1] = checkBonusHelper(reward[1]);
-                            bounsBoolean[1] = true;
+                            bonusBoolean[1] = true;
                             break;
                         }
                     case 2:
-                        if (bounsBoolean[2] == false){
+                        if (bonusBoolean[2] == false){
                             bonus [2] = checkBonusHelper(reward[2]);
-                            bounsBoolean[2] = true;
+                            bonusBoolean[2] = true;
                             break;
                         }
                     case 3:
-                        if (bounsBoolean[3] == false){
+                        if (bonusBoolean[3] == false){
                             bonus [3] = checkBonusHelper(reward[3]);
-                            bounsBoolean[3] = true;
+                            bonusBoolean[3] = true;
                             break;
                         }
                     default:
@@ -129,9 +129,9 @@ public class Dragon extends Creature {
                 }
             }
         }
-        if (x == 4 && bounsBoolean[4] == false){
+        if (x == 4 && bonusBoolean[4] == false){
             bonus [1] = checkBonusHelper(reward[4]);
-            bounsBoolean[4] = true;
+            bonusBoolean[4] = true;
         }
         return null;
     }
