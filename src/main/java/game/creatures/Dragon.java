@@ -4,8 +4,6 @@ import game.collectibles.*;
 import game.dice.Dice;
 import game.dice.RedDice;
 import game.engine.Move;
-import game.engine.Player;
-
 import java.io.FileInputStream;
 import java. io.IOException;
 import java.util.Properties;
@@ -14,11 +12,12 @@ public class Dragon extends Creature {
 
     private int [][] dragonParts;
     private int [] score;
+    private String [] reward;
     private boolean [] bounsBoolean;
     private Reward [] rewardString;
 
     public Dragon() {
-
+        bounsBoolean = new boolean[4];
         // config file to get the score for each column
         try {
             Properties prop1 = new Properties();
@@ -33,6 +32,7 @@ public class Dragon extends Creature {
         catch (IOException e) {
             e.printStackTrace();
         }
+
         // config file to get the reward for each row
         try {
             Properties prop2 = new Properties();
@@ -43,11 +43,13 @@ public class Dragon extends Creature {
             String Reward3 = prop2.getProperty("row3Reward");
             String Reward4 = prop2.getProperty("row4Reward");
             String Reward5 = prop2.getProperty("diagonalReward");
+            reward = new String[]{Reward1, Reward2, Reward3, Reward4, Reward5};
 
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+
         // config file to get the DiceValue for each row
         try {
             Properties prop3 = new Properties();
@@ -80,36 +82,75 @@ public class Dragon extends Creature {
         catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    public Reward checkBonus (int[][] dragonParts){
+    public Reward []checkBonus (){
+        Reward [] bonus = new Reward[2];
         int x = 0;
         for (int i = 0; i < dragonParts.length; i++){
             int c = 0;
             for (int j = 0; j < dragonParts.length; j++){
                 if (dragonParts[i][j] == 0){
                     c++;
+                }
+                if (dragonParts[i][j] == 0 && i == j){
                     x++;
                 }
             }
             if (c == dragonParts.length){
                 switch (i){
                     case 0:
-                        return new Bonus(Realm.GREEN);
+                        if (bounsBoolean[0] == false){
+                            bonus [0] = checkBonusHelper(reward[0]);
+                            bounsBoolean[0] = true;
+                            break;
+                        }
                     case 1:
-                        return new Bonus(Realm.YELLOW);
+                        if (bounsBoolean[1] == false){
+                            bonus [1] = checkBonusHelper(reward[1]);
+                            bounsBoolean[1] = true;
+                            break;
+                        }
                     case 2:
-                        return new Bonus(Realm.BLUE);
+                        if (bounsBoolean[2] == false){
+                            bonus [2] = checkBonusHelper(reward[2]);
+                            bounsBoolean[2] = true;
+                            break;
+                        }
                     case 3:
-                        return new ElementalCrest(Realm.RED);
+                        if (bounsBoolean[3] == false){
+                            bonus [3] = checkBonusHelper(reward[3]);
+                            bounsBoolean[3] = true;
+                            break;
+                        }
                     default:
                         break;
                 }
             }
         }
-        if (x == 16)
-            return new ArcaneBoost();
+        if (x == 4 && bounsBoolean[4] == false){
+            bonus [1] = checkBonusHelper(reward[4]);
+            bounsBoolean[4] = true;
+        }
         return null;
+    }
+
+    private Reward checkBonusHelper (String s){
+        switch (s){
+            case "GreenBonus":
+                return new Bonus(Realm.GREEN);
+            case "YellowBonus":
+                return new Bonus(Realm.YELLOW);
+            case "BlueBonus":
+                return new Bonus(Realm.BLUE);
+            case "ElementalCrest":
+                return new ElementalCrest(Realm.RED);
+            case "ArcaneBoost":
+                return new ArcaneBoost();
+            default:
+                return null;
+        }
     }
 
     public int getPoints (){
@@ -139,6 +180,28 @@ public class Dragon extends Creature {
             }
         }
         return sum;
+    }
+
+    public Move[] getAllPossibleMoves(){
+        int c = 0;
+        for (int i = 0; i < dragonParts.length; i++) {
+            for (int j = 0; j < dragonParts.length; j++) {
+                if (dragonParts[i][j] != 0)
+                    c++;
+            }
+        }
+        Move [] moves = new Move[c];
+        int x = 0;
+        for (int i = 0; i < dragonParts.length; i++) {
+            for (int j = 0; j < dragonParts.length; j++) {
+                if (dragonParts[i][j] != 0) {
+                    Dice dice = new RedDice (dragonParts[i][j]);
+                    moves[x] = new Move(dice, this, j);
+                    x++;
+                }
+            }
+        }
+        return moves;
     }
 
     public Move[] getPossibleMovesForADie (Dice dice) throws Exception {
@@ -191,17 +254,17 @@ public class Dragon extends Creature {
                 "+-----------------------------------+\n" +
                 "|  #  |D1   |D2   |D3   |D4   |R    |\n" +
                 "+-----------------------------------+\n" +
-                "|  F  |" + scoreSheetHelper(0,0)+ "|" + scoreSheetHelper(0,1)+ "|" + scoreSheetHelper(0,2)+ "|X    |GB   |\n" +
-                "|  W  |" + scoreSheetHelper(1,0)+ "|" + scoreSheetHelper(1,1)+ "|X    |" + scoreSheetHelper(1,2)+ "|YB   |\n" +
-                "|  T  |" + scoreSheetHelper(2,0)+ "|X    |" + scoreSheetHelper(2,1)+ "|" + scoreSheetHelper(2,2)+ "|BB   |\n" +
-                "|  H  |X    |" + scoreSheetHelper(3,0)+ "|" + scoreSheetHelper(3,1)+ "|" + scoreSheetHelper(3,3)+ "|EC   |\n" +
+                "|  F  |" + scoreSheetHelperDiceValue(0,0)+ "|" + scoreSheetHelperDiceValue(0,1)+ "|" + scoreSheetHelperDiceValue(0,2)+ "|" + scoreSheetHelperDiceValue(0,3)+ "|"+ scoreSheetHelperBonus(0)  +"|\n" +
+                "|  W  |" + scoreSheetHelperDiceValue(1,0)+ "|" + scoreSheetHelperDiceValue(1,1)+ "|" + scoreSheetHelperDiceValue(1,2)+ "|" + scoreSheetHelperDiceValue(1,3)+ "|"+ scoreSheetHelperBonus(1)  +"|\n" +
+                "|  T  |" + scoreSheetHelperDiceValue(2,0)+ "|" + scoreSheetHelperDiceValue(2,1)+ "|" + scoreSheetHelperDiceValue(2,2)+ "|" + scoreSheetHelperDiceValue(2,3)+ "|"+ scoreSheetHelperBonus(2)  +"|\n" +
+                "|  H  |" + scoreSheetHelperDiceValue(3,0)+ "|" + scoreSheetHelperDiceValue(3,1)+ "|" + scoreSheetHelperDiceValue(3,2)+ "|" + scoreSheetHelperDiceValue(3,3)+ "|"+ scoreSheetHelperBonus(3)  +"|\n" +
                 "+-----------------------------------+\n" +
-                "|  S  |10   |14   |16   |20   |AB   |\n" +
+                "|  S  |" + scoreSheetHelperScore(0)/*     */+ "|" + scoreSheetHelperScore(1)/*    */+ "|" + scoreSheetHelperScore(2)/*     */+ "|" + scoreSheetHelperScore(3)/*    */+ "|"+ scoreSheetHelperBonus(4)  +"|\n" +
                 "+-----------------------------------+\n\n" +
                 "\n";
     }
 
-    private String scoreSheetHelper(int i, int j){
+    private String scoreSheetHelperDiceValue(int i, int j){
         if (dragonParts[i][j] == 0){
             return "X    ";
         }
@@ -210,26 +273,27 @@ public class Dragon extends Creature {
         }
     }
 
-    public Move[] getAllPossibleMoves(){
-        int c = 0;
-
-        for (int i = 0; i < dragonParts.length; i++) {
-            for (int j = 0; j < dragonParts.length; j++) {
-                if (dragonParts[i][j] != 0)
-                    c++;
-            }
-        }
-        Move [] moves = new Move[c];
-        int x = 0;
-        for (int i = 0; i < dragonParts.length; i++) {
-            for (int j = 0; j < dragonParts.length; j++) {
-                if (dragonParts[i][j] != 0) {
-                    Dice dice = new RedDice (dragonParts[i][j]);
-                    moves[x] = new Move(dice, this, j);
-                    x++;
-                }
-            }
-        }
-        return moves;
+    private String scoreSheetHelperScore (int j){
+        return score[j] + "    ";
     }
+
+    private String scoreSheetHelperBonus (int i){
+
+        switch (reward[i]){
+            case "GreenBonus":
+                return "GB   ";
+            case "YellowBonus":
+                return "YB   ";
+            case "BlueBonus":
+                return "BB   ";
+            case "ElementalCrest":
+                return "EC   ";
+            case "ArcaneBoost":
+                return "AB   ";
+            default:
+                return null;
+        }
+    }
+
+
 }
