@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import game.collectibles.ArcaneBoost;
 import game.collectibles.Bonus;
 
 
@@ -18,6 +19,7 @@ public class Hydra extends Creature {
 
     private int[] hydra;
     private int[]scores;
+    private String[]reward;
 
     public Hydra(){
         this.hydra = new int[11];
@@ -45,6 +47,8 @@ public class Hydra extends Creature {
             String reward9 = prop.getProperty("MagentaBonus");
             String reward10 = prop.getProperty("TimeWarp");
             String reward11 = prop.getProperty("null");
+            reward = new String[]{reward1,reward2,reward3,reward4,reward5,reward6,reward7,reward8,reward9,reward10,reward11};
+
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,7 +85,7 @@ public class Hydra extends Creature {
 
 
     private String currhydra(int i){
-        if( hydra[i] > 4){
+        if( i > 4){
             System.out.println("You killed first hydra and will attack the new hydra with 6 heads");
             return "Hydra 2";
         }
@@ -97,8 +101,7 @@ public class Hydra extends Creature {
         int i = 0;
             if(i <= 4){
                 if(hydra[i] == 4){
-                       return ArcaneBoost;
-                       break;
+                       return  BonusHelper(reward[3]);
                     }
                 else{
                         i++;
@@ -108,28 +111,54 @@ public class Hydra extends Creature {
                 for(int j = 5; j <= 10; j++){
                     switch (hydra[j]) {
                         case 1:
-                            return new Bonus(Realm.GREEN); 
-                            break;
+                            return BonusHelper(reward[5]); 
+                            
         
                         case 2:
-                            return new ElementalCrest; 
-                            break;   
+                            return BonusHelper(reward[6]); 
+                              
                             
                         case 4:
-                            return new Bonus(Realm.MAGENTA);
-                            break;
+                            return BonusHelper(reward[8]);
+                            
         
                         case 5:
-                            return new TimeWarp;
-                            break; 
+                            return BonusHelper(reward[9]);
+                            
         
                         default:
                             break;
                         }
                     }
+                    
                 }
+                return null;
         
                     }
+      
+    private Reward BonusHelper(String s){
+        switch (s) {
+            case "ArcaneBoost":
+                return new ArcaneBoost();
+
+            case "GreenBonus":
+                return new Bonus(Realm.GREEN);
+
+            case "ElementCrest":
+                return new ElementalCrest(Realm.BLUE);
+
+            case "MagentaBonus":
+                return new Bonus(Realm.MAGENTA);
+
+            case "TimeWarp":
+                return new TimeWarp();
+        
+            default:
+                return null;
+        }
+    }  
+    
+    
     
             
     public int getScore(){
@@ -214,7 +243,7 @@ public class Hydra extends Creature {
         "+-----------------------------------------------------------------------+\n" +
         "|  #  |H11  |H12  |H13  |H14  |H15  |H21  |H22  |H23  |H24  |H25  |H26  |\n" +
         "+-----------------------------------------------------------------------+\n" +
-        "|  H " +Xs[0] +Xs[1] +Xs[2]  +Xs[3] +Xs[4] +Xs[5] +Xs[6] +Xs[7] +Xs[8] +Xs[9] +Xs[10] + "|\n" +
+        "|  H " +Xs[0]+ "|" +Xs[1]+ "|" +Xs[2]+ "|"  +Xs[3]+ "|" +Xs[4]+ "|" +Xs[5]+ "|" +Xs[6]+ "|" +Xs[7]+ "|" +Xs[8]+ "|" +Xs[9]+ "|" +Xs[10] + "|\n" +
         "|  C  |≥1   |≥2   |≥3   |≥4   |≥5   |≥1   |≥2   |≥3   |≥4   |≥5   |≥6   |\n" +
         "|  R  |     |     |     |AB   |     |GB   |EC   |     |MB   |TW   |     |\n" +
         "+-----------------------------------------------------------------------+\n" +
@@ -223,7 +252,7 @@ public class Hydra extends Creature {
         }
 
 
-    public void makeMove(Move move){
+    public void makeMove(Move move) throws Exception{
         int value = move.getDice().getValue();
         for (int i = 0; i <= 4; i++) {
                 if (value >= i && hydra[i] != 0) {
@@ -246,8 +275,8 @@ public class Hydra extends Creature {
 
     public Move[] getAllPossibleMoves(){ 
             Move[] moves = new Move[6];
-            int i = 0;
-            if(i <= 4){
+            int hydranum = HeadsKilled(hydra);
+            if(hydranum <= 5){
                 for(int j = 0; j <= 4; j++){
                     if(hydra[j] != 0){
                         int val = hydra[j];
@@ -256,7 +285,6 @@ public class Hydra extends Creature {
                     else{
                         moves[j] = null;
                     }
-                    i++;
                 }
                 return moves;
             }
@@ -275,6 +303,13 @@ public class Hydra extends Creature {
         }
 
 
+    public Move[] getPossibleMovesForADie(Dice dice){
+            Move[] moves = new Move[1];
+            moves[0] = new Move(dice,this);
+            return moves;
+        }
+
+    
 }
 
 
