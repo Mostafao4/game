@@ -1,10 +1,14 @@
 package game;
 
+import game.collectibles.Bonus;
+import game.creatures.Realm;
 import game.engine.*;
 import game.dice.Dice;
+import game.exceptions.PlayerActionException;
+
 import java.util.Scanner;
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PlayerActionException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Dice Realms: Quest for the Elemental Crests!");
         CLIGameController gc = new CLIGameController();
@@ -21,8 +25,13 @@ public class Main {
                     gc.getActivePlayer().addTimeWarpCount();
                     System.out.println("You received a Time Warp!");
                 case 4:
+                    Scanner scanner = new Scanner(System.in);
                     System.out.println("You received an Essence Bonus!");
-                    gc.getActivePlayer().useEssenceBonus();
+                    System.out.println("Choose a realm to attack");
+                    String s = scanner.nextLine();
+                    scanner.close();
+                    Realm r = getRealmFromString(s);
+                    gc.useBonus(new Bonus(r));
                 default:
             }
             while (gc.getGameBoard().getGameStatus().getTurn() <= 3 && gc.areThereAvailableDice()) {
@@ -72,6 +81,15 @@ public class Main {
 
 
 
+        }
+        public static Realm getRealmFromString(String s){
+            switch(s){
+                case "red": return Realm.RED;
+                case "green": return Realm.GREEN;
+                case "blue": return Realm.BLUE;
+                case "magenta": return Realm.MAGENTA;
+                default: return Realm.YELLOW;
+            }
         }
 
     }

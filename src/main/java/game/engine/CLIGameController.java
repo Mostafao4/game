@@ -6,6 +6,7 @@ import game.collectibles.TimeWarp;
 import game.creatures.Realm;
 import game.dice.*;
 import game.dice.DiceStatus;
+import game.exceptions.PlayerActionException;
 
 import java.util.Scanner;
 
@@ -165,21 +166,34 @@ public class CLIGameController extends GameController {
                 return true;
         return false;
     }
-    public void useBonus(Bonus bonus){
+    public void useBonus (Bonus bonus) throws PlayerActionException {
         System.out.println("Choose a number to attack");
         System.out.println(this.getActivePlayer().getScoreSheet());
         Scanner sc = new Scanner(System.in);
         int x = sc.nextInt();
         sc.close();
         Realm r = bonus.getRealm();
-        Dice d = new Dice;
-        switch(r){
-            case RED: d = (RedDice) new RedDice(x); break;
-            case GREEN: d = (GreenDice) new GreenDice(x); break;
-            case BLUE: d = (BlueDice) new BlueDice(x); break;
-            case MAGENTA: d = (MagentaDice) new MagentaDice(x); break;
-            case YELLOW: d = (YellowDice) new YellowDice(x); break;
+        Dice d;
+        switch (r) {
+            case RED:
+                d = (RedDice) new RedDice(x);
+                break;
+            case GREEN:
+                d = (GreenDice) new GreenDice(x);
+                break;
+            case BLUE:
+                d = (BlueDice) new BlueDice(x);
+                break;
+            case MAGENTA:
+                d = (MagentaDice) new MagentaDice(x);
+                break;
+            case YELLOW:
+                d = (YellowDice) new YellowDice(x);
+                break;
+            default:
+                throw new PlayerActionException();
         }
-        this.makeMove(this.getActivePlayer(),new Move(d,this.getActivePlayer().getScoreSheet().getCreatureByRealm(d)));
+
+        this.makeMove(this.getActivePlayer(), new Move(d, this.getActivePlayer().getScoreSheet().getCreatureByRealm(d)));
     }
 }
