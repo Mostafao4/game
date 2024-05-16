@@ -113,7 +113,7 @@ public Move[] getAllPossibleMoves(){
     Move[] possibleMoves = new Move[6];
     int lastNumber= (int)attack[count];
     // Dice Temp_dice=new MagentaDice(0);
-    if(lastNumber==6){
+    if((lastNumber)==6){
         for(int j=0; j<6;j++){
             // Temp_dice.setValue(j+1);
             possibleMoves[j]=new Move(new MagentaDice(j+1),Realm.MAGENTA);
@@ -121,10 +121,10 @@ public Move[] getAllPossibleMoves(){
         return possibleMoves;
     }
     else{
-    for(int i=0;lastNumber<=6;i++){
-        // Temp_dice.setValue(lastNumber);
-        possibleMoves[i]=new Move(new MagentaDice(lastNumber),Realm.MAGENTA);
-        lastNumber+=1;
+    for(int i=0;(lastNumber)<=6;i++){
+        // Temp_dice.setValue((lastNumber));
+        possibleMoves[i]=new Move(new MagentaDice((lastNumber)),Realm.MAGENTA);
+        (lastNumber)+=1;
     }
     return possibleMoves;
 }
@@ -133,9 +133,25 @@ public Move[] getAllPossibleMoves(){
 ///////Done
 
 public Move[] getPossibleMovesForADie (Player player, Dice dice){
-    
+    Move[] possibleMoves = new Move[6];
+    if(dice.getValue()==6){
+        for(int j=0; j<6;j++){
+            // Temp_dice.setValue(j+1);
+            possibleMoves[j]=new Move(new MagentaDice(j+1),Realm.MAGENTA);
+        } 
+        return possibleMoves;
+    }
+    else{
+        for(int i=0;(int)dice.getValue()<=6;i++){
+            // Temp_dice.setValue((lastNumber));
+            possibleMoves[i]=new Move(new MagentaDice((dice.getValue())),Realm.MAGENTA);
+            dice.setValue(dice.getValue()+1);
+        }
+        return possibleMoves;
+    }
+
 }
-/////process
+/////partially done
 public String scoreSheet(){
     return  "    Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
     "            +-----------------------------------------------------------------------+\n" +
