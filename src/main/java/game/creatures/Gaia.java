@@ -125,9 +125,9 @@ public class Gaia extends Creature{
         }
     }
 
-    private void attackGaia(Dice first, Dice second) {
+    private void attackGaia(Dice combined) {
         boolean flag = false;
-        int total = first.getValue() + second.getValue();
+        int total = combined.getValue();
 
         for(int i = 0; i < gaias.length && !flag;i++){
             for(int j = 0; j < gaias[i].length && !flag;j++){
@@ -151,13 +151,9 @@ public class Gaia extends Creature{
     }
 
     @Override
-    public void makeMove() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'makeMove'");
-    }
-
-    public void makeMove(Dice dice){
-        attackGaia(dice, new GreenDice(0));
+    public void makeMove(Move m){
+        Dice dice = m.getDice();
+        attackGaia(dice);
     }
 
     @Override
