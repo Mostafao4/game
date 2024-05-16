@@ -21,31 +21,31 @@ public class Phoenix extends Creature {
 
         
     }
-    public void makeMove(MagentaDice dice) {
+    public void makeMove(Move move) {
     if(count>=11){System.out.println("You reached the maximum possible times of plays"); return;}
     if(count==0){   
-            attack[count]=(int)dice.getValue();
-            score_int+=(int)dice.getValue();
-            score_array[count]=(int)dice.getValue();
+            attack[count]=(int)move.getDice().getValue();
+            score_int+=(int)move.getDice().getValue();
+            score_array[count]=(int)move.getDice().getValue();
             count++;
             rewards[count-1]= getReward();
             
             
     }
-    if(count!=0){
-        if((int)dice.getValue()>(int)attack[count]){
+    else{
+        if((int)move.getDice().getValue()>(int)attack[count]){
             
-            attack[count+1]=(int)dice.getValue();
-            score_int+=(int)dice.getValue();
-            score_array[count]=(int)dice.getValue();
+            attack[count+1]=(int)move.getDice().getValue();
+            score_int+=(int)move.getDice().getValue();
+            score_array[count]=(int)move.getDice().getValue();
             count++;
             rewards[count-1]= getReward();
             
             
         }
         if((int)attack[count]==6){
-            attack[count+1]=(int)dice.getValue();
-            score_int+=(int)dice.getValue();
+            attack[count+1]=(int)move.getDice().getValue();
+            score_int+=(int)move.getDice().getValue();
             count+=1;
             rewards[count-1]= getReward();
             
@@ -61,7 +61,6 @@ public class Phoenix extends Creature {
     }
     private Reward rewardFromString(String N){
         switch (N) {
-            case "null": return null;
             case "TimeWarp": return new TimeWarp(); 
             case "GreenBonus": return new Bonus(Realm.GREEN);
             case "ArcaneBoost": return new ArcaneBoost();
@@ -116,14 +115,14 @@ public Move[] getAllPossibleMoves(){
     if((lastNumber)==6){
         for(int j=0; j<6;j++){
             // Temp_dice.setValue(j+1);
-            possibleMoves[j]=new Move(new MagentaDice(j+1),Realm.MAGENTA);
+            possibleMoves[j]=new Move(new MagentaDice(j+1),this);
         } 
         return possibleMoves;
     }
     else{
     for(int i=0;(lastNumber)<=6;i++){
         // Temp_dice.setValue((lastNumber));
-        possibleMoves[i]=new Move(new MagentaDice((lastNumber)),Realm.MAGENTA);
+        possibleMoves[i]=new Move(new MagentaDice((lastNumber)),this);
         (lastNumber)+=1;
     }
     return possibleMoves;
@@ -132,19 +131,19 @@ public Move[] getAllPossibleMoves(){
 }
 ///////Done
 
-public Move[] getPossibleMovesForADie (Player player, Dice dice){
+public Move[] getPossibleMovesForADie (Dice dice){
     Move[] possibleMoves = new Move[6];
     if(dice.getValue()==6){
         for(int j=0; j<6;j++){
             // Temp_dice.setValue(j+1);
-            possibleMoves[j]=new Move(new MagentaDice(j+1),Realm.MAGENTA);
+            possibleMoves[j]=new Move(new MagentaDice(j+1),this);
         } 
         return possibleMoves;
     }
     else{
         for(int i=0;(int)dice.getValue()<=6;i++){
             // Temp_dice.setValue((lastNumber));
-            possibleMoves[i]=new Move(new MagentaDice((dice.getValue())),Realm.MAGENTA);
+            possibleMoves[i]=new Move(new MagentaDice((dice.getValue())),this);
             dice.setValue(dice.getValue()+1);
         }
         return possibleMoves;
@@ -163,35 +162,11 @@ public String scoreSheet(){
     "            +-----------------------------------------------------------------------+\n";
 }
 private String scoreSheet_helper(Reward[] rewards,int index, String s){
-    if(rewards[index]!=null){
+    if(rewards[index]!=null)
         return "X";
-    }
-    else{
+    else
         return s;
     }
-    
-    }
-
-    
-
-//Done
-public static void main(String[] args){
-    Phoenix x=new Phoenix();
-    MagentaDice a=new MagentaDice(1);
-    MagentaDice b=new MagentaDice(2);
-    MagentaDice c=new MagentaDice(3);
-    MagentaDice d=new MagentaDice(4);
-    MagentaDice e=new MagentaDice(5);
-    MagentaDice f=new MagentaDice(6);
-    x.makeMove(a);
-    x.makeMove(b);
-    x.makeMove(c);
-    x.makeMove(d);
-    x.makeMove(e);
-    x.makeMove(f);
-    System.out.println(x.scoreSheet());
-    System.out.println("nnn");
-}
 }
 
 
