@@ -30,6 +30,7 @@ public class Phoenix extends Creature {
             count++;
             rewards[count-1]= getReward();
             
+            
     }
     if(count!=0){
         if((int)dice.getValue()>(int)attack[count]){
@@ -37,15 +38,17 @@ public class Phoenix extends Creature {
             attack[count+1]=(int)dice.getValue();
             score_int+=(int)dice.getValue();
             score_array[count]=(int)dice.getValue();
-            rewards[count]= getReward();
             count++;
             rewards[count-1]= getReward();
+            
+            
         }
         if((int)attack[count]==6){
             attack[count+1]=(int)dice.getValue();
-            count+=1;
             score_int+=(int)dice.getValue();
+            count+=1;
             rewards[count-1]= getReward();
+            
         }
         else{System.out.println("Dice value is not more than the last chosen value");  return;}
 
@@ -72,7 +75,7 @@ public class Phoenix extends Creature {
     }
     private Reward getReward(){
         Properties prop= new Properties();
-        int switching=count++;
+        int switching=count;
         String reward_String;
         try {
             prop.load(Phoenix.class.getClassLoader().getResourceAsStream("MysticalSkyRewards.properties"));
@@ -129,9 +132,9 @@ public Move[] getAllPossibleMoves(){
 }
 ///////Done
 
-// public Move[] getPossibleMovesForADie (Player player, Dice dice){
+public Move[] getPossibleMovesForADie (Player player, Dice dice){
     
-// }
+}
 /////process
 public String scoreSheet(){
     return  "    Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
@@ -171,6 +174,7 @@ public static void main(String[] args){
     x.makeMove(e);
     x.makeMove(f);
     System.out.println(x.scoreSheet());
+    System.out.println("nnn");
 }
 }
 
