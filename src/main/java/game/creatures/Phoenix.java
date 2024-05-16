@@ -132,9 +132,9 @@ public Move[] getAllPossibleMoves(){
 }
 ///////Done
 
-// public Move[] getPossibleMovesForADie (Player player, Dice dice){
+public Move[] getPossibleMovesForADie (Player player, Dice dice){
     
-// }
+}
 /////process
 public String scoreSheet(){
     return  "    Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
