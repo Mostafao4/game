@@ -1,5 +1,6 @@
 package game.engine;
 import game.collectibles.*;
+import game.creatures.Realm;
 import game.dice.Dice;
 import java.util.Scanner;
 public class Player {
@@ -10,12 +11,14 @@ public class Player {
     private Dice selectedDice;
     private int timeWarpCount;
     private int arcaneBoostCount;
-    private int elementalCrestCounter;
+    private ElementalCrest[] elementalCrest;
+    private int c;
 
 
     public Player(String playerName, PlayerStatus playerStatus) {
         this.playerName = playerName;
         this.playerStatus = playerStatus;
+        elementalCrest = new ElementalCrest[5];
         }
 
 
@@ -63,8 +66,8 @@ public class Player {
     public ElementalCrest[] getElementalCrest() {
         return elementalCrest;
     }
-    public void addElementalCrest(ElementalCrest ec){
-        elementalCrest[elementalCrestCounter++] = ec;
+    public void addElementalCrest(Realm r){
+        elementalCrest[c++] = new ElementalCrest(r);
     }
 
     public Dice getSelectedDice() {
