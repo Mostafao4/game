@@ -2,6 +2,8 @@ package game;
 
 import game.collectibles.Bonus;
 import game.creatures.Realm;
+import game.dice.GreenDice;
+import game.dice.RedDice;
 import game.engine.*;
 import game.dice.Dice;
 import game.exceptions.PlayerActionException;
@@ -54,7 +56,19 @@ public class Main {
                 System.out.println("Select a die");
                 intput = sc.nextInt();
                 gc.selectDice(gc.getGameBoard().getDice()[intput], gc.getActivePlayer());
-                gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
+                if(intput == 0){
+                    System.out.println("Select a dragon to attack");
+                    intput = sc.nextInt();
+                    gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice()),intput));
+                }
+                else if (intput == 1){
+                    int q = gc.getGameBoard().getDice()[1].getValue();
+                    int w = gc.getGameBoard().getDice()[5].getValue();
+                    gc.makeMove(gc.getActivePlayer(), new Move(new GreenDice(q+w), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
+                }
+                else
+                    gc.makeMove(gc.getActivePlayer(),new Move(gc.getActivePlayer().getSelectedDice(),gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
+
                 System.out.println(gc.getActivePlayer().getScoreSheet());
                 System.out.println("Select a die from the forgotten realm");
                 if(sc.hasNextInt())
