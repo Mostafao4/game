@@ -18,6 +18,8 @@ public class Phoenix extends Creature {
         this.attack=new int[11];
         this.rewards=new Reward[11];
         this.score_array=new int[11];
+        this.count=0;
+        this.score_int=0;
 
         
     }
@@ -29,25 +31,26 @@ public class Phoenix extends Creature {
             score_array[count]=(int)move.getDice().getValue();
             count++;
             rewards[count-1]= getReward();
-            
-            
+            return; 
     }
     else{
-        if((int)move.getDice().getValue()>(int)attack[count]){
+        if(move.getDice().getValue()>(int)attack[count]){
             
             attack[count+1]=(int)move.getDice().getValue();
             score_int+=(int)move.getDice().getValue();
             score_array[count]=(int)move.getDice().getValue();
             count++;
             rewards[count-1]= getReward();
-            
-            
+            return;
+               
         }
-        if((int)attack[count]==6){
-            attack[count+1]=(int)move.getDice().getValue();
+        if(attack[count]==6){
+            attack[count]=(int)move.getDice().getValue();
             score_int+=(int)move.getDice().getValue();
+            score_array[count]=(int)move.getDice().getValue();
             count+=1;
             rewards[count-1]= getReward();
+            return;
             
         }
         else{System.out.println("Dice value is not more than the last chosen value");  return;}
@@ -74,7 +77,6 @@ public class Phoenix extends Creature {
     }
     private Reward getReward(){
         Properties prop= new Properties();
-        int switching=count;
         String reward_String;
         try {
             prop.load(Phoenix.class.getClassLoader().getResourceAsStream("MysticalSkyRewards.properties"));
@@ -82,7 +84,7 @@ public class Phoenix extends Creature {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        switch (switching) {
+        switch (count) {
             case 1:reward_String=prop.getProperty("hit1Reward"); return rewardFromString(reward_String);
             case 2:reward_String=prop.getProperty("hit2Reward");return rewardFromString(reward_String);
             case 3:reward_String=prop.getProperty("hit3Reward");return rewardFromString(reward_String);
