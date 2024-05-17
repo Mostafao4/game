@@ -7,4 +7,7 @@ public class YellowDice extends Dice{
         super(value);
         this.setRealm(Realm.YELLOW);
     }
+    public String toString(){
+        return "Yellow: "+this.getValue();
+    }
 }

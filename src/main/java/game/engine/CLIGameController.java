@@ -63,17 +63,50 @@ public class CLIGameController extends GameController {
 
     @Override
     public Move[] getAllPossibleMoves(Player player) {
-        return new Move[0];
+        Move[] red = player.getScoreSheet().getDragon().getAllPossibleMoves();
+        Move[] green = player.getScoreSheet().getGaia().getAllPossibleMoves();
+        Move[] blue = player.getScoreSheet().getHydra().getAllPossibleMoves();
+        Move[] magenta = player.getScoreSheet().getPhoenix().getAllPossibleMoves();
+        Move[] yellow = player.getScoreSheet().getLion().getAllPossibleMoves();
+        Move[] out = new Move[red.length + green.length + blue.length + magenta.length + yellow.length];
+        System.arraycopy(red, 0, out, 0, red.length);
+        System.arraycopy(green, 0, out, red.length, green.length);
+        System.arraycopy(blue, 0, out, red.length + green.length, blue.length);
+        System.arraycopy(magenta, 0, out, red.length + green.length + blue.length, magenta.length);
+        System.arraycopy(yellow, 0, out, red.length + green.length + blue.length + magenta.length, yellow.length);
+        return out;
     }
 
     @Override
-    public Move[] getPossibleMovesForAvailableDice(Player player) {
-        return new Move[0];
+    public Move[] getPossibleMovesForAvailableDice(Player player) throws Exception {
+        Move[] red = this.getPossibleMovesForADie(player,this.getAvailableDice()[0]);
+        Move[] green = this.getPossibleMovesForADie(player,this.getAvailableDice()[1]);
+        Move[] blue = this.getPossibleMovesForADie(player,this.getAvailableDice()[2]);
+        Move[] magenta = this.getPossibleMovesForADie(player,this.getAvailableDice()[3]);
+        Move[] yellow = this.getPossibleMovesForADie(player,this.getAvailableDice()[4]);
+        Move[] out = new Move[red.length + green.length + blue.length + magenta.length + yellow.length];
+        System.arraycopy(red, 0, out, 0, red.length);
+        System.arraycopy(green, 0, out, red.length, green.length);
+        System.arraycopy(blue, 0, out, red.length + green.length, blue.length);
+        System.arraycopy(magenta, 0, out, red.length + green.length + blue.length, magenta.length);
+        System.arraycopy(yellow, 0, out, red.length + green.length + blue.length + magenta.length, yellow.length);
+        return out;
     }
 
     @Override
-    public Move[] getPossibleMovesForADie(Player player, Dice dice) {
-        return new Move[0];
+    public Move[] getPossibleMovesForADie(Player player, Dice dice) throws Exception {
+        Move[] red = player.getScoreSheet().getDragon().getPossibleMovesForADie(dice);
+        Move[] green = player.getScoreSheet().getGaia().getPossibleMovesForADie(dice);
+        Move[] blue = player.getScoreSheet().getHydra().getPossibleMovesForADie(dice);
+        Move[] magenta = player.getScoreSheet().getPhoenix().getPossibleMovesForADie(dice);
+        Move[] yellow = player.getScoreSheet().getLion().getPossibleMovesForADie(dice);
+        Move[] out = new Move[red.length + green.length + blue.length + magenta.length + yellow.length];
+        System.arraycopy(red, 0, out, 0, red.length);
+        System.arraycopy(green, 0, out, red.length, green.length);
+        System.arraycopy(blue, 0, out, red.length + green.length, blue.length);
+        System.arraycopy(magenta, 0, out, red.length + green.length + blue.length, magenta.length);
+        System.arraycopy(yellow, 0, out, red.length + green.length + blue.length + magenta.length, yellow.length);
+        return out;
     }
 
     @Override
@@ -142,8 +175,17 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-    public boolean makeMove(Player player, Move move) {
-        return false;
+    public boolean makeMove(Player player, Move move) throws Exception {
+        switch(move.getDice().getRealm()){
+            case RED: player.getScoreSheet().getDragon().makeMove(move); break;
+            case GREEN: player.getScoreSheet().getGaia().makeMove(move); break;
+            case BLUE: player.getScoreSheet().getHydra().makeMove(move); break;
+            case MAGENTA: player.getScoreSheet().getPhoenix().makeMove(move); break;
+            case YELLOW: player.getScoreSheet().getLion().makeMove(move); break;
+            case WHITE: break;
+            default: throw new Exception();
+        }
+        return true;
     }
     public boolean areThereAvailableDice(){
         Dice[] dice = this.getAvailableDice();
@@ -152,7 +194,7 @@ public class CLIGameController extends GameController {
                 return true;
         return false;
     }
-    public void useBonus (Bonus bonus,int i) throws PlayerActionException {
+    public void useBonus (Bonus bonus,int i) throws Exception {
         Realm r = bonus.getRealm();
         Dice d;
         switch (r) {

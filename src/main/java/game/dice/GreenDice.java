@@ -22,5 +22,8 @@ public class GreenDice extends Dice{
         }
         return false;
     }
+    public String toString(){
+        return "Green: "+this.getValue();
+    }
 
 }
