@@ -9,12 +9,12 @@ public class ScoreSheet {
      Hydra hydra = new Hydra();
      Phoenix phoenix = new Phoenix();
      Lion lion = new Lion();
-     public void print(){
-        dragon.scoreSheet();
-        gaia.scoreSheet();
-        hydra.getScoresheet();
-        phoenix.scoreSheet();
-        lion.getScoreSheet();
+     public String toString(){
+        return (dragon.toString()+
+        gaia.toString()+
+        hydra.toString()+
+        phoenix.toString()+
+        lion.toString());
      }
     public Creature getCreatureByRealm(Dice dice) {
         switch (dice.getRealm()) {
