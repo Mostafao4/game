@@ -34,7 +34,7 @@ public class Hydra extends Creature {
         try{
 
             Properties prop = new Properties();
-            FileInputStream rewardConfig = new FileInputStream("config/TideAbyssRewards.properties");
+            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TideAbyssRewards.properties");
             prop.load(rewardConfig);
             String reward1 = prop.getProperty("null");
             String reward2 = prop.getProperty("null");
@@ -58,7 +58,7 @@ public class Hydra extends Creature {
         try{
 
             Properties prop1 = new Properties();
-            FileInputStream scoreConfig = new FileInputStream("config/TideAbyssScore.properties");
+            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/TideAbyssScore.properties");
             prop1.load(scoreConfig);
             int score1 = Integer.parseInt(prop1.getProperty("col1"));
             int score2 = Integer.parseInt(prop1.getProperty("col2"));
@@ -308,6 +308,17 @@ public class Hydra extends Creature {
             moves[0] = new Move(dice,this);
             return moves;
         }
+
+
+
+
+
+
+    @Override
+    public void makeMove() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'makeMove'");
+    }
 
     
 }
