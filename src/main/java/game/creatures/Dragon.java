@@ -21,7 +21,7 @@ public class Dragon extends Creature {
         // config file to get the score for each column
         try {
             Properties prop1 = new Properties();
-            FileInputStream scoreConfig = new FileInputStream("config/EmberfallDominionScore.properties");
+            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/EmberfallDominionScore.properties");
             prop1.load(scoreConfig);
             int score1 = Integer.parseInt(prop1.getProperty("col1Score"));
             int score2 = Integer.parseInt(prop1.getProperty("col2Score"));
@@ -36,7 +36,7 @@ public class Dragon extends Creature {
         // config file to get the reward for each row
         try {
             Properties prop2 = new Properties();
-            FileInputStream rewardConfig = new FileInputStream("config/EmberfallDominionRewards.properties");
+            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/EmberfallDominionRewards.properties");
             prop2.load(rewardConfig);
             String Reward1 = prop2.getProperty("row1Reward");
             String Reward2 = prop2.getProperty("row2Reward");
@@ -53,7 +53,7 @@ public class Dragon extends Creature {
         // config file to get the DiceValue for each row
         try {
             Properties prop3 = new Properties();
-            FileInputStream rewardConfig = new FileInputStream("config/EmberfallDominionRewards.properties");
+            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/EmberfallDominionDiceValue.properties");
             prop3.load(rewardConfig);
             int row1col1DiceValue = Integer.parseInt(prop3.getProperty("row1col1DiceValue"));
             int row1col2DiceValue = Integer.parseInt(prop3.getProperty("row1col2DiceValue"));
