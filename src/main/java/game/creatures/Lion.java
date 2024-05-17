@@ -35,6 +35,35 @@ public void editReward(){
         for (int i=0;i<11;i++){
             String r=prop.getProperty("hit"+(i+1)+"Reward");
             rew[i]=r;
+            switch (r){
+                case "ArcaneBoost":
+                        rew[i]="AB";
+                        break;
+                case "BlueBonus": 
+                        rew[i]="BB";
+                        break;
+                case "ElementalCrest": 
+                        rew[i]="EC";
+                        break;
+                case "GreenBonus":
+                        rew[i]="GB";
+                        break;                
+                case "MagentaBonus": 
+                        rew[i]="MB";
+                        break;
+                case "RedBonus": 
+                        rew[i]="RB";
+                        break;
+                case "TimeWarp":
+                        rew[i]="TW";
+                        break;
+                case "YellowBonus":
+                        rew[i]="YB";
+                        break;
+                default: 
+                        rew[i]="  ";
+                        break;
+                }
         } 
     }
     catch (IOException ex) {
@@ -61,7 +90,7 @@ public void editMultipliers(){
             multipliers[i]=Integer.parseInt(mult[i]);
             mult[i]="x"+mult[i];
             if (multipliers[i]==1){
-                mult[i]="";
+                mult[i]="  ";
         }
 
 
@@ -97,28 +126,28 @@ public static int multiplyScore(int hitNum,int diceNum[],int[] multipliers){
  // checks rewards and returns the supposed reward & makes used reward an x
 public Reward getReward(){
     switch (rew[hitNum]){
-    case "ArcaneBoost":
+    case "AB":
             rew[hitNum]="X";
             return new ArcaneBoost();
-    case "BlueBonus": 
+    case "BB": 
             rew[hitNum]="X";
             return new Bonus(Realm.BLUE);
-    case "ElementalCrest": 
+    case "EC": 
             rew[hitNum]="X";
             return new ElementalCrest(Realm.YELLOW);
-    case "GreenBonus":
+    case "GB":
             rew[hitNum]="X";
             return new Bonus(Realm.GREEN);
-    case "MagentaBonus": 
+    case "MB": 
             rew[hitNum]="X";
             return new Bonus(Realm.MAGENTA);
-    case "RedBonus": 
+    case "RB": 
             rew[hitNum]="X";
             return new Bonus(Realm.RED);
-    case "TimeWarp":
+    case "TW":
             rew[hitNum]="X";
             return new TimeWarp();
-    case "YellowBonus": 
+    case "YB": 
             rew[hitNum]="X";
             return new Bonus(Realm.YELLOW);
     default: return null;
@@ -147,16 +176,16 @@ public Reward getReward(){
 //returns the scoresheet  creates string for rewards & multipliers
  public String toString(){
     
-   return "Radiant Savanna: Solar Lion (YELLOW REALM):\n" +
+    return "Radiant Savanna: Solar Lion (YELLOW REALM):\n" +
     "+-----------------------------------------------------------------------+\n" +
     "|  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
     "+-----------------------------------------------------------------------+\n" +
-    "|  H  |"+diceNum[0]*multipliers[0]+"    |"+diceNum[1]*multipliers[1]+"    |"+diceNum[2]*multipliers[2]+"    |"+diceNum[3]*multipliers[3]+"    |"+diceNum[4]*multipliers[4]+"    |"+diceNum[5]*multipliers[5]+"    |"+diceNum[6]*multipliers[6]+"    |"+diceNum[7]*multipliers[7]+"    |"+diceNum[8]*multipliers[8]+"    |"+diceNum[9]*multipliers[9]+"    |"+diceNum[10]*multipliers[10]+"    |\n" +
-    "|  M  |"+mult[0]+     "|"+mult[1]+     "|"+mult[2]+     "|"+mult[3]+    "|"+mult[4]+     "|"+mult[5]+     "|"+mult[6]+    "|"+mult[7]+     "|"+mult[8]+     "|"+mult[9]+     "|"+mult[10]+    "|\n" +
-    "|  R  |"+rew[0]+"    |"+rew[1]+"     |"+rew[2]+"     |"+rew[3]+"    |"+rew[4]+"   |"+rew[5]+"    |"+rew[6]+"    |"+rew[7]+"    |"+rew[8]+"    |"+rew[9]+"    |"+rew[10]+"   |\n" +
+    "|  H  |"+diceNum[0]*multipliers[0]+( diceNum[0]*multipliers[0]>9?"   |":"    |")+diceNum[1]*multipliers[1]+( diceNum[1]*multipliers[1]>9?"   |":"    |")+diceNum[2]*multipliers[2]+( diceNum[2]*multipliers[2]>9?"   |":"    |")+diceNum[3]*multipliers[3]+( diceNum[3]*multipliers[3]>9?"   |":"    |")+diceNum[4]*multipliers[4]+( diceNum[4]*multipliers[4]>9?"   |":"    |")+diceNum[5]*multipliers[5]+( diceNum[5]*multipliers[5]>9?"   |":"    |")+diceNum[6]*multipliers[6]+( diceNum[6]*multipliers[6]>9?"   |":"    |")+diceNum[7]*multipliers[7]+( diceNum[7]*multipliers[7]>9?"   |":"    |")+diceNum[8]*multipliers[8]+( diceNum[8]*multipliers[8]>9?"   |":"    |")+diceNum[9]*multipliers[9]+( diceNum[9]*multipliers[9]>9?"   |":"    |")+diceNum[10]*multipliers[10]+( diceNum[0]*multipliers[0]>9?"   |\n":"    |\n") +
+    "|  M  |"+mult[0]+"   |"+mult[1]+"   |"+mult[2]+"   |"+mult[3]+"   |"+mult[4]+"   |"+mult[5]+"   |"+mult[6]+"   |"+mult[7]+"   |"+mult[8]+"   |"+mult[9]+"   |"+mult[10]+"   |\n" +
+    "|  R  |"+rew[0]+"   |"+rew[1]+"   |"+rew[2]+"   |"+rew[3]+"   |"+rew[4]+"   |"+rew[5]+"   |"+rew[6]+"   |"+rew[7]+"   |"+rew[8]+"   |"+rew[9]+"   |"+rew[10]+"   |\n" +
     "+-----------------------------------------------------------------------+\n\n";
 
  }
  
- }
+}
 
