@@ -269,7 +269,7 @@ public class Hydra extends Creature {
     
 
 
-    public String getScoresheet(){
+    public String toString(){
         String[] Xs = this.XinScoresheet();
         // String[] Xb = this.Xbonus();
         String[] Xb = new String[]{"AB","GB","EC","MB","TW"};
