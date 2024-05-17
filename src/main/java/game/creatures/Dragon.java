@@ -273,8 +273,8 @@ public class Dragon extends Creature {
 
         }
 
-    public void scoreSheet(){
-        String expectedScoreSheet = "\n\nScoreSheet\n\n" +
+    public String toString(){
+        return "\n\nScoreSheet\n\n" +
                 "Emberfall Dominion: Pyroclast Dragon (RED REALM):\n" +
                 "+-----------------------------------+\n" +
                 "|  #  |D1   |D2   |D3   |D4   |R    |\n" +
