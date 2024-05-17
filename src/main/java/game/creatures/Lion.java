@@ -1,4 +1,5 @@
 package game.creatures;
+import java.io.FileInputStream;
 import java.util.*;
 import game.collectibles.*;
 import game.dice.Dice;
@@ -18,17 +19,21 @@ public class Lion extends Creature{
     private static int totalScore=0; 
     private static String[] rew=new String[11]; 
     private static String[] mult=new String[11];
+    //creates string for rewards & multipliers
     public Lion( ) {
-       
+        editReward();
+        editMultipliers();
     }
  //creates array rew type string from config for rewards
-public static void editReward(){
+public void editReward(){
         Properties prop = new Properties();
     try{
-        prop.load(Lion.class.getClassLoader().getResourceAsStream("RadiantSvannaRewards.Properties"));
+
+        FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/RadiantSvannaRewards.properties");
+        prop.load(rewardConfig);
         
         for (int i=0;i<11;i++){
-            String r=prop.getProperty("hit"+i+1+"Reward");
+            String r=prop.getProperty("hit"+(i+1)+"Reward");
             rew[i]=r;
         } 
     }
@@ -37,13 +42,14 @@ public static void editReward(){
     }
 }
 //creates array mult type string from config for multipliers and edits multiplier array type int
-public static void editMultipliers(){
+public void editMultipliers(){
         Properties prop = new Properties();
     try{
-        prop.load(Lion.class.getClassLoader().getResourceAsStream("RadiantSvannaMultipliers.Properties"));
-        
+
+        FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/RadiantSvannaMultipliers.properties");
+        prop.load(rewardConfig);
         for (int i=0;i<11;i++){
-            String m=prop.getProperty("hit"+i+1+"multiplier");
+            String m=prop.getProperty("hit"+(i+1)+"multiplier");
             mult[i]=m;
         } 
     }
@@ -51,14 +57,14 @@ public static void editMultipliers(){
         ex.printStackTrace();
     }
     for (int i=0;i<11;i++){
-        if (mult[i]=="null"){
-            multipliers[i]=1;
-            mult[i]="";
-        }
-        else{
+
             multipliers[i]=Integer.parseInt(mult[i]);
             mult[i]="x"+mult[i];
+            if (multipliers[i]==1){
+                mult[i]="";
         }
+
+
     }
 }
 
@@ -84,7 +90,7 @@ public static int multiplyScore(int hitNum,int diceNum[],int[] multipliers){
      return score;
  }
  //calculates total score
- public int getScore(int score, int totalScore){
+ public static int getScore(int score, int totalScore){
      totalScore+=score;
      return totalScore;
  }
@@ -138,10 +144,9 @@ public Reward getReward(){
     pmd[0]=new Move(dice,this);
     return pmd;
  }
-//returns the scoresheet & creates string for rewards & multipliers
+//returns the scoresheet  creates string for rewards & multipliers
  public String getScoreSheet(){
-    editReward();
-    editMultipliers();
+    
    return "Radiant Savanna: Solar Lion (YELLOW REALM):\n" +
     "+-----------------------------------------------------------------------+\n" +
     "|  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +

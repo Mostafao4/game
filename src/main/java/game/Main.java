@@ -10,11 +10,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws PlayerActionException {
         Scanner sc = new Scanner(System.in);
+        System.out.println("Welcome to Dice Realms: Quest for Elemental Crests!!!");
+        System.out.println("Enter Player 1 name");
+        String s1 = sc.nextLine();
+        System.out.println("Enter Player 2 name");
+        String s2 = sc.nextLine();
         String input = "";
         int intput = 0;
         System.out.println("Dice Realms: Quest for the Elemental Crests!");
         CLIGameController gc = new CLIGameController();
         gc.startGame();
+        gc.getGameBoard().setPlayer1(new Player(s1,PlayerStatus.ACTIVE));
+        gc.getGameBoard().setPlayer2(new Player(s2,PlayerStatus.PASSIVE));
+
         while (gc.getGameBoard().getGameStatus().getRound() <= 6) {
             switch (gc.getGameBoard().getGameStatus().getRound()) {
                 case 1:
@@ -40,13 +48,13 @@ public class Main {
                     input = sc.nextLine();
                 if (input.equals("yes"))
                     gc.getGameBoard().setDice(gc.rollDice());
-                gc.getActivePlayer().getScoreSheet().print();
+                System.out.println(gc.getActivePlayer().getScoreSheet());
                 System.out.println("Select a die");
                 if(sc.hasNextInt())
                     intput = sc.nextInt();
                 gc.selectDice(gc.getGameBoard().getDice()[intput], gc.getActivePlayer());
                 gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
-                gc.getPassivePlayer().getScoreSheet().print();
+                System.out.println(gc.getActivePlayer().getScoreSheet());
                 System.out.println("Select a die from the forgotten realm");
                 if(sc.hasNextInt())
                     intput = sc.nextInt();
@@ -81,9 +89,9 @@ public class Main {
         sc.close();
         gc.getGameBoard().getPlayer1().getGameScore().setScore();
         gc.getGameBoard().getPlayer2().getGameScore().setScore();
-        int s1 = gc.getGameBoard().getPlayer1().getGameScore().getScore();
-        int s2 = gc.getGameBoard().getPlayer2().getGameScore().getScore();
-        if(s1>s2)
+        int sc1 = gc.getGameBoard().getPlayer1().getGameScore().getScore();
+        int sc2 = gc.getGameBoard().getPlayer2().getGameScore().getScore();
+        if(sc1>sc2)
             System.out.println(gc.getGameBoard().getPlayer1()+" has won the game!");
         else
             System.out.println(gc.getGameBoard().getPlayer2()+" has won the game!");

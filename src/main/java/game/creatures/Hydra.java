@@ -124,6 +124,7 @@ public class Hydra extends Creature {
 
 
     public Reward checkBonus(){
+
             int i =  HeadsKilled(hydra);
             if(i <= 5){
                 for(int j = 0; j <= 4; j++){
@@ -135,6 +136,7 @@ public class Hydra extends Creature {
                     }
                 }
                 }
+
             else{
                 for(int j = 5; j <= 10; j++){
                     switch (hydra[j]) {
