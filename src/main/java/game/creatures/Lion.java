@@ -1,4 +1,5 @@
 package game.creatures;
+import java.io.FileInputStream;
 import java.util.*;
 import game.collectibles.*;
 import game.dice.Dice;
@@ -28,11 +29,11 @@ public void editReward(){
         Properties prop = new Properties();
     try{
 
-        prop.load(Lion.class.getClassLoader().getResourceAsStream("src/main/resources/config/RadiantSvannaRewards.Properties"));
-
+        FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/RadiantSvannaRewards.properties");
+        prop.load(rewardConfig);
         
         for (int i=0;i<11;i++){
-            String r=prop.getProperty("hit"+i+1+"Reward");
+            String r=prop.getProperty("hit"+(i+1)+"Reward");
             rew[i]=r;
         } 
     }
@@ -45,11 +46,10 @@ public void editMultipliers(){
         Properties prop = new Properties();
     try{
 
-        prop.load(Lion.class.getClassLoader().getResourceAsStream("src/main/resources/config/RadiantSvannaMultipliers.Properties"));
-
-        
+        FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/RadiantSvannaMultipliers.properties");
+        prop.load(rewardConfig);
         for (int i=0;i<11;i++){
-            String m=prop.getProperty("hit"+i+1+"multiplier");
+            String m=prop.getProperty("hit"+(i+1)+"multiplier");
             mult[i]=m;
         } 
     }
@@ -57,14 +57,14 @@ public void editMultipliers(){
         ex.printStackTrace();
     }
     for (int i=0;i<11;i++){
-        if (mult[i]=="null"){
-            multipliers[i]=1;
-            mult[i]="";
-        }
-        else{
+
             multipliers[i]=Integer.parseInt(mult[i]);
             mult[i]="x"+mult[i];
+            if (multipliers[i]==1){
+                mult[i]="";
         }
+
+
     }
 }
 
