@@ -276,7 +276,7 @@ public class Dragon extends Creature {
                 "|  T  |" + scoreSheetHelperDiceValue(2,0)+ "|" + scoreSheetHelperDiceValue(2,1)+ "|" + scoreSheetHelperDiceValue(2,2)+ "|" + scoreSheetHelperDiceValue(2,3)+ "|"+ scoreSheetHelperBonus(2)  +"|\n" +
                 "|  H  |" + scoreSheetHelperDiceValue(3,0)+ "|" + scoreSheetHelperDiceValue(3,1)+ "|" + scoreSheetHelperDiceValue(3,2)+ "|" + scoreSheetHelperDiceValue(3,3)+ "|"+ scoreSheetHelperBonus(3)  +"|\n" +
                 "+-----------------------------------+\n" +
-                "|  S  |" + scoreSheetHelperScore(0)/*     */+ "|" + scoreSheetHelperScore(1)/*    */+ "|" + scoreSheetHelperScore(2)/*     */+ "|" + scoreSheetHelperScore(3)/*    */+ "|"+ scoreSheetHelperBonus(4)  +"|\n" +
+                "|  S  |" + scoreSheetHelperScore(0)+ "|" + scoreSheetHelperScore(1)+ "|" + scoreSheetHelperScore(2)+ "|" + scoreSheetHelperScore(3)+ "|"+ scoreSheetHelperBonus(4)  +"|\n" +
                 "+-----------------------------------+\n\n" +
                 "\n";
     }
@@ -291,7 +291,9 @@ public class Dragon extends Creature {
     }
 
     private String scoreSheetHelperScore (int j){
-        return score[j] + "    ";
+        if (score[j]< 9)
+            return score[j] + "    ";
+        return score[j] + "   ";
     }
 
     private String scoreSheetHelperBonus (int i){
