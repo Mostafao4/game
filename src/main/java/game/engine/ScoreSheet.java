@@ -4,13 +4,17 @@ import game.creatures.*;
 import game.dice.Dice;
 
 public class ScoreSheet {
-     Dragon dragon;
-     Gaia gaia;
-     Hydra hydra;
-     Phoenix phoenix;
-     Lion lion;
-     public String toString(){
-        return "";
+     Dragon dragon = new Dragon();
+     Gaia gaia = new Gaia();
+     Hydra hydra = new Hydra();
+     Phoenix phoenix = new Phoenix();
+     Lion lion = new Lion();
+     public void print(){
+        dragon.scoreSheet();
+        gaia.scoreSheet();
+        hydra.getScoresheet();
+        phoenix.scoreSheet();
+        lion.getScoreSheet();
      }
     public Creature getCreatureByRealm(Dice dice) {
         switch (dice.getRealm()) {

@@ -53,9 +53,8 @@ public class CLIGameController extends GameController {
     public Dice[] getAvailableDice() {
         Dice[] array = getGameBoard().getDice();
         for(int i = 0; i < array.length; i++)
-
-            if(array[i].getDiceStatus() != DiceStatus.AVAILABLE)
-                array[i]=null;
+            if(array[i].getDiceStatus()!=DiceStatus.AVAILABLE)
+                array[i].setValue(0);
         return array;
     }
 
@@ -69,7 +68,7 @@ public class CLIGameController extends GameController {
         Dice[] dice = this.getAvailableDice();
         for(int i = 0; i < dice.length; i++)
             if(dice[i].getDiceStatus()!=DiceStatus.FORGOTTEN_REALM)
-                dice[i]=null;
+                dice[i].setValue(0);
         return dice;
     }
 
@@ -146,10 +145,8 @@ public class CLIGameController extends GameController {
     public boolean selectDice(Dice dice, Player player) {
         Dice[] diceArray = this.getAvailableDice();
         player.setSelectedDice(dice);
-        int x = dice.getValue();
         for (Dice value : diceArray) {
-            int y = value.getValue();
-            if (y < x)
+            if(value.getValue() < dice.getValue())
                 value.setDiceStatus(DiceStatus.FORGOTTEN_REALM);
         }
         return true;
@@ -166,29 +163,24 @@ public class CLIGameController extends GameController {
                 return true;
         return false;
     }
-    public void useBonus (Bonus bonus) throws PlayerActionException {
-        System.out.println("Choose a number to attack");
-        System.out.println(this.getActivePlayer().getScoreSheet());
-        Scanner sc = new Scanner(System.in);
-        int x = sc.nextInt();
-        sc.close();
+    public void useBonus (Bonus bonus,int i) throws PlayerActionException {
         Realm r = bonus.getRealm();
         Dice d;
         switch (r) {
             case RED:
-                d = (RedDice) new RedDice(x);
+                d = (RedDice) new RedDice(i);
                 break;
             case GREEN:
-                d = (GreenDice) new GreenDice(x);
+                d = (GreenDice) new GreenDice(i);
                 break;
             case BLUE:
-                d = (BlueDice) new BlueDice(x);
+                d = (BlueDice) new BlueDice(i);
                 break;
             case MAGENTA:
-                d = (MagentaDice) new MagentaDice(x);
+                d = (MagentaDice) new MagentaDice(i);
                 break;
             case YELLOW:
-                d = (YellowDice) new YellowDice(x);
+                d = (YellowDice) new YellowDice(i);
                 break;
             default:
                 throw new PlayerActionException();

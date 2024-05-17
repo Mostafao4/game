@@ -64,12 +64,12 @@ public static void editMultipliers(){
 
 
 //increments hitnum(counter) & adds dice value to array diceNum 
-public static void makeMove(YellowDice dice){
+public void makeMove(Move move){
     if (hitNum<11){
-    hitNum++;
-    diceNum[hitNum]=(int)dice.getValue();}
+        hitNum++;
+        diceNum[hitNum]=(int)move.getDice().getValue();}
     else
-    System.out.print("move is not possible");
+        System.out.print("move is not possible");
 }
 
 
@@ -93,16 +93,13 @@ public Reward getReward(){
     switch (rew[hitNum]){
     case "ArcaneBoost":
             rew[hitNum]="X";
-            return ArcaneBoost;
+            return new ArcaneBoost();
     case "BlueBonus": 
             rew[hitNum]="X";
             return new Bonus(Realm.BLUE);
     case "ElementalCrest": 
             rew[hitNum]="X";
-            return new ElementalCrest;
-    case "EssenceBonus":
-            rew[hitNum]="X";
-            return new EssenceBonus;
+            return new ElementalCrest(Realm.YELLOW);
     case "GreenBonus":
             rew[hitNum]="X";
             return new Bonus(Realm.GREEN);
@@ -114,7 +111,7 @@ public Reward getReward(){
             return new Bonus(Realm.RED);
     case "TimeWarp":
             rew[hitNum]="X";
-            return new TimeWarp;
+            return new TimeWarp();
     case "YellowBonus": 
             rew[hitNum]="X";
             return new Bonus(Realm.YELLOW);
@@ -126,7 +123,7 @@ public Reward getReward(){
     if (hitNum<11){
     Move[] pm1=new Move[6];
     for(int i=0;i<pm1.length;i++){
-        pm1[i]=new Move(new YellowDice(i+1),Realm.YELLOW);
+        pm1[i]=new Move(new YellowDice(i+1),this);
     }
     return pm1;
 }
@@ -136,9 +133,9 @@ public Reward getReward(){
     }
  }
  //returns possible moves when dice is rolled (dicenumber)
- public Move[] getPossibleMovesForADie(YellowDice dice){
+ public Move[] getPossibleMovesForADie(Dice dice){
     Move[] pmd=new Move[1];
-    pmd[0]=new Move(dice,Realm.YELLOW);
+    pmd[0]=new Move(dice,this);
     return pmd;
  }
 //returns the scoresheet & creates string for rewards & multipliers
