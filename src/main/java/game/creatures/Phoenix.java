@@ -152,14 +152,15 @@ public Move[] getPossibleMovesForADie (Dice dice){
 }
 /////partially done
 public String toString(){
-    return  "    Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
-    "            +-----------------------------------------------------------------------+\n" +
-    "            |  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
-    "            +-----------------------------------------------------------------------+\n" +
-    "            |  H  |"+attack[0]+"|"+attack[1]+" |"+attack[2]+"|"+attack[3]+"|"+attack[4]+"|"+attack[5]+"|"+attack[6]+"|"+attack[7]+"|"+attack[8]+"|"+attack[9]+"|"+attack[10]+"|\n" +
-    "            |  C  |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |\n" +
-    "            |  R  |     |     |"+scoreSheet_helper(rewards,2,"TW")+"|"+scoreSheet_helper(rewards,2,"GB")+"|"+scoreSheet_helper(rewards,2,"AB")+"|"+scoreSheet_helper(rewards,2,"RB")+"  |"+scoreSheet_helper(rewards,2,"EC")+" |"+scoreSheet_helper(rewards,2,"TW")+" |"+scoreSheet_helper(rewards,2,"BB")+"   |"+scoreSheet_helper(rewards,2,"YB")+" |"+scoreSheet_helper(rewards,2,"AB")+"|\n" +
-    "            +-----------------------------------------------------------------------+\n";
+    return 
+    " Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
+    " +-----------------------------------------------------------------------+\n" +
+    " |  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
+    " +-----------------------------------------------------------------------+\n" +
+    " |  H  |"+attack[0]+"    |"+attack[1]+"    |"+attack[2]+"    |"+attack[3]+"    |"+attack[4]+"    |"+attack[5]+"    |"+attack[6]+"    |"+attack[7]+"    |"+attack[8]+"    |"+attack[9]+"    |"+attack[10]+"    |\n" +
+    " |  C  |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |\n" +
+    " |  R  |     |     |"+scoreSheet_helper(rewards,2,"TW")+"   |"+scoreSheet_helper(rewards,2,"GB")+"   |"+scoreSheet_helper(rewards,2,"AB")+"   |"+scoreSheet_helper(rewards,2,"RB")+"   |"+scoreSheet_helper(rewards,2,"EC")+"   |"+scoreSheet_helper(rewards,2,"TW")+"   |"+scoreSheet_helper(rewards,2,"BB")+"   |"+scoreSheet_helper(rewards,2,"YB")+"   |"+scoreSheet_helper(rewards,2,"AB")+"   |\n" +
+    " +-----------------------------------------------------------------------+\n";
 }
 private String scoreSheet_helper(Reward[] rewards,int index, String s){
     if(rewards[index]!=null)
