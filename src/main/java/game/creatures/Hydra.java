@@ -315,10 +315,7 @@ public class Hydra extends Creature {
 
 
 
-    public void makeMove() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'makeMove'");
-    }
+
 
     
 }

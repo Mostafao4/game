@@ -14,10 +14,8 @@ public class CLIGameController extends GameController {
     private GameBoard gameBoard;
 
     @Override
-    public void startGame(String s1,String s2) {
-        Player p1 = new Player(s1,PlayerStatus.ACTIVE);
-        Player p2 = new Player(s2,PlayerStatus.PASSIVE);
-        gameBoard = new GameBoard(p1,p2);
+    public void startGame() {
+        gameBoard = new GameBoard();
     }
 
     @Override

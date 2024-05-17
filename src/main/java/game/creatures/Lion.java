@@ -25,7 +25,7 @@ public class Lion extends Creature{
 public static void editReward(){
         Properties prop = new Properties();
     try{
-        prop.load(Lion.class.getClassLoader().getResourceAsStream("RadiantSvannaRewards.Properties"));
+        prop.load(Lion.class.getClassLoader().getResourceAsStream("src/main/resources/config/RadiantSvannaRewards.Properties"));
         
         for (int i=0;i<11;i++){
             String r=prop.getProperty("hit"+i+1+"Reward");
@@ -40,7 +40,7 @@ public static void editReward(){
 public static void editMultipliers(){
         Properties prop = new Properties();
     try{
-        prop.load(Lion.class.getClassLoader().getResourceAsStream("RadiantSvannaMultipliers.Properties"));
+        prop.load(Lion.class.getClassLoader().getResourceAsStream("src/main/resources/config/RadiantSvannaMultipliers.Properties"));
         
         for (int i=0;i<11;i++){
             String m=prop.getProperty("hit"+i+1+"multiplier");

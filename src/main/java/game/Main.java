@@ -19,7 +19,10 @@ public class Main {
         int intput = 0;
         System.out.println("Dice Realms: Quest for the Elemental Crests!");
         CLIGameController gc = new CLIGameController();
-        gc.startGame(s1,s2);
+        gc.startGame();
+        gc.getGameBoard().setPlayer1(new Player(s1,PlayerStatus.ACTIVE));
+        gc.getGameBoard().setPlayer2(new Player(s2,PlayerStatus.PASSIVE));
+
         while (gc.getGameBoard().getGameStatus().getRound() <= 6) {
             switch (gc.getGameBoard().getGameStatus().getRound()) {
                 case 1:
