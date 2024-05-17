@@ -21,7 +21,6 @@ public class GameStatus {
     public int getRound() {
         return round;
     }
-
     public void incrementRound() {
         round++;
         turn = 1;
@@ -31,11 +30,9 @@ public class GameStatus {
     public int getPartOfRound() {
         return partOfRound;
     }
-
     public void incrementPartOfRound() {
         partOfRound++;
     }
-
     public void resetPartofRound(){
         partOfRound = 0;
     }
@@ -43,11 +40,9 @@ public class GameStatus {
     public int getTurn() {
         return turn;
     }
-
     public void incrementTurn() {
         turn++;
     }
-
     public void resetTurn() {
         turn = 1;
     }
@@ -55,7 +50,6 @@ public class GameStatus {
     public boolean isStatus() {
         return status;
     }
-
     public void setStatus(boolean status) {
         this.status = status;
     }

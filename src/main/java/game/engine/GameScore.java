@@ -1,6 +1,7 @@
 package game.engine;
 
 public class GameScore {
+    private int score;
     //Get Realm Scores
     public int getRedRealmScore(){
         return 0;
@@ -19,10 +20,14 @@ public class GameScore {
     }
     //Setters and Getters
     public int getScore() {
-        return (this.getRedRealmScore() +
+        return score;
+    }
+
+    public void setScore() {
+        score = this.getRedRealmScore() +
                 this.getGreenRealmScore() +
                 this.getBlueRealmScore() +
                 this.getMagentaRealmScore() +
-                this.getYellowRealmScore());
+                this.getYellowRealmScore();
     }
 }

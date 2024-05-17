@@ -19,6 +19,8 @@ public class Player {
         this.playerName = playerName;
         this.playerStatus = playerStatus;
         elementalCrest = new ElementalCrest[5];
+        gameScore = new GameScore();
+        scoreSheet = new ScoreSheet();
         }
 
 
@@ -32,8 +34,8 @@ public class Player {
     public GameScore getGameScore() {
         return gameScore;
     }
-    public void setGameScore(GameScore gameScore) {
-        this.gameScore = gameScore;
+    public void setGameScore() {
+        gameScore.setScore();
     }
 
     public String getPlayerName() {

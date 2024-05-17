@@ -341,7 +341,5 @@ public class Gaia extends Creature{
         return s;
     }
 
-    public static void main(String[] args) {
-        
-    }
+
 }

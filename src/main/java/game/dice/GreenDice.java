@@ -1,12 +1,14 @@
 package game.dice;
 
+import game.creatures.Realm;
 import game.engine.GameBoard;
 
 public class GreenDice extends Dice{
-    int realValue;
+    private int realValue;
 
     public GreenDice(int value){
         super(value);
+        this.setRealm(Realm.GREEN);
         //realValue = value + ArcanePrism.getValue();
     }
 
