@@ -70,7 +70,7 @@ public abstract class GameController {
      * @param player The player for whom to determine possible moves.
      * @return An array of all possible moves for all rolled dice.
      */
-    public abstract Move[] getPossibleMovesForAvailableDice(Player player);
+    public abstract Move[] getPossibleMovesForAvailableDice(Player player) throws Exception;
 
     /**
      * Gets all possible moves for a given die for a given player.
@@ -79,7 +79,7 @@ public abstract class GameController {
      * @param dice   The dice to determine possible moves for.
      * @return An array of possible moves for the given dice.
      */
-    public abstract Move[] getPossibleMovesForADie(Player player, Dice dice);
+    public abstract Move[] getPossibleMovesForADie(Player player, Dice dice) throws Exception;
 
     /**
      * Gets the current game board, including all players and all score sheets.
@@ -165,5 +165,5 @@ public abstract class GameController {
      * @return {@code true} if the move is successfully completed,
      *         {@code false} otherwise.
      */
-    public abstract boolean makeMove(Player player, Move move);
+    public abstract boolean makeMove(Player player, Move move) throws Exception;
 }

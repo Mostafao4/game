@@ -13,5 +13,8 @@ public class ArcanePrism extends Dice{
     public boolean status(){
         return status;
     }
+    public String toString(){
+        return "White: "+this.getValue();
+    }
 
 }

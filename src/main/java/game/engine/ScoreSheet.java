@@ -4,11 +4,11 @@ import game.creatures.*;
 import game.dice.Dice;
 
 public class ScoreSheet {
-     Dragon dragon = new Dragon();
-     Gaia gaia = new Gaia();
-     Hydra hydra = new Hydra();
-     Phoenix phoenix = new Phoenix();
-     Lion lion = new Lion();
+     private Dragon dragon = new Dragon();
+     private Gaia gaia = new Gaia();
+     private Hydra hydra = new Hydra();
+     private Phoenix phoenix = new Phoenix();
+     private Lion lion = new Lion();
      public String toString(){
         return (dragon.toString()+
         gaia.toString()+
@@ -31,5 +31,21 @@ public class ScoreSheet {
             default:
                 return null;
         }
+    }
+
+    public Dragon getDragon() {
+        return dragon;
+    }
+    public Gaia getGaia() {
+        return gaia;
+    }
+    public Hydra getHydra() {
+        return hydra;
+    }
+    public Phoenix getPhoenix() {
+        return phoenix;
+    }
+    public Lion getLion() {
+        return lion;
     }
 }

@@ -8,7 +8,7 @@ import game.exceptions.PlayerActionException;
 
 import java.util.Scanner;
 public class Main {
-    public static void main(String[] args) throws PlayerActionException {
+    public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         System.out.println("Welcome to Dice Realms: Quest for Elemental Crests!!!");
         System.out.println("Enter Player 1 name");
@@ -17,7 +17,6 @@ public class Main {
         String s2 = sc.nextLine();
         String input = "";
         int intput = 0;
-        System.out.println("Dice Realms: Quest for the Elemental Crests!");
         CLIGameController gc = new CLIGameController();
         gc.startGame();
         gc.getGameBoard().setPlayer1(new Player(s1,PlayerStatus.ACTIVE));
@@ -43,15 +42,17 @@ public class Main {
             }
             while (gc.getGameBoard().getGameStatus().getTurn() <= 3) {
                 gc.getGameBoard().setDice(gc.rollDice());
+                System.out.println(gc.getGameBoard().diceToString());
                 System.out.println("Do you want to use Time Warp?");
-                if(sc.hasNextLine())
-                    input = sc.nextLine();
-                if (input.equals("yes"))
+                input = sc.nextLine();
+                if(input.equals("yes"))
+                {
                     gc.getGameBoard().setDice(gc.rollDice());
+                    System.out.println(gc.getGameBoard().diceToString());
+                }
                 System.out.println(gc.getActivePlayer().getScoreSheet());
                 System.out.println("Select a die");
-                if(sc.hasNextInt())
-                    intput = sc.nextInt();
+                intput = sc.nextInt();
                 gc.selectDice(gc.getGameBoard().getDice()[intput], gc.getActivePlayer());
                 gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
                 System.out.println(gc.getActivePlayer().getScoreSheet());

@@ -15,4 +15,7 @@ public class RedDice extends Dice{
     public int selectsDragon (int i){
         return dragonNumber[i];
     }
+    public String toString(){
+        return "Red: "+this.getValue();
+    }
 }
