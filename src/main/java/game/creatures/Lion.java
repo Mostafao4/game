@@ -13,12 +13,12 @@ public class Lion extends Creature{
    
 
 
-    private static int hitNum=-1;
-    private static int[] diceNum={0,0,0,0,0,0,0,0,0,0,0};
-    private static int [] multipliers={0,0,0,0,0,0,0,0,0,0,0};
-    private static int totalScore=0; 
-    private static String[] rew=new String[11]; 
-    private static String[] mult=new String[11];
+    private int hitNum=-1;
+    private int[] diceNum={0,0,0,0,0,0,0,0,0,0,0};
+    private int [] multipliers={0,0,0,0,0,0,0,0,0,0,0};
+    private int totalScore=0; 
+    private String[] rew=new String[11]; 
+    private String[] mult=new String[11];
     //creates string for rewards & multipliers
     public Lion( ) {
         editReward();
