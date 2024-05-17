@@ -98,15 +98,16 @@ public class Hydra extends Creature {
 
 
     public Reward checkBonus(){
-        int i = 0;
-            if(i <= 4){
-                if(hydra[i] == 4){
-                       return  BonusHelper(reward[3]);
-                    }
-                else{
-                        i++;
+            int i = HeadsKilled(hydra);
+            if(i <= 5) {
+                for (int j = 0; j <= 4; j++) {
+                    if (hydra[j] == 4) {
+                        return BonusHelper(reward[3]);
+                    } else {
+                        j++;
                     }
                 }
+            }
             else{
                 for(int j = 5; j <= 10; j++){
                     switch (hydra[j]) {
