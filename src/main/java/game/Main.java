@@ -48,13 +48,13 @@ public class Main {
                     input = sc.nextLine();
                 if (input.equals("yes"))
                     gc.getGameBoard().setDice(gc.rollDice());
-                gc.getActivePlayer().getScoreSheet().print();
+                System.out.println(gc.getActivePlayer().getScoreSheet());
                 System.out.println("Select a die");
                 if(sc.hasNextInt())
                     intput = sc.nextInt();
                 gc.selectDice(gc.getGameBoard().getDice()[intput], gc.getActivePlayer());
                 gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
-                gc.getPassivePlayer().getScoreSheet().print();
+                System.out.println(gc.getActivePlayer().getScoreSheet());
                 System.out.println("Select a die from the forgotten realm");
                 if(sc.hasNextInt())
                     intput = sc.nextInt();
