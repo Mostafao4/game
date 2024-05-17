@@ -112,13 +112,13 @@ public class Gaia extends Creature{
 
 
     private void readConfigScores(){
-        String scrs;
         Properties prop2 = new Properties();
         try{
+            String scrs = "";
             FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/TerrasHeartland.properties");
             prop2.load(scoreConfig);
-            scrs = prop2.getProperty("scores");
-            String[] scoreString = scrs.split(",");
+            scrs = prop2.getProperty("score");
+            String[] scoreString = scrs.split(", ");
             for(int i = 0; i < scores.length; i++){
                 scores[i] = Integer.parseInt(scoreString[i]);
             }

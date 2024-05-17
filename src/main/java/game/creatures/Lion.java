@@ -145,7 +145,7 @@ public Reward getReward(){
     return pmd;
  }
 //returns the scoresheet  creates string for rewards & multipliers
- public String getScoreSheet(){
+ public String toString(){
     
    return "Radiant Savanna: Solar Lion (YELLOW REALM):\n" +
     "+-----------------------------------------------------------------------+\n" +

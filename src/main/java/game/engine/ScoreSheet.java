@@ -10,11 +10,11 @@ public class ScoreSheet {
      Phoenix phoenix = new Phoenix();
      Lion lion = new Lion();
      public void print(){
-        dragon.scoreSheet();
-        gaia.scoreSheet();
-        hydra.getScoresheet();
-        phoenix.scoreSheet();
-        lion.getScoreSheet();
+        System.out.println(dragon);
+        System.out.println(gaia);
+        System.out.println(hydra);
+        System.out.println(phoenix);
+        System.out.println(lion);
      }
     public Creature getCreatureByRealm(Dice dice) {
         switch (dice.getRealm()) {

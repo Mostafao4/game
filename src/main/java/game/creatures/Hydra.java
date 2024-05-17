@@ -238,7 +238,7 @@ public class Hydra extends Creature {
     } 
 
 
-    public String getScoresheet(){
+    public String toString(){
         String[] Xs = this.XinScoresheet();
         return ("Tide Abyss: hydra Serpents (BLUE REALM):\n" +
         "+-----------------------------------------------------------------------+\n" +

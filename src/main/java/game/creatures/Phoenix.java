@@ -151,7 +151,7 @@ public Move[] getPossibleMovesForADie (Dice dice){
 
 }
 /////partially done
-public String scoreSheet(){
+public String toString(){
     return  "    Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
     "            +-----------------------------------------------------------------------+\n" +
     "            |  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
