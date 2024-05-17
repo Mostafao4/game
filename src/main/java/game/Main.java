@@ -2,6 +2,7 @@ package game;
 
 import game.collectibles.Bonus;
 import game.creatures.Realm;
+import game.dice.GreenDice;
 import game.dice.RedDice;
 import game.engine.*;
 import game.dice.Dice;
@@ -60,10 +61,13 @@ public class Main {
                     intput = sc.nextInt();
                     gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice()),intput));
                 }
-                else{
-                    gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
-
+                else if (intput == 1){
+                    int q = gc.getGameBoard().getDice()[1].getValue();
+                    int w = gc.getGameBoard().getDice()[5].getValue();
+                    gc.makeMove(gc.getActivePlayer(), new Move(new GreenDice(q+w), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
                 }
+                else
+                    gc.makeMove(gc.getActivePlayer(),new Move(gc.getActivePlayer().getSelectedDice(),gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
 
                 System.out.println(gc.getActivePlayer().getScoreSheet());
                 System.out.println("Select a die from the forgotten realm");
