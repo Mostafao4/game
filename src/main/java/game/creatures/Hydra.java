@@ -95,24 +95,51 @@ public class Hydra extends Creature {
         }
     }
 
+    // private String[] Xbonus(){
+    //     String[] XB = new String[]{"AB","GB","EC","MB","TW"};
+    //     Reward reward = checkBonus();
+
+    //     switch (reward) {
+    //         case "ArcaneBoost":
+    //             XB[0] = "X";
+    //             break;
+    //         case "GreenBonus":
+    //             XB[1] = "X";
+    //             break;
+    //         case "ElementalCrest":
+    //             XB[2] = "X";
+    //             break;
+    //         case "MagentaBonus":
+    //             XB[3] = "X";
+    //             break;
+    //         case "TimeWarp":
+    //             XB[4] = "X";
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     return XB;
+    // }
+
 
 
     public Reward checkBonus(){
-        int i = 0;
-            if(i <= 4){
-                if(hydra[i] == 4){
+            int i =  HeadsKilled(hydra);
+            if(i <= 5){
+                for(int j = 0; j <= 4; j++){
+                if(hydra[j] == 4){
                        return  BonusHelper(reward[3]);
                     }
                 else{
-                        i++;
+                        j++;
                     }
+                }
                 }
             else{
                 for(int j = 5; j <= 10; j++){
                     switch (hydra[j]) {
                         case 1:
                             return BonusHelper(reward[5]); 
-                            
         
                         case 2:
                             return BonusHelper(reward[6]); 
@@ -236,16 +263,21 @@ public class Hydra extends Creature {
 
     } 
 
+    
+    
+
 
     public String getScoresheet(){
         String[] Xs = this.XinScoresheet();
+        // String[] Xb = this.Xbonus();
+        String[] Xb = new String[]{"AB","GB","EC","MB","TW"};
         return ("Tide Abyss: hydra Serpents (BLUE REALM):\n" +
         "+-----------------------------------------------------------------------+\n" +
         "|  #  |H11  |H12  |H13  |H14  |H15  |H21  |H22  |H23  |H24  |H25  |H26  |\n" +
         "+-----------------------------------------------------------------------+\n" +
         "|  H " +Xs[0]+ "|" +Xs[1]+ "|" +Xs[2]+ "|"  +Xs[3]+ "|" +Xs[4]+ "|" +Xs[5]+ "|" +Xs[6]+ "|" +Xs[7]+ "|" +Xs[8]+ "|" +Xs[9]+ "|" +Xs[10] + "|\n" +
         "|  C  |≥1   |≥2   |≥3   |≥4   |≥5   |≥1   |≥2   |≥3   |≥4   |≥5   |≥6   |\n" +
-        "|  R  |     |     |     |AB   |     |GB   |EC   |     |MB   |TW   |     |\n" +
+        "|  R  |     |     |  "+ Xb[0]  +   "|" + Xb[1]+ Xb[2]+ "|" +Xb[3]+ Xb[4]+ "|"+"\n" +
         "+-----------------------------------------------------------------------+\n" +
         "|  S  |1    |3    |6    |10   |15   |21   |28   |36   |45   |55   |66   |\n" +
         "+-----------------------------------------------------------------------+\n\n");
