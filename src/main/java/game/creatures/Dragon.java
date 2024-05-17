@@ -206,12 +206,14 @@ public class Dragon extends Creature {
 
     public Move[] getPossibleMovesForADie (Dice dice) throws Exception {
         Move [] moves = new Move[2];
-        int a = ((RedDice)dice).getValue();
+        int a = dice.getValue();
         boolean flag = false;
+        int x = 0;
         for (int i = 0; i < dragonParts.length; i++){
             for (int j = 0; j < dragonParts.length; j++){
                 if (a == dragonParts [i][j] && dragonParts[i][j] != 0) {
-                    moves[i] = new Move(dice, this, j);
+                    moves[x] = new Move(dice, this, j);
+                    x++;
                     flag = true;
                 }
             }
