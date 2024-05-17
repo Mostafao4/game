@@ -5,10 +5,8 @@ import game.collectibles.Bonus;
 import game.collectibles.TimeWarp;
 import game.creatures.Realm;
 import game.dice.*;
-import game.dice.DiceStatus;
 import game.exceptions.PlayerActionException;
 
-import java.util.Scanner;
 
 public class CLIGameController extends GameController {
     private GameBoard gameBoard;
