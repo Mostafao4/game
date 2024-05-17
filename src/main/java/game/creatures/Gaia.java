@@ -32,7 +32,7 @@ public class Gaia extends Creature{
 
     private boolean[] verticalBonus = new boolean[4];
     private boolean[] horizontalBonus = new boolean[3];
-    private int[] scores;
+    private int[] scores = {1, 2, 4, 7, 11, 16, 22, 29, 37, 46, 56};
 
 
     public Gaia(){
@@ -41,7 +41,7 @@ public class Gaia extends Creature{
         rowRewards = new Reward[3];
         columnRewards = new Reward[4];
         readConfigRewards();
-        readConfigScores();
+        //readConfigScores();
     }
 
     private void readConfigRewards(){
@@ -51,7 +51,8 @@ public class Gaia extends Creature{
         Properties prop1 = new Properties();
 
         try{
-            prop1.load(Gaia.class.getClassLoader().getResourceAsStream("TerrasHeartlandRewards.properties"));
+            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/TerrasHeartlandRewards.properties");
+            prop1.load(scoreConfig);
             rowStrings[0] = prop1.getProperty("row1Reward");
             rowStrings[1] = prop1.getProperty("row2Reward");
             rowStrings[2] = prop1.getProperty("row3Reward");
@@ -109,21 +110,23 @@ public class Gaia extends Creature{
     }
 
 
-    private void readConfigScores(){
-        String scrs;
-        Properties prop2 = new Properties();
-        try{
-            prop2.load(Gaia.class.getClassLoader().getResourceAsStream("TerrasHeartland.properties"));
-            scrs = prop2.getProperty("scores");
-            String[] scoreString = scrs.split(",");
-            for(int i = 0; i < scores.length; i++){
-                scores[i] = Integer.parseInt(scoreString[i]);
-            }
-        }
-        catch(IOException ex){
-            ex.printStackTrace();
-        }
-    }
+//    private void readConfigScores(){
+//        String scrs;
+//        Properties prop2 = new Properties();
+//        try{
+//            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/TerrasHeartland.properties");
+//
+//            prop2.load(scoreConfig);
+//            scrs = prop2.getProperty("scores");
+//            String[] scoreString = scrs.split(",");
+//            for(int i = 0; i < scores.length; i++){
+//                scores[i] = Integer.parseInt(scoreString[i]);
+//            }
+//        }
+//        catch(IOException ex){
+//            ex.printStackTrace();
+//        }
+//    }
 
     private void attackGaia(Dice combined) {
         boolean flag = false;

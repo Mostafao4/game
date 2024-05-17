@@ -15,16 +15,7 @@ public class CLIGameController extends GameController {
 
     @Override
     public void startGame() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to Dice Realms: Quest for Elemental Crests!!!");
-        System.out.println("Enter Player 1 name");
-        String s1 = scanner.nextLine();
-        System.out.println("Enter Player 2 name");
-        String s2 = scanner.nextLine();
-        scanner.close();
-        Player p1 = new Player(s1,PlayerStatus.ACTIVE);
-        Player p2 = new Player(s2,PlayerStatus.PASSIVE);
-        gameBoard = new GameBoard(p1,p2);
+        gameBoard = new GameBoard();
     }
 
     @Override
