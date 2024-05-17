@@ -230,48 +230,40 @@ public class Dragon extends Creature {
         boolean flag = true;
         int y = -1;
         for (int i = 0; i < b.length; i++){
-            // make sure that the Move a is included in the array Move [] b
-            /*
-            * if (b[i].compareTo(a) == 0){
-            *   y = i;
-            *   break;
-            * }
-            * }
-            * if (y != -1){
-            *   for (int i = 0; i < dragonParts.length; i++){
-            *       for (int j = 0; j < dragonParts[i].length; j++){
-            *           if (a.getDice().getValue() == dragonParts [i][j] && ((RedDice)(a.getDice())).selectsDragon(i)== j ) {
-            *                if (dragonParts[i][j] != 0) {
-            *                    dragonParts[i][j] = 0;
-            *                    break;
-            *                }
-            *            else
-            *                x++;
-            *           }
-            *       }
-            *   }
-            * }
-            *
-            *
-            *
-            * */
-        }
-        if (b.length != 0 && flag == true){
-            for (int i = 0; i < dragonParts.length; i++){
-                for (int j = 0; j < dragonParts[i].length; j++){
-                    if (a.getDice().getValue() == dragonParts [i][j] && ((RedDice)(a.getDice())).selectsDragon(i)== j ) {
-                        if (dragonParts[i][j] != 0) {
-                            dragonParts[i][j] = 0;
-                            break;
-                        }
-                        else
-                            x++;
-                    }
-                }
+            if (b[i].compareTo(a) == 0){
+                y = i;
+                break;
             }
         }
-
+        if (y != -1){
+            for (int i = 0; i < dragonParts.length; i++){
+               for (int j = 0; j < dragonParts[i].length; j++){
+                   if (a.getDice().getValue() == dragonParts [i][j] && ((RedDice)(a.getDice())).selectsDragon(i)== j ) {
+                       if (dragonParts[i][j] != 0) {
+                           dragonParts[i][j] = 0;
+                           break;
+                       }
+                       else
+                           x++;
+                   }
+               }
+           }
         }
+    }
+//        if (b.length != 0 && flag == true){
+//            for (int i = 0; i < dragonParts.length; i++){
+//                for (int j = 0; j < dragonParts[i].length; j++){
+//                    if (a.getDice().getValue() == dragonParts [i][j] && ((RedDice)(a.getDice())).selectsDragon(i)== j ) {
+//                        if (dragonParts[i][j] != 0) {
+//                            dragonParts[i][j] = 0;
+//                            break;
+//                        }
+//                        else
+//                            x++;
+//                    }
+//                }
+//            }
+//        }
 
     public String toString(){
         return "\n\nScoreSheet\n\n" +
