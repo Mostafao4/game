@@ -32,7 +32,7 @@ public class Gaia extends Creature{
 
     private boolean[] verticalBonus = new boolean[4];
     private boolean[] horizontalBonus = new boolean[3];
-    private int[] scores = {1, 2, 4, 7, 11, 16, 22, 29, 37, 46, 56};
+    private int[] scores;
 
 
     public Gaia(){
@@ -40,8 +40,9 @@ public class Gaia extends Creature{
         this.totalGaias = 11;
         rowRewards = new Reward[3];
         columnRewards = new Reward[4];
+        scores = new int[11];
         readConfigRewards();
-        //readConfigScores();
+        readConfigScores();
     }
 
     private void readConfigRewards(){
@@ -51,8 +52,8 @@ public class Gaia extends Creature{
         Properties prop1 = new Properties();
 
         try{
-            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/TerrasHeartlandRewards.properties");
-            prop1.load(scoreConfig);
+            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TerrasHeartlandRewards.properties");
+            prop1.load(rewardConfig);
             rowStrings[0] = prop1.getProperty("row1Reward");
             rowStrings[1] = prop1.getProperty("row2Reward");
             rowStrings[2] = prop1.getProperty("row3Reward");
@@ -110,23 +111,22 @@ public class Gaia extends Creature{
     }
 
 
-//    private void readConfigScores(){
-//        String scrs;
-//        Properties prop2 = new Properties();
-//        try{
-//            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/TerrasHeartland.properties");
-//
-//            prop2.load(scoreConfig);
-//            scrs = prop2.getProperty("scores");
-//            String[] scoreString = scrs.split(",");
-//            for(int i = 0; i < scores.length; i++){
-//                scores[i] = Integer.parseInt(scoreString[i]);
-//            }
-//        }
-//        catch(IOException ex){
-//            ex.printStackTrace();
-//        }
-//    }
+    private void readConfigScores(){
+        String scrs;
+        Properties prop2 = new Properties();
+        try{
+            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/TerrasHeartland.properties");
+            prop2.load(scoreConfig);
+            scrs = prop2.getProperty("scores");
+            String[] scoreString = scrs.split(",");
+            for(int i = 0; i < scores.length; i++){
+                scores[i] = Integer.parseInt(scoreString[i]);
+            }
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
 
     private void attackGaia(Dice combined) {
         boolean flag = false;
@@ -294,8 +294,9 @@ public class Gaia extends Creature{
         return this.totalGaias - defeatedGaias;
     }
 
-    public void scoreSheet(){
-        System.out.println("Terra's Heartland: Gaia Guardians (GREEN REALM): \n\n"
+    public String toString(){
+        String s = 
+        "Terra's Heartland: Gaia Guardians (GREEN REALM): \n\n"
         + "+-----------------------------------+ \n"
         + "|  #  |1    |2    |3    |4    |R    | \n"
         + "+-----------------------------------+ \n"
@@ -309,7 +310,8 @@ public class Gaia extends Creature{
         + "|  R  |TW   |BB   |MB   |AB   |     | \n"
         + "+-----------------------------------------------------------------------------+ \n"
         + "|  S  |0    |1    |2    |4    |7    |11   |16   |22   |29   |37   |46   |56   | \n"
-        + "+-----------------------------------------------------------------------------+ \n\n");
+        + "+-----------------------------------------------------------------------------+ \n\n";
+        return s;
     }
     
     private boolean[][] checkZero(){
