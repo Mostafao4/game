@@ -18,14 +18,18 @@ public class Lion extends Creature{
     private static int totalScore=0; 
     private static String[] rew=new String[11]; 
     private static String[] mult=new String[11];
+    //creates string for rewards & multipliers
     public Lion( ) {
-       
+        editReward();
+        editMultipliers();
     }
  //creates array rew type string from config for rewards
-public static void editReward(){
+public void editReward(){
         Properties prop = new Properties();
     try{
+
         prop.load(Lion.class.getClassLoader().getResourceAsStream("src/main/resources/config/RadiantSvannaRewards.Properties"));
+
         
         for (int i=0;i<11;i++){
             String r=prop.getProperty("hit"+i+1+"Reward");
@@ -37,10 +41,12 @@ public static void editReward(){
     }
 }
 //creates array mult type string from config for multipliers and edits multiplier array type int
-public static void editMultipliers(){
+public void editMultipliers(){
         Properties prop = new Properties();
     try{
+
         prop.load(Lion.class.getClassLoader().getResourceAsStream("src/main/resources/config/RadiantSvannaMultipliers.Properties"));
+
         
         for (int i=0;i<11;i++){
             String m=prop.getProperty("hit"+i+1+"multiplier");
@@ -84,7 +90,7 @@ public static int multiplyScore(int hitNum,int diceNum[],int[] multipliers){
      return score;
  }
  //calculates total score
- public int getScore(int score, int totalScore){
+ public static int getScore(int score, int totalScore){
      totalScore+=score;
      return totalScore;
  }
@@ -138,10 +144,9 @@ public Reward getReward(){
     pmd[0]=new Move(dice,this);
     return pmd;
  }
-//returns the scoresheet & creates string for rewards & multipliers
+//returns the scoresheet  creates string for rewards & multipliers
  public String getScoreSheet(){
-    editReward();
-    editMultipliers();
+    
    return "Radiant Savanna: Solar Lion (YELLOW REALM):\n" +
     "+-----------------------------------------------------------------------+\n" +
     "|  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
