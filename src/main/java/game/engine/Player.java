@@ -15,13 +15,19 @@ public class Player {
     private int c;
 
 
+    public Player(PlayerStatus playerStatus) {
+        this.playerStatus = playerStatus;
+        elementalCrest = new ElementalCrest[5];
+        gameScore = new GameScore();
+        scoreSheet = new ScoreSheet();
+    }
     public Player(String playerName, PlayerStatus playerStatus) {
         this.playerName = playerName;
         this.playerStatus = playerStatus;
         elementalCrest = new ElementalCrest[5];
         gameScore = new GameScore();
         scoreSheet = new ScoreSheet();
-        }
+    }
 
 
     public PlayerStatus getPlayerStatus() {

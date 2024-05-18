@@ -185,7 +185,7 @@ public class Gaia extends Creature{
     }
 
     @Override
-    public Move[] getPossibleMovesForADie(Dice die) throws Exception{
+    public Move[] getPossibleMovesForADie(Dice die) {
         List<Move> possibleMoves = new LinkedList<>();
         int val = die.getValue();
         possibleMoves.add(new Move(new GreenDice(val), this));
@@ -280,23 +280,23 @@ public class Gaia extends Creature{
 
     public String toString(){
         String s = 
-        "Terra's Heartland: Gaia Guardians (GREEN REALM): \n\n"
-        + "+-----------------------------------+ \n"
-        + "|  #  |1    |2    |3    |4    |R    | \n"
-        + "+-----------------------------------+ \n"
+        "Terra's Heartland: Gaia Guardians (GREEN REALM):\n"
+        + "+-----------------------------------+\n"
+        + "|  #  |1    |2    |3    |4    |R    |\n"
+        + "+-----------------------------------+\n"
         // + "|  1  |X    |2    |3    |4    |YB   | \n"
         + "|  1  " + scoreSheetHelper(0) + "|" + (horizontalBonus[0]?"X ":initialsRows(0)) + "   |\n"
         // + "|  2  |5    |6    |7    |8    |RB   | \n"
         + "|  2  " + scoreSheetHelper(1) + "|" + (horizontalBonus[1]?"X ":initialsRows(1)) + "   |\n"
         // + "|  3  |9    |10   |11   |12   |EC   | \n"
         + "|  3  " + scoreSheetHelper(2) + "|" + (horizontalBonus[2]?"X ":initialsRows(2)) + "   |\n"
-        + "+-----------------------------------+ \n"
+        + "+-----------------------------------+\n"
         //+ "|  R  |TW   |BB   |MB   |AB   |     | \n"
-        + "|  R  " + scoreSheetHelper3() + "| \n"
-        + "+-----------------------------------------------------------------------------+ \n"
+        + "|  R  " + scoreSheetHelper3() + "|\n"
+        + "+-----------------------------------------------------------------------+\n"
         //+ "|  S  |0    |1    |2    |4    |7    |11   |16   |22   |29   |37   |46   |56   | \n"
-        + "|  S  |0    " + scoreSheetHelper2() + "|\n"
-        + "+-----------------------------------------------------------------------------+ \n\n";
+        + "|  S  " + scoreSheetHelper2() + "|\n"
+        + "+-----------------------------------------------------------------------+\n\n\n";
         return s;
     }
     

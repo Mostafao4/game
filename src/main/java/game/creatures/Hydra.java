@@ -274,20 +274,20 @@ public class Hydra extends Creature {
         String[] Xs = this.XinScoresheet();
         // String[] Xb = this.Xbonus();
         String[] Xb = new String[]{"AB","GB","EC","MB","TW"};
-        return ("Tide Abyss: hydra Serpents (BLUE REALM):\n" +
+        return ("Tide Abyss: Hydra Serpents (BLUE REALM):\n" +
         "+-----------------------------------------------------------------------+\n" +
         "|  #  |H11  |H12  |H13  |H14  |H15  |H21  |H22  |H23  |H24  |H25  |H26  |\n" +
         "+-----------------------------------------------------------------------+\n" +
-        "|  H  |"+Xs[0]+"   |"+Xs[1]+"  |"+Xs[2]+"  |"+Xs[3]+"  |"+Xs[4]+"  |"+Xs[5]+"  |"+Xs[6]+"  |"+Xs[7]+"  |"+Xs[8]+"  |"+Xs[9]+"  |"+Xs[10]+"  |\n" +
+        "|  H  |"+Xs[0]+"  |"+Xs[1]+"  |"+Xs[2]+"  |"+Xs[3]+"  |"+Xs[4]+"  |"+Xs[5]+"  |"+Xs[6]+"  |"+Xs[7]+"  |"+Xs[8]+"  |"+Xs[9]+"  |"+Xs[10]+"  |\n" +
         "|  C  |≥1   |≥2   |≥3   |≥4   |≥5   |≥1   |≥2   |≥3   |≥4   |≥5   |≥6   |\n" +
-        "|  R  |     |     |"+Xb[0]+"   |"+Xb[1]+"   |"+Xb[2]+"   |"+Xb[3]+"   |"+Xb[4]+"   |"+"\n" +
+        "|  R  |     |     |     |"+Xb[0]+"   |     |"+Xb[1]+"   |"+Xb[2]+"   |     |"+Xb[3]+"   |"+Xb[4]+"   |     |"+"\n" +
         "+-----------------------------------------------------------------------+\n" +
         "|  S  |1    |3    |6    |10   |15   |21   |28   |36   |45   |55   |66   |\n" +
         "+-----------------------------------------------------------------------+\n\n");
         }
 
 
-    public boolean makeMove(Move move) throws Exception{
+    public boolean makeMove(Move move) {
         int value = move.getDice().getValue();
         for (int i = 0; i <= 4; i++) {
                 if (value >= i && hydra[i] != 0) {

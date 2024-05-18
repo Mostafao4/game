@@ -27,6 +27,8 @@ public class GameBoard {
         a = new ArcanePrism(0);
         dice = new Dice[]{r,g,b,m,y,a};
         gameStatus = new GameStatus();
+        player1 = new Player(PlayerStatus.ACTIVE);
+        player2 = new Player(PlayerStatus.PASSIVE);
     }
 
     public Dice[] getDice() {

@@ -176,7 +176,7 @@ public class Dragon extends Creature {
         return moves;
     }
 
-    public Move[] getPossibleMovesForADie (Dice dice) throws Exception {
+    public Move[] getPossibleMovesForADie (Dice dice)  {
         Move [] moves = new Move[2];
         int a = dice.getValue();
         boolean flag = false;
@@ -191,14 +191,15 @@ public class Dragon extends Creature {
             }
         }
         if (flag == false){
-            throw new Exception("There is no possible moves for this die value");
+            //throw new Exception("There is no possible moves for this die value");
+            return moves;
         }
         else {
             return moves;
         }
     }
 
-    public boolean makeMove (Move a) throws Exception {
+    public boolean makeMove (Move a)  {
         int x = 0;
         Move [] b = getPossibleMovesForADie(a.getDice());
         boolean flag = false;
@@ -224,7 +225,8 @@ public class Dragon extends Creature {
     }
 
     public String toString(){
-        return  "Emberfall Dominion: Pyroclast Dragon (RED REALM):\n" +
+        return  "\n\nScoreSheet\n\n" +
+                "Emberfall Dominion: Pyroclast Dragon (RED REALM):\n" +
                 "+-----------------------------------+\n" +
                 "|  #  |D1   |D2   |D3   |D4   |R    |\n" +
                 "+-----------------------------------+\n" +

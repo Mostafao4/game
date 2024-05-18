@@ -11,6 +11,9 @@ import game.exceptions.PlayerActionException;
 public class CLIGameController extends GameController {
     private GameBoard gameBoard;
 
+    public CLIGameController() {
+        this.gameBoard = new GameBoard();
+    }
     @Override
     public void startGame() {
         gameBoard = new GameBoard();
@@ -97,7 +100,7 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-    public Move[] getPossibleMovesForAvailableDice(Player player) throws Exception {
+    public Move[] getPossibleMovesForAvailableDice(Player player){
            Move[] red = this.getPossibleMovesForADie(player, this.getAvailableDice()[0]);
            Move[] green = this.getPossibleMovesForADie(player, this.getAvailableDice()[1]);
            Move[] blue = this.getPossibleMovesForADie(player, this.getAvailableDice()[2]);
@@ -115,7 +118,7 @@ public class CLIGameController extends GameController {
 
 
     @Override
-    public Move[] getPossibleMovesForADie(Player player, Dice dice) throws Exception {
+    public Move[] getPossibleMovesForADie(Player player, Dice dice)  {
             Move[] red = player.getScoreSheet().getDragon().getPossibleMovesForADie(dice);
             Move[] green = player.getScoreSheet().getGaia().getPossibleMovesForADie(dice);
             Move[] blue = player.getScoreSheet().getHydra().getPossibleMovesForADie(dice);
@@ -196,7 +199,7 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-    public boolean makeMove(Player player, Move move) throws Exception {
+    public boolean makeMove(Player player, Move move)  {
         String s;
         switch(move.getDice().getRealm()){
             case RED:
@@ -230,7 +233,7 @@ public class CLIGameController extends GameController {
         return getAvailableDice().length != 0;
     }
 
-    public void useBonus (Bonus bonus,int i) throws Exception {
+    public void useBonus (Bonus bonus,int i)  {
         Realm r = bonus.getRealm();
         Dice d;
         switch (r) {
@@ -250,7 +253,8 @@ public class CLIGameController extends GameController {
                 d = new YellowDice(i);
                 break;
             default:
-                throw new PlayerActionException();
+                //throw new PlayerActionException();
+                d = null;
         }
 
         this.makeMove(this.getActivePlayer(), new Move(d, this.getActivePlayer().getScoreSheet().getCreatureByRealm(d)));
@@ -258,7 +262,7 @@ public class CLIGameController extends GameController {
 
 
 
-    public boolean useArcaneBoost(Player player) throws Exception {
+    public boolean useArcaneBoost(Player player)  {
         int i = gameBoard.getScan().num();
         Dice d = getAllDice()[i];
         if(d.getDiceStatus()!=DiceStatus.POWER_SELECTED) {
@@ -324,7 +328,7 @@ public class CLIGameController extends GameController {
                 return Realm.WHITE;
         }
     }
-    public boolean whiteMove(Player player,int i,int g) throws Exception {
+    public boolean whiteMove(Player player,int i,int g) {
         switch(g) {
             case 0:
                 System.out.println("Select a dragon to attack");

@@ -15,7 +15,6 @@ public class CLIGameControllerTest {
     @Test
     public void testSwitchPlayer() {
         CLIGameController controller = new CLIGameController();
-
         assertEquals("Player 1 should be active", PlayerStatus.ACTIVE,
                 controller.getGameBoard().getPlayer1().getPlayerStatus());
         assertEquals("Player 2 should be passive", PlayerStatus.PASSIVE,
