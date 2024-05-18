@@ -615,34 +615,77 @@ For each package, add the skeleton details for the class and duplicate as much a
 - **Type**: Class
 - **Description**: This class represents the Lions of the Yellow Realm and their structure, hitpoints, and currently alive or dead.
 
-#### Methods:
- 
+#### Methods: 
 
-1. int multiplyScore(int hitNum, int diceNum, int[] multipliers)
-    - *Description*: finds the multiplier by checking the number of hits and an array of multipliers then multiplies the dice number by the chosen multiplier. Returns the new score.
-    - *Parameters*: multipliers
-        - int hitNum: number of times the lion was hit.
-        - int DiceNum: the number on the dice after it was rolled.
-        - int[] multipliers: array that shows how much the score should be multiplied by.
-    - *Return Type*: int
+1. `void editReward`
 
-2. int TotalScore(int score, int totalScore)
-    - *Description*: takes the score from method multiplyScore and adds it total score. returns the new total score.
-    - *Parameters*:
-        - int score: score from method multiplyScore.
-        - int totalScore: total score of points
-    - *Return Type*: int
-        - `
+    - **Description**: Creates array rew type string and adds rewards from config to it.
+    - **Return Type**: `void` does not return.
+     
+2. `void editMultipliers()`
 
-3. object getReward(int Hitnum, object[] rewards)
-    - *Description*: compares hit number with an array of rewards and returns the chosen reward
-    - *Parameters*:int hitNum, object[] rewards
-        - int Hitnum: number of times the lion was hit.
-        - object[] rewards: array that shows the reward of the given turn.
-    - *Return Type*:object
+    - **Description**: Creates array mult type string and adds multipliers from config to it and edits multiplier array type int.
+    - **Return Type**: `void` does not return.
+   
+3. `boolean makeMove(Move move)`
 
+    - **Description**: increments hitnum(counter) & adds dice value to array diceNum.
+    - **Parameters**:
+        - `move`: The move to be perfromed.
+    - **Return Type**: `boolean`
+        - `true` if the move was successful,
+        - `false` otherwise.
 
+4. `int getYellowRealmScore()`
 
+    - **Description**: Uses multiplyScore & getScore methods to return total score of yellow realm.
+    - **Return Type**: `int`
+        - `int` total score of yellow realm.
+
+5. `static int multiplyScore(int hitNum,int[] diceNum,int[] multipliers)`
+
+    - **Description**: Gets the new score of the round after multiplying the score by the multiplier.
+    - **Parameters**:
+        - `hitNum`: number of hits on the lion.
+        - `diceNum`: Array of all the dies used in the yellow realm.
+        - `multipliers`: Array of the multipliers that should be multiplied by the hit score.
+    - **Return Type**: `int`
+        - `int` the new score of the round.
+
+6. `static int getScore(int score, int totalScore)`
+
+    - **Description**: calculates total score by adding the score to total score.
+    - **Parameters**:
+        - `score`: The score of this round.
+        - `totalScore`: Total score of the previous rounds.
+    - **Return Type**: `int`
+        - `int` total score of all rounds.
+
+7. `Reward getReward()`
+
+    - **Description**: Checks rewards and returns the supposed reward & makes used reward an x.
+    - **Return Type**: `Reward`
+        - `Reward` The reward won after this hit.
+
+8. ` Move[] getAllPossibleMoves()`
+
+    - **Description**: gets an array type move with all the possible moves before rolling the dice.
+    - **Return Type**: `Move[]`
+        - `Move[]` all possible moves before rolling the dice.    
+
+9. `Move[] getPossibleMovesForADie(Dice dice)`
+
+    - **Description**: gets an array type move with all the possible moves after the dice is rolled.
+    - **Parameters**:
+        - `dice`: The dice after it is rolled.
+    - **Return Type**: `Move[]`
+        - `Move[]` all possible moves after rolling the dice.   
+
+10. `String toString()`
+
+    - **Description**: Returns the scoresheet.
+    - **Return Type**: `String`
+        - `String` scoresheet of yellow realm.
 
 
 
