@@ -10,23 +10,68 @@ Dice-Realms/
 │   │   ├── java/
 │   │   │   └── game/
 │   │   │       ├── collectibles/
-│   │   │       │
+│   │   │       │   ├── Reward.java
+│   │   │       │   ├── Power.java
+│   │   │       │   ├── Bonus.java
+│   │   │       │   ├── ElementalCrest.java
+│   │   │       │   ├── ArcaneBoost.java
+│   │   │       │   ├── TimeWarp.java
+│   │   │       │   └── EssenceBonus.java
+│   │   │       │ 
 │   │   │       ├── creatures/
-│   │   │       │
+│   │   │       │   ├── Creature.java
+│   │   │       │   ├── Dragon.java
+│   │   │       │   ├── Gaia.java
+│   │   │       │   ├── Hydra.java
+│   │   │       │   ├── Phoenix.java
+│   │   │       │   └── Lion.java
+│   │   │       │ 
 │   │   │       ├── dice/
-│   │   │       │
+│   │   │       │   ├── Dice.java
+│   │   │       │   ├── RedDice.java
+│   │   │       │   ├── GreenDice.java
+│   │   │       │   ├── BlueDice.java
+│   │   │       │   ├── MagentaDice.java
+│   │   │       │   ├── YellowDice.java
+│   │   │       │   └── ArcanePrism.java
+│   │   │       │ 
 │   │   │       ├── engine/
 │   │   │       │   ├── GameController.java
-│   │   │       │
+│   │   │       │   ├── CLIGameController.java
+│   │   │       │   ├── GameBoard.java
+│   │   │       │   ├── Player.java
+│   │   │       │   ├── ScoreSheet.java
+│   │   │       │   ├── GameStatus.java
+│   │   │       │   ├── GameScore.java
+│   │   │       │   └── Move.java
+│   │   │       │ 
 │   │   │       ├── exceptions/
-│   │   │       │
+│   │   │       │   ├── RewardException.java
+│   │   │       │   ├── PlayerActionException.java
+│   │   │       │   ├── InvalidMoveException.java
+│   │   │       │   ├── InvalidDiceSelectionException.java
+│   │   │       │   ├── DiceRollException.java
+│   │   │       │   ├── CommandFormatException.java
+│   │   │       │   └── ExhaustedResourceException.java
 │   │   │       ├── gui/
 │   │   │       │
 │   │   │       └── Main.java
 │   │   │
 │   │   └── resources/
 │   │       ├── images/
-│   │       └── config/
+│   │       ├── config/
+│   │       │   ├── EmberfallDominionDiceValue.properties
+│   │       │   ├── EmberfallDominionScore.properties
+│   │       │   ├── EmberfallDominionRewards.properties
+│   │       │   ├── RoundsRewards.properties
+│   │       │   ├── MysticalSkyRewards.properties
+│   │       │   ├── TerrasHeartlandRewards.properties
+│   │       │   ├── TerrasHeartlandRewards.properties
+│   │       │   ├── RadiantSvannaMultipliers.properties
+│   │       │   ├── RadiantSvannaRewards.properties
+│   │       │   ├── TideAbyssRewards.properties
+│   │       │   └── TideAbyssScore.properties
+│   │       └── EmptyScoreSheet.txt
 │   │
 │   └── test/
 │       └── java/
@@ -38,30 +83,63 @@ Dice-Realms/
 │               ├── exceptions/
 │               └── gui/
 │
+├── pom.xml
+├── Grades.md
 └── README.md
 ```
 
 ## Packages
 
+
 ### game.collectibles
 
-The `game.collectibles` package contains classes for the various collectible items within the game; such as power-ups, elemental crest, color bonus, or the essence bonus.
+This package includes classes for different types of game rewards and powers that players can collect:
+
+- `Reward`: Abstract base class for all rewards.
+- `Power`: Abstract base class for power-up abilities.
+- `Bonus`: Base class for the bonus abilities.
+- `ArcaneBoost`, `TimeWarp`, `EssenceBonus`: Various collectible items of power-ups and bonuses that provide advantages in gameplay.
+- `ElementalCrest`: A unique collectible item, which represent the pinnacle achievement and it is the quest of the game to collect them all.
 
 ### game.creatures
 
-In the `game.creatures` package, you'll find classes representing creatures in their corresponding realms; including all necessary features about how to attack them or their current status to update the score sheet accordingly.
+This package houses classes that represent various mythical creatures in the game:
+
+- `Creature`: Abstract base class for all creatures.
+- `Dragon`, `Gaia`, `Hydra`, `Phoenix`, `Lion`: Specific creature classes with unique attributes and behaviors.
 
 ### game.dice
 
-The `game.dice` package encompasses classes related to dice functionality within the game. It includes implementations for rolling dice, managing dice states, and handling dice-related actions and interactions.
+This package includes classes for different types of dice and their statuses:
+
+- `Dice`: Abstract base class for all dice.
+- `RedDice`, `GreenDice`, `BlueDice`, `MagentaDice`, `YellowDice`, `ArcanePrism`: Specific dice types used in the game, each with unique properties.
+
 
 ### game.engine
 
-This package contains the core engine components of the game, including the abstract classes and interfaces that define the game's structure and functionality. It serves as the foundation for implementing various game controllers and managing game logic. Additional classes related to game mechanics and control can be added to this package as needed.
+This package serves as the core for all game mechanics, containing both abstract and concrete classes that manage game flow, player interactions, and the game board:
+
+- `GameController`: Abstract class that sets the foundational methods for game controllers.
+- `CLIGameController`: Extends GameController, implementing the CLI (Command Line Interface) version of the game controller.
+- `GameBoard`: Manages the layout and state of the game board, including dice and players.
+- `Player`: Represents a player in the game, managing their status, score, and actions.
+- `ScoreSheet`: Keeps track of a player's scores across different realms.
+- `GameStatus`: Manages the current status of the game, including rounds and turns.
+- `GameScore`: Details the scoring logic and current scores for players.
+- `Move`: Represents a player's move, including dice and creature interactions.
 
 ### game.exceptions
 
-The `game.exceptions` package provides classes for defining custom exceptions specific to the game. These exceptions help handle error conditions and unexpected situations, providing meaningful feedback to the player or developer.
+This package defines custom exceptions to handle various error scenarios specifically related to game actions:
+
+- `RewardException`
+- `PlayerActionException`
+- `InvalidMoveException`
+- `InvalidDiceSelectionException`
+- `DiceRollException`
+- `CommandFormatException`
+- `ExhaustedResourceException`
 
 ### game.gui
 
@@ -198,13 +276,99 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 #### Methods:
 
-1. `boolean isActive()`
-    - **Description**: Checks whether the player is currently active or passive.
-    - **Return Type**: `boolean`
-        - `true` if the player is active
-        - `false` if the player is passive
+1. `PlayerStatus getPlayerStatus()`
+    - **Description**: This method checks whether the player is currently active or passive.
+    - **Return Type**: `PlayerStatus`
+        - `ACTIVE` if the player is active
+        - `PASSIVE` if the player is passive
 
+2. `void setPlayerStatus(PlayerStatus playerStatus)`
+    - **Description**: This method sets the status of the players wether active or passive.
+    - **Return Type**: `void` does not return
+
+
+3. `GameScore getGameScore()`
+    - **Description**: This method gets the total game score of the player.
+    - **Return Type**: `GameScore`
+        
+
+4. `void setGameScore()`
+    - **Description**: This method sets the game score at the beginning of the game.
+    - **Return Type**: `void` does not return
+        
+
+5. `String getPlayerName()`
+    - **Description**: This method returns the name of the player.
+    - **Return Type**: `String`
+        - `String` Player name.
+      
+
+6. `void setPlayer_name(String playerName)`
+    - **Description**: This method sets the name of the player when the game start.
+    - **Return Type**: `void` does not return.
+        
+
+7. `int getTimeWarpCount()`
+    - **Description**:  This method returns the number of TimeWarps the player has.
+    - **Return Type**: `int`
+        - `int` Number of TimeWarps.
+            
+
+8. `void subtractTimeWarpCount()`
+    - **Description**: This method subtracts the number of TimeWarps the player has by 1.
+    - **Return Type**: `void` does not return.
+
+
+9. `void addTimeWarpCount()`
+    - **Description**: This method adds the number of TimeWarps the player has by 1.
+    - **Return Type**: `void` does not return.    
+
+
+10. `int getArcaneBoostCount()`
+    - **Description**: This method returns the number of Arcane Boost the player has.
+    - **Return Type**: `int`
+        - `int` Number of Arcane boosts.
+       
+
+11. `void addArcaneBoostCount()`
+    - **Description**: This method adds the number of TimeWarps the player has by 1.
+    - **Return Type**: `void` does not return.
+
+
+12. `void subtractArcaneBoostCount()`
+    - **Description**: This method subtracts the number of TimeWarps the player has by 1.
+    - **Return Type**: `void` does not return.
+        
+
+13. `ElementalCrest[] getElementalCrest()`
+    - **Description**: This method returns an array of the Elemental crests the player has.
+    - **Return Type**: `ElementalCrest[]`
+        - `ElementalCrest[]` array of Elemental crests.
     
+
+14. `void addElementalCrest(Realm r)`
+    - **Description**: This method takes the realm and adds the elemental Crest of this realm.
+    - **Return Type**: `void` does not return.
+
+
+15. `Dice getSelectedDice()`
+    - **Description**: This method gets the dice the player choose.
+    - **Return Type**: `Dice`
+        - `Dice` The dice selected.
+
+16. `void setSelectedDice(Dice selectedDice)`
+    - **Description**: This method takes the dice the player selected and assign this dice.
+    - **Return Type**: `void` does not return.
+        
+
+17. `ScoreSheet getScoreSheet()`
+    - **Description**: This method returns the scoresheet of all realms for the player.
+    - **Return Type**: `ScoreSheet`
+        -`ScoreSheet` The scoresheets of the 5 realms.
+
+
+
+
 
 ### `Dice` class
 

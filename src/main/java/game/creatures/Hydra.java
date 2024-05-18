@@ -20,6 +20,7 @@ public class Hydra extends Creature {
     private int[] hydra;
     private int[]scores;
     private String[]reward;
+    private String[] Xb;
 
     public Hydra(){
         this.hydra = new int[11];
@@ -286,22 +287,23 @@ public class Hydra extends Creature {
         }
 
 
-    public void makeMove(Move move) throws Exception{
+    public boolean makeMove(Move move) throws Exception{
         int value = move.getDice().getValue();
         for (int i = 0; i <= 4; i++) {
                 if (value >= i && hydra[i] != 0) {
                     System.out.println("Head " + i + " successfully attacked!");
                     hydra[i] = 0;
-                    break;
+                    return true;
                   } 
              }
             for(int j = 5; j <= 10; j++){
                 if (value >= j && hydra[j] != 0) {
                     System.out.println("Head " + j + " successfully attacked!");
                     hydra[j] = 0;
-                    break;
+                    return true;
                   }
-            }     
+            } 
+            return false;    
         }
             
         
