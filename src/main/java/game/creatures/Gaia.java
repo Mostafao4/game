@@ -2,10 +2,11 @@ package game.creatures;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -129,7 +130,7 @@ public class Gaia extends Creature{
         }
     }
 
-    private void attackGaia(Dice combined) {
+    private boolean attackGaia(Dice combined) {
         boolean flag = false;
         int total = combined.getValue();
 
@@ -139,51 +140,59 @@ public class Gaia extends Creature{
                     gaias[i][j] = 0;
                     defeatedGaias++;
                     flag = true;
-                    System.out.println("You have successfully attacked a Gaia Guardian!");
+                    System.out.println("You have successfully attacked the Gaia Guardian!");
                 }
             }
         }
 
         if(!flag){
             System.out.println("No valid moves!");
-            return;
+            return false;
         }
 
         editRewards();
         useImmediateBonus();
         showAvailableRewards();
+        return true;
     }
 
     @Override
-    public void makeMove(Move m){
+    public boolean makeMove(Move m){
         Dice dice = m.getDice();
-        attackGaia(dice);
+        return attackGaia(dice);
     }
 
     @Override
     public Move[] getAllPossibleMoves() {
-        Move[] allPossibleMoves = new Move[11];
-        int count = 0;
+        //Move[] allPossibleMoves = new Move[11];
+        List<Move> allPossible = new LinkedList<>();
+        //int count = 0;
 
         for(int i = 0; i < this.gaias.length; i++){
 
             for(int j = 0; j < this.gaias[i].length; i++){
                 if(gaias[i][j] != 0){
                     int val = gaias[i][j];
-                    allPossibleMoves[count] = new Move(new GreenDice(val), this);
+                    //allPossibleMoves[count] = new Move(new GreenDice(val), this);
+                    allPossible.add(new Move(new GreenDice(val), this));
                 }
-                count++;
+                //count++;
             }
         }
+        Move[] allPossibleMoves = new Move[allPossible.size()];
+        allPossibleMoves = allPossible.toArray(allPossibleMoves);
 
         return allPossibleMoves;
     }
 
     @Override
-    public Move[] getPossibleMovesForADie(Dice die) {
-        Move[] possibleMovesForADie = new Move[11];
+    public Move[] getPossibleMovesForADie(Dice die) throws Exception{
+        List<Move> possibleMoves = new LinkedList<>();
         int val = die.getValue();
-        possibleMovesForADie[val - 1] = new Move(new GreenDice(val), this);
+        possibleMoves.add(new Move(new GreenDice(val), this));
+        Move[] possibleMovesForADie = new Move[possibleMoves.size()];
+        possibleMovesForADie = possibleMoves.toArray(possibleMovesForADie);
+
         return possibleMovesForADie;
     }
 
@@ -354,45 +363,24 @@ public class Gaia extends Creature{
         return s;
     }
 
-    private String initialsRows(int num){
-        switch(rowStrings[num]){
-            case "RedBonus":
-                return "RB";
-            case "YellowBonus":
-                return "YB";
-            case "BlueBonus":
-                return "BB";
-            case "MagentaBonus":
-                return "MB";
-            case "ElementalCrest":
-                return "EC";
-            case "ArcaneBoost":
-                return "AB";
-            case "TimeWarp":
-                return "TW";
-            default:
-                return null;
-        }
+    private String initialsRows(int num) {
+        return getInitials(rowStrings[num]);
     }
 
-    private String initialsColumns(int num){
-        switch(colStrings[num]){
-            case "RedBonus":
-                return "RB   ";
-            case "YellowBonus":
-                return "YB   ";
-            case "BlueBonus":
-                return "BB   ";
-            case "MagentaBonus":
-                return "MB   ";
-            case "ElementalCrest":
-                return "EC   ";
-            case "ArcaneBoost":
-                return "AB   ";
-            case "TimeWarp":
-                return "TW   ";
-            default:
-                return null;
+    private String initialsColumns(int num) {
+        return getInitials(colStrings[num]);
+    }
+
+    private String getInitials(String reward) {
+        switch (reward) {
+            case "RedBonus": return "RB";
+            case "YellowBonus": return "YB";
+            case "BlueBonus": return "BB";
+            case "MagentaBonus": return "MB";
+            case "ElementalCrest": return "EC";
+            case "ArcaneBoost": return "AB";
+            case "TimeWarp": return "TW";
+            default: return "";
         }
     }
 
