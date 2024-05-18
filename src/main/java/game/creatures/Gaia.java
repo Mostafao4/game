@@ -130,7 +130,7 @@ public class Gaia extends Creature{
         }
     }
 
-    private boolean attackGaia(Dice combined) {
+    private boolean attackGaia(Dice combined) {//throws InvalidMoveException{
         boolean flag = false;
         int total = combined.getValue();
 
@@ -140,19 +140,18 @@ public class Gaia extends Creature{
                     gaias[i][j] = 0;
                     defeatedGaias++;
                     flag = true;
-                    System.out.println("You have successfully attacked the Gaia Guardian!");
+                    System.out.println("You have successfully attacked the " + (total - 1) + "th Gaia Guardian!");
                 }
             }
         }
 
         if(!flag){
-            System.out.println("No valid moves!");
+            //throw new InvalidMoveException();
             return false;
         }
 
         editRewards();
-        useImmediateBonus();
-        showAvailableRewards();
+        checkBonus();
         return true;
     }
 
@@ -215,13 +214,13 @@ public class Gaia extends Creature{
                 count += gaias[i][j];
             }
             if(count == 0 && rowFlag[i]){
-                rowFlag[i] = false;
                 horizontalBonus[i] = true;
+                rowFlag[i] = false;
             }
         }
     }
 
-    public void showAvailableRewards(){
+    public void checkBonus(){
         showHorizontalRewards();
         showVerticalRewards();
     }
@@ -266,31 +265,6 @@ public class Gaia extends Creature{
         return null;
     }
 
-    public void useImmediateBonus(){
-        useImmediateBonusHelper();
-    }
-
-    private Reward useImmediateBonusHelper(){
-        if(horizontalBonus[0]){
-            horizontalBonus[0] = false;
-            return rowRewards[0];
-        }
-        else if(horizontalBonus[1]){
-            horizontalBonus[1] = false;
-            return rowRewards[1];
-        }
-        else if(verticalBonus[1]){
-            verticalBonus[1] = false;
-            return columnRewards[1];
-        }
-        else if(verticalBonus[2]){
-            verticalBonus[2] = false;
-            return columnRewards[2];
-        }
-        else
-            return null;
-    }
-
 
     public int getGreenRealmScore(){
         return scores[defeatedGaias - 1];
@@ -311,11 +285,11 @@ public class Gaia extends Creature{
         + "|  #  |1    |2    |3    |4    |R    | \n"
         + "+-----------------------------------+ \n"
         // + "|  1  |X    |2    |3    |4    |YB   | \n"
-        + "|  1  " + scoreSheetHelper(0) + "|" + (!rowFlag[0]?"X ":initialsRows(0)) + "   |\n"
+        + "|  1  " + scoreSheetHelper(0) + "|" + (horizontalBonus[0]?"X ":initialsRows(0)) + "   |\n"
         // + "|  2  |5    |6    |7    |8    |RB   | \n"
-        + "|  2  " + scoreSheetHelper(1) + "|" + (!rowFlag[1]?"X ":initialsRows(1)) + "   |\n"
+        + "|  2  " + scoreSheetHelper(1) + "|" + (horizontalBonus[1]?"X ":initialsRows(1)) + "   |\n"
         // + "|  3  |9    |10   |11   |12   |EC   | \n"
-        + "|  3  " + scoreSheetHelper(2) + "|" + (!rowFlag[2]?"X ":initialsRows(2)) + "   |\n"
+        + "|  3  " + scoreSheetHelper(2) + "|" + (horizontalBonus[2]?"X ":initialsRows(2)) + "   |\n"
         + "+-----------------------------------+ \n"
         //+ "|  R  |TW   |BB   |MB   |AB   |     | \n"
         + "|  R  " + scoreSheetHelper3() + "| \n"
@@ -341,16 +315,16 @@ public class Gaia extends Creature{
             if(!verticalBonus[i]){
                 switch(i){
                     case 0:
-                        s+="|" + initialsColumns(0);
+                        s+="|" + initialsColumns(0) + "   ";
                         break;
                     case 1:
-                        s+="|" + initialsColumns(1);
+                        s+="|" + initialsColumns(1) + "   ";
                         break;
                     case 2:
-                        s+="|" + initialsColumns(2);
+                        s+="|" + initialsColumns(2) + "   ";
                         break;
                     case 3:
-                        s+="|" + initialsColumns(3);
+                        s+="|" + initialsColumns(3) + "   ";
                         break;
                     default:
                         break;
@@ -427,7 +401,7 @@ public class Gaia extends Creature{
     //     g.makeMove(new Move(new GreenDice(10),g));
 
     //     g.makeMove(new Move(new GreenDice(11),g));
-    //     g.makeMove(new Move(new GreenDice(12),g));
+    //     //g.makeMove(new Move(new GreenDice(12),g));
     //     System.out.println(g);
 
     // }
