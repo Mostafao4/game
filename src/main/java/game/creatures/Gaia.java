@@ -112,7 +112,6 @@ public class Gaia extends Creature{
 
     }
 
-
     private void readConfigScores(){
         Properties prop2 = new Properties();
         try{
@@ -303,11 +302,11 @@ public class Gaia extends Creature{
         + "|  #  |1    |2    |3    |4    |R    | \n"
         + "+-----------------------------------+ \n"
         // + "|  1  |X    |2    |3    |4    |YB   | \n"
-        + "|  1  " + scoreSheetHelper(0) + "|" + (horizontalBonus[0]?"X":initialsRows(0)) + "   |\n"
+        + "|  1  " + scoreSheetHelper(0) + "|" + (!rowFlag[0]?"X ":initialsRows(0)) + "   |\n"
         // + "|  2  |5    |6    |7    |8    |RB   | \n"
-        + "|  2  " + scoreSheetHelper(1) + "|" + (horizontalBonus[1]?"X":initialsRows(1)) + "   |\n"
+        + "|  2  " + scoreSheetHelper(1) + "|" + (!rowFlag[1]?"X ":initialsRows(1)) + "   |\n"
         // + "|  3  |9    |10   |11   |12   |EC   | \n"
-        + "|  3  " + scoreSheetHelper(2) + "|" + (horizontalBonus[2]?"X":initialsRows(2)) + "   |\n"
+        + "|  3  " + scoreSheetHelper(2) + "|" + (!rowFlag[2]?"X ":initialsRows(2)) + "   |\n"
         + "+-----------------------------------+ \n"
         //+ "|  R  |TW   |BB   |MB   |AB   |     | \n"
         + "|  R  " + scoreSheetHelper3() + "| \n"
@@ -349,7 +348,7 @@ public class Gaia extends Creature{
                 }
             }
             else
-                s+= "X   ";
+                s+= "|X    ";
         }
         s+="|     ";
         return s;
@@ -421,4 +420,27 @@ public class Gaia extends Creature{
     }
 
 
+    // public static void main(String[] args){
+    //     Gaia g = new Gaia();
+    //     System.out.println(g);
+    //     g.makeMove(new Move(new GreenDice(5),g));
+    //     g.makeMove(new Move(new GreenDice(2),g));
+    //     g.makeMove(new Move(new GreenDice(3),g));
+    //     g.makeMove(new Move(new GreenDice(4),g));
+
+    //     System.out.println(g);
+    //     g.makeMove(new Move(new GreenDice(5),g));
+    //     g.makeMove(new Move(new GreenDice(6),g));
+    //     g.makeMove(new Move(new GreenDice(7),g));
+    //     g.makeMove(new Move(new GreenDice(8),g));
+    //     System.out.println(g);
+    //     g.makeMove(new Move(new GreenDice(9),g));
+
+    //     g.makeMove(new Move(new GreenDice(10),g));
+
+    //     g.makeMove(new Move(new GreenDice(11),g));
+    //     g.makeMove(new Move(new GreenDice(12),g));
+    //     System.out.println(g);
+
+    // }
 }
