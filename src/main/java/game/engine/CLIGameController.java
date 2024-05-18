@@ -14,6 +14,13 @@ public class CLIGameController extends GameController {
     @Override
     public void startGame() {
         gameBoard = new GameBoard();
+        System.out.println("Welcome to Dice Realms: Quest for Elemental Crests!!!");
+        System.out.println("Enter Player 1 name");
+        String s1 = gameBoard.getScan().string();
+        System.out.println("Enter Player 2 name");
+        String s2 = gameBoard.getScan().string();
+        gameBoard.setPlayer2(new Player(s2,PlayerStatus.PASSIVE));
+        gameBoard.setPlayer1(new Player(s1,PlayerStatus.ACTIVE));
     }
 
     @Override
@@ -35,6 +42,8 @@ public class CLIGameController extends GameController {
         for (Dice die : dice)
             if (die != null)
                 die.roll();
+        System.out.println(this.getGameBoard().diceToString());
+        gameBoard.setDice(dice);
         return dice;
     }
 
@@ -185,6 +194,7 @@ public class CLIGameController extends GameController {
             case WHITE: break;
             default: throw new Exception();
         }
+        System.out.println(this.getActivePlayer().getScoreSheet());
         return true;
     }
     public boolean areThereAvailableDice(){
