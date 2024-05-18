@@ -58,7 +58,10 @@ public class GameBoard {
     public GameStatus getGameStatus() {
         return gameStatus;
     }
+
     public String diceToString(){
         return r.toString()+" "+g.toString()+" "+b.toString()+" "+m.toString()+" "+y.toString()+" "+a.toString();
     }
+
+
 }

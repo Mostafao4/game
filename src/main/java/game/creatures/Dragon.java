@@ -14,75 +14,43 @@ public class Dragon extends Creature {
     private int [] score;
     private String [] reward;
     private boolean [] bonusBoolean;
-    private Reward [] rewardString;
+    private boolean [] scoringBoolean;
 
     public Dragon() {
-        bonusBoolean = new boolean[4];
-        // config file to get the score for each column
+        bonusBoolean = new boolean[5];
+        scoringBoolean = new boolean[4];
+        score = new int[4];
+        reward = new String[5];
+        dragonParts = new int[4][4];
+
+        // Load properties from configuration files
+        Properties prop = new Properties();
+
         try {
-            Properties prop1 = new Properties();
-            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/EmberfallDominionScore.properties");
-            prop1.load(scoreConfig);
-            int score1 = Integer.parseInt(prop1.getProperty("col1Score"));
-            int score2 = Integer.parseInt(prop1.getProperty("col2Score"));
-            int score3 = Integer.parseInt(prop1.getProperty("col3Score"));
-            int score4 = Integer.parseInt(prop1.getProperty("col4Score"));
-            score = new int[]{score1, score2, score3,score4};
+            // Load scores
+            prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionScore.properties"));
+            for (int i = 0; i < 4; i++) {
+                score[i] = Integer.parseInt(prop.getProperty("col" + (i + 1) + "Score"));
+            }
+
+            // Load rewards
+            prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionRewards.properties"));
+            for (int i = 0; i < 4; i++) {
+                reward[i] = prop.getProperty("row" + (i + 1) + "Reward");
+            }
+            reward[4] = prop.getProperty("diagonalReward");
+
+            // Load dice values
+            prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionDiceValue.properties"));
+            for (int row = 0; row < 4; row++) {
+                for (int col = 0; col < 4; col++) {
+                    dragonParts[row][col] = Integer.parseInt(prop.getProperty("row" + (row + 1) + "col" + (col + 1) + "DiceValue"));
+                }
+            }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-
-        // config file to get the reward for each row
-        try {
-            Properties prop2 = new Properties();
-            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/EmberfallDominionRewards.properties");
-            prop2.load(rewardConfig);
-            String Reward1 = prop2.getProperty("row1Reward");
-            String Reward2 = prop2.getProperty("row2Reward");
-            String Reward3 = prop2.getProperty("row3Reward");
-            String Reward4 = prop2.getProperty("row4Reward");
-            String Reward5 = prop2.getProperty("diagonalReward");
-            reward = new String[]{Reward1, Reward2, Reward3, Reward4, Reward5};
-
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // config file to get the DiceValue for each row
-        try {
-            Properties prop3 = new Properties();
-            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/EmberfallDominionDiceValue.properties");
-            prop3.load(rewardConfig);
-            int row1col1DiceValue = Integer.parseInt(prop3.getProperty("row1col1DiceValue"));
-            int row1col2DiceValue = Integer.parseInt(prop3.getProperty("row1col2DiceValue"));
-            int row1col3DiceValue = Integer.parseInt(prop3.getProperty("row1col3DiceValue"));
-            int row1col4DiceValue = Integer.parseInt(prop3.getProperty("row1col4DiceValue"));
-            int row2col1DiceValue = Integer.parseInt(prop3.getProperty("row2col1DiceValue"));
-            int row2col2DiceValue = Integer.parseInt(prop3.getProperty("row2col2DiceValue"));
-            int row2col3DiceValue = Integer.parseInt(prop3.getProperty("row2col3DiceValue"));
-            int row2col4DiceValue = Integer.parseInt(prop3.getProperty("row2col4DiceValue"));
-            int row3col1DiceValue = Integer.parseInt(prop3.getProperty("row3col1DiceValue"));
-            int row3col2DiceValue = Integer.parseInt(prop3.getProperty("row3col2DiceValue"));
-            int row3col3DiceValue = Integer.parseInt(prop3.getProperty("row3col3DiceValue"));
-            int row3col4DiceValue = Integer.parseInt(prop3.getProperty("row3col4DiceValue"));
-            int row4col1DiceValue = Integer.parseInt(prop3.getProperty("row4col1DiceValue"));
-            int row4col2DiceValue = Integer.parseInt(prop3.getProperty("row4col2DiceValue"));
-            int row4col3DiceValue = Integer.parseInt(prop3.getProperty("row4col3DiceValue"));
-            int row4col4DiceValue = Integer.parseInt(prop3.getProperty("row4col4DiceValue"));
-
-            dragonParts = new int[][]{
-                      {row1col1DiceValue, row1col2DiceValue, row1col3DiceValue, row1col4DiceValue}
-                    , {row2col1DiceValue, row2col2DiceValue, row2col3DiceValue, row2col4DiceValue}
-                    , {row3col1DiceValue, row3col2DiceValue, row3col3DiceValue, row3col4DiceValue}
-                    , {row4col1DiceValue, row4col2DiceValue, row4col3DiceValue, row4col4DiceValue}
-            };
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public Reward []checkBonus (){
@@ -104,33 +72,33 @@ public class Dragon extends Creature {
                         if (bonusBoolean[0] == false){
                             bonus [0] = checkBonusHelper(reward[0]);
                             bonusBoolean[0] = true;
-                            break;
                         }
+                        break;
                     case 1:
                         if (bonusBoolean[1] == false){
-                            bonus [1] = checkBonusHelper(reward[1]);
+                            bonus [0] = checkBonusHelper(reward[1]);
                             bonusBoolean[1] = true;
-                            break;
                         }
+                        break;
                     case 2:
                         if (bonusBoolean[2] == false){
-                            bonus [2] = checkBonusHelper(reward[2]);
+                            bonus [0] = checkBonusHelper(reward[2]);
                             bonusBoolean[2] = true;
-                            break;
                         }
+                        break;
                     case 3:
                         if (bonusBoolean[3] == false){
-                            bonus [3] = checkBonusHelper(reward[3]);
+                            bonus [0] = checkBonusHelper(reward[3]);
                             bonusBoolean[3] = true;
-                            break;
                         }
+                        break;
                     default:
                         break;
                 }
             }
         }
         if (x == 4 && bonusBoolean[4] == false){
-            bonus [1] = checkBonusHelper(reward[4]);
+            bonus [0] = checkBonusHelper(reward[4]);
             bonusBoolean[4] = true;
         }
         return null;
@@ -166,15 +134,19 @@ public class Dragon extends Creature {
                 switch (j){
                     case 0:
                         sum = sum + score[0];
+                        scoringBoolean[0] = true;
                         break;
                     case 1:
                         sum = sum + score[1];
+                        scoringBoolean[1] = true;
                         break;
                     case 2:
                         sum = sum + score[2];
+                        scoringBoolean[2] = true;
                         break;
                     case 3:
                         sum = sum + score[3];
+                        scoringBoolean[3] = true;
                         break;
                 }
             }
@@ -250,20 +222,6 @@ public class Dragon extends Creature {
         }
         return flag;
     }
-//        if (b.length != 0 && flag == true){
-//            for (int i = 0; i < dragonParts.length; i++){
-//                for (int j = 0; j < dragonParts[i].length; j++){
-//                    if (a.getDice().getValue() == dragonParts [i][j] && ((RedDice)(a.getDice())).selectsDragon(i)== j ) {
-//                        if (dragonParts[i][j] != 0) {
-//                            dragonParts[i][j] = 0;
-//                            break;
-//                        }
-//                        else
-//                            x++;
-//                    }
-//                }
-//            }
-//        }
 
     public String toString(){
         return "\n\nScoreSheet\n\n" +
@@ -291,92 +249,162 @@ public class Dragon extends Creature {
     }
 
     private String scoreSheetHelperScore (int j){
-        if (score[j]< 9)
-            return score[j] + "    ";
-        return score[j] + "   ";
+        this.getPoints();
+        if (scoringBoolean[j] == false){
+            if (score[j]< 9)
+                return score[j] + "    ";
+            return score[j] + "   ";
+        }
+        else{
+            return "X    ";
+        }
     }
 
     private String scoreSheetHelperBonus (int i){
-
+        this.checkBonus();
         switch (reward[i]){
             case "GreenBonus":
+                if (bonusBoolean[i] == true){
+                    return "X    ";
+                }
                 return "GB   ";
             case "YellowBonus":
+                if (bonusBoolean[i] == true){
+                    return "X    ";
+                }
                 return "YB   ";
             case "BlueBonus":
+                if (bonusBoolean[i] == true){
+                    return "X    ";
+                }
                 return "BB   ";
             case "ElementalCrest":
+                if (bonusBoolean[i] == true){
+                    return "X    ";
+                }
                 return "EC   ";
             case "ArcaneBoost":
+                if (bonusBoolean[i] == true){
+                    return "X    ";
+                }
                 return "AB   ";
             default:
                 return null;
         }
     }
 
-//    public static void main(String[] args) {
-//        Dragon x = new Dragon();
-//        System.out.println(x.toString());
-//        Dice dice1 = new RedDice(1);
-//        Dice dice2 = new RedDice(2);
-//        Dice dice3 = new RedDice(3);
-//
-//        Move a = new Move(dice1, x, 1);
-//        Move b = new Move(dice2, x, 1);
-//        Move c = new Move(dice3, x, 1);
-//        Move[] y;
-//        try {
-//            y = x.getPossibleMovesForADie(dice1);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        for (int i = 0; i < y.length; i++) {
-//            System.out.println(y[i].toString());
-//        }
-//        try {
-//            x.makeMove(a);
-//            x.makeMove(b);
-//            x.makeMove(c);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        System.out.println(x.toString());
-//        System.out.println(x.getPoints());
-//        Move[] d;
-//        try {
-//            d = x.getPossibleMovesForADie(dice1);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        if (d[1] != null){
-//            for (int i = 0; i < d.length; i++) {
-//                System.out.println(d[i].toString());
-//            }
-//        }
-//        else {
-//            if (d[0] == null){
-//                System.out.println("There is no possible move for this die");
-//            }
-//            else
-//                System.out.println(d[0].toString());
-//        }
-//        Move we = new Move(dice1, x, 2);
-//        try {
-//            x.makeMove(we);
-//        } catch (Exception e) {
-//
-//        }
-//        System.out.println(x.toString());
-//        try {
-//            Move [] fa = x.getPossibleMovesForADie(dice1);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
-//            x.makeMove(we);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//    }
+
+
+    public static void main(String[] args) {
+        Dragon x = new Dragon();
+        System.out.println(x.toString());
+        Dice dice1 = new RedDice(1);
+        Dice dice2 = new RedDice(2);
+        Dice dice3 = new RedDice(3);
+        Dice dice4 = new RedDice(4);
+        Dice dice5 = new RedDice(5);
+        Dice dice6 = new RedDice(6);
+
+
+        Move a = new Move(dice1, x, 1);
+        Move b = new Move(dice2, x, 1);
+        Move c = new Move(dice3, x, 1);
+        Move[] y;
+        try {
+            y = x.getPossibleMovesForADie(dice1);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        for (int i = 0; i < y.length; i++) {
+            System.out.println(y[i].toString());
+        }
+        try {
+            x.makeMove(a);
+            x.makeMove(b);
+            x.makeMove(c);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(x.toString());
+        System.out.println(x.getPoints());
+        Move[] d;
+        try {
+            d = x.getPossibleMovesForADie(dice1);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if (d[1] != null){
+            for (int i = 0; i < d.length; i++) {
+                System.out.println(d[i].toString());
+            }
+        }
+        else {
+            if (d[0] == null){
+                System.out.println("There is no possible move for this die");
+            }
+            else
+                System.out.println(d[0].toString());
+        }
+        Move we = new Move(dice1, x, 2);
+        try {
+            x.makeMove(we);
+        } catch (Exception e) {
+
+        }
+        System.out.println(x.toString());
+        Move w = new Move(dice4, x, 4);
+        try {
+            x.makeMove(w);
+        } catch (Exception e) {
+
+        }
+        Move w1 = new Move(dice6, x, 2);
+        try {
+            x.makeMove(w1);
+        } catch (Exception e) {
+
+        }
+        Move w2 = new Move(dice5, x, 3);
+        try {
+            x.makeMove(w2);
+        } catch (Exception e) {
+
+        }
+        Move w3 = new Move(dice2, x, 2);
+        try {
+            x.makeMove(w3);
+        } catch (Exception e) {
+
+        }
+        Move w4 = new Move(dice5, x, 4);
+        try {
+            x.makeMove(w4);
+        } catch (Exception e) {
+
+        }
+        Move w5 = new Move(dice2, x, 3);
+        try {
+            x.makeMove(w5);
+        } catch (Exception e) {
+
+        }
+        Move w6 = new Move(dice3, x, 2);
+        try {
+            x.makeMove(w6);
+        } catch (Exception e) {
+
+        }
+        System.out.println(x.toString());
+        try {
+            Move [] fa = x.getPossibleMovesForADie(dice1);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            x.makeMove(we);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

@@ -13,7 +13,7 @@ public class Lion extends Creature{
    
 
 
-    private int hitNum=-1;
+    private int hitNum=0;
     private int[] diceNum={0,0,0,0,0,0,0,0,0,0,0};
     private int [] multipliers={0,0,0,0,0,0,0,0,0,0,0};
     private int totalScore=0; 
@@ -99,12 +99,14 @@ public void editMultipliers(){
 
 
 //increments hitnum(counter) & adds dice value to array diceNum 
-public void makeMove(Move move){
+public boolean makeMove(Move move){
     if (hitNum<11){
+        diceNum[hitNum]=(int)move.getDice().getValue();
         hitNum++;
-        diceNum[hitNum]=(int)move.getDice().getValue();}
+        return true;}
     else
-        System.out.print("move is not possible");
+        {System.out.print("move is not possible");
+        return false;}
 }
 
 
@@ -114,7 +116,7 @@ public int getYellowRealmScore(){
     return getScore( score, totalScore);
 }
 // gets the new score of the round after multiplying it
-public static int multiplyScore(int hitNum,int diceNum[],int[] multipliers){
+public static int multiplyScore(int hitNum,int[] diceNum,int[] multipliers){
     int score=multipliers[hitNum]*diceNum[hitNum];
      return score;
  }
@@ -127,28 +129,28 @@ public static int multiplyScore(int hitNum,int diceNum[],int[] multipliers){
 public Reward getReward(){
     switch (rew[hitNum]){
     case "AB":
-            rew[hitNum]="X";
+            rew[hitNum]="X ";
             return new ArcaneBoost();
     case "BB": 
-            rew[hitNum]="X";
+            rew[hitNum]="X ";
             return new Bonus(Realm.BLUE);
     case "EC": 
-            rew[hitNum]="X";
+            rew[hitNum]="X ";
             return new ElementalCrest(Realm.YELLOW);
     case "GB":
-            rew[hitNum]="X";
+            rew[hitNum]="X ";
             return new Bonus(Realm.GREEN);
     case "MB": 
-            rew[hitNum]="X";
+            rew[hitNum]="X ";
             return new Bonus(Realm.MAGENTA);
     case "RB": 
-            rew[hitNum]="X";
+            rew[hitNum]="X ";
             return new Bonus(Realm.RED);
     case "TW":
-            rew[hitNum]="X";
+            rew[hitNum]="X ";
             return new TimeWarp();
     case "YB": 
-            rew[hitNum]="X";
+            rew[hitNum]="X ";
             return new Bonus(Realm.YELLOW);
     default: return null;
     }
@@ -169,11 +171,16 @@ public Reward getReward(){
  }
  //returns possible moves when dice is rolled (dicenumber)
  public Move[] getPossibleMovesForADie(Dice dice){
-    Move[] pmd=new Move[1];
+        if (hitNum<11){
+        Move[] pmd=new Move[1];
     pmd[0]=new Move(dice,this);
-    return pmd;
+    return pmd;}
+    else{
+        Move[] pm2=new Move[0];
+        return pm2;
+        }
  }
-//returns the scoresheet  creates string for rewards & multipliers
+//returns the scoresheet  
  public String toString(){
     
     return "Radiant Savanna: Solar Lion (YELLOW REALM):\n" +
