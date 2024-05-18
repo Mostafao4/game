@@ -98,19 +98,21 @@ public class CLIGameController extends GameController {
 
     @Override
     public Move[] getPossibleMovesForAvailableDice(Player player) throws Exception {
-        Move[] red = this.getPossibleMovesForADie(player,this.getAvailableDice()[0]);
-        Move[] green = this.getPossibleMovesForADie(player,this.getAvailableDice()[1]);
-        Move[] blue = this.getPossibleMovesForADie(player,this.getAvailableDice()[2]);
-        Move[] magenta = this.getPossibleMovesForADie(player,this.getAvailableDice()[3]);
-        Move[] yellow = this.getPossibleMovesForADie(player,this.getAvailableDice()[4]);
-        Move[] out = new Move[red.length + green.length + blue.length + magenta.length + yellow.length];
-        System.arraycopy(red, 0, out, 0, red.length);
-        System.arraycopy(green, 0, out, red.length, green.length);
-        System.arraycopy(blue, 0, out, red.length + green.length, blue.length);
-        System.arraycopy(magenta, 0, out, red.length + green.length + blue.length, magenta.length);
-        System.arraycopy(yellow, 0, out, red.length + green.length + blue.length + magenta.length, yellow.length);
-        return out;
-    }
+           Move[] red = this.getPossibleMovesForADie(player, this.getAvailableDice()[0]);
+           Move[] green = this.getPossibleMovesForADie(player, this.getAvailableDice()[1]);
+           Move[] blue = this.getPossibleMovesForADie(player, this.getAvailableDice()[2]);
+           Move[] magenta = this.getPossibleMovesForADie(player, this.getAvailableDice()[3]);
+           Move[] yellow = this.getPossibleMovesForADie(player, this.getAvailableDice()[4]);
+           Move[] out = new Move[red.length + green.length + blue.length + magenta.length + yellow.length];
+           System.arraycopy(red, 0, out, 0, red.length);
+           System.arraycopy(green, 0, out, red.length, green.length);
+           System.arraycopy(blue, 0, out, red.length + green.length, blue.length);
+           System.arraycopy(magenta, 0, out, red.length + green.length + blue.length, magenta.length);
+           System.arraycopy(yellow, 0, out, red.length + green.length + blue.length + magenta.length, yellow.length);
+           return out;
+
+       }
+
 
     @Override
     public Move[] getPossibleMovesForADie(Player player, Dice dice) throws Exception {
@@ -233,19 +235,19 @@ public class CLIGameController extends GameController {
         Dice d;
         switch (r) {
             case RED:
-                d = (RedDice) new RedDice(i);
+                d = new RedDice(i);
                 break;
             case GREEN:
-                d = (GreenDice) new GreenDice(i);
+                d = new GreenDice(i);
                 break;
             case BLUE:
-                d = (BlueDice) new BlueDice(i);
+                d = new BlueDice(i);
                 break;
             case MAGENTA:
-                d = (MagentaDice) new MagentaDice(i);
+                d = new MagentaDice(i);
                 break;
             case YELLOW:
-                d = (YellowDice) new YellowDice(i);
+                d = new YellowDice(i);
                 break;
             default:
                 throw new PlayerActionException();

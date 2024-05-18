@@ -1,7 +1,6 @@
 package game;
 
-import game.collectibles.Bonus;
-import game.creatures.Realm;
+
 import game.engine.*;
 import static game.engine.CLIGameController.printDice;
 public class Main {
@@ -52,6 +51,7 @@ public class Main {
                 i = gc.getGameBoard().getScan().num();
                 gc.selectDice(gc.getAvailableDice()[i], gc.getActivePlayer());
                 gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
+                gc.getGameBoard().getGameStatus().incrementTurn();
             }//end of inner loop
 
 
@@ -73,7 +73,6 @@ public class Main {
                     gc.useArcaneBoost(gc.getActivePlayer());
                 }
             }
-
             if(gc.getPassivePlayer().getArcaneBoostCount()>0) {
                 System.out.println("Does " + gc.getPassivePlayer().getPlayerName() + " want to use Arcane Boost?");
                 s = gc.getGameBoard().getScan().string();
@@ -87,7 +86,6 @@ public class Main {
 
 
 
-            gc.getGameBoard().getGameStatus().incrementTurn();
             gc.resetDice();
             gc.switchPlayer();
             if (gc.getGameStatus().getPartOfRound() == 0)
