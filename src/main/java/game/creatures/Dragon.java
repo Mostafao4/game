@@ -226,10 +226,10 @@ public class Dragon extends Creature {
         }
     }
 
-    public void makeMove (Move a) throws Exception {
+    public boolean makeMove (Move a) throws Exception {
         int x = 0;
         Move [] b = getPossibleMovesForADie(a.getDice());
-        boolean flag = true;
+        boolean flag = false;
         int y = -1;
         for (int i = 0; i < b.length; i++){
             if (b[i].compareTo(a) == 0){
@@ -242,11 +242,13 @@ public class Dragon extends Creature {
                for (int j = 0; j < dragonParts[i].length; j++){
                    if (((RedDice)a.getDice()).getValue() == dragonParts [i][j] && a.getDragonNumber() == j+1 ) {
                        dragonParts[i][j] = 0;
+                       flag = true;
 
                    }
                }
            }
         }
+        return flag;
     }
 //        if (b.length != 0 && flag == true){
 //            for (int i = 0; i < dragonParts.length; i++){
