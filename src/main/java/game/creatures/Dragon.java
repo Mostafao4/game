@@ -224,8 +224,7 @@ public class Dragon extends Creature {
     }
 
     public String toString(){
-        return "\n\nScoreSheet\n\n" +
-                "Emberfall Dominion: Pyroclast Dragon (RED REALM):\n" +
+        return  "Emberfall Dominion: Pyroclast Dragon (RED REALM):\n" +
                 "+-----------------------------------+\n" +
                 "|  #  |D1   |D2   |D3   |D4   |R    |\n" +
                 "+-----------------------------------+\n" +

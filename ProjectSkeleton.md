@@ -494,24 +494,57 @@ For each package, add the skeleton details for the class and duplicate as much a
 #### Methods:
 
 
-1. `Collectibles checkBonus(int[][] dragonParts) method`
-    - **Description**: Checks whether the player gets the bonus or not after eliminating a part in all dragons.
-    - **Parameters**: 2d array
-        - An array that contains all hitpoints of the four dragons with their corresponding dice numbers.
-    - **Return Type**: `Collectibles`
-        - ``
-2. `int getPoints(int[][] dragonParts) method`
+1. `Reward [] checkBonus() method`
+    - **Description**: Checks whether the player gets the bonus or not after eliminating a common part in all dragons.
+    - **Return Type**: Array of `Reward`
+        - An array of reward that are collected after eliminating a common part in all dragons.
+2. `Reward checkBonusHelper(String s) method`
+    - **Description**: This method is called inside the checkBonus() method to return the required reward according to the configfile.
+    - **Parameters**: String
+        - `The string is the reward to be returned from the configfile.`:
+    - **Return Type**: `Reward`
+        - `The reward that is corrosponding to the parameter`
+3. `int getPoints() method`
     - **Description**: To check whether the player will get the points or not after killing a dragon.
-    - **Parameters**: 2d array
-        - ``:
     - **Return Type**: `int`
-        - ``
-3. `void changeScoretoZero(Player move) method`
-    - **Description**: To change the hit area the player chose to zero to indicate that this place is already hit.
-    - **Parameters**: 2d array
-        - ``:
-    - **Return Type**: `void`
-        - ``
+        - `int` Score received after killing a dragon.0
+4. `Move [] getAllPossibleMoves () method`
+    - **Description**: The method get all the parts in every dragon that was not attacked.
+    - **Return Type**: Array of `Move`
+        - Array of move that have all the dragon parts that was not attacked.
+5. `Move [] getAllPossibleMovesForADie () method`
+    - **Description**: To change the hit area the player chose to zero to indicate that this place is already hit and if a part is hit the method return true and false otherwise.
+    - **Return Type**: Array of `Move`
+        - Array of move that have all the dragon parts that was not attacked for the specified die.
+6. `boolean makeMove (Move move) method`
+    - **Description**: To change the hit area the player chose to zero to indicate that this place is already hit and if a part is hit the method return true and false otherwise.
+    - **Parameters**: 'Move'
+        - `which contains the dice, the creature and the dragon number.`:
+    - **Return Type**: `boolean`
+        - `true` if the move is made
+        - `false` if the move is not made
+7. `String toString() method`
+    - **Description**: The method returns the score sheet of the red realm and it uses helper methods to update the values inside the score sheet.
+    - **Return Type**: `String`
+        - `String` Score sheet of the red realm.
+8. `String scoreSheetHelperDiceValue(int i, int j)`
+    - **Description**: The method returns the dice value from the config file and it returns X if this dice value was attacked.
+    - **Parameters**: `int`
+        - `which contains the dice, the creature and the dragon number.`:
+    - **Return Type**: `String`
+        - `String` Dice value from the configfile
+9. `String scoreSheetHelperScore(int j)`
+    - **Description**: The method returns score from the config file and it returns X if the score is already taken.
+    - **Parameters**: `int`
+        - `j`: The number of column
+    - **Return Type**: `String`
+        - `String` Score from the configfile
+10. `String scoreSheetHelperBonus(int i)`
+    - **Description**: The method returns the bonus from the config file and it returns X if the score is already taken.
+    - **Parameters**: `int`
+        - `i`: The number of row.
+    - **Return Type**: `String`
+        - `String` Bonus from the configfile
 
 
 ### `Gaia_Guardian` class
