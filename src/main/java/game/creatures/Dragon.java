@@ -157,7 +157,7 @@ public class Dragon extends Creature {
         int sum = 0;
         for (int j = 0; j < dragonParts.length; j++){
             int c = 0;
-            for (int i = 0; i < dragonParts[i].length; i++){
+            for (int i = 0; i < dragonParts.length; i++){
                 if (dragonParts[i][j] == 0){
                     c++;
                 }
@@ -212,7 +212,7 @@ public class Dragon extends Creature {
         for (int i = 0; i < dragonParts.length; i++){
             for (int j = 0; j < dragonParts.length; j++){
                 if (a == dragonParts [i][j] && dragonParts[i][j] != 0) {
-                    moves[x] = new Move(dice, this, j);
+                    moves[x] = new Move(dice, this, j+1);
                     x++;
                     flag = true;
                 }
@@ -228,29 +228,25 @@ public class Dragon extends Creature {
 
     public void makeMove (Move a) throws Exception {
         int x = 0;
-//        Move [] b = getPossibleMovesForADie(a.getDice());
-//        boolean flag = true;
-//        int y = -1;
-//        for (int i = 0; i < b.length; i++){
-//            if (b[i].compareTo(a) == 0){
-//                y = i;
-//                break;
-//            }
-//        }
-       // if (y != -1){
+        Move [] b = getPossibleMovesForADie(a.getDice());
+        boolean flag = true;
+        int y = -1;
+        for (int i = 0; i < b.length; i++){
+            if (b[i].compareTo(a) == 0){
+                y = i;
+                break;
+            }
+        }
+        if (y != -1){
             for (int i = 0; i < dragonParts.length; i++){
                for (int j = 0; j < dragonParts[i].length; j++){
-                   if (a.getDice().getValue() == dragonParts [i][j] && ((RedDice)(a.getDice())).selectsDragon(i)== j ) {
-                       if (dragonParts[i][j] != 0) {
-                           dragonParts[i][j] = 0;
-                           break;
-                       }
-                       else
-                           x++;
+                   if (a.getDice().getValue() == dragonParts [i][j] && a.getDragonNumber() == j+1 ) {
+                       dragonParts[i][j] = 0;
+
                    }
                }
            }
-       // }
+        }
     }
 //        if (b.length != 0 && flag == true){
 //            for (int i = 0; i < dragonParts.length; i++){
@@ -316,4 +312,69 @@ public class Dragon extends Creature {
         }
     }
 
+//    public static void main(String[] args) {
+//        Dragon x = new Dragon();
+//        System.out.println(x.toString());
+//        Dice dice1 = new RedDice(1);
+//        Dice dice2 = new RedDice(2);
+//        Dice dice3 = new RedDice(3);
+//
+//        Move a = new Move(dice1, x, 1);
+//        Move b = new Move(dice2, x, 1);
+//        Move c = new Move(dice3, x, 1);
+//        Move[] y;
+//        try {
+//            y = x.getPossibleMovesForADie(dice1);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//        for (int i = 0; i < y.length; i++) {
+//            System.out.println(y[i].toString());
+//        }
+//        try {
+//            x.makeMove(a);
+//            x.makeMove(b);
+//            x.makeMove(c);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//        System.out.println(x.toString());
+//        System.out.println(x.getPoints());
+//        Move[] d;
+//        try {
+//            d = x.getPossibleMovesForADie(dice1);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//        if (d[1] != null){
+//            for (int i = 0; i < d.length; i++) {
+//                System.out.println(d[i].toString());
+//            }
+//        }
+//        else {
+//            if (d[0] == null){
+//                System.out.println("There is no possible move for this die");
+//            }
+//            else
+//                System.out.println(d[0].toString());
+//        }
+//        Move we = new Move(dice1, x, 2);
+//        try {
+//            x.makeMove(we);
+//        } catch (Exception e) {
+//
+//        }
+//        System.out.println(x.toString());
+////        try {
+////            Move [] fa = x.getPossibleMovesForADie(dice1);
+////        } catch (Exception e) {
+////            throw new RuntimeException(e);
+////        }
+//        try {
+//            x.makeMove(we);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
 }

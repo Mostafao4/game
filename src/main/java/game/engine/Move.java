@@ -47,24 +47,26 @@ public class Move implements Comparable<Move>{
         return dragonNumber;
     }
     public String toString(){
-        String s = "";
-        Move [] a = null;
-        try {
-            a = creature.getPossibleMovesForADie(dice);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        if (a[0] != null ){
-            s = s + a[0].dice.getValue() + " " + a[0].dragonNumber;
-        }
-        else {
-            if (a[1] != null ){
-                s = s + a[1].dice.getValue() + " " + a[1].dragonNumber;
-            }
-            else {
-                s = "T";
-            }
-        }
-        return s;
+        return "The dice value " + this.getDice() + " , and the available dragon(s) to be attacked with this dice value is/are  " + this.dragonNumber;
     }
+//        String s = "";
+//        Move [] a = null;
+//        try {
+//            a = creature.getPossibleMovesForADie(dice);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//        if (a.length == 2 ){
+//            s = s + a[0].dice.getValue() + " " + a[0].dragonNumber + "\n" + a[1].dice.getValue() + " " + a[1].dragonNumber;
+//        }
+//        else {
+//            if (a.length == 1 ){
+//                s = s + a[1].dice.getValue() + " " + a[1].dragonNumber;
+//            }
+//            else {
+//                s = "T";
+//            }
+//        }
+//        return s;
+//    }
 }
