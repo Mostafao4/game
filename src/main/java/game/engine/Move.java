@@ -43,4 +43,28 @@ public class Move implements Comparable<Move>{
     public void setCreature(Creature creature) {
         this.creature = creature;
     }
+    public int getDragonNumber() {
+        return dragonNumber;
+    }
+    public String toString(){
+        String s = "";
+        Move [] a = null;
+        try {
+            a = creature.getPossibleMovesForADie(dice);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if (a[0] != null ){
+            s = s + a[0].dice.getValue() + " " + a[0].dragonNumber;
+        }
+        else {
+            if (a[1] != null ){
+                s = s + a[1].dice.getValue() + " " + a[1].dragonNumber;
+            }
+            else {
+                s = "T";
+            }
+        }
+        return s;
+    }
 }
