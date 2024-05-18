@@ -111,7 +111,7 @@ public class CLIGameControllerTest {
     }
 
     @Test
-    public void testGetPossibleMovesForAvailableDice() {
+    public void testGetPossibleMovesForAvailableDice(){
         CLIGameController controller = new CLIGameController();
         Player player = controller.getActivePlayer();
 

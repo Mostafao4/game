@@ -48,7 +48,7 @@ public class Phoenix extends Creature {
             attack[count]=(int)move.getDice().getValue();
             score_int+=(int)move.getDice().getValue();
             score_array[count]=(int)move.getDice().getValue();
-            count+=1;
+            count++;
             getReward();
             return true;
             

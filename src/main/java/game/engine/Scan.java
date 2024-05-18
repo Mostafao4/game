@@ -6,7 +6,7 @@ public class Scan {
         sc = new Scanner(System.in);
     }
     public String string(){
-        return sc.nextLine();
+        return sc.next();
     }
     public int num(){
         return sc.nextInt();
