@@ -23,15 +23,15 @@ public class Phoenix extends Creature {
 
         
     }
-    public void makeMove(Move move) {
-    if(count>=11){System.out.println("You reached the maximum possible times of plays"); return;}
+    public boolean makeMove(Move move) {
+    if(count>=11){System.out.println("You reached the maximum possible times of plays"); return false;}
     if(count==0){   
             attack[count]=(int)move.getDice().getValue();
             score_int+=(int)move.getDice().getValue();
             score_array[count]=(int)move.getDice().getValue();
             count++;
             getReward();
-            return; 
+            return true;
     }
     else{
         if(move.getDice().getValue()>(int)attack[count]){
@@ -41,19 +41,19 @@ public class Phoenix extends Creature {
             score_array[count]=(int)move.getDice().getValue();
             count++;
             getReward();
-            return;
+            return true;
                
         }
         if(attack[count]==6){
             attack[count]=(int)move.getDice().getValue();
             score_int+=(int)move.getDice().getValue();
             score_array[count]=(int)move.getDice().getValue();
-            count+=1;
+            count++;
             getReward();
-            return;
+            return true;
             
         }
-        else{System.out.println("Dice value is not more than the last chosen value");  return;}
+        else{System.out.println("Dice value is not more than the last chosen value");  return false;}
 
     }
     }

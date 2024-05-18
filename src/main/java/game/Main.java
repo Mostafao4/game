@@ -2,14 +2,8 @@ package game;
 
 import game.collectibles.Bonus;
 import game.creatures.Realm;
-import game.dice.Dice;
-import game.dice.GreenDice;
 import game.engine.*;
-
 import static game.engine.CLIGameController.printDice;
-import static game.engine.Scan.*;
-
-
 public class Main {
     public static void main(String[] args) throws Exception {
         CLIGameController gc = new CLIGameController();
@@ -37,49 +31,64 @@ public class Main {
                 default:
                     System.out.println("You did not receive any reward");
             }
-
+//inner loop
             while (gc.getGameBoard().getGameStatus().getTurn() <= 3 && gc.thereAreAvailableDice()) {
-                System.out.println("Round: " + gc.getGameBoard().getGameStatus().getRound());
-                System.out.println("Turn: " + gc.getGameBoard().getGameStatus().getTurn());
-                System.out.println("Current Player: " + gc.getActivePlayer().getPlayerName());
-                System.out.println();
-
+               // START TURN AND ROLL DICE
+                gc.startTurn();
                 gc.rollDice();
                 printDice(gc.getAvailableDice());
-
-//                System.out.println("Do you want to use Time Warp?");
-//                if (gc.getGameBoard().getScan().string().equals("yes"))
-//                    gc.getGameBoard().setDice(gc.rollDice());
-
-                System.out.println("Select a die");
-
-                i = gc.getGameBoard().getScan().num();
-                gc.selectDice(gc.getGameBoard().getDice()[i], gc.getActivePlayer());
-                //System.out.println(gc.getGameBoard().getDice()[0].getValue());
-                gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
-
-
-                if (gc.getGameBoard().getGameStatus().getRound() != 1 && gc.getGameBoard().getGameStatus().getPartOfRound() != 0) {
-                    System.out.println("Select a die from the forgotten realm");
-                    gc.getForgottenRealmDice();
-                    i = gc.getGameBoard().getScan().num();
-                    gc.makeMove(gc.getPassivePlayer(), new Move(gc.getForgottenRealmDice()[i], gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getForgottenRealmDice()[i])));
+                // TIME WARP
+                if(gc.getActivePlayer().getTimeWarpCount()>0) {
+                    System.out.println("Do you want to use Time Warp?");
+                    s = gc.getGameBoard().getScan().string();
+                    if (s.equals("yes")) {
+                        gc.getActivePlayer().subtractTimeWarpCount();
+                        gc.rollDice();
+                        printDice(gc.getAvailableDice());
+                    }
                 }
+                // NORMAL CHOOSE
+                System.out.println("Select a die: ");
+                i = gc.getGameBoard().getScan().num();
+                gc.selectDice(gc.getAvailableDice()[i], gc.getActivePlayer());
+                gc.makeMove(gc.getActivePlayer(), new Move(gc.getActivePlayer().getSelectedDice(), gc.getActivePlayer().getScoreSheet().getCreatureByRealm(gc.getActivePlayer().getSelectedDice())));
+            }//end of inner loop
 
-//                System.out.println("Does " + gc.getActivePlayer().getPlayerName() + " want to use Arcane Boost?");
-//                s = gc.getGameBoard().getScan().string();
-//                if (s.equals("yes"))
-//                    gc.useArcaneBoost(gc.getActivePlayer());
-//
-//
-////                System.out.println("Does " + gc.getPassivePlayer().getPlayerName() + " want to use Arcane Boost?");
-////                s = gc.getGameBoard().getScan().string();
-//
-//                if (s.equals("yes"))
-//                    gc.useArcaneBoost(gc.getActivePlayer());
 
-                gc.getGameBoard().getGameStatus().incrementTurn();
+            //FORGOTTEN REALM
+            System.out.println(gc.getPassivePlayer().getPlayerName()+ ", select a die from the forgotten realm: ");
+            printDice(gc.getForgottenRealmDice());
+            i = gc.getGameBoard().getScan().num();
+            gc.makeMove(gc.getPassivePlayer(), new Move(gc.getForgottenRealmDice()[i], gc.getPassivePlayer().getScoreSheet().getCreatureByRealm(gc.getForgottenRealmDice()[i])));
+
+
+
+            //ARCANE BOOST
+            if(gc.getActivePlayer().getArcaneBoostCount()>0) {
+                System.out.println("Does " + gc.getActivePlayer().getPlayerName() + " want to use Arcane Boost?");
+                s = gc.getGameBoard().getScan().string();
+                if (s.equals("yes")) {
+                    gc.getActivePlayer().subtractArcaneBoostCount();
+                    printDice(gc.getAllDice());
+                    gc.useArcaneBoost(gc.getActivePlayer());
+                }
             }
+
+            if(gc.getPassivePlayer().getArcaneBoostCount()>0) {
+                System.out.println("Does " + gc.getPassivePlayer().getPlayerName() + " want to use Arcane Boost?");
+                s = gc.getGameBoard().getScan().string();
+                if (s.equals("yes")) {
+                    gc.getPassivePlayer().subtractArcaneBoostCount();
+                    printDice(gc.getAllDice());
+                    gc.useArcaneBoost(gc.getPassivePlayer());
+                }
+            }
+
+
+
+
+            gc.getGameBoard().getGameStatus().incrementTurn();
+            gc.resetDice();
             gc.switchPlayer();
             if (gc.getGameStatus().getPartOfRound() == 0)
                 gc.getGameStatus().incrementPartOfRound();
@@ -87,8 +96,7 @@ public class Main {
                 gc.getGameStatus().incrementRound();
                 gc.getGameStatus().resetPartofRound();
             }
-
-        }
+        } // end of outer loop
             gc.getGameBoard().getPlayer1().getGameScore().setScore();
             gc.getGameBoard().getPlayer2().getGameScore().setScore();
             int sc1 = gc.getGameBoard().getPlayer1().getGameScore().getScore();
@@ -101,20 +109,7 @@ public class Main {
 
 
     }
-        public static Realm getRealmFromString(String x){
-            switch (x) {
-                case "red":
-                    return Realm.RED;
-                case "green":
-                    return Realm.GREEN;
-                case "blue":
-                    return Realm.BLUE;
-                case "magenta":
-                    return Realm.MAGENTA;
-                default:
-                    return Realm.YELLOW;
-            }
-        }
+
 
     }
 
