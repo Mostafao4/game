@@ -298,6 +298,10 @@ public class Dragon extends Creature {
 
     public static void main(String[] args) {
         Dragon x = new Dragon();
+        Move [] qw = x.getAllPossibleMoves();
+        for (int i = 0; i < 12; i++){
+            System.out.println(qw[i].toString());
+        }
         System.out.println(x.toString());
         Dice dice1 = new RedDice(1);
         Dice dice2 = new RedDice(2);
@@ -311,6 +315,7 @@ public class Dragon extends Creature {
         Move b = new Move(dice2, x, 1);
         Move c = new Move(dice3, x, 1);
         Move[] y;
+
         try {
             y = x.getPossibleMovesForADie(dice1);
         } catch (Exception e) {
