@@ -43,6 +43,7 @@ public class CLIGameController extends GameController {
             if (die != null)
                 die.roll();
         System.out.println(this.getGameBoard().diceToString());
+        gameBoard.setDice(dice);
         return dice;
     }
 
@@ -193,6 +194,7 @@ public class CLIGameController extends GameController {
             case WHITE: break;
             default: throw new Exception();
         }
+        System.out.println(this.getActivePlayer().getScoreSheet());
         return true;
     }
     public boolean areThereAvailableDice(){

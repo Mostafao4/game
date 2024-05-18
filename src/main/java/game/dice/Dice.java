@@ -8,6 +8,7 @@ public abstract class Dice {
     private Realm realm;
 
     public Dice(int value){
+        diceStatus = DiceStatus.AVAILABLE;
         this.value = value;
     }
 
