@@ -30,7 +30,7 @@ public class Phoenix extends Creature {
             score_int+=(int)move.getDice().getValue();
             score_array[count]=(int)move.getDice().getValue();
             count++;
-            rewards[count-1]= getReward();
+            getReward();
             return; 
     }
     else{
@@ -40,7 +40,7 @@ public class Phoenix extends Creature {
             score_int+=(int)move.getDice().getValue();
             score_array[count]=(int)move.getDice().getValue();
             count++;
-            rewards[count-1]= getReward();
+            getReward();
             return;
                
         }
@@ -49,7 +49,7 @@ public class Phoenix extends Creature {
             score_int+=(int)move.getDice().getValue();
             score_array[count]=(int)move.getDice().getValue();
             count+=1;
-            rewards[count-1]= getReward();
+            getReward();
             return;
             
         }
@@ -62,43 +62,43 @@ public class Phoenix extends Creature {
     public Reward getRewards(int index ){
        return  rewards[index];
     }
-    private Reward rewardFromString(String N){
+    private void rewardFromString(String N){
         switch (N) {
-            case "TimeWarp": return new TimeWarp(); 
-            case "GreenBonus": return new Bonus(Realm.GREEN);
-            case "ArcaneBoost": return new ArcaneBoost();
-            case "RedBonus": return new Bonus(Realm.RED);
-            case "ElementalCrest": return new ElementalCrest(Realm.MAGENTA);
-            case "BlueBonus":return new Bonus(Realm.BLUE);
-            case "YellowBonus": return new Bonus(Realm.YELLOW);
-            default: return null;
+            case "TimeWarp": rewards[count-1]=new TimeWarp(); 
+            case "GreenBonus": rewards[count-1]=new Bonus(Realm.GREEN);
+            case "ArcaneBoost": rewards[count-1]=new ArcaneBoost();
+            case "RedBonus": rewards[count-1]=new Bonus(Realm.RED);
+            case "ElementalCrest": rewards[count-1]= new ElementalCrest(Realm.MAGENTA);
+            case "BlueBonus":rewards[count-1]=new Bonus(Realm.BLUE);
+            case "YellowBonus": rewards[count-1]= new Bonus(Realm.YELLOW);
 
         }
     }
-    private Reward getReward(){
+    private void getReward(){
         Properties prop= new Properties();
         String reward_String;
         try {
-            prop.load(Phoenix.class.getClassLoader().getResourceAsStream("MysticalSkyRewards.properties"));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/MysticalSkyRewards.properties");
+            prop.load(scoreConfig);
+        
         switch (count) {
-            case 1:reward_String=prop.getProperty("hit1Reward"); return rewardFromString(reward_String);
-            case 2:reward_String=prop.getProperty("hit2Reward");return rewardFromString(reward_String);
-            case 3:reward_String=prop.getProperty("hit3Reward");return rewardFromString(reward_String);
-            case 4:reward_String=prop.getProperty("hit4Reward");return rewardFromString(reward_String);
-            case 5:reward_String=prop.getProperty("hit5Reward");return rewardFromString(reward_String);
-            case 6:reward_String=prop.getProperty("hit6Reward");return rewardFromString(reward_String);
-            case 7:reward_String=prop.getProperty("hit7Reward");return rewardFromString(reward_String);
-            case 8:reward_String=prop.getProperty("hit8Reward");return rewardFromString(reward_String);
-            case 9:reward_String=prop.getProperty("hit9Reward");return rewardFromString(reward_String);
-            case 10:reward_String=prop.getProperty("hit10Reward");return rewardFromString(reward_String);
-            case 11:reward_String=prop.getProperty("hit11Reward");return rewardFromString(reward_String);
-            default: return null;
+            case 1:reward_String=prop.getProperty("hit1Reward"); rewardFromString(reward_String);break;
+            case 2:reward_String=prop.getProperty("hit2Reward"); rewardFromString(reward_String);break;
+            case 3:reward_String=prop.getProperty("hit3Reward"); rewardFromString(reward_String);break;
+            case 4:reward_String=prop.getProperty("hit4Reward"); rewardFromString(reward_String);break;
+            case 5:reward_String=prop.getProperty("hit5Reward"); rewardFromString(reward_String);break;
+            case 6:reward_String=prop.getProperty("hit6Reward"); rewardFromString(reward_String);break;
+            case 7:reward_String=prop.getProperty("hit7Reward"); rewardFromString(reward_String);break;
+            case 8:reward_String=prop.getProperty("hit8Reward"); rewardFromString(reward_String);break;
+            case 9:reward_String=prop.getProperty("hit9Reward"); rewardFromString(reward_String);break;
+            case 10:reward_String=prop.getProperty("hit10Reward"); rewardFromString(reward_String);break;
+            case 11:reward_String=prop.getProperty("hit11Reward"); rewardFromString(reward_String);break;
 
         }
+    }catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
     }
     ////////Done
 
