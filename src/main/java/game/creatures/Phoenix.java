@@ -53,6 +53,7 @@ public class Phoenix extends Creature {
             return true;
             
         }
+        
         else{System.out.println("Dice value is not more than the last chosen value");  return false;}
 
     }
@@ -64,13 +65,13 @@ public class Phoenix extends Creature {
     }
     private void rewardFromString(String N){
         switch (N) {
-            case "TimeWarp": rewards[count-1]=new TimeWarp(); 
-            case "GreenBonus": rewards[count-1]=new Bonus(Realm.GREEN);
-            case "ArcaneBoost": rewards[count-1]=new ArcaneBoost();
-            case "RedBonus": rewards[count-1]=new Bonus(Realm.RED);
-            case "ElementalCrest": rewards[count-1]= new ElementalCrest(Realm.MAGENTA);
-            case "BlueBonus":rewards[count-1]=new Bonus(Realm.BLUE);
-            case "YellowBonus": rewards[count-1]= new Bonus(Realm.YELLOW);
+            case "TimeWarp": rewards[count-1]=new TimeWarp();break; 
+            case "GreenBonus": rewards[count-1]=new Bonus(Realm.GREEN);break;
+            case "ArcaneBoost": rewards[count-1]=new ArcaneBoost();break;
+            case "RedBonus": rewards[count-1]=new Bonus(Realm.RED);break;
+            case "ElementalCrest": rewards[count-1]= new ElementalCrest(Realm.MAGENTA);break;
+            case "BlueBonus":rewards[count-1]=new Bonus(Realm.BLUE);break;
+            case "YellowBonus": rewards[count-1]= new Bonus(Realm.YELLOW);break;
 
         }
     }
