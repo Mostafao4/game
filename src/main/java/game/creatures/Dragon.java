@@ -240,7 +240,7 @@ public class Dragon extends Creature {
         if (y != -1){
             for (int i = 0; i < dragonParts.length; i++){
                for (int j = 0; j < dragonParts[i].length; j++){
-                   if (a.getDice().getValue() == dragonParts [i][j] && a.getDragonNumber() == j+1 ) {
+                   if (((RedDice)a.getDice()).getValue() == dragonParts [i][j] && a.getDragonNumber() == j+1 ) {
                        dragonParts[i][j] = 0;
 
                    }
@@ -365,11 +365,11 @@ public class Dragon extends Creature {
 //
 //        }
 //        System.out.println(x.toString());
-////        try {
-////            Move [] fa = x.getPossibleMovesForADie(dice1);
-////        } catch (Exception e) {
-////            throw new RuntimeException(e);
-////        }
+//        try {
+//            Move [] fa = x.getPossibleMovesForADie(dice1);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
 //        try {
 //            x.makeMove(we);
 //        } catch (Exception e) {
