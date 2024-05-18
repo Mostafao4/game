@@ -53,11 +53,8 @@ public class Phoenix extends Creature {
             return true;
             
         }
-<<<<<<< HEAD
-        if(move.getDice().getValue()>(int)attack[count]){System.out.println("Dice value is not more than the last chosen value");  return;}
-=======
+        
         else{System.out.println("Dice value is not more than the last chosen value");  return false;}
->>>>>>> 16c73deae52bc3e01be44d710b3295224c47e62c
 
     }
     }
