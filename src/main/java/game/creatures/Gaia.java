@@ -167,9 +167,9 @@ public class Gaia extends Creature{
         List<Move> allPossible = new LinkedList<>();
         //int count = 0;
 
-        for(int i = 0; i < this.gaias.length; i++){
+        for(int i = 0; i < 3; i++){
 
-            for(int j = 0; j < this.gaias[i].length; i++){
+            for(int j = 0; j < 4; j++){
                 if(gaias[i][j] != 0){
                     int val = gaias[i][j];
                     //allPossibleMoves[count] = new Move(new GreenDice(val), this);
@@ -188,7 +188,9 @@ public class Gaia extends Creature{
     public Move[] getPossibleMovesForADie(Dice die) {
         List<Move> possibleMoves = new LinkedList<>();
         int val = die.getValue();
+
         possibleMoves.add(new Move(new GreenDice(val), this));
+
         Move[] possibleMovesForADie = new Move[possibleMoves.size()];
         possibleMovesForADie = possibleMoves.toArray(possibleMovesForADie);
 

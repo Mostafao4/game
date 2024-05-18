@@ -112,9 +112,22 @@ public class Phoenix extends Creature {
 
 
 public Move[] getAllPossibleMoves(){
-    Move[] possibleMoves = new Move[6];
-    int lastNumber= (int)attack[count];
+    int lastNumber= attack[count];
+    int last_test=attack[count];
     // Dice Temp_dice=new MagentaDice(0);
+    Move[] possibleMoves;
+    if((lastNumber)==6){
+        possibleMoves = new Move[6];
+    }
+    else{
+        int length=0;
+
+        while(last_test<6){
+            length++;
+            last_test++;
+        }
+        possibleMoves=new Move[length];
+    }
     if((lastNumber)==6){
         for(int j=0; j<6;j++){
             // Temp_dice.setValue(j+1);
@@ -123,10 +136,10 @@ public Move[] getAllPossibleMoves(){
         return possibleMoves;
     }
     else{
-    for(int i=0;(lastNumber)<=6;i++){
-        // Temp_dice.setValue((lastNumber));
-        possibleMoves[i]=new Move(new MagentaDice((lastNumber)),this);
-        (lastNumber)+=1;
+        for(int i=0;(lastNumber)<6;i++){
+            // Temp_dice.setValue((lastNumber));
+            possibleMoves[i]=new Move(new MagentaDice((lastNumber)),this);
+            (lastNumber)+=1;
     }
     return possibleMoves;
 }
@@ -135,22 +148,29 @@ public Move[] getAllPossibleMoves(){
 ///////Done
 
 public Move[] getPossibleMovesForADie (Dice dice){
-    Move[] possibleMoves = new Move[6];
-    if(dice.getValue()==6){
-        for(int j=0; j<6;j++){
-            // Temp_dice.setValue(j+1);
-            possibleMoves[j]=new Move(new MagentaDice(j+1),this);
-        } 
-        return possibleMoves;
+    Move[] possibleMoves = new Move[1];
+//    if(dice.getValue()==6){
+//        for(int j=0; j<6;j++){
+//            // Temp_dice.setValue(j+1);
+//            possibleMoves[j]=new Move(new MagentaDice(j+1),this);
+//        }
+//        return possibleMoves;
+//    }
+//    else{
+//        for(int i=0;(int)dice.getValue()<=6;i++){
+//            // Temp_dice.setValue((lastNumber));
+//            possibleMoves[i]=new Move(new MagentaDice((dice.getValue())),this);
+//            dice.setValue(dice.getValue()+1);
+//        }
+//        return possibleMoves;
+//    }
+    if(dice.getValue() > (int) attack[count] || dice.getValue() == 6){
+        possibleMoves[0] = new Move(dice,this);
     }
-    else{
-        for(int i=0;(int)dice.getValue()<=6;i++){
-            // Temp_dice.setValue((lastNumber));
-            possibleMoves[i]=new Move(new MagentaDice((dice.getValue())),this);
-            dice.setValue(dice.getValue()+1);
-        }
-        return possibleMoves;
+    else {
+        return new Move[0];
     }
+    return possibleMoves;
 
 }
 /////partially done

@@ -9,6 +9,8 @@ import game.collectibles.Reward;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 import game.collectibles.ArcaneBoost;
@@ -21,16 +23,20 @@ public class Hydra extends Creature {
     private int[]scores;
     private String[]reward;
     private String[] Xb;
+    private int hydra1Heads;
+    private int hydra2Heads;
 
     public Hydra(){
+        hydra1Heads = 0;
+        hydra2Heads = 0;
         this.hydra = new int[11];
         hydra[0] = 1;   hydra[5] = 1;
         hydra[1] = 2;   hydra[6] = 2;
         hydra[2] = 3;   hydra[7] = 3;
         hydra[3] = 4;   hydra[8] = 4;
         hydra[4] = 5;   hydra[9] = 5;
-                         hydra[10] = 6;   
-         
+                         hydra[10] = 6;
+
         //config file for the rewards//
         try{
 
@@ -50,11 +56,11 @@ public class Hydra extends Creature {
             String reward11 = prop.getProperty("null");
             reward = new String[]{reward1,reward2,reward3,reward4,reward5,reward6,reward7,reward8,reward9,reward10,reward11};
 
-            
+
         } catch (IOException e) {
             e.printStackTrace();
-        }               
-       
+        }
+
        //config file for the scores//
         try{
 
@@ -73,15 +79,15 @@ public class Hydra extends Creature {
             int score10 = Integer.parseInt(prop1.getProperty("col10"));
             int score11 = Integer.parseInt(prop1.getProperty("col11"));
             scores = new int[]{score1,score2,score3,score4,score5,score6,score7,score8,score9,score10,score11};
-            
-        } 
+
+        }
         catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-        
-    
+
+
 
 
 
@@ -142,30 +148,30 @@ public class Hydra extends Creature {
                 for(int j = 5; j <= 10; j++){
                     switch (hydra[j]) {
                         case 1:
-                            return BonusHelper(reward[5]); 
-        
+                            return BonusHelper(reward[5]);
+
                         case 2:
-                            return BonusHelper(reward[6]); 
-                              
-                            
+                            return BonusHelper(reward[6]);
+
+
                         case 4:
                             return BonusHelper(reward[8]);
-                            
-        
+
+
                         case 5:
                             return BonusHelper(reward[9]);
-                            
-        
+
+
                         default:
                             break;
                         }
                     }
-                    
+
                 }
                 return null;
-        
+
                     }
-      
+
     private Reward BonusHelper(String s){
         switch (s) {
             case "ArcaneBoost":
@@ -182,55 +188,55 @@ public class Hydra extends Creature {
 
             case "TimeWarp":
                 return new TimeWarp();
-        
+
             default:
                 return null;
         }
-    }  
-    
-    
-    
-            
+    }
+
+
+
+
     public int getScore(){
         return this.score();
     }
 
-    private int score(){ 
+    private int score(){
         int score;
         int c = HeadsKilled(hydra);
         switch (c) {
         case 1:
            return score = scores[0];
-            
-        case 2: 
+
+        case 2:
             return score = scores[1];
 
-        case 3: 
+        case 3:
             return score = scores[2];
 
-        case 4: 
+        case 4:
             return score = scores[3];
 
-        case 5: 
+        case 5:
             return score = scores[4];
 
-        case 6: 
+        case 6:
             return score = scores[5];
 
-        case 7: 
+        case 7:
             return score = scores[6];
 
-        case 8: 
+        case 8:
             return score = scores[7];
 
-        case 9: 
+        case 9:
             return score = scores[8];
 
-        case 10: 
+        case 10:
             return score = scores[9];
 
-        default: 
-            return score = scores[10];  
+        default:
+            return score = scores[10];
         }
     }
 
@@ -239,15 +245,14 @@ public class Hydra extends Creature {
 
     private int HeadsKilled(int[]hydra){
         int i = 0;
-        while(i <= 11){
-            if(hydra[i] == 0){
-                i++;
+        int count = 0;
+        while(i < 11){
+            if(hydra[i] == 0) {
+                count++;
             }
-            else{
-                return i+1;
-            }
+            i++;
         }
-            return i;
+            return count;
         }
 
 
@@ -264,10 +269,10 @@ public class Hydra extends Creature {
         }
         return Xs;
 
-    } 
+    }
 
-    
-    
+
+
 
 
     public String toString(){
@@ -289,21 +294,27 @@ public class Hydra extends Creature {
 
     public boolean makeMove(Move move) {
         int value = move.getDice().getValue();
-        for (int i = 0; i <= 4; i++) {
+        if(hydra1Heads < 5) {
+            for (int i = 0; i <= 4; i++) {
                 if (value >= i && hydra[i] != 0) {
                     System.out.println("Head " + i + " successfully attacked!");
                     hydra[i] = 0;
+                    hydra1Heads++;
                     return true;
-                  } 
-             }
-            for(int j = 5; j <= 10; j++){
+                }
+            }
+        }
+        else if(hydra2Heads < 6) {
+            for (int j = 5; j <= 10; j++) {
                 if (value >= j && hydra[j] != 0) {
                     System.out.println("Head " + j + " successfully attacked!");
                     hydra[j] = 0;
+                    hydra2Heads++;
                     return true;
-                  }
-            } 
-            return false;    
+                }
+            }
+        }
+        return false;
         }
             
         
@@ -311,31 +322,48 @@ public class Hydra extends Creature {
 
     public Move[] getAllPossibleMoves(){ 
             Move[] moves = new Move[6];
-            int hydranum = HeadsKilled(hydra);
-            if(hydranum <= 5){
+            //List<Move> movesList = new LinkedList<>();
+            if(hydra1Heads < 5){
                 for(int j = 0; j <= 4; j++){
                     if(hydra[j] != 0){
                         int val = hydra[j];
-                        moves[j] = new Move(new BlueDice(val), this); 
-                    }
-                    else{
-                        moves[j] = null;
+                        moves[j] = (new Move(new BlueDice(val), this));
                     }
                 }
+//                moves = new Move[movesList.size()];
+//                moves = movesList.toArray(moves);
                 return moves;
             }
             else{
                 for(int c = 0; c <= 5; c++){
                     if(hydra[c] != 0){
                         int val = hydra[c];
-                        moves[c] = new Move(new BlueDice(val), this); 
-                    }
-                    else{
-                        moves[c] = null;
+                        moves[c] = (new Move(new BlueDice(val), this));
                     }
                 }
-                return moves;
+//                moves = new Move[movesList.size()];
+//                moves = movesList.toArray(moves);
+                Move[] newMoves = removeNulls(moves);
+                return newMoves;
             }
+        }
+
+        private Move[] removeNulls(Move[] moves){
+            int count = 0;
+            for(int i = 0; i < moves.length; i++){
+                if(moves[i] != null){
+                    count++;
+                }
+            }
+            Move[] newMoves = new Move[count];
+            count = 0;
+            for(int i = 0; i < moves.length; i++){
+                if(moves[i] != null){
+                    newMoves[count] = moves[i];
+                    count++;
+                }
+            }
+            return newMoves;
         }
 
 

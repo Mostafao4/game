@@ -172,12 +172,13 @@ public Reward getReward(){
  //returns possible moves when dice is rolled (dicenumber)
  public Move[] getPossibleMovesForADie(Dice dice){
         if (hitNum<11){
-        Move[] pmd=new Move[1];
-    pmd[0]=new Move(dice,this);
-    return pmd;}
-    else{
-        Move[] pm2=new Move[0];
-        return pm2;
+            Move[] pmd=new Move[1];
+            pmd[0]=new Move(dice,this);
+            return pmd;
+        }
+        else{
+            Move[] pm2=new Move[0];
+            return pm2;
         }
  }
 //returns the scoresheet  

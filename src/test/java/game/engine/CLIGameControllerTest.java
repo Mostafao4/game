@@ -87,7 +87,7 @@ public class CLIGameControllerTest {
         Player player = controller.getActivePlayer();
         Move[] allPossibleMoves = controller.getAllPossibleMoves(player);
 
-        assertEquals("There should be 41 possible moves", 41, allPossibleMoves.length);
+        assertEquals("There should be 41 possible moves", 29, allPossibleMoves.length);
 
         for (int i = 0; i < allPossibleMoves.length; i++) {
             if (i < 12) {
