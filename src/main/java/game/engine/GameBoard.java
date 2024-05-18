@@ -13,10 +13,12 @@ public class GameBoard {
     private MagentaDice m;
     private YellowDice y;
     private ArcanePrism a;
+    private Scan scan;
 
 
 
     public GameBoard() {
+        scan = new Scan();
         r = new RedDice(0);
         g = new GreenDice(0);
         b = new BlueDice(0);
@@ -47,6 +49,10 @@ public class GameBoard {
     }
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+    }
+
+    public Scan getScan() {
+        return scan;
     }
 
     public GameStatus getGameStatus() {
