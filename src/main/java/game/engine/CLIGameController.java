@@ -19,8 +19,8 @@ public class CLIGameController extends GameController {
         String s1 = gameBoard.getScan().string();
         System.out.println("Enter Player 2 name");
         String s2 = gameBoard.getScan().string();
-        gameBoard.setPlayer2(new Player(s2,PlayerStatus.PASSIVE));
         gameBoard.setPlayer1(new Player(s1,PlayerStatus.ACTIVE));
+        gameBoard.setPlayer2(new Player(s2,PlayerStatus.PASSIVE));
     }
 
     @Override
@@ -33,27 +33,30 @@ public class CLIGameController extends GameController {
             gameBoard.getPlayer1().setPlayerStatus(PlayerStatus.ACTIVE);
             gameBoard.getPlayer2().setPlayerStatus(PlayerStatus.PASSIVE);
         }
+        gameBoard.getGameStatus().resetTurn();
         return true;
     }
 
     @Override
     public Dice[] rollDice() {
-        Dice[] dice = this.getAvailableDice();
-        for (Dice die : dice)
-            if (die != null)
+        for (Dice die : gameBoard.getDice())
+            if (die.getDiceStatus()==DiceStatus.AVAILABLE)
                 die.roll();
-        System.out.println(this.getGameBoard().diceToString());
-        gameBoard.setDice(dice);
-        return dice;
+        return gameBoard.getDice();
     }
 
     @Override
     public Dice[] getAvailableDice() {
-        Dice[] array = getGameBoard().getDice();
-        for(int i = 0; i < array.length; i++)
-            if(array[i].getDiceStatus()!=DiceStatus.AVAILABLE)
-                array[i].setValue(0);
-        return array;
+        int c=0;
+        Dice[] arr=getAllDice();
+        for(Dice d : arr)
+            if(d.getDiceStatus()==DiceStatus.AVAILABLE)
+                c++;
+        Dice[] out = new Dice[c];
+        for(Dice d : arr)
+            if(d.getDiceStatus()==DiceStatus.AVAILABLE)
+                out[c-1]=d;
+        return out;
     }
 
     @Override
@@ -64,9 +67,12 @@ public class CLIGameController extends GameController {
     @Override
     public Dice[] getForgottenRealmDice() {
         Dice[] dice = this.getAvailableDice();
-        for(int i = 0; i < dice.length; i++)
-            if(dice[i].getDiceStatus()!=DiceStatus.FORGOTTEN_REALM)
+        for(int i = 0; i < dice.length; i++) {
+            if (dice[i].getDiceStatus() != DiceStatus.FORGOTTEN_REALM)
                 dice[i].setValue(0);
+            System.out.print(dice[i] + "  ");
+        }
+        System.out.println();
         return dice;
     }
 
@@ -180,14 +186,25 @@ public class CLIGameController extends GameController {
             if(value.getValue() < dice.getValue())
                 value.setDiceStatus(DiceStatus.FORGOTTEN_REALM);
         }
+
         return true;
     }
 
     @Override
     public boolean makeMove(Player player, Move move) throws Exception {
         switch(move.getDice().getRealm()){
-            case RED: player.getScoreSheet().getDragon().makeMove(move); break;
-            case GREEN: player.getScoreSheet().getGaia().makeMove(move); break;
+            case RED:
+                System.out.println("Select a dragon to attack");
+                int i = gameBoard.getScan().num();
+                RedDice d = new RedDice(gameBoard.getDice()[0].getValue());
+                player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon(),i));
+                break;
+            case GREEN:
+                int x = gameBoard.getDice()[1].getValue();
+                int y = gameBoard.getDice()[5].getValue();
+                Dice f = new GreenDice(x+y);
+                player.getScoreSheet().getGaia().makeMove(new Move(f,player.getScoreSheet().getGaia()));
+                break;
             case BLUE: player.getScoreSheet().getHydra().makeMove(move); break;
             case MAGENTA: player.getScoreSheet().getPhoenix().makeMove(move); break;
             case YELLOW: player.getScoreSheet().getLion().makeMove(move); break;
@@ -197,10 +214,10 @@ public class CLIGameController extends GameController {
         System.out.println(this.getActivePlayer().getScoreSheet());
         return true;
     }
-    public boolean areThereAvailableDice(){
+    public boolean thereAreAvailableDice(){
         Dice[] dice = this.getAvailableDice();
         for (Dice die : dice)
-            if (die.getDiceStatus() == DiceStatus.AVAILABLE)
+            if (die != null && die.getDiceStatus() == DiceStatus.AVAILABLE)
                 return true;
         return false;
     }
@@ -228,5 +245,20 @@ public class CLIGameController extends GameController {
         }
 
         this.makeMove(this.getActivePlayer(), new Move(d, this.getActivePlayer().getScoreSheet().getCreatureByRealm(d)));
+    }
+    public boolean useArcaneBoost(Player player) throws Exception {
+        int i = gameBoard.getScan().num();
+        Dice d = gameBoard.getDice()[i];
+        if(d.getDiceStatus()!=DiceStatus.POWER_SELECTED) {
+            this.makeMove(player, new Move(d, player.getScoreSheet().getCreatureByRealm(d)));
+            return true;
+        }
+        return false;
+    }
+    public static void printDice (Dice[] dice){
+
+        for(Dice d : dice)
+          System.out.print(
+
     }
 }

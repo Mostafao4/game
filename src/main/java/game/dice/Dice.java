@@ -36,4 +36,5 @@ public abstract class Dice {
     public void setDiceStatus(DiceStatus diceStatus) {
         this.diceStatus = diceStatus;
     }
+    public abstract String toString();
 }
