@@ -50,67 +50,125 @@ public class Gaia extends Creature{
         readConfigScores();
     }
 
-    private void readConfigRewards(){
+    // private void readConfigRewards(){
 
-        Properties prop1 = new Properties();
+    //     Properties prop1 = new Properties();
 
-        try{
-            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TerrasHeartlandRewards.properties");
-            prop1.load(rewardConfig);
-            rowStrings[0] = prop1.getProperty("row1Reward");
-            rowStrings[1] = prop1.getProperty("row2Reward");
-            rowStrings[2] = prop1.getProperty("row3Reward");
-            colStrings[0] = prop1.getProperty("column1Reward");
-            colStrings[1] = prop1.getProperty("column2Reward");
-            colStrings[2] = prop1.getProperty("column3Reward");
-            colStrings[3] = prop1.getProperty("column4Reward");
+    //     try{
+    //         FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TerrasHeartlandRewards.properties");
+    //         prop1.load(rewardConfig);
+    //         rowStrings[0] = prop1.getProperty("row1Reward");
+    //         rowStrings[1] = prop1.getProperty("row2Reward");
+    //         rowStrings[2] = prop1.getProperty("row3Reward");
+    //         colStrings[0] = prop1.getProperty("column1Reward");
+    //         colStrings[1] = prop1.getProperty("column2Reward");
+    //         colStrings[2] = prop1.getProperty("column3Reward");
+    //         colStrings[3] = prop1.getProperty("column4Reward");
 
-            for(int i = 0; i < rowStrings.length; i++){
-                Realm r;
-                switch (rowStrings[i]){
-                    case "YellowBonus":
-                        r = Realm.YELLOW;
-                        rowRewards[i] = new Bonus(r);
-                        break;
-                    case "RedBonus":
-                        r = Realm.RED;
-                        rowRewards[i] = new Bonus(r);
-                        break;
-                    case "ElementalCrest":
-                        r = Realm.GREEN;
-                        rowRewards[i] = new ElementalCrest(r);
-                    default:
-                        break;
-                }
-            }
+    //         for(int i = 0; i < rowStrings.length; i++){
+    //             Realm r;
+    //             switch (rowStrings[i]){
+    //                 case "YellowBonus":
+    //                     r = Realm.YELLOW;
+    //                     rowRewards[i] = new Bonus(r);
+    //                     break;
+    //                 case "RedBonus":
+    //                     r = Realm.RED;
+    //                     rowRewards[i] = new Bonus(r);
+    //                     break;
+    //                 case "ElementalCrest":
+    //                     r = Realm.GREEN;
+    //                     rowRewards[i] = new ElementalCrest(r);
+    //                 default:
+    //                     break;
+    //             }
+    //         }
 
-            for(int i = 0; i < colStrings.length; i++){
-            Realm r;
-            switch (colStrings[i]){
-                case "TimeWarp":
-                    r = Realm.YELLOW;
-                    columnRewards[i] = new Bonus(r);
-                    break;
-                case "BlueBonus":
-                    r = Realm.BLUE;
-                    columnRewards[i] = new Bonus(r);
-                    break;
-                case "MagentaBonus":
-                    r = Realm.MAGENTA;
-                    columnRewards[i] = new ElementalCrest(r);
-                    break;
-                case "ArcaneBoost":
-                    columnRewards[i] = new ArcaneBoost();
-                default:
-                    break;
-            }
-        }
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+    //         for(int i = 0; i < colStrings.length; i++){
+    //         Realm r;
+    //         switch (colStrings[i]){
+    //             case "TimeWarp":
+    //                 r = Realm.YELLOW;
+    //                 columnRewards[i] = new Bonus(r);
+    //                 break;
+    //             case "BlueBonus":
+    //                 r = Realm.BLUE;
+    //                 columnRewards[i] = new Bonus(r);
+    //                 break;
+    //             case "MagentaBonus":
+    //                 r = Realm.MAGENTA;
+    //                 columnRewards[i] = new ElementalCrest(r);
+    //                 break;
+    //             case "ArcaneBoost":
+    //                 columnRewards[i] = new ArcaneBoost();
+    //             default:
+    //                 break;
+    //         }
+    //     }
+    //     }
+    //     catch(IOException e){
+    //         e.printStackTrace();
+    //     }
         
 
+    // }
+
+    private void readConfigRewards() {
+        Properties prop = new Properties();
+        try (FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TerrasHeartlandRewards.properties")) {
+            prop.load(rewardConfig);
+            rowStrings[0] = prop.getProperty("row1Reward");
+            rowStrings[1] = prop.getProperty("row2Reward");
+            rowStrings[2] = prop.getProperty("row3Reward");
+            colStrings[0] = prop.getProperty("column1Reward");
+            colStrings[1] = prop.getProperty("column2Reward");
+            colStrings[2] = prop.getProperty("column3Reward");
+            colStrings[3] = prop.getProperty("column4Reward");
+
+            loadRewards(rowStrings, rowRewards);
+            loadRewards(colStrings, columnRewards);
+        } catch (IOException e) {
+            System.out.println("Error loading reward configuration: " +  e.getMessage());
+        }
+    }
+
+    private void loadRewards(String[] rewardStrings, Reward[] rewards) {
+        for (int i = 0; i < rewardStrings.length; i++) {
+            if (rewardStrings[i] == null) continue;
+            Realm realm;
+            switch (rewardStrings[i]) {
+                case "YellowBonus":
+                    realm = Realm.YELLOW;
+                    rewards[i] = new Bonus(realm);
+                    break;
+                case "RedBonus":
+                    realm = Realm.RED;
+                    rewards[i] = new Bonus(realm);
+                    break;
+                case "ElementalCrest":
+                    realm = Realm.GREEN;
+                    rewards[i] = new ElementalCrest(realm);
+                    break;
+                case "TimeWarp":
+                    realm = Realm.YELLOW;
+                    rewards[i] = new Bonus(realm);
+                    break;
+                case "BlueBonus":
+                    realm = Realm.BLUE;
+                    rewards[i] = new Bonus(realm);
+                    break;
+                case "MagentaBonus":
+                    realm = Realm.MAGENTA;
+                    rewards[i] = new ElementalCrest(realm);
+                    break;
+                case "ArcaneBoost":
+                    rewards[i] = new ArcaneBoost();
+                    break;
+                default:
+                    System.out.println("Unknown reward type: " + rewardStrings[i]);
+                    break;
+            }
+        }
     }
 
     private void readConfigScores(){
