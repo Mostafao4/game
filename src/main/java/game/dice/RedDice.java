@@ -3,17 +3,18 @@ package game.dice;
 import game.creatures.Realm;
 
 public class RedDice extends Dice{
-    int [] dragonNumber;
-
-
+    int dragonNumber;
     public RedDice(int value) {
         super(value);
-        dragonNumber = new int[]{1, 2, 3, 4};
+        dragonNumber = 0;
         this.setRealm(Realm.RED);
     }
 
-    public int selectsDragon (int i){
-        return dragonNumber[i];
+    public void selectsDragon (int i){
+        dragonNumber = i;
+    }
+    public int getDragonNumber (){
+        return dragonNumber;
     }
     public String toString(){
         return "Red: "+this.getValue();

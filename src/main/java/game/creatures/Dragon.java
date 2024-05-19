@@ -177,15 +177,20 @@ public class Dragon extends Creature {
     }
 
     public Move[] getPossibleMovesForADie (Dice dice)  {
-        Move [] moves = new Move[2];
-        int a = dice.getValue();
-        int b = RedDice.selectsDragon();
+        int c = 0;
+        for (int i = 0; i < dragonParts.length; i++) {
+            for (int j = 0; j < dragonParts.length; j++) {
+                if (dragonParts[i][j] != 0 && dragonParts[i][j] == dice.getValue())
+                    c++;
+            }
+        }
+        Move [] moves = new Move[c];
         boolean flag = false;
         int x = 0;
-        for (int i = 0; i < dragonParts.length; i++){
-            for (int j = 0; j < dragonParts.length; j++){
-                if (a == dragonParts [i][j] && dragonParts[i][j] != 0) {
-                    moves[x] = new Move(dice, this, j+1);
+        for (int i = 0; i < dragonParts.length && x != c; i++){
+            for (int j = 0; j < dragonParts.length && x != c; j++){
+                if (dice.getValue() == dragonParts [i][j]) {
+                    moves[x] = new Move(dice, this);
                     x++;
                     flag = true;
                 }
@@ -202,22 +207,27 @@ public class Dragon extends Creature {
 
     public boolean makeMove (Move a)  {
         int x = 0;
+        RedDice rd = (RedDice) a.getDice();
+        int y = a.getDice().getValue();
+        int z = rd.getDragonNumber();
         Move [] b = getPossibleMovesForADie(a.getDice());
+        if (b.length == 0){
+            return false;
+        }
         boolean flag = false;
-        int y = -1;
+        int w = -1;
         for (int i = 0; i < b.length; i++){
             if (b[i].compareTo(a) == 0){
-                y = i;
+                w = i;
                 break;
             }
         }
-        if (y != -1){
+        if (w != -1){
             for (int i = 0; i < dragonParts.length; i++){
-               for (int j = 0; j < dragonParts[i].length; j++){
-                   if (((RedDice)a.getDice()).getValue() == dragonParts [i][j] && a.getDragonNumber() == j+1 ) {
+               for (int j = 0; j < dragonParts.length; j++){
+                   if ( y == dragonParts [i][j] && z == j+1 ) {
                        dragonParts[i][j] = 0;
                        flag = true;
-
                    }
                }
            }

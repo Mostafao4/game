@@ -205,12 +205,9 @@ public class CLIGameController extends GameController {
         switch(move.getDice().getRealm()){
             case RED:
                 System.out.println("Select a dragon to attack");
-                int i = gameBoard.getScan().num();
+
                 RedDice d = new RedDice(move.getDice().getValue());
-
-                d.selectsDragon(i);
-                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
-
+                b=(player.getScoreSheet().getDragon().makeMove(new Move(move.getDice(),player.getScoreSheet().getDragon())));
                 break;
             case GREEN:
                 int x = move.getDice().getValue();
