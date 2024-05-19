@@ -127,7 +127,7 @@ public class CLIGameControllerTest {
         assertEquals("There should be 11 possible moves", 11, allPossibleMoves.length);
 
         List<Move> expectedMoves = new ArrayList<>(Arrays.asList(
-                // for Dragon 1
+                // for Dragon 1 
                 new Move(new RedDice(1), player.getScoreSheet().getCreatureByRealm(new RedDice(1))),
                 // for Dragon 2
                 new Move(new RedDice(1), player.getScoreSheet().getCreatureByRealm(new RedDice(1))),
