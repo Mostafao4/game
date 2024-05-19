@@ -118,19 +118,38 @@ public class CLIGameController extends GameController {
 
 
     @Override
-    public Move[] getPossibleMovesForADie(Player player, Dice dice)  {
-            Move[] red = player.getScoreSheet().getDragon().getPossibleMovesForADie(dice);
-            Move[] green = player.getScoreSheet().getGaia().getPossibleMovesForADie(dice);
-            Move[] blue = player.getScoreSheet().getHydra().getPossibleMovesForADie(dice);
-            Move[] magenta = player.getScoreSheet().getPhoenix().getPossibleMovesForADie(dice);
-            Move[] yellow = player.getScoreSheet().getLion().getPossibleMovesForADie(dice);
-            Move[] out = new Move[red.length + green.length + blue.length + magenta.length + yellow.length];
-            System.arraycopy(red, 0, out, 0, red.length);
-            System.arraycopy(green, 0, out, red.length, green.length);
-            System.arraycopy(blue, 0, out, red.length + green.length, blue.length);
-            System.arraycopy(magenta, 0, out, red.length + green.length + blue.length, magenta.length);
-            System.arraycopy(yellow, 0, out, red.length + green.length + blue.length + magenta.length, yellow.length);
-            return out;
+    public Move[] getPossibleMovesForADie(Player player, Dice dice) {
+        Move[] m;
+        switch (dice.getRealm()) {
+            case RED:
+                m = player.getScoreSheet().getDragon().getPossibleMovesForADie(dice);
+                break;
+            case GREEN:
+                m = player.getScoreSheet().getGaia().getPossibleMovesForADie(dice);
+                break;
+            case BLUE:
+                m = player.getScoreSheet().getHydra().getPossibleMovesForADie(dice);
+                break;
+            case MAGENTA:
+                m = player.getScoreSheet().getPhoenix().getPossibleMovesForADie(dice);
+                break;
+            case YELLOW:
+                m = player.getScoreSheet().getLion().getPossibleMovesForADie(dice);
+                break;
+            default:
+                Move[] red = player.getScoreSheet().getDragon().getPossibleMovesForADie(dice);
+                Move[] green = player.getScoreSheet().getGaia().getPossibleMovesForADie(dice);
+                Move[] blue = player.getScoreSheet().getHydra().getPossibleMovesForADie(dice);
+                Move[] magenta = player.getScoreSheet().getPhoenix().getPossibleMovesForADie(dice);
+                Move[] yellow = player.getScoreSheet().getLion().getPossibleMovesForADie(dice);
+                m = new Move[red.length + green.length + blue.length + magenta.length + yellow.length];
+                System.arraycopy(red, 0, m, 0, red.length);
+                System.arraycopy(green, 0, m, red.length, green.length);
+                System.arraycopy(blue, 0, m, red.length + green.length, blue.length);
+                System.arraycopy(magenta, 0, m, red.length + green.length + blue.length, magenta.length);
+                System.arraycopy(yellow, 0, m, red.length + green.length + blue.length + magenta.length, yellow.length);
+        }
+        return m;
     }
 
     @Override
@@ -200,6 +219,7 @@ public class CLIGameController extends GameController {
 
     @Override
     public boolean makeMove(Player player, Move move)  {
+
         String s;
         boolean b=false;
         switch(move.getDice().getRealm()){
