@@ -9,6 +9,7 @@ import game.collectibles.Reward;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -320,51 +321,54 @@ public class Hydra extends Creature {
         
 
 
-    public Move[] getAllPossibleMoves(){ 
-            Move[] moves = new Move[6];
-            //List<Move> movesList = new LinkedList<>();
-            if(hydra1Heads < 5){
-                for(int j = 0; j <= 4; j++){
-                    if(hydra[j] != 0){
-                        int val = hydra[j];
-                        moves[j] = (new Move(new BlueDice(val), this));
-                    }
-                }
-//                moves = new Move[movesList.size()];
-//                moves = movesList.toArray(moves);
-                return moves;
-            }
-            else{
-                for(int c = 0; c <= 5; c++){
-                    if(hydra[c] != 0){
-                        int val = hydra[c];
-                        moves[c] = (new Move(new BlueDice(val), this));
-                    }
-                }
-//                moves = new Move[movesList.size()];
-//                moves = movesList.toArray(moves);
-                Move[] newMoves = removeNulls(moves);
-                return newMoves;
+public Move[] getAllPossibleMoves() {
+    Move[] moves = new Move[6]; // Always create an array of size 6
+    
+    // Fill the array with Moves based on the hydra heads
+    if (hydra1Heads < 5) {
+        for (int j = 0; j <= 4; j++) {
+            if (hydra[j] != 0) {
+                int val = hydra[j];
+                moves[j] = new Move(new BlueDice(val), this);
             }
         }
+    } else {
+        for (int c = 0; c <= 5; c++) {
+            if (hydra[c] != 0) {
+                int val = hydra[c];
+                moves[c] = new Move(new BlueDice(val), this);
+            }
+        }
+    }
 
-        private Move[] removeNulls(Move[] moves){
-            int count = 0;
-            for(int i = 0; i < moves.length; i++){
-                if(moves[i] != null){
-                    count++;
-                }
-            }
-            Move[] newMoves = new Move[count];
-            count = 0;
-            for(int i = 0; i < moves.length; i++){
-                if(moves[i] != null){
-                    newMoves[count] = moves[i];
-                    count++;
-                }
-            }
-            return newMoves;
+
+    return removeNullsAndFill(moves);
+}
+
+private Move[] removeNullsAndFill(Move[] moves) {
+    int count = 0;
+    for (Move move : moves) {
+        if (move != null) {
+            count++;
         }
+    }
+    
+    Move[] newMoves = new Move[6];
+    int index = 0;
+    for (Move move : moves) {
+        if (move != null) {
+            newMoves[index++] = move;
+        }
+    }
+
+    // Fill remaining slots with dummy moves if needed
+    while (index < 6) {
+        newMoves[index++] = new Move(new BlueDice(0), this); // Use a dummy move with value 0 or any appropriate default value
+    }
+    
+    return newMoves;
+}
+    
 
 
     public Move[] getPossibleMovesForADie(Dice dice){
