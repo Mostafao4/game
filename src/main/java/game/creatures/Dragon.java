@@ -179,6 +179,7 @@ public class Dragon extends Creature {
     public Move[] getPossibleMovesForADie (Dice dice)  {
         Move [] moves = new Move[2];
         int a = dice.getValue();
+        int b = RedDice.selectsDragon();
         boolean flag = false;
         int x = 0;
         for (int i = 0; i < dragonParts.length; i++){
