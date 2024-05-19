@@ -95,11 +95,9 @@ public class Main {
                 gc.getGameStatus().resetPartofRound();
             }
         } // end of outer loop
-            gc.getGameBoard().getPlayer1().getGameScore().setScore();
-            gc.getGameBoard().getPlayer2().getGameScore().setScore();
-            int sc1 = gc.getGameBoard().getPlayer1().getGameScore().getScore();
-            int sc2 = gc.getGameBoard().getPlayer2().getGameScore().getScore();
-            if (sc1 > sc2)
+            int score1 = gc.getGameScore(gc.getGameBoard().getPlayer1()).getScore();
+            int score2 = gc.getGameScore(gc.getGameBoard().getPlayer2()).getScore();
+            if (score1 > score2)
                 System.out.println(gc.getGameBoard().getPlayer1().getPlayerName() + " has won the game!");
             else
                 System.out.println(gc.getGameBoard().getPlayer2().getPlayerName() + " has won the game!");

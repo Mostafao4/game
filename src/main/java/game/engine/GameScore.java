@@ -1,33 +1,33 @@
 package game.engine;
 
 public class GameScore {
-    private int score;
+    private ScoreSheet scoreSheet;
     //Get Realm Scores
+
+    public GameScore() {
+        scoreSheet = new ScoreSheet();
+    }
+    public int getScore() {
+        return getRedRealmScore()+getBlueRealmScore()+getGreenRealmScore()+getYellowRealmScore()+getMagentaRealmScore();
+    }
+    public ScoreSheet getScoreSheet() {
+        return scoreSheet;
+    }
     public int getRedRealmScore(){
-        return 0;
+        return scoreSheet.getDragon().getPoints();
     }
     public int getGreenRealmScore(){
-        return 1;
+        return scoreSheet.getGaia().getGreenRealmScore();
     }
     public int getBlueRealmScore(){
-        return 2;
+        return scoreSheet.getHydra().getScore();
     }
     public int getMagentaRealmScore(){
-        return 3;
+        return scoreSheet.getPhoenix().getMagentaRealmScore();
     }
     public int getYellowRealmScore(){
-        return 4;
-    }
-    //Setters and Getters
-    public int getScore() {
-        return score;
+        return scoreSheet.getLion().getYellowRealmScore();
     }
 
-    public void setScore() {
-        score = this.getRedRealmScore() +
-                this.getGreenRealmScore() +
-                this.getBlueRealmScore() +
-                this.getMagentaRealmScore() +
-                this.getYellowRealmScore();
-    }
+
 }

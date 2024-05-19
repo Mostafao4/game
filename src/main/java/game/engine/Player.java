@@ -5,7 +5,6 @@ import game.dice.Dice;
 import java.util.Scanner;
 public class Player {
     private String playerName;
-    private ScoreSheet scoreSheet;
     private GameScore gameScore;
     private PlayerStatus playerStatus;
     private Dice selectedDice;
@@ -13,20 +12,17 @@ public class Player {
     private int arcaneBoostCount;
     private ElementalCrest[] elementalCrest;
     private int c;
-
-
     public Player(PlayerStatus playerStatus) {
         this.playerStatus = playerStatus;
         elementalCrest = new ElementalCrest[5];
         gameScore = new GameScore();
-        scoreSheet = new ScoreSheet();
+
     }
     public Player(String playerName, PlayerStatus playerStatus) {
         this.playerName = playerName;
         this.playerStatus = playerStatus;
         elementalCrest = new ElementalCrest[5];
         gameScore = new GameScore();
-        scoreSheet = new ScoreSheet();
     }
 
 
@@ -40,9 +36,7 @@ public class Player {
     public GameScore getGameScore() {
         return gameScore;
     }
-    public void setGameScore() {
-        gameScore.setScore();
-    }
+
 
     public String getPlayerName() {
         return playerName;
@@ -87,7 +81,7 @@ public class Player {
 
 
     public ScoreSheet getScoreSheet() {
-        return scoreSheet;
+        return gameScore.getScoreSheet();
     }
 
 
