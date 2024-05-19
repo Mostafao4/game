@@ -3,6 +3,7 @@ import game.creatures.Dragon;
 import game.creatures.Realm;
 import game.creatures.Creature;
 import game.dice.Dice;
+import game.dice.RedDice;
 
 public class Move implements Comparable<Move>{
     private Dice dice;
@@ -20,12 +21,23 @@ public class Move implements Comparable<Move>{
 
     @Override
     public int compareTo(Move o) {
-        if(o.creature instanceof Dragon){
-            if(this.dice.getValue() == o.getDice().getValue() && this.dice.getRealm() == o.getDice().getRealm() && this.dragonNumber == o.dragonNumber){
-                return 0;
-            }
+        int diceComparison = Integer.compare(this.dice.getValue(), o.dice.getValue());
+        if (diceComparison != 0) {
+            return diceComparison;
         }
-        return 1;
+    
+        if (this.creature instanceof Dragon && o.creature instanceof Dragon) {
+            int thisDragonNumber = ((RedDice) this.getDice()).getDragonNumber();
+            int otherDragonNumber = ((RedDice) o.getDice()).getDragonNumber();
+            return Integer.compare(thisDragonNumber, otherDragonNumber);
+        }
+    
+        // Define additional comparison logic if necessary
+        // Example: comparing by some other properties
+        // return this.someOtherProperty.compareTo(o.someOtherProperty);
+    
+        // If creatures are not both Dragons or have no further distinguishing properties
+        return 0; // Consider them equal if all other properties are equal
     }
 
     public Dice getDice() {

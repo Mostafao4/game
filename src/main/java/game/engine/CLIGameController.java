@@ -102,7 +102,7 @@ public class CLIGameController extends GameController {
 
     @Override
 
-    public Move[] getPossibleMovesForAvailableDice(Player player) {
+     public Move[] getPossibleMovesForAvailableDice(Player player) {
             List<Move> allPossibleMoves = new ArrayList<>();
             Move[] m;
             if(getAllDice()[1].getDiceStatus()==DiceStatus.AVAILABLE && getAllDice()[5].getDiceStatus()==DiceStatus.AVAILABLE) {
