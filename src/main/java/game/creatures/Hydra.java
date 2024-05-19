@@ -133,7 +133,7 @@ public class Hydra extends Creature {
 
     public Reward checkBonus(){
 
-            int i =  HeadsKilled(hydra);
+            int i =  headsKilled();
             if(i <= 5){
                 for(int j = 0; j <= 4; j++){
                 if(hydra[j] == 4){
@@ -199,62 +199,13 @@ public class Hydra extends Creature {
 
 
     public int getScore(){
-        return this.score();
-    }
-
-    private int score(){
-        int score;
-        int c = HeadsKilled(hydra);
-        switch (c) {
-        case 1:
-           return score = scores[0];
-
-        case 2:
-            return score = scores[1];
-
-        case 3:
-            return score = scores[2];
-
-        case 4:
-            return score = scores[3];
-
-        case 5:
-            return score = scores[4];
-
-        case 6:
-            return score = scores[5];
-
-        case 7:
-            return score = scores[6];
-
-        case 8:
-            return score = scores[7];
-
-        case 9:
-            return score = scores[8];
-
-        case 10:
-            return score = scores[9];
-
-        default:
-            return score = scores[10];
-        }
+        return scores[hydra1Heads + hydra2Heads - 1];
     }
 
 
-
-
-    private int HeadsKilled(int[]hydra){
-        int i = 0;
-        int count = 0;
-        while(i < 11){
-            if(hydra[i] == 0) {
-                count++;
-            }
-            i++;
-        }
-            return count;
-        }
+    private int headsKilled(){
+        return hydra1Heads + hydra2Heads;
+    }
 
 
 
@@ -295,28 +246,24 @@ public class Hydra extends Creature {
 
     public boolean makeMove(Move move) {
         int value = move.getDice().getValue();
-        if(hydra1Heads < 5) {
-            for (int i = 0; i <= 4; i++) {
-                if (value >= i && hydra[i] != 0) {
-                    System.out.println("Head " + i + " successfully attacked!");
-                    hydra[i] = 0;
-                    hydra1Heads++;
-                    return true;
-                }
+        boolean flag = false;
+        if(hydra1Heads < 5){
+            if(hydra[hydra1Heads] != 0 && value > hydra1Heads){
+                flag = true;
+                hydra[hydra1Heads] = 0;
+                hydra1Heads++;
             }
         }
-        else if(hydra2Heads < 6) {
-            for (int j = 5; j <= 10; j++) {
-                if (value >= j && hydra[j] != 0) {
-                    System.out.println("Head " + j + " successfully attacked!");
-                    hydra[j] = 0;
-                    hydra2Heads++;
-                    return true;
-                }
+        else if(hydra2Heads < 6){
+            if(hydra[hydra1Heads + hydra2Heads] != 0 && value > hydra2Heads){
+                flag = true;
+                hydra[hydra1Heads + hydra2Heads] = 0;
+                hydra2Heads++;
             }
+
         }
-        return false;
-        }
+        return flag;
+    }
             
         
 
