@@ -101,6 +101,7 @@ public class CLIGameController extends GameController {
     }
 
     @Override
+
     public Move[] getPossibleMovesForAvailableDice(Player player) {
             List<Move> allPossibleMoves = new ArrayList<>();
             Move[] m;
