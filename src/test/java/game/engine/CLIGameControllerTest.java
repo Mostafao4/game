@@ -276,6 +276,7 @@ public class CLIGameControllerTest {
             dice[0].setValue(redDiceValues[i]);
             ((RedDice) dice[0]).selectsDragon(dragonNumber[i]);
             Move[] possibleMoves = controller.getPossibleMovesForADie(player, dice[0]);
+            System.out.println(possibleMoves.length);
             boolean hasMoves = possibleMoves.length > 0;
             boolean success = hasMoves && controller.makeMove(player, possibleMoves[0]);
 
