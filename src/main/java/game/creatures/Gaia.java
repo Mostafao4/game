@@ -1,18 +1,23 @@
 package game.creatures;
 
+//import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
-
+import java.util.stream.Collectors;
 
 import game.dice.*;
+import game.engine.CLIGameController;
 import game.engine.GameBoard;
 import game.engine.Move;
+import game.engine.Player;
 import game.collectibles.*;
 import game.exceptions.*;
 
@@ -135,7 +140,8 @@ public class Gaia extends Creature{
                     gaias[i][j] = 0;
                     defeatedGaias++;
                     flag = true;
-                    System.out.println("You have successfully attacked the " + (total - 1) + "th Gaia Guardian!");
+                    //System.out.println("You have successfully attacked the " + (total == 1)?"st":(total == 2)?"nd":(total == 3)?"rd":"th" +" Gaia Guardian!");
+                    System.out.println("You attacked Gaia number " + (total - 1));
                 }
             }
         }
@@ -376,25 +382,41 @@ public class Gaia extends Creature{
 
     // public static void main(String[] args){
     //     Gaia g = new Gaia();
-    //     System.out.println(g);
-    //     g.makeMove(new Move(new GreenDice(5),g));
-    //     g.makeMove(new Move(new GreenDice(2),g));
-    //     g.makeMove(new Move(new GreenDice(3),g));
-    //     g.makeMove(new Move(new GreenDice(4),g));
+    //     // System.out.println(g);
+    //     // g.makeMove(new Move(new GreenDice(5),g));
+    //     // g.makeMove(new Move(new GreenDice(2),g));
+    //     // g.makeMove(new Move(new GreenDice(3),g));
+    //     // g.makeMove(new Move(new GreenDice(4),g));
 
-    //     System.out.println(g);
-    //     g.makeMove(new Move(new GreenDice(5),g));
-    //     g.makeMove(new Move(new GreenDice(6),g));
-    //     g.makeMove(new Move(new GreenDice(7),g));
-    //     g.makeMove(new Move(new GreenDice(8),g));
-    //     System.out.println(g);
-    //     g.makeMove(new Move(new GreenDice(9),g));
+    //     // System.out.println(g);
+    //     // g.makeMove(new Move(new GreenDice(5),g));
+    //     // g.makeMove(new Move(new GreenDice(6),g));
+    //     // g.makeMove(new Move(new GreenDice(7),g));
+    //     // g.makeMove(new Move(new GreenDice(8),g));
+    //     // System.out.println(g);
+    //     // g.makeMove(new Move(new GreenDice(9),g));
 
-    //     g.makeMove(new Move(new GreenDice(10),g));
+    //     // g.makeMove(new Move(new GreenDice(10),g));
 
-    //     g.makeMove(new Move(new GreenDice(11),g));
-    //     //g.makeMove(new Move(new GreenDice(12),g));
-    //     System.out.println(g);
+    //     // g.makeMove(new Move(new GreenDice(11),g));
+    //     // //g.makeMove(new Move(new GreenDice(12),g));
+    //     // System.out.println(g);
 
+    //     CLIGameController controller = new CLIGameController();
+    //     Player player = controller.getActivePlayer();
+    //     Move[] allPossibleMoves = controller.getPossibleMovesForAvailableDice(player);
+
+    //     Dice[] dice = controller.getGameBoard().getDice();
+    //     dice[0].setValue(2);
+    //     dice[1].setValue(3);
+    //     dice[2].setValue(4);
+    //     dice[3].setValue(5);
+    //     dice[4].setValue(6);
+    //     dice[5].setValue(1);
+
+    //     Move m = allPossibleMoves[1];
+        
+    //     g.makeMove(m);
     // }
 }
+

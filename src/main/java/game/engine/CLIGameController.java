@@ -214,7 +214,7 @@ public class CLIGameController extends GameController {
                 m = player.getScoreSheet().getDragon().getPossibleMovesForADie(dice);
                 break;
             case GREEN:
-                m = player.getScoreSheet().getGaia().getPossibleMovesForADie(dice);
+                m = player.getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(dice.getValue() + getAllDice()[5].getValue()));
                 break;
             case BLUE:
                 m = player.getScoreSheet().getHydra().getPossibleMovesForADie(dice);
