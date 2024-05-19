@@ -90,12 +90,12 @@ public class CLIGameController extends GameController {
         Move[] blue = player.getScoreSheet().getHydra().getAllPossibleMoves();
         Move[] magenta = player.getScoreSheet().getPhoenix().getAllPossibleMoves();
         Move[] yellow = player.getScoreSheet().getLion().getAllPossibleMoves();
-        Move[] out = new Move[red.length + green.length + blue.length];// + magenta.length + yellow.length];
+        Move[] out = new Move[red.length + green.length + blue.length + magenta.length + yellow.length];
         System.arraycopy(red, 0, out, 0, red.length);
         System.arraycopy(green, 0, out, red.length, green.length);
         System.arraycopy(blue, 0, out, red.length + green.length, blue.length);
-        //System.arraycopy(magenta, 0, out, red.length + green.length + blue.length, magenta.length);
-        //System.arraycopy(yellow, 0, out, red.length + green.length + blue.length + magenta.length, yellow.length);
+        System.arraycopy(magenta, 0, out, red.length + green.length + blue.length, magenta.length);
+        System.arraycopy(yellow, 0, out, red.length + green.length + blue.length + magenta.length, yellow.length);
         return out;
     }
 
@@ -207,7 +207,10 @@ public class CLIGameController extends GameController {
                 System.out.println("Select a dragon to attack");
                 int i = gameBoard.getScan().num();
                 RedDice d = new RedDice(move.getDice().getValue());
-                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon(),i)));
+
+                d.selectsDragon(i);
+                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
+
                 break;
             case GREEN:
                 int x = move.getDice().getValue();
