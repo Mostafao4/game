@@ -50,69 +50,6 @@ public class Gaia extends Creature{
         readConfigScores();
     }
 
-    // private void readConfigRewards(){
-
-    //     Properties prop1 = new Properties();
-
-    //     try{
-    //         FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TerrasHeartlandRewards.properties");
-    //         prop1.load(rewardConfig);
-    //         rowStrings[0] = prop1.getProperty("row1Reward");
-    //         rowStrings[1] = prop1.getProperty("row2Reward");
-    //         rowStrings[2] = prop1.getProperty("row3Reward");
-    //         colStrings[0] = prop1.getProperty("column1Reward");
-    //         colStrings[1] = prop1.getProperty("column2Reward");
-    //         colStrings[2] = prop1.getProperty("column3Reward");
-    //         colStrings[3] = prop1.getProperty("column4Reward");
-
-    //         for(int i = 0; i < rowStrings.length; i++){
-    //             Realm r;
-    //             switch (rowStrings[i]){
-    //                 case "YellowBonus":
-    //                     r = Realm.YELLOW;
-    //                     rowRewards[i] = new Bonus(r);
-    //                     break;
-    //                 case "RedBonus":
-    //                     r = Realm.RED;
-    //                     rowRewards[i] = new Bonus(r);
-    //                     break;
-    //                 case "ElementalCrest":
-    //                     r = Realm.GREEN;
-    //                     rowRewards[i] = new ElementalCrest(r);
-    //                 default:
-    //                     break;
-    //             }
-    //         }
-
-    //         for(int i = 0; i < colStrings.length; i++){
-    //         Realm r;
-    //         switch (colStrings[i]){
-    //             case "TimeWarp":
-    //                 r = Realm.YELLOW;
-    //                 columnRewards[i] = new Bonus(r);
-    //                 break;
-    //             case "BlueBonus":
-    //                 r = Realm.BLUE;
-    //                 columnRewards[i] = new Bonus(r);
-    //                 break;
-    //             case "MagentaBonus":
-    //                 r = Realm.MAGENTA;
-    //                 columnRewards[i] = new ElementalCrest(r);
-    //                 break;
-    //             case "ArcaneBoost":
-    //                 columnRewards[i] = new ArcaneBoost();
-    //             default:
-    //                 break;
-    //         }
-    //     }
-    //     }
-    //     catch(IOException e){
-    //         e.printStackTrace();
-    //     }
-        
-
-    // }
-
     private void readConfigRewards() {
         Properties prop = new Properties();
         try (FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TerrasHeartlandRewards.properties")) {
@@ -203,14 +140,9 @@ public class Gaia extends Creature{
             }
         }
 
-        if(!flag){
-            //throw new InvalidMoveException();
-            return false;
-        }
-
         editRewards();
         checkBonus();
-        return true;
+        return flag;
     }
 
     @Override
