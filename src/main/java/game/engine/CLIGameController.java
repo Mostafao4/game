@@ -201,33 +201,36 @@ public class CLIGameController extends GameController {
     @Override
     public boolean makeMove(Player player, Move move)  {
         String s;
+        boolean b=false;
         switch(move.getDice().getRealm()){
             case RED:
                 System.out.println("Select a dragon to attack");
                 int i = gameBoard.getScan().num();
                 RedDice d = new RedDice(move.getDice().getValue());
+
                 d.selectsDragon(i);
-                player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon()));
+                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
+
                 break;
             case GREEN:
                 int x = move.getDice().getValue();
                 int y = getAllDice()[5].getValue();
                 Dice f = new GreenDice(x+y);
-                player.getScoreSheet().getGaia().makeMove(new Move(f,player.getScoreSheet().getGaia()));
+                b=(player.getScoreSheet().getGaia().makeMove(new Move(f,player.getScoreSheet().getGaia())));
                 break;
-            case BLUE: player.getScoreSheet().getHydra().makeMove(move); break;
-            case MAGENTA: player.getScoreSheet().getPhoenix().makeMove(move); break;
-            case YELLOW: player.getScoreSheet().getLion().makeMove(move); break;
+            case BLUE: b=(player.getScoreSheet().getHydra().makeMove(move)); break;
+            case MAGENTA: b=(player.getScoreSheet().getPhoenix().makeMove(move)); break;
+            case YELLOW: b=(player.getScoreSheet().getLion().makeMove(move)); break;
             case WHITE:
                 System.out.println("Choose a realm to attack");
                 int q = gameBoard.getScan().num();
-                whiteMove(player,move.getDice().getValue(),q);
+                b=(whiteMove(player,move.getDice().getValue(),q));
                 break;
             default:break;
         }
         System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
         System.out.println(player.getScoreSheet());
-        return true;
+        return b;
     }
 
     public boolean thereAreAvailableDice(){
