@@ -311,15 +311,16 @@ public class CLIGameController extends GameController {
 
     @Override
     public boolean makeMove(Player player, Move move)  {
-
+        System.out.println(player.getScoreSheet());
         String s;
         boolean b=false;
         switch(move.getDice().getRealm()){
             case RED:
                 System.out.println("Select a dragon to attack");
-
+                int i = gameBoard.getScan().num();
                 RedDice d = new RedDice(move.getDice().getValue());
-                b=(player.getScoreSheet().getDragon().makeMove(new Move(move.getDice(),player.getScoreSheet().getDragon())));
+                d.selectsDragon(i);
+                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
                 break;
             case GREEN:
                 int x = move.getDice().getValue();
