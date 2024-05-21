@@ -154,7 +154,7 @@ public class Dragon extends Creature {
         return sum;
     }
 
-    public Move[] getAllPossibleMoves(){
+    public Move[] getAllPossibleMoves() /*throws InvalidMoveException*/{
         int c = 0;
         for (int i = 0; i < dragonParts.length; i++) {
             for (int j = 0; j < dragonParts.length; j++) {
@@ -162,6 +162,25 @@ public class Dragon extends Creature {
                     c++;
             }
         }
+        /*
+        if (c == 0){
+            throw new InvalidMoveException ("There is no possible moves for the Red Realm");
+        }
+        else {
+            Move [] moves = new Move[c];
+        int x = 0;
+        for (int i = 0; i < dragonParts.length; i++) {
+            for (int j = 0; j < dragonParts.length; j++) {
+                if (dragonParts[i][j] != 0) {
+                    Dice dice = new RedDice (dragonParts[i][j]);
+                    moves[x] = new Move(dice, this, j);
+                    x++;
+                }
+            }
+        }
+        return moves;
+        }
+        */
         Move [] moves = new Move[c];
         int x = 0;
         for (int i = 0; i < dragonParts.length; i++) {
@@ -176,33 +195,7 @@ public class Dragon extends Creature {
         return moves;
     }
 
-    public Move[] getPossibleMovesForADie (Dice dice)  {
-        // int c = 0;
-        // for (int i = 0; i < dragonParts.length; i++) {
-        //     for (int j = 0; j < dragonParts.length; j++) {
-        //         if (dragonParts[i][j] != 0 && dragonParts[i][j] == dice.getValue())
-        //             c++;
-        //     }
-        // }
-        // Move [] moves = new Move[c];
-        // boolean flag = false;
-        // int x = 0;
-        // for (int i = 0; i < dragonParts.length && x != c; i++){
-        //     for (int j = 0; j < dragonParts.length && x != c; j++){
-        //         if (dice.getValue() == dragonParts [i][j]) {
-        //             moves[x] = new Move(dice, this);
-        //             x++;
-        //             flag = true;
-        //         }
-        //     }
-        // }
-        // if (flag == false){
-        //     //throw new Exception("There is no possible moves for this die value");
-        //     return moves;
-        // }
-        // else {
-        //     return moves;
-        // }
+    public Move[] getPossibleMovesForADie (Dice dice) /*throws InvalidDiceSelectionException*/{
         int c = 0;
         for (int i = 0; i < dragonParts.length; i++) {
             for (int j = 0; j < dragonParts.length; j++) {
@@ -210,6 +203,24 @@ public class Dragon extends Creature {
                     c++;
             }
         }
+        /*
+        if (if c == 0){
+            throw new InvalidDiceSelectionException ("");
+        }
+        else {
+            Move [] moves = new Move[c];
+            int x = 0;
+            for (int j = 0; j < dragonParts.length && x != c; j++){
+                for (int i = 0; i < dragonParts.length && x != c; i++){
+                    if (dice.getValue() == dragonParts [i][j]) {
+                        moves[x] = new Move(dice, this);
+                        x++;
+                    }
+                }
+            }
+            return moves;
+        }
+        */
         Move [] moves = new Move[c];
         boolean flag = false;
         int x = 0;
@@ -231,7 +242,7 @@ public class Dragon extends Creature {
         }
     }
 
-    public boolean makeMove (Move a)  {
+    public boolean makeMove (Move a) /*throws InvalidMoveException*/{
         int x = 0;
         RedDice rd = (RedDice) a.getDice();
         int y = a.getDice().getValue();
@@ -240,6 +251,14 @@ public class Dragon extends Creature {
         if (b.length == 0){
             return false;
         }
+        /*
+        try {
+            Move [] b = getPossibleMovesForADie(a.getDice());
+        }
+        catch (InvalidMoveException e){
+            throw e;
+        }
+        */
         boolean flag = false;
         int w = -1;
         for (int i = 0; i < b.length; i++){
