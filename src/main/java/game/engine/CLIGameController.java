@@ -2,44 +2,26 @@ package game.engine;
 
 import game.collectibles.ArcaneBoost;
 import game.collectibles.Bonus;
+import game.collectibles.Reward;
 import game.collectibles.TimeWarp;
 import game.creatures.Realm;
 import game.dice.*;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 
 public class CLIGameController extends GameController {
     private GameBoard gameBoard;
-
+    private static Scanner scanner = new Scanner(System.in);
     public CLIGameController() {
         this.gameBoard = new GameBoard();
     }
-    @Override
-    public void startGame() {
-        gameBoard = new GameBoard();
-        System.out.println("Welcome to Dice Realms: Quest for Elemental Crests!!!");
-        System.out.println("Enter Player 1 name");
-        String s1 = gameBoard.getScan().string();
-        System.out.println("Enter Player 2 name");
-        String s2 = gameBoard.getScan().string();
-        gameBoard.setPlayer1(new Player(s1,PlayerStatus.ACTIVE));
-        gameBoard.setPlayer2(new Player(s2,PlayerStatus.PASSIVE));
-    }
 
-    @Override
-    public boolean switchPlayer() {
-        if(gameBoard.getPlayer1().getPlayerStatus()==PlayerStatus.ACTIVE) {
-            gameBoard.getPlayer1().setPlayerStatus(PlayerStatus.PASSIVE);
-            gameBoard.getPlayer2().setPlayerStatus(PlayerStatus.ACTIVE);
-        }
-        else{
-            gameBoard.getPlayer1().setPlayerStatus(PlayerStatus.ACTIVE);
-            gameBoard.getPlayer2().setPlayerStatus(PlayerStatus.PASSIVE);
-        }
-        gameBoard.getGameStatus().resetTurn();
-        return true;
-    }
+
+
+
+    // DICE
 
     @Override
     public Dice[] rollDice() {
@@ -85,6 +67,66 @@ public class CLIGameController extends GameController {
     }
 
     @Override
+    public boolean selectDice(Dice dice, Player player) {
+        player.setSelectedDice(dice);
+        for (Dice value : getAvailableDice()) {
+            if(value.getValue() < dice.getValue())
+                value.setDiceStatus(DiceStatus.FORGOTTEN_REALM);
+        }
+        dice.setDiceStatus(DiceStatus.TURN_SELECTED);
+        return true;
+    }
+
+    public void chooseDie(){
+        System.out.println("Select a die: ");
+        int i = scanner.nextInt();
+        selectDice(getAvailableDice()[i], getActivePlayer());
+        makeMove(getActivePlayer(), new Move(getActivePlayer().getSelectedDice(), getActivePlayer().getScoreSheet().getCreatureByRealm(getActivePlayer().getSelectedDice())));
+        getGameBoard().getGameStatus().incrementTurn();
+    }
+    public boolean thereAreAvailableDice(){
+        return getAvailableDice().length != 0;
+    }
+    public static void printDice (Dice[] dice){
+        for(Dice d : dice){
+            switch(d.getRealm()){
+                case RED:
+                    System.out.print("Red: "+d.getValue()+"  ");
+                    break;
+                case GREEN:
+                    System.out.print("Green: "+d.getValue()+"  ");
+                    break;
+                case BLUE:
+                    System.out.print("Blue: "+d.getValue()+"  ");
+                    break;
+                case MAGENTA:
+                    System.out.print("Magenta: "+d.getValue()+"  ");
+                    break;
+                case YELLOW:
+                    System.out.print("Yellow: "+d.getValue()+"  ");
+                    break;
+                case WHITE:
+                    System.out.print("Arcane: "+d.getValue()+"  ");
+                    break;
+                default:
+                    System.out.print("error");
+            }
+        }
+        System.out.println();
+    }
+    public void resetDice(){
+        for(Dice d : getAllDice()){
+            d.setDiceStatus(DiceStatus.AVAILABLE);
+        }
+    }
+
+    // DICE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // MOVES
+
+    @Override
     public Move[] getAllPossibleMoves(Player player) {
         Move[] red = player.getScoreSheet().getDragon().getAllPossibleMoves();
         Move[] green = player.getScoreSheet().getGaia().getAllPossibleMoves();
@@ -101,7 +143,6 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-
      public Move[] getPossibleMovesForAvailableDice(Player player) {
             List<Move> allPossibleMoves = new ArrayList<>();
             Move[] m;
@@ -139,36 +180,6 @@ public class CLIGameController extends GameController {
             return out;
 }
 
-
-
-        //        int count = 0;
-//        int c = 0;
-//        boolean flag = false;
-//        List<Move> moves = new ArrayList<>();
-//        for (Dice d : getAvailableDice()) {
-//            Move[] m = getPossibleMovesForADie(player, d);
-//            for (Move m1 : m) {
-//                if (moves.contains(m1) && m1.getDice().getRealm() == Realm.GREEN)
-//                    System.out.println("repeated");
-//                moves.add(m1);
-//            }
-//        }
-//
-//        for (Move m : moves) {
-//            if (m.getDice().getRealm() == Realm.GREEN)
-//                count++;
-//            if (count == 2 && m.getDice().getRealm() == Realm.GREEN) {
-//                moves.remove(m);
-//            }
-//        }
-//
-//        Move[] out = new Move[moves.size()];
-//        out = moves.toArray(out);
-//        return out;
-//    }
-
-
-
     @Override
     public Move[] getPossibleMovesForADie(Player player, Dice dice) {
         Move[] m;
@@ -205,8 +216,6 @@ public class CLIGameController extends GameController {
         return m;
     }
 
-
-
     public Move[] getPossibleMovesForADieHelper(Player player, Dice dice) {
         Move[] m;
         switch (dice.getRealm()) {
@@ -240,9 +249,76 @@ public class CLIGameController extends GameController {
         return m;
     }
 
+    @Override
+    public boolean makeMove(Player player, Move move)  {
+        System.out.println(player.getScoreSheet());
+        String s;
+        boolean b=false;
+        switch(move.getDice().getRealm()){
+            case RED:
+                System.out.println("Select a dragon to attack with attack value: "+move.getDice().getValue());
+                int i = scanner.nextInt();
+                RedDice d = new RedDice(move.getDice().getValue());
+                d.selectsDragon(i);
+                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
+                break;
+            case GREEN:
+                int x = move.getDice().getValue();
+                int y = getAllDice()[5].getValue();
+                Dice f = new GreenDice(x+y);
+                b=(player.getScoreSheet().getGaia().makeMove(new Move(f,player.getScoreSheet().getGaia())));
+                break;
+            case BLUE: b=(player.getScoreSheet().getHydra().makeMove(move)); break;
+            case MAGENTA: b=(player.getScoreSheet().getPhoenix().makeMove(move)); break;
+            case YELLOW: b=(player.getScoreSheet().getLion().makeMove(move)); break;
+            case WHITE:
+                System.out.println("Choose a realm to attack");
+                int q = scanner.nextInt();
+                b=(whiteMove(player,move.getDice().getValue(),q));
+                break;
+            default:break;
+        }
+        System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
+        System.out.println(player.getScoreSheet());
+        return b;
+    }
+    public boolean whiteMove(Player player,int i,int g) {
+        switch(g) {
+            case 0:
+                System.out.println("Select a dragon to attack");
+                int in = scanner.nextInt();
+                RedDice d = new RedDice(i);
+                player.getScoreSheet().getDragon().makeMove(new Move(d, player.getScoreSheet().getDragon(), in));
+                break;
+            case 1:
+                int re=0;
+                for(Dice di : getAllDice())
+                    if(di.getRealm()==Realm.GREEN)
+                        re = di.getValue();
+                Dice f = new GreenDice(i + re);
+                player.getScoreSheet().getGaia().makeMove(new Move(f, player.getScoreSheet().getGaia()));
+                break;
+            case 2:
+                BlueDice b = new BlueDice(i);
+                player.getScoreSheet().getHydra().makeMove(new Move(b,player.getScoreSheet().getCreatureByRealm(b)));
+                break;
+            case 3:
+                MagentaDice m = new MagentaDice(i);
+                player.getScoreSheet().getPhoenix().makeMove(new Move(m,player.getScoreSheet().getCreatureByRealm(m)));
+                break;
+            case 4:
+                YellowDice y = new YellowDice(i);
+                player.getScoreSheet().getLion().makeMove(new Move(y,player.getScoreSheet().getCreatureByRealm(y)));
+                break;
+        }
+        return true;
+    }
 
+    // MOVES
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // GETTERS
 
     @Override
     public GameBoard getGameBoard() {
@@ -298,54 +374,146 @@ public class CLIGameController extends GameController {
         return powers;
     }
 
+    // GETTERS
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //GAME LOOP
+
     @Override
-    public boolean selectDice(Dice dice, Player player) {
-        player.setSelectedDice(dice);
-        for (Dice value : getAvailableDice()) {
-            if(value.getValue() < dice.getValue())
-                value.setDiceStatus(DiceStatus.FORGOTTEN_REALM);
+    public void startGame() {
+        gameBoard = new GameBoard();
+        System.out.println("Welcome to Dice Realms: Quest for Elemental Crests!!!");
+        System.out.println("Enter Player 1 name");
+        String s1 = scanner.nextLine();
+        System.out.println("Enter Player 2 name");
+        String s2 = scanner.nextLine();
+        gameBoard.setPlayer1(new Player(s1,PlayerStatus.ACTIVE));
+        gameBoard.setPlayer2(new Player(s2,PlayerStatus.PASSIVE));
+        gameLoop();
+    }
+
+    @Override
+    public boolean switchPlayer() {
+        if(gameBoard.getPlayer1().getPlayerStatus()==PlayerStatus.ACTIVE) {
+            gameBoard.getPlayer1().setPlayerStatus(PlayerStatus.PASSIVE);
+            gameBoard.getPlayer2().setPlayerStatus(PlayerStatus.ACTIVE);
         }
-        dice.setDiceStatus(DiceStatus.TURN_SELECTED);
+        else{
+            gameBoard.getPlayer1().setPlayerStatus(PlayerStatus.ACTIVE);
+            gameBoard.getPlayer2().setPlayerStatus(PlayerStatus.PASSIVE);
+        }
+        gameBoard.getGameStatus().resetTurn();
         return true;
     }
 
-    @Override
-    public boolean makeMove(Player player, Move move)  {
-        System.out.println(player.getScoreSheet());
-        String s;
-        boolean b=false;
-        switch(move.getDice().getRealm()){
-            case RED:
-                System.out.println("Select a dragon to attack");
-                int i = gameBoard.getScan().num();
-                RedDice d = new RedDice(move.getDice().getValue());
-                d.selectsDragon(i);
-                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
-                break;
-            case GREEN:
-                int x = move.getDice().getValue();
-                int y = getAllDice()[5].getValue();
-                Dice f = new GreenDice(x+y);
-                b=(player.getScoreSheet().getGaia().makeMove(new Move(f,player.getScoreSheet().getGaia())));
-                break;
-            case BLUE: b=(player.getScoreSheet().getHydra().makeMove(move)); break;
-            case MAGENTA: b=(player.getScoreSheet().getPhoenix().makeMove(move)); break;
-            case YELLOW: b=(player.getScoreSheet().getLion().makeMove(move)); break;
-            case WHITE:
-                System.out.println("Choose a realm to attack");
-                int q = gameBoard.getScan().num();
-                b=(whiteMove(player,move.getDice().getValue(),q));
-                break;
-            default:break;
+    public void gameLoop(){
+        while (getGameBoard().getGameStatus().getRound() <= 6)
+        {
+            getRoundReward();
+            while (getGameBoard().getGameStatus().getTurn() <= 3 && thereAreAvailableDice())
+            {
+                startTurn();
+                timeWarpPrompt();
+                chooseDie();
+            }
+            chooseForgottenRealm();
+            arcaneBoostPrompt();
+            endTurn();
         }
-        System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
-        System.out.println(player.getScoreSheet());
-        return b;
+        endGame();
+    }
+    public void startTurn(){
+        System.out.println("Round: " + getGameBoard().getGameStatus().getRound());
+        System.out.println("Turn: " + getGameBoard().getGameStatus().getTurn());
+        System.out.println("Current Player: " + getActivePlayer().getPlayerName()+"\n");
+        rollDice();
+        printDice(getAvailableDice());
+
+    }
+    public void endTurn(){
+        resetDice();
+        switchPlayer();
+        if (getGameStatus().getPartOfRound() == 0)
+            getGameStatus().incrementPartOfRound();
+        else {
+            getGameStatus().incrementRound();
+            getGameStatus().resetPartofRound();
+        }
+    }
+    public void getRoundReward(){
+        switch (getGameBoard().getGameStatus().getRound()) {
+            case 1:
+            case 3:
+                getActivePlayer().addTimeWarpCount();
+                System.out.println("You received a Time Warp!");
+                break;
+            case 2:
+                getActivePlayer().addArcaneBoostCount();
+                System.out.println("You received an Arcane Boost!");
+                break;
+            case 4:
+//                    System.out.println("You received an Essence Bonus!");
+//                    System.out.println("Choose a realm to attack");
+//                    Realm r = getRealmFromString(s);
+//                    gc.useBonus(new Bonus(r), h);
+                break;
+            default:
+                System.out.println("You did not receive any reward");
+        }
     }
 
-    public boolean thereAreAvailableDice(){
-        return getAvailableDice().length != 0;
+    public void chooseForgottenRealm(){
+        System.out.println(getPassivePlayer().getPlayerName()+ ", select a die from the forgotten realm: ");
+        printDice(getForgottenRealmDice());
+        int i = scanner.nextInt();
+        makeMove(getPassivePlayer(), new Move(getForgottenRealmDice()[i], getPassivePlayer().getScoreSheet().getCreatureByRealm(getForgottenRealmDice()[i])));
     }
+    public void timeWarpPrompt(){
+        if(getActivePlayer().getTimeWarpCount()>0) {
+            System.out.println("If you want to use Time Warp enter 1");
+            if (scanner.nextInt()==1) {
+                getActivePlayer().subtractTimeWarpCount();
+                rollDice();
+                printDice(getAvailableDice());
+            }
+        }
+    }
+    public void arcaneBoostPrompt(){
+        if(getActivePlayer().getArcaneBoostCount()>0) {
+            System.out.println("Does " + getActivePlayer().getPlayerName() + " want to use Arcane Boost?");
+            String h = scanner.nextLine();
+            if (h.equals("yes")) {
+                getActivePlayer().subtractArcaneBoostCount();
+                printDice(getAllDice());
+                useArcaneBoost(getActivePlayer());
+            }
+        }
+        if(getPassivePlayer().getArcaneBoostCount()>0) {
+            System.out.println("Does " + getPassivePlayer().getPlayerName() + " want to use Arcane Boost?");
+            String s = scanner.nextLine();
+            if (s.equals("yes")) {
+                getPassivePlayer().subtractArcaneBoostCount();
+                printDice(getAllDice());
+                useArcaneBoost(getPassivePlayer());
+            }
+        }
+    }
+    public void endGame(){
+        scanner.close();
+        int score1 = getGameScore(getGameBoard().getPlayer1()).getScore();
+        int score2 = getGameScore(getGameBoard().getPlayer2()).getScore();
+        if (score1 > score2)
+            System.out.println(getGameBoard().getPlayer1().getPlayerName() + " has won the game!");
+        else
+            System.out.println(getGameBoard().getPlayer2().getPlayerName() + " has won the game!");
+    }
+
+    // GAME LOOP
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // MISCELLANEOUS
 
     public void useBonus (Bonus bonus,int i)  {
         Realm r = bonus.getRealm();
@@ -373,58 +541,14 @@ public class CLIGameController extends GameController {
 
         this.makeMove(this.getActivePlayer(), new Move(d, this.getActivePlayer().getScoreSheet().getCreatureByRealm(d)));
     }
-
-
-
     public boolean useArcaneBoost(Player player)  {
-        int i = gameBoard.getScan().num();
+        int i = scanner.nextInt();
         Dice d = getAllDice()[i];
         if(d.getDiceStatus()!=DiceStatus.POWER_SELECTED) {
             this.makeMove(player, new Move(d, player.getScoreSheet().getCreatureByRealm(d)));
             return true;
         }
         return false;
-    }
-
-
-
-    public static void printDice (Dice[] dice){
-        for(Dice d : dice){
-            switch(d.getRealm()){
-                case RED:
-                    System.out.print("Red: "+d.getValue()+"  ");
-                    break;
-                case GREEN:
-                    System.out.print("Green: "+d.getValue()+"  ");
-                    break;
-                case BLUE:
-                    System.out.print("Blue: "+d.getValue()+"  ");
-                    break;
-                case MAGENTA:
-                    System.out.print("Magenta: "+d.getValue()+"  ");
-                    break;
-                case YELLOW:
-                    System.out.print("Yellow: "+d.getValue()+"  ");
-                    break;
-                case WHITE:
-                    System.out.print("Arcane: "+d.getValue()+"  ");
-                    break;
-                default:
-                    System.out.print("error");
-            }
-        }
-        System.out.println();
-    }
-    public void startTurn(){
-        System.out.println("Round: " + getGameBoard().getGameStatus().getRound());
-        System.out.println("Turn: " + getGameBoard().getGameStatus().getTurn());
-        System.out.println("Current Player: " + getActivePlayer().getPlayerName());
-        System.out.println();
-    }
-    public void resetDice(){
-        for(Dice d : getAllDice()){
-            d.setDiceStatus(DiceStatus.AVAILABLE);
-        }
     }
     public static Realm getRealmFromString(String x){
         switch (x) {
@@ -442,37 +566,7 @@ public class CLIGameController extends GameController {
                 return Realm.WHITE;
         }
     }
-    public boolean whiteMove(Player player,int i,int g) {
-        switch(g) {
-            case 0:
-                System.out.println("Select a dragon to attack");
-                int in = gameBoard.getScan().num();
-                RedDice d = new RedDice(i);
-                player.getScoreSheet().getDragon().makeMove(new Move(d, player.getScoreSheet().getDragon(), in));
-                break;
-            case 1:
-                int re=0;
-                for(Dice di : getAllDice())
-                    if(di.getRealm()==Realm.GREEN)
-                        re = di.getValue();
-                Dice f = new GreenDice(i + re);
-                player.getScoreSheet().getGaia().makeMove(new Move(f, player.getScoreSheet().getGaia()));
-                break;
-            case 2:
-                BlueDice b = new BlueDice(i);
-                player.getScoreSheet().getHydra().makeMove(new Move(b,player.getScoreSheet().getCreatureByRealm(b)));
-                break;
-            case 3:
-                MagentaDice m = new MagentaDice(i);
-                player.getScoreSheet().getPhoenix().makeMove(new Move(m,player.getScoreSheet().getCreatureByRealm(m)));
-                break;
-            case 4:
-                YellowDice y = new YellowDice(i);
-                player.getScoreSheet().getLion().makeMove(new Move(y,player.getScoreSheet().getCreatureByRealm(y)));
-                break;
-        }
-        return true;
-    }
 
+    //MISCELLANEOUS
 }
 
