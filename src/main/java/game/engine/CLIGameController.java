@@ -281,13 +281,12 @@ public class CLIGameController extends GameController {
         }
         System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
         System.out.println(player.getScoreSheet());
-        //getReward(checkReward(move));
         return b;
     }
     public boolean whiteMove(Player player,int i,int g) {
         switch(g) {
             case 0:
-                System.out.println("Select a dragon to attack");
+                System.out.println("Select a dragon to attack with value "+i);
                 int in = scanner.nextInt();
                 RedDice d = new RedDice(i);
                 player.getScoreSheet().getDragon().makeMove(new Move(d, player.getScoreSheet().getDragon(), in));
@@ -388,6 +387,7 @@ public class CLIGameController extends GameController {
         String s2 = scanner.nextLine();
         gameBoard.setPlayer1(new Player(s1,PlayerStatus.ACTIVE));
         gameBoard.setPlayer2(new Player(s2,PlayerStatus.PASSIVE));
+        getActivePlayer().getGameScore().addElementalCrest(new ElementalCrest(Realm.BLUE));
         gameLoop();
     }
 
@@ -414,6 +414,7 @@ public class CLIGameController extends GameController {
                 startTurn();
                 timeWarpPrompt();
                 chooseDie();
+                getReward(checkReward());
             }
             chooseForgottenRealm();
             arcaneBoostPrompt();
@@ -459,7 +460,6 @@ public class CLIGameController extends GameController {
                 System.out.println("You did not receive any reward");
         }
     }
-
     public void chooseForgottenRealm(){
         System.out.println(getPassivePlayer().getPlayerName()+ ", select a die from the forgotten realm: ");
         printDice(getForgottenRealmDice());
@@ -498,6 +498,8 @@ public class CLIGameController extends GameController {
         scanner.close();
         int score1 = getGameScore(getGameBoard().getPlayer1()).getScore();
         int score2 = getGameScore(getGameBoard().getPlayer2()).getScore();
+        System.out.println(getGameBoard().getPlayer1().getPlayerName()+" has scored "+score1+" points");
+        System.out.println(getGameBoard().getPlayer2().getPlayerName()+" has scored "+score2+" points");
         if (score1 > score2)
             System.out.println(getGameBoard().getPlayer1().getPlayerName() + " has won the game!");
         else
@@ -558,20 +560,15 @@ public class CLIGameController extends GameController {
         Reward[] reward;
         switch(r){
             case RED:
-                reward = getActivePlayer().getScoreSheet().getDragon().checkReward();
-                return reward;
+                return getActivePlayer().getScoreSheet().getDragon().checkReward();
             case GREEN:
-                reward = getActivePlayer().getScoreSheet().getGaia().checkReward();
-                return reward;
+                return getActivePlayer().getScoreSheet().getGaia().checkReward();
             case BLUE:
-                reward = getActivePlayer().getScoreSheet().getHydra().checkReward();
-                return reward;
+                return getActivePlayer().getScoreSheet().getHydra().checkReward();
             case MAGENTA:
-                reward = getActivePlayer().getScoreSheet().getPhoenix().checkReward();
-                return reward;
+                return getActivePlayer().getScoreSheet().getPhoenix().checkReward();
             case YELLOW:
-                reward = getActivePlayer().getScoreSheet().getLion().checkReward();
-                return reward;
+                return getActivePlayer().getScoreSheet().getLion().checkReward();
             default:
                 return null;
         }
