@@ -145,9 +145,7 @@ public class Gaia extends Creature{
                 }
             }
         }
-
         editRewards();
-        checkReward();
         return flag;
     }
 
