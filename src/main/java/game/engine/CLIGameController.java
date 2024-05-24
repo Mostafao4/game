@@ -1,9 +1,6 @@
 package game.engine;
 
-import game.collectibles.ArcaneBoost;
-import game.collectibles.Bonus;
-import game.collectibles.Reward;
-import game.collectibles.TimeWarp;
+import game.collectibles.*;
 import game.creatures.Realm;
 import game.dice.*;
 import java.util.ArrayList;
@@ -252,7 +249,6 @@ public class CLIGameController extends GameController {
     @Override
     public boolean makeMove(Player player, Move move)  {
         System.out.println(player.getScoreSheet());
-        String s;
         boolean b=false;
         switch(move.getDice().getRealm()){
             case RED:
@@ -266,13 +262,6 @@ public class CLIGameController extends GameController {
                 else {
                     b=player.getScoreSheet().getDragon().makeMove(move);
                 }
-//                System.out.println("Select a dragon to attack with attack value: "+move.getDice().getValue());
-//                int i = scanner.nextInt();
-//                RedDice d = new RedDice(move.getDice().getValue());
-//                d.selectsDragon(i);
-//                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
-//                b=player.getScoreSheet().getDragon().makeMove(move);
-                break;
             case GREEN:
                 int x = move.getDice().getValue();
                 int y = getAllDice()[5].getValue();
@@ -291,6 +280,7 @@ public class CLIGameController extends GameController {
         }
         System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
         System.out.println(player.getScoreSheet());
+        getReward(checkReward(move));
         return b;
     }
     public boolean whiteMove(Player player,int i,int g) {
@@ -465,10 +455,8 @@ public class CLIGameController extends GameController {
                 System.out.println("You received an Arcane Boost!");
                 break;
             case 4:
-//                    System.out.println("You received an Essence Bonus!");
-//                    System.out.println("Choose a realm to attack");
-//                    Realm r = getRealmFromString(s);
-//                    gc.useBonus(new Bonus(r), h);
+                System.out.println("You received an Essence Bonus!");
+                useEssenceBonus();
                 break;
             default:
                 System.out.println("You did not receive any reward");
@@ -548,34 +536,16 @@ public class CLIGameController extends GameController {
                 //throw new PlayerActionException();
                 d = null;
         }
-
-        this.makeMove(this.getActivePlayer(), new Move(d, this.getActivePlayer().getScoreSheet().getCreatureByRealm(d)));
+        if(d!=null)
+            makeMove(getActivePlayer(), new Move(d, getActivePlayer().getScoreSheet().getCreatureByRealm(d)));
     }
-    public boolean useArcaneBoost(Player player)  {
+    public void useArcaneBoost(Player player)  {
         int i = scanner.nextInt();
         Dice d = getAllDice()[i];
         if(d.getDiceStatus()!=DiceStatus.POWER_SELECTED) {
             this.makeMove(player, new Move(d, player.getScoreSheet().getCreatureByRealm(d)));
             getAllDice()[i].setDiceStatus(DiceStatus.POWER_SELECTED);
             player.subtractArcaneBoostCount();
-            return true;
-        }
-        return false;
-    }
-    public static Realm getRealmFromString(String x){
-        switch (x) {
-            case "red":
-                return Realm.RED;
-            case "green":
-                return Realm.GREEN;
-            case "blue":
-                return Realm.BLUE;
-            case "magenta":
-                return Realm.MAGENTA;
-            case "yellow":
-                return Realm.YELLOW;
-            default:
-                return Realm.WHITE;
         }
     }
     public void useEssenceBonus(){
@@ -585,6 +555,60 @@ public class CLIGameController extends GameController {
         int j = scanner.nextInt();
         whiteMove(getActivePlayer(),j,i);
 
+    }
+    public Reward[] checkReward(Move move){
+        Realm r = move.getDice().getRealm();
+        Reward[] reward;
+        switch(r){
+            case RED:
+                reward = getActivePlayer().getScoreSheet().getDragon().checkReward();
+                return reward;
+            case GREEN:
+                reward = getActivePlayer().getScoreSheet().getGaia().checkReward();
+                return reward;
+            case BLUE:
+                reward = getActivePlayer().getScoreSheet().getHydra().checkReward();
+                return reward;
+            case MAGENTA:
+                reward = getActivePlayer().getScoreSheet().getPhoenix().checkReward();
+                return reward;
+            case YELLOW:
+                reward = getActivePlayer().getScoreSheet().getLion().checkReward();
+                return reward;
+            default:
+                return null;
+        }
+
+    }
+    public void getReward(Reward[] r){
+        if(r!=null)
+            for(Reward reward : r){
+                if(reward!=null)
+                    useReward(reward);
+            }
+    }
+    public void useReward(Reward reward){
+        if(reward instanceof Bonus) {
+            Realm r = ((Bonus) reward).getRealm();
+            System.out.println("You received a " + r + " Bonus!");
+            System.out.println("Choose an attack value");
+            int att = scanner.nextInt();
+            useBonus((Bonus) reward, att);
+        }
+        else if(reward instanceof TimeWarp){
+            System.out.println("You received a Time Warp!");
+            getActivePlayer().addTimeWarpCount();
+        }
+        else if(reward instanceof ArcaneBoost){
+            System.out.println("You received an Arcane Boost!");
+            getActivePlayer().addArcaneBoostCount();
+        }
+
+        else if(reward instanceof ElementalCrest)
+                getActivePlayer().getGameScore().addElementalCrest((ElementalCrest)reward);
+        else{
+            //throw exception;
+        }
     }
     //MISCELLANEOUS
 }

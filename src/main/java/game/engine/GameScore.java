@@ -49,8 +49,8 @@ public class GameScore {
         elementalCrest.toArray(out);
         return out;
     }
-    public void addElementalCrest(Realm r){
-        elementalCrest.add(new ElementalCrest(r));
+    public void addElementalCrest(ElementalCrest e){
+        elementalCrest.add(e);
     }
 
 

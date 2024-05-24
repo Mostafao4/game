@@ -131,13 +131,13 @@ public class Hydra extends Creature {
 
 
 
-    public Reward checkBonus(){
+    public Reward[] checkReward(){
 
             int i =  headsKilled();
             if(i <= 5){
                 for(int j = 0; j <= 4; j++){
                 if(hydra[j] == 4){
-                       return  BonusHelper(reward[3]);
+                       return new Reward[]{BonusHelper(reward[3])};
                     }
                 else{
                         j++;
@@ -149,18 +149,18 @@ public class Hydra extends Creature {
                 for(int j = 5; j <= 10; j++){
                     switch (hydra[j]) {
                         case 1:
-                            return BonusHelper(reward[5]);
+                            return new Reward[]{BonusHelper(reward[5])};
 
                         case 2:
-                            return BonusHelper(reward[6]);
+                            return new Reward[]{BonusHelper(reward[6])};
 
 
                         case 4:
-                            return BonusHelper(reward[8]);
+                            return new Reward[]{BonusHelper(reward[8])};
 
 
                         case 5:
-                            return BonusHelper(reward[9]);
+                            return new Reward[]{BonusHelper(reward[9])};
 
 
                         default:

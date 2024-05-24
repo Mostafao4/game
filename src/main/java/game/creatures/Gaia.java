@@ -147,7 +147,7 @@ public class Gaia extends Creature{
         }
 
         editRewards();
-        checkBonus();
+        checkReward();
         return flag;
     }
 
@@ -218,9 +218,21 @@ public class Gaia extends Creature{
         }
     }
 
-    public void checkBonus(){
-        showHorizontalRewards();
-        showVerticalRewards();
+    public Reward[] checkReward(){
+        Reward r = showHorizontalRewards();
+        Reward t = showVerticalRewards();
+        int count = 0;
+        int i = 0;
+        if(r!=null)
+            count++;
+        if(t!=null)
+            count++;
+        Reward[] rewards = new Reward[count];
+        if(r!=null)
+            rewards[i++] = r;
+        if(t!=null)
+            rewards[i++] = t;
+        return rewards;
     }
 
     private Reward showHorizontalRewards(){

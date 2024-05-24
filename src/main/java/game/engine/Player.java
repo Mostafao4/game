@@ -1,8 +1,6 @@
 package game.engine;
 import game.collectibles.*;
-import game.creatures.Realm;
 import game.dice.Dice;
-import java.util.Scanner;
 public class Player {
     private String playerName;
     private GameScore gameScore;
@@ -10,7 +8,6 @@ public class Player {
     private Dice selectedDice;
     private int timeWarpCount;
     private int arcaneBoostCount;
-    private int c;
     public Player(PlayerStatus playerStatus) {
         this.playerStatus = playerStatus;
         gameScore = new GameScore();

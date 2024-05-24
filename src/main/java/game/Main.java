@@ -11,7 +11,6 @@ public class Main
     {
         CLIGameController gc = new CLIGameController();
         gc.startGame();
-
     }
 }
 
