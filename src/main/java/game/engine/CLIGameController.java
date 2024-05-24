@@ -256,12 +256,22 @@ public class CLIGameController extends GameController {
         boolean b=false;
         switch(move.getDice().getRealm()){
             case RED:
+                if (((RedDice) (move.getDice())).getDragonNumber() == 0){
+                    System.out.println("Select a dragon to attack with attack value: "+move.getDice().getValue());
+                    int i = scanner.nextInt();
+                    RedDice d = new RedDice(move.getDice().getValue());
+                    d.selectsDragon(i);
+                    b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
+                }
+                else {
+                    b=player.getScoreSheet().getDragon().makeMove(move);
+                }
 //                System.out.println("Select a dragon to attack with attack value: "+move.getDice().getValue());
 //                int i = scanner.nextInt();
 //                RedDice d = new RedDice(move.getDice().getValue());
 //                d.selectsDragon(i);
 //                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
-                b=player.getScoreSheet().getDragon().makeMove(move);
+//                b=player.getScoreSheet().getDragon().makeMove(move);
                 break;
             case GREEN:
                 int x = move.getDice().getValue();
@@ -304,8 +314,8 @@ public class CLIGameController extends GameController {
                 player.getScoreSheet().getHydra().makeMove(new Move(b,player.getScoreSheet().getHydra()));
                 break;
             case 3:
-                MagentaDice b = new MagentaDice(i);
-                player.getScoreSheet().getPhoenix().makeMove(new Move(b,player.getScoreSheet().getPhoenix()));
+                MagentaDice c = new MagentaDice(i);
+                player.getScoreSheet().getPhoenix().makeMove(new Move(c,player.getScoreSheet().getPhoenix()));
                 break;
             case 4:
                 YellowDice y = new YellowDice(i);
@@ -434,6 +444,7 @@ public class CLIGameController extends GameController {
     }
     public void endTurn(){
         resetDice();
+        ((RedDice)getAllDice()[0]).resetDragonNumber();
         switchPlayer();
         if (getGameStatus().getPartOfRound() == 0)
             getGameStatus().incrementPartOfRound();
@@ -572,7 +583,7 @@ public class CLIGameController extends GameController {
         int i = scanner.nextInt();
         System.out.println("Select an attack value");
         int j = scanner.nextInt();
-        makeMove(getActivePlayer(),new Move())
+        whiteMove(getActivePlayer(),j,i);
 
     }
     //MISCELLANEOUS
