@@ -301,15 +301,15 @@ public class CLIGameController extends GameController {
                 break;
             case 2:
                 BlueDice b = new BlueDice(i);
-                player.getScoreSheet().getHydra().makeMove(new Move(b,player.getScoreSheet().getCreatureByRealm(b)));
+                player.getScoreSheet().getHydra().makeMove(new Move(b,player.getScoreSheet().getHydra()));
                 break;
             case 3:
-                MagentaDice m = new MagentaDice(i);
-                player.getScoreSheet().getPhoenix().makeMove(new Move(m,player.getScoreSheet().getCreatureByRealm(m)));
+                MagentaDice b = new MagentaDice(i);
+                player.getScoreSheet().getPhoenix().makeMove(new Move(b,player.getScoreSheet().getPhoenix()));
                 break;
             case 4:
                 YellowDice y = new YellowDice(i);
-                player.getScoreSheet().getLion().makeMove(new Move(y,player.getScoreSheet().getCreatureByRealm(y)));
+                player.getScoreSheet().getLion().makeMove(new Move(y,player.getScoreSheet().getLion()));
                 break;
         }
         return true;
@@ -567,7 +567,14 @@ public class CLIGameController extends GameController {
                 return Realm.WHITE;
         }
     }
+    public void useEssenceBonus(){
+        System.out.println("Select a realm to attack");
+        int i = scanner.nextInt();
+        System.out.println("Select an attack value");
+        int j = scanner.nextInt();
+        makeMove(getActivePlayer(),new Move())
 
+    }
     //MISCELLANEOUS
 }
 
