@@ -53,7 +53,7 @@ public class Dragon extends Creature {
         }
     }
 
-    public Reward []checkBonus (){
+    public Reward []checkReward(){
         Reward [] bonus = new Reward[2];
         int x = 0;
         for (int i = 0; i < dragonParts.length; i++){
@@ -318,7 +318,7 @@ public class Dragon extends Creature {
     }
 
     private String scoreSheetHelperBonus (int i){
-        this.checkBonus();
+        checkReward();
         switch (reward[i]){
             case "GreenBonus":
                 if (bonusBoolean[i] == true){

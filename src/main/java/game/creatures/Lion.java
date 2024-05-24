@@ -101,7 +101,7 @@ public void editMultipliers(){
 //increments hitnum(counter) & adds dice value to array diceNum 
 public boolean makeMove(Move move){
     if (hitNum<11){
-        diceNum[hitNum]=(int)move.getDice().getValue();
+        diceNum[hitNum]=move.getDice().getValue();
         hitNum++;
         return true;}
     else
@@ -121,32 +121,32 @@ public int getYellowRealmScore(){
 }
 
  // checks rewards and returns the supposed reward & makes used reward an x
-public Reward getReward(){
+public Reward[] checkReward(){
     switch (rew[hitNum]){
     case "AB":
             rew[hitNum]="X ";
-            return new ArcaneBoost();
+            return new Reward[]{new ArcaneBoost()};
     case "BB": 
             rew[hitNum]="X ";
-            return new Bonus(Realm.BLUE);
+            return new Reward[]{new Bonus(Realm.BLUE)};
     case "EC": 
             rew[hitNum]="X ";
-            return new ElementalCrest(Realm.YELLOW);
+            return new Reward[]{new ElementalCrest(Realm.YELLOW)};
     case "GB":
             rew[hitNum]="X ";
-            return new Bonus(Realm.GREEN);
+            return new Reward[]{new Bonus(Realm.GREEN)};
     case "MB": 
             rew[hitNum]="X ";
-            return new Bonus(Realm.MAGENTA);
+            return new Reward[]{new Bonus(Realm.MAGENTA)};
     case "RB": 
             rew[hitNum]="X ";
-            return new Bonus(Realm.RED);
+            return new Reward[]{new Bonus(Realm.RED)};
     case "TW":
             rew[hitNum]="X ";
-            return new TimeWarp();
+            return new Reward[]{new TimeWarp()};
     case "YB": 
             rew[hitNum]="X ";
-            return new Bonus(Realm.YELLOW);
+            return new Reward[]{new Bonus(Realm.YELLOW)};
     default: return null;
     }
  }

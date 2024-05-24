@@ -7,61 +7,34 @@ import java.io.*;
 import java.util.Properties;
 public class Phoenix extends Creature {
     
-    private int count=0;
+    private int count;
+    private int score_int;
     private int[] attack;
     private Reward[] rewards;
-    private int score_int;
-    private int[] score_array;
-    // private int player;
     public Phoenix(){
-        // this.player=numberOfPlayer;
-        this.attack=new int[11];
-        this.rewards=new Reward[11];
-        this.score_array=new int[11];
-        this.count=0;
-        this.score_int=0;
-
-        
+        attack = new int[11];
+        rewards = new Reward[11];
     }
     public boolean makeMove(Move move) {
-    if(count>=11){System.out.println("You reached the maximum possible times of plays"); return false;}
-    if(count==0){   
-            attack[count]=(int)move.getDice().getValue();
-            score_int+=(int)move.getDice().getValue();
-            score_array[count]=(int)move.getDice().getValue();
-            count++;
-            getReward();
+        if(count>=11){
+            System.out.println("You reached the maximum possible times of plays");
+            return false;
+        }
+        else if(count==0 || move.getDice().getValue()>attack[count-1] || attack[count-1]==6){
+            attack[count++] = move.getDice().getValue();
+            score_int += move.getDice().getValue();
             return true;
+        }
+        else{
+            System.out.println("Dice value is not more than the last chosen value");
+            return false;
+        }
     }
-    else{
-        if(move.getDice().getValue()>(int)attack[count]){
-            
-            attack[count+1]=(int)move.getDice().getValue();
-            score_int+=(int)move.getDice().getValue();
-            score_array[count]=(int)move.getDice().getValue();
-            count++;
-            getReward();
-            return true;
-               
-        }
-        if(attack[count]==6){
-            attack[count]=(int)move.getDice().getValue();
-            score_int+=(int)move.getDice().getValue();
-            score_array[count]=(int)move.getDice().getValue();
-            count++;
-            getReward();
-            return true;
-            
-        }
-        
-        else{System.out.println("Dice value is not more than the last chosen value");  return false;}
 
-    }
-    }
     //////Done
 
-    public Reward getRewards(int index ){
-       return  rewards[index];
+    public Reward[] checkReward(){
+       return  new Reward[] {rewards[count]};
     }
     private void rewardFromString(String N){
         switch (N) {
@@ -112,34 +85,29 @@ public class Phoenix extends Creature {
 
 
 public Move[] getAllPossibleMoves(){
-    int lastNumber= attack[count];
-    int last_test=attack[count];
-    // Dice Temp_dice=new MagentaDice(0);
+    int lastNumber = attack[count];
+    int last_test = attack[count];
     Move[] possibleMoves;
-    if((lastNumber)==6){
+    if(lastNumber==6)
         possibleMoves = new Move[6];
-    }
     else{
         int length=0;
-
         while(last_test<6){
             length++;
             last_test++;
         }
         possibleMoves=new Move[length];
     }
-    if((lastNumber)==6){
+    if(lastNumber==6){
         for(int j=0; j<6;j++){
-            // Temp_dice.setValue(j+1);
             possibleMoves[j]=new Move(new MagentaDice(j+1),this);
         } 
         return possibleMoves;
     }
     else{
-        for(int i=0;(lastNumber)<6;i++){
-            // Temp_dice.setValue((lastNumber));
-            possibleMoves[i]=new Move(new MagentaDice((lastNumber)),this);
-            (lastNumber)+=1;
+        for(int i=0;lastNumber<6;i++){
+            possibleMoves[i]=new Move(new MagentaDice(lastNumber),this);
+            lastNumber+=1;
     }
     return possibleMoves;
 }
@@ -164,7 +132,7 @@ public Move[] getPossibleMovesForADie (Dice dice){
 //        }
 //        return possibleMoves;
 //    }
-    if(dice.getValue() > (int) attack[count] || dice.getValue() == 6){
+    if(dice.getValue() > attack[count] || dice.getValue() == 6){
         possibleMoves[0] = new Move(dice,this);
     }
     else {
