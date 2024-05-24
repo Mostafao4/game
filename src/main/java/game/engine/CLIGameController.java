@@ -482,18 +482,16 @@ public class CLIGameController extends GameController {
     public void arcaneBoostPrompt(){
         if(getActivePlayer().getArcaneBoostCount()>0) {
             System.out.println("Does " + getActivePlayer().getPlayerName() + " want to use Arcane Boost?");
-            String h = scanner.nextLine();
-            if (h.equals("yes")) {
-                getActivePlayer().subtractArcaneBoostCount();
+            if (scanner.nextInt()==1) {
+                System.out.println("Choose a die to perform your Arcane Boost");
                 printDice(getAllDice());
                 useArcaneBoost(getActivePlayer());
             }
         }
         if(getPassivePlayer().getArcaneBoostCount()>0) {
             System.out.println("Does " + getPassivePlayer().getPlayerName() + " want to use Arcane Boost?");
-            String s = scanner.nextLine();
-            if (s.equals("yes")) {
-                getPassivePlayer().subtractArcaneBoostCount();
+            if (scanner.nextInt()==1) {
+                System.out.println("Choose a die to perform your Arcane Boost");
                 printDice(getAllDice());
                 useArcaneBoost(getPassivePlayer());
             }
@@ -546,6 +544,8 @@ public class CLIGameController extends GameController {
         Dice d = getAllDice()[i];
         if(d.getDiceStatus()!=DiceStatus.POWER_SELECTED) {
             this.makeMove(player, new Move(d, player.getScoreSheet().getCreatureByRealm(d)));
+            getAllDice()[i].setDiceStatus(DiceStatus.POWER_SELECTED);
+            player.subtractArcaneBoostCount();
             return true;
         }
         return false;

@@ -1,14 +1,30 @@
 package game.engine;
 
+import game.collectibles.ElementalCrest;
+import game.creatures.Realm;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameScore {
     private ScoreSheet scoreSheet;
+    List<ElementalCrest> elementalCrest = new ArrayList<>();
     //Get Realm Scores
 
     public GameScore() {
         scoreSheet = new ScoreSheet();
     }
     public int getScore() {
-        return getRedRealmScore()+getBlueRealmScore()+getGreenRealmScore()+getYellowRealmScore()+getMagentaRealmScore();
+        int[] arr = new int[]{getRedRealmScore(),getGreenRealmScore(),getBlueRealmScore(),getMagentaRealmScore(),getYellowRealmScore()};
+        int min = arr[0];
+        int out = min;
+        for(int i = 1; i < arr.length; i++) {
+            out += arr[i];
+            if (arr[i] < min)
+                min = arr[i];
+        }
+        out+=(min * elementalCrest.size());
+        return out;
     }
     public ScoreSheet getScoreSheet() {
         return scoreSheet;
@@ -27,6 +43,14 @@ public class GameScore {
     }
     public int getYellowRealmScore(){
         return scoreSheet.getLion().getYellowRealmScore();
+    }
+    public ElementalCrest[] getElementalCrest() {
+        ElementalCrest[] out =  new ElementalCrest[elementalCrest.size()];
+        elementalCrest.toArray(out);
+        return out;
+    }
+    public void addElementalCrest(Realm r){
+        elementalCrest.add(new ElementalCrest(r));
     }
 
 
