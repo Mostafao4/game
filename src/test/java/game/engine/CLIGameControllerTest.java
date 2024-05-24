@@ -360,28 +360,28 @@ public class CLIGameControllerTest {
         }
     }
 
-   // @Test
-//    public void testMakeMoveYellowRealm() {
-//        CLIGameController controller = new CLIGameController();
-//        GameBoard gameBoard = controller.getGameBoard();
-//        Player player = controller.getActivePlayer();
-//        Dice[] dice = gameBoard.getDice();
-//
-//        int[] yellowDiceValues = { 1, 2, 3, 4 };
-//        int[] expectedScores = { 1, 3, 6, 14 };
-//        boolean[] expectedSuccess = { true, true, true, true };
-//
-//        for (int i = 0; i < yellowDiceValues.length; i++) {
-//            dice[4].setValue(yellowDiceValues[i]);
-//            Move[] possibleMoves = controller.getPossibleMovesForADie(player, dice[4]);
-//            boolean hasMoves = possibleMoves.length > 0;
-//            boolean success = hasMoves && controller.makeMove(player, possibleMoves[0]);
-//
-//            assertEquals("Expected success mismatch at move " + (i + 1), expectedSuccess[i], success);
-//            int actualScore = controller.getGameScore(player).getYellowRealmScore();
-//            assertEquals("Expected score mismatch after move " + (i + 1), expectedScores[i], actualScore);
-//        }
-//    }
+    @Test
+    public void testMakeMoveYellowRealm() {
+        CLIGameController controller = new CLIGameController();
+        GameBoard gameBoard = controller.getGameBoard();
+        Player player = controller.getActivePlayer();
+        Dice[] dice = gameBoard.getDice();
+
+        int[] yellowDiceValues = { 1, 2, 3, 4 };
+        int[] expectedScores = { 1, 3, 6, 14 };
+        boolean[] expectedSuccess = { true, true, true, true };
+
+        for (int i = 0; i < yellowDiceValues.length; i++) {
+            dice[4].setValue(yellowDiceValues[i]);
+            Move[] possibleMoves = controller.getPossibleMovesForADie(player, dice[4]);
+            boolean hasMoves = possibleMoves.length > 0;
+            boolean success = hasMoves && controller.makeMove(player, possibleMoves[0]);
+
+            assertEquals("Expected success mismatch at move " + (i + 1), expectedSuccess[i], success);
+            int actualScore = controller.getGameScore(player).getYellowRealmScore();
+            assertEquals("Expected score mismatch after move " + (i + 1), expectedScores[i], actualScore);
+        }
+    }
 
     @Test
     public void testElementalCrests() {

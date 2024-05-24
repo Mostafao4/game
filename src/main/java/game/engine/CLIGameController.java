@@ -260,7 +260,8 @@ public class CLIGameController extends GameController {
                     b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
                 }
                 else {
-                    b=player.getScoreSheet().getDragon().makeMove(move);
+                    b = player.getScoreSheet().getDragon().makeMove(move);
+                    break;
                 }
             case GREEN:
                 int x = move.getDice().getValue();
@@ -280,7 +281,7 @@ public class CLIGameController extends GameController {
         }
         System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
         System.out.println(player.getScoreSheet());
-        getReward(checkReward(move));
+        //getReward(checkReward(move));
         return b;
     }
     public boolean whiteMove(Player player,int i,int g) {
@@ -292,11 +293,7 @@ public class CLIGameController extends GameController {
                 player.getScoreSheet().getDragon().makeMove(new Move(d, player.getScoreSheet().getDragon(), in));
                 break;
             case 1:
-                int re=0;
-                for(Dice di : getAllDice())
-                    if(di.getRealm()==Realm.GREEN)
-                        re = di.getValue();
-                Dice f = new GreenDice(i + re);
+                GreenDice f = new GreenDice(i + getAllDice()[1].getValue());
                 player.getScoreSheet().getGaia().makeMove(new Move(f, player.getScoreSheet().getGaia()));
                 break;
             case 2:
