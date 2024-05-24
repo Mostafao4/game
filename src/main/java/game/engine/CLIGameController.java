@@ -162,7 +162,9 @@ public class CLIGameController extends GameController {
                     }
                 }
             }
-
+        Move[] out = new Move[allPossibleMoves.size()];
+        allPossibleMoves.toArray(out);
+        return out;
 
 
             // Remove extra green dice if more than one is available
@@ -175,9 +177,7 @@ public class CLIGameController extends GameController {
 
             // Convert list to array
 
-            Move[] out = new Move[allPossibleMoves.size()];
-            out = allPossibleMoves.toArray(out);
-            return out;
+
 }
 
     @Override
@@ -256,11 +256,12 @@ public class CLIGameController extends GameController {
         boolean b=false;
         switch(move.getDice().getRealm()){
             case RED:
-                System.out.println("Select a dragon to attack with attack value: "+move.getDice().getValue());
-                int i = scanner.nextInt();
-                RedDice d = new RedDice(move.getDice().getValue());
-                d.selectsDragon(i);
-                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
+//                System.out.println("Select a dragon to attack with attack value: "+move.getDice().getValue());
+//                int i = scanner.nextInt();
+//                RedDice d = new RedDice(move.getDice().getValue());
+//                d.selectsDragon(i);
+//                b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
+                b=player.getScoreSheet().getDragon().makeMove(move);
                 break;
             case GREEN:
                 int x = move.getDice().getValue();
