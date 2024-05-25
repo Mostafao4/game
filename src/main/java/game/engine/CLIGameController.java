@@ -256,7 +256,6 @@ public class CLIGameController extends GameController {
 
     @Override
     public boolean makeMove(Player player, Move move)  {
-        System.out.println(player.getScoreSheet());
         boolean b=false;
         switch(move.getDice().getRealm()){
             case RED:
@@ -288,36 +287,61 @@ public class CLIGameController extends GameController {
                 break;
             default:break;
         }
-        System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
-        System.out.println(player.getScoreSheet());
-        Reward[] r = checkReward(move);
-        getReward(r);
+        Reward[] r = checkReward(move, player);
+        getReward(r, player);
         return b;
     }
     public boolean whiteMove(Player player,int i,int g) {
+        Move move;
+        Reward[] r;
         switch(g) {
             case 0:
                 System.out.println(player.getScoreSheet().getDragon());
                 System.out.println("Select a dragon to attack with value "+i);
                 int in = scanner.nextInt();
                 RedDice d = new RedDice(i);
-                player.getScoreSheet().getDragon().makeMove(new Move(d, player.getScoreSheet().getDragon(), in));
+                move = new Move(d, player.getScoreSheet().getDragon(), in);
+                player.getScoreSheet().getDragon().makeMove(move);
+                r = checkReward(move,player);
+                getReward(r, player);
+                System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
+                System.out.println(player.getScoreSheet());
                 break;
             case 1:
                 GreenDice f = new GreenDice(i + getAllDice()[1].getValue());
                 player.getScoreSheet().getGaia().makeMove(new Move(f, player.getScoreSheet().getGaia()));
+                move = new Move(f, player.getScoreSheet().getGaia());
+                r = checkReward(move,player);
+                getReward(r,player);
+                System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
+                System.out.println(player.getScoreSheet());
                 break;
             case 2:
                 BlueDice b = new BlueDice(i);
                 player.getScoreSheet().getHydra().makeMove(new Move(b,player.getScoreSheet().getHydra()));
+                move = new Move(b,player.getScoreSheet().getHydra());
+                r = checkReward(move,player);
+                getReward(r,player);
+                System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
+                System.out.println(player.getScoreSheet());
                 break;
             case 3:
                 MagentaDice c = new MagentaDice(i);
                 player.getScoreSheet().getPhoenix().makeMove(new Move(c,player.getScoreSheet().getPhoenix()));
+                move = new Move(c,player.getScoreSheet().getPhoenix());
+                r = checkReward(move,player);
+                getReward(r,player);
+                System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
+                System.out.println(player.getScoreSheet());
                 break;
             case 4:
                 YellowDice y = new YellowDice(i);
                 player.getScoreSheet().getLion().makeMove(new Move(y,player.getScoreSheet().getLion()));
+                move = new Move(y,player.getScoreSheet().getLion());
+                r = checkReward(move,player);
+                getReward(r,player);
+                System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
+                System.out.println(player.getScoreSheet());
                 break;
         }
         return true;
@@ -401,7 +425,6 @@ public class CLIGameController extends GameController {
         String s2 = scanner.nextLine();
         gameBoard.setPlayer1(new Player(s1,PlayerStatus.ACTIVE));
         gameBoard.setPlayer2(new Player(s2,PlayerStatus.PASSIVE));
-        getActivePlayer().getGameScore().addElementalCrest(new ElementalCrest(Realm.BLUE));
         gameLoop();
     }
 
@@ -422,13 +445,14 @@ public class CLIGameController extends GameController {
     public void gameLoop(){
         while (getGameBoard().getGameStatus().getRound() <= 6)
         {
-            getRoundReward();
             while (getGameBoard().getGameStatus().getTurn() <= 3 && thereAreAvailableDice())
             {
                 startTurn();
                 timeWarpPrompt();
                 chooseDie();
             }
+            System.out.println("\n"+getPassivePlayer().getPlayerName().toUpperCase()+"'S GRIMOIRE:");
+            System.out.println(getPassivePlayer().getScoreSheet());
             chooseForgottenRealm();
             arcaneBoostPrompt();
             endTurn();
@@ -436,10 +460,14 @@ public class CLIGameController extends GameController {
         endGame();
     }
     public void startTurn(){
-        System.out.println("+-----------------------------------------------------------------------+");
+        System.out.println("\n+-----------------------------------------------------------------------+");
+        if(getGameStatus().getTurn()==1)
+            getRoundReward();
         System.out.println("Round: " + getGameBoard().getGameStatus().getRound());
         System.out.println("Turn: " + getGameBoard().getGameStatus().getTurn());
         System.out.println("Current Player: " + getActivePlayer().getPlayerName()+"\n");
+        System.out.println("\n"+getActivePlayer().getPlayerName().toUpperCase()+"'S GRIMOIRE:");
+        System.out.println(getActivePlayer().getScoreSheet());
         rollDice();
         printDice(getAvailableDice());
 
@@ -569,33 +597,33 @@ public class CLIGameController extends GameController {
             whiteMove(getActivePlayer(),j,i);
 
     }
-    public Reward[] checkReward(Move move){
+    public Reward[] checkReward(Move move, Player player){
         Realm r = move.getDice().getRealm();
         Reward[] reward;
         switch(r){
             case RED:
-                return getActivePlayer().getScoreSheet().getDragon().checkReward();
+                return player.getScoreSheet().getDragon().checkReward();
             case GREEN:
-                return getActivePlayer().getScoreSheet().getGaia().checkReward();
+                return player.getScoreSheet().getGaia().checkReward();
             case BLUE:
-                return getActivePlayer().getScoreSheet().getHydra().checkReward();
+                return player.getScoreSheet().getHydra().checkReward();
             case MAGENTA:
-                return getActivePlayer().getScoreSheet().getPhoenix().checkReward();
+                return player.getScoreSheet().getPhoenix().checkReward();
             case YELLOW:
-                return getActivePlayer().getScoreSheet().getLion().checkReward();
+                return player.getScoreSheet().getLion().checkReward();
             default:
                 return null;
         }
 
     }
-    public void getReward(Reward[] r){
+    public void getReward(Reward[] r, Player player){
         if(r!=null)
             for(Reward reward : r){
                 if(reward!=null)
-                    useReward(reward);
+                    useReward(reward,player);
             }
     }
-    public void useReward(Reward reward){
+    public void useReward(Reward reward, Player player){
         if(reward instanceof Bonus) {
             Realm r = ((Bonus) reward).getRealm();
             System.out.println("You received a " + r + " Bonus!");
@@ -605,15 +633,15 @@ public class CLIGameController extends GameController {
         }
         else if(reward instanceof TimeWarp){
             System.out.println("You received a Time Warp!");
-            getActivePlayer().addTimeWarpCount();
+            player.addTimeWarpCount();
         }
         else if(reward instanceof ArcaneBoost){
             System.out.println("You received an Arcane Boost!");
-            getActivePlayer().addArcaneBoostCount();
+            player.addArcaneBoostCount();
         }
 
         else if(reward instanceof ElementalCrest)
-                getActivePlayer().getGameScore().addElementalCrest((ElementalCrest)reward);
+            player.getGameScore().addElementalCrest((ElementalCrest)reward);
         else{
             //throw exception;
         }

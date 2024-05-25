@@ -122,6 +122,11 @@ public int getYellowRealmScore(){
 
  // checks rewards and returns the supposed reward & makes used reward an x
 public Reward[] checkReward(){
+    if(hitNum==-1)
+        System.out.println("ezz error");
+
+
+
     switch (rew[hitNum]){
     case "AB":
             rew[hitNum]="X ";
