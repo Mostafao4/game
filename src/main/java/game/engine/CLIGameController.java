@@ -18,7 +18,7 @@ public class CLIGameController extends GameController {
 
 
 
-    // DICE
+//      || DICE ||
 
     @Override
     public Dice[] rollDice() {
@@ -81,29 +81,36 @@ public class CLIGameController extends GameController {
         makeMove(getActivePlayer(), new Move(getActivePlayer().getSelectedDice(), getActivePlayer().getScoreSheet().getCreatureByRealm(getActivePlayer().getSelectedDice())));
         getGameBoard().getGameStatus().incrementTurn();
     }
+    public void chooseForgottenRealm(){
+        System.out.println(getPassivePlayer().getPlayerName()+ ", select a die from the forgotten realm: ");
+        printDice(getForgottenRealmDice());
+        int i = scanner.nextInt();
+        makeMove(getPassivePlayer(), new Move(getForgottenRealmDice()[i], getPassivePlayer().getScoreSheet().getCreatureByRealm(getForgottenRealmDice()[i])));
+    }
     public boolean thereAreAvailableDice(){
         return getAvailableDice().length != 0;
     }
     public static void printDice (Dice[] dice){
-        for(Dice d : dice){
+        for(int i=0;i<dice.length;i++){
+            Dice d = dice[i];
             switch(d.getRealm()){
                 case RED:
-                    System.out.print("Red: "+d.getValue()+"  ");
+                    System.out.print("R" + i + ": " + d.getValue()+"     ");
                     break;
                 case GREEN:
-                    System.out.print("Green: "+d.getValue()+"  ");
+                    System.out.print("G" + i + ": " + d.getValue()+"     ");
                     break;
                 case BLUE:
-                    System.out.print("Blue: "+d.getValue()+"  ");
+                    System.out.print("B" + i + ": " + d.getValue()+"     ");
                     break;
                 case MAGENTA:
-                    System.out.print("Magenta: "+d.getValue()+"  ");
+                    System.out.print("M" + i + ": " + d.getValue()+"     ");
                     break;
                 case YELLOW:
-                    System.out.print("Yellow: "+d.getValue()+"  ");
+                    System.out.print("Y" + i + ": " + d.getValue()+"     ");
                     break;
                 case WHITE:
-                    System.out.print("Arcane: "+d.getValue()+"  ");
+                    System.out.print("A" + i + ": " + d.getValue());
                     break;
                 default:
                     System.out.print("error");
@@ -117,11 +124,12 @@ public class CLIGameController extends GameController {
         }
     }
 
-    // DICE
+//      || DICE ||
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // MOVES
+//      || MOVES ||
 
     @Override
     public Move[] getAllPossibleMoves(Player player) {
@@ -253,6 +261,7 @@ public class CLIGameController extends GameController {
         switch(move.getDice().getRealm()){
             case RED:
                 if (((RedDice) (move.getDice())).getDragonNumber() == 0){
+                    System.out.println(player.getScoreSheet().getDragon());
                     System.out.println("Select a dragon to attack with attack value: "+move.getDice().getValue());
                     int i = scanner.nextInt();
                     RedDice d = new RedDice(move.getDice().getValue());
@@ -281,11 +290,14 @@ public class CLIGameController extends GameController {
         }
         System.out.println("\n"+player.getPlayerName()+"'s Grimoire:\n");
         System.out.println(player.getScoreSheet());
+        Reward[] r = checkReward(move);
+        getReward(r);
         return b;
     }
     public boolean whiteMove(Player player,int i,int g) {
         switch(g) {
             case 0:
+                System.out.println(player.getScoreSheet().getDragon());
                 System.out.println("Select a dragon to attack with value "+i);
                 int in = scanner.nextInt();
                 RedDice d = new RedDice(i);
@@ -311,11 +323,12 @@ public class CLIGameController extends GameController {
         return true;
     }
 
-    // MOVES
+//      || MOVES ||
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // GETTERS
+//      || GETTERS ||
 
     @Override
     public GameBoard getGameBoard() {
@@ -371,11 +384,12 @@ public class CLIGameController extends GameController {
         return powers;
     }
 
-    // GETTERS
+//      || GETTERS ||
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //GAME LOOP
+//      || GAME LOOP ||
 
     @Override
     public void startGame() {
@@ -414,7 +428,6 @@ public class CLIGameController extends GameController {
                 startTurn();
                 timeWarpPrompt();
                 chooseDie();
-                getReward(checkReward());
             }
             chooseForgottenRealm();
             arcaneBoostPrompt();
@@ -423,6 +436,7 @@ public class CLIGameController extends GameController {
         endGame();
     }
     public void startTurn(){
+        System.out.println("+-----------------------------------------------------------------------+");
         System.out.println("Round: " + getGameBoard().getGameStatus().getRound());
         System.out.println("Turn: " + getGameBoard().getGameStatus().getTurn());
         System.out.println("Current Player: " + getActivePlayer().getPlayerName()+"\n");
@@ -441,31 +455,25 @@ public class CLIGameController extends GameController {
             getGameStatus().resetPartofRound();
         }
     }
-    public void getRoundReward(){
-        switch (getGameBoard().getGameStatus().getRound()) {
-            case 1:
-            case 3:
-                getActivePlayer().addTimeWarpCount();
-                System.out.println("You received a Time Warp!");
-                break;
-            case 2:
-                getActivePlayer().addArcaneBoostCount();
-                System.out.println("You received an Arcane Boost!");
-                break;
-            case 4:
-                System.out.println("You received an Essence Bonus!");
-                useEssenceBonus();
-                break;
-            default:
-                System.out.println("You did not receive any reward");
-        }
+    public void endGame(){
+        scanner.close();
+        int score1 = getGameScore(getGameBoard().getPlayer1()).getScore();
+        int score2 = getGameScore(getGameBoard().getPlayer2()).getScore();
+        System.out.println(getGameBoard().getPlayer1().getPlayerName()+" scored "+score1+" points and collected "+getGameBoard().getPlayer1().getGameScore().getElementalCrest().length+" Elemental Crests");
+        System.out.println(getGameBoard().getPlayer2().getPlayerName()+" scored "+score2+" points and collected "+getGameBoard().getPlayer2().getGameScore().getElementalCrest().length+" Elemental Crests");
+        if (score1 > score2)
+            System.out.println(getGameBoard().getPlayer1().getPlayerName() + " has won the game!");
+        else
+            System.out.println(getGameBoard().getPlayer2().getPlayerName() + " has won the game!");
     }
-    public void chooseForgottenRealm(){
-        System.out.println(getPassivePlayer().getPlayerName()+ ", select a die from the forgotten realm: ");
-        printDice(getForgottenRealmDice());
-        int i = scanner.nextInt();
-        makeMove(getPassivePlayer(), new Move(getForgottenRealmDice()[i], getPassivePlayer().getScoreSheet().getCreatureByRealm(getForgottenRealmDice()[i])));
-    }
+
+//      || GAME LOOP ||
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//      || REWARDS ||
+
     public void timeWarpPrompt(){
         if(getActivePlayer().getTimeWarpCount()>0) {
             System.out.println("If you want to use Time Warp enter 1");
@@ -494,24 +502,25 @@ public class CLIGameController extends GameController {
             }
         }
     }
-    public void endGame(){
-        scanner.close();
-        int score1 = getGameScore(getGameBoard().getPlayer1()).getScore();
-        int score2 = getGameScore(getGameBoard().getPlayer2()).getScore();
-        System.out.println(getGameBoard().getPlayer1().getPlayerName()+" has scored "+score1+" points");
-        System.out.println(getGameBoard().getPlayer2().getPlayerName()+" has scored "+score2+" points");
-        if (score1 > score2)
-            System.out.println(getGameBoard().getPlayer1().getPlayerName() + " has won the game!");
-        else
-            System.out.println(getGameBoard().getPlayer2().getPlayerName() + " has won the game!");
+    public void getRoundReward(){
+        switch (getGameBoard().getGameStatus().getRound()) {
+            case 1:
+            case 3:
+                getActivePlayer().addTimeWarpCount();
+                System.out.println(getActivePlayer().getPlayerName()+" received a Time Warp!");
+                break;
+            case 2:
+                getActivePlayer().addArcaneBoostCount();
+                System.out.println(getActivePlayer().getPlayerName()+" You received an Arcane Boost!");
+                break;
+            case 4:
+                System.out.println(getActivePlayer().getPlayerName()+" You received an Essence Bonus!");
+                useEssenceBonus();
+                break;
+            default:
+                System.out.println("You did not receive any reward");
+        }
     }
-
-    // GAME LOOP
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // MISCELLANEOUS
-
     public void useBonus (Bonus bonus,int i)  {
         Realm r = bonus.getRealm();
         Dice d;
@@ -549,10 +558,15 @@ public class CLIGameController extends GameController {
     }
     public void useEssenceBonus(){
         System.out.println("Select a realm to attack");
+        System.out.println("R0  |  G1  |  B2  |  M3  |  Y4");
         int i = scanner.nextInt();
         System.out.println("Select an attack value");
+        System.out.println("1  |  2  |  3  |  4  |  5  |  6");
         int j = scanner.nextInt();
-        whiteMove(getActivePlayer(),j,i);
+        if(i==1)
+            getActivePlayer().getScoreSheet().getGaia().makeMove(new Move(new GreenDice(j),getActivePlayer().getScoreSheet().getGaia()));
+        else
+            whiteMove(getActivePlayer(),j,i);
 
     }
     public Reward[] checkReward(Move move){
@@ -586,8 +600,8 @@ public class CLIGameController extends GameController {
             Realm r = ((Bonus) reward).getRealm();
             System.out.println("You received a " + r + " Bonus!");
             System.out.println("Choose an attack value");
-            int att = scanner.nextInt();
-            useBonus((Bonus) reward, att);
+           /* int att = scanner.nextInt();
+            useBonus((Bonus) reward, att);*/
         }
         else if(reward instanceof TimeWarp){
             System.out.println("You received a Time Warp!");
@@ -604,6 +618,7 @@ public class CLIGameController extends GameController {
             //throw exception;
         }
     }
-    //MISCELLANEOUS
+
+//      || REWARDS ||
 }
 

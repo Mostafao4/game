@@ -8,11 +8,12 @@ import java.util.List;
 
 public class GameScore {
     private ScoreSheet scoreSheet;
-    List<ElementalCrest> elementalCrest = new ArrayList<>();
-    //Get Realm Scores
+    List<ElementalCrest> elementalCrest;
+
 
     public GameScore() {
         scoreSheet = new ScoreSheet();
+        elementalCrest = new ArrayList<>();
     }
     public int getScore() {
         int[] arr = new int[]{getRedRealmScore(),getGreenRealmScore(),getBlueRealmScore(),getMagentaRealmScore(),getYellowRealmScore()};
@@ -52,6 +53,7 @@ public class GameScore {
     public void addElementalCrest(ElementalCrest e){
         elementalCrest.add(e);
     }
+
 
 
 }
