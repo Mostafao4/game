@@ -13,7 +13,7 @@ public class Lion extends Creature{
    
 
 
-    private int hitNum=0;
+    private int hitNum=-1;
     private int[] diceNum={0,0,0,0,0,0,0,0,0,0,0};
     private int [] multipliers={0,0,0,0,0,0,0,0,0,0,0};
     private int totalScore=0; 
@@ -101,8 +101,8 @@ public void editMultipliers(){
 //increments hitnum(counter) & adds dice value to array diceNum 
 public boolean makeMove(Move move){
     if (hitNum<11){
-        diceNum[hitNum]=move.getDice().getValue();
         hitNum++;
+        diceNum[hitNum]=move.getDice().getValue();
         return true;}
     else
         {System.out.print("move is not possible");
