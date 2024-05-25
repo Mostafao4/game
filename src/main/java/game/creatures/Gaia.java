@@ -396,44 +396,44 @@ public class Gaia extends Creature{
     }
 
 
-    public static void main(String[] args){
-        Gaia g = new Gaia();
-        System.out.println(g);
-        // g.makeMove(new Move(new GreenDice(5),g));
-        // g.makeMove(new Move(new GreenDice(2),g));
-        // g.makeMove(new Move(new GreenDice(3),g));
-        // g.makeMove(new Move(new GreenDice(4),g));
+    // public static void main(String[] args){
+    //     Gaia g = new Gaia();
+    //     System.out.println(g);
+    //     // g.makeMove(new Move(new GreenDice(5),g));
+    //     // g.makeMove(new Move(new GreenDice(2),g));
+    //     // g.makeMove(new Move(new GreenDice(3),g));
+    //     // g.makeMove(new Move(new GreenDice(4),g));
 
-        // System.out.println(g);
-        // g.makeMove(new Move(new GreenDice(5),g));
-        // g.makeMove(new Move(new GreenDice(6),g));
-        // g.makeMove(new Move(new GreenDice(7),g));
-        // g.makeMove(new Move(new GreenDice(8),g));
-        // System.out.println(g);
-        g.makeMove(new Move(new GreenDice(9),g));
+    //     // System.out.println(g);
+    //     // g.makeMove(new Move(new GreenDice(5),g));
+    //     // g.makeMove(new Move(new GreenDice(6),g));
+    //     // g.makeMove(new Move(new GreenDice(7),g));
+    //     // g.makeMove(new Move(new GreenDice(8),g));
+    //     // System.out.println(g);
+    //     g.makeMove(new Move(new GreenDice(9),g));
 
-        g.makeMove(new Move(new GreenDice(10),g));
+    //     g.makeMove(new Move(new GreenDice(10),g));
 
-        g.makeMove(new Move(new GreenDice(11),g));
-        g.makeMove(new Move(new GreenDice(12),g));
-        System.out.println(g);
+    //     g.makeMove(new Move(new GreenDice(11),g));
+    //     g.makeMove(new Move(new GreenDice(12),g));
+    //     System.out.println(g);
 
-        // CLIGameController controller = new CLIGameController();
-        // Player player = controller.getActivePlayer();
-        // Move[] allPossibleMoves = controller.getPossibleMovesForAvailableDice(player);
+    //     // CLIGameController controller = new CLIGameController();
+    //     // Player player = controller.getActivePlayer();
+    //     // Move[] allPossibleMoves = controller.getPossibleMovesForAvailableDice(player);
 
-        // Dice[] dice = controller.getGameBoard().getDice();
-        // dice[0].setValue(2);
-        // dice[1].setValue(3);
-        // dice[2].setValue(4);
-        // dice[3].setValue(5);
-        // dice[4].setValue(6);
-        // dice[5].setValue(1);
+    //     // Dice[] dice = controller.getGameBoard().getDice();
+    //     // dice[0].setValue(2);
+    //     // dice[1].setValue(3);
+    //     // dice[2].setValue(4);
+    //     // dice[3].setValue(5);
+    //     // dice[4].setValue(6);
+    //     // dice[5].setValue(1);
 
-        // Move m = allPossibleMoves[1];
+    //     // Move m = allPossibleMoves[1];
         
-        // g.makeMove(m);
-    }
+    //     // g.makeMove(m);
+    // }
 
 
 }
