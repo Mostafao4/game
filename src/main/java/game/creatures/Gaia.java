@@ -140,8 +140,8 @@ public class Gaia extends Creature{
                     gaias[i][j] = 0;
                     defeatedGaias++;
                     flag = true;
-                    System.out.println("You have successfully attacked the "  + (total - 1) +
-                     ((total == 2)?"st":(total == 3)?"nd":(total == 4)?"rd":"th") +" Gaia Guardian! ");
+                    System.out.println("You have successfully attacked the "  + (total) +
+                     ((total == 1)?"st":(total == 2)?"nd":(total == 3)?"rd":"th") +" Gaia Guardian!");
                 }
             }
         }

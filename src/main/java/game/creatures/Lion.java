@@ -103,6 +103,7 @@ public boolean makeMove(Move move){
     if (hitNum<11){
         hitNum++;
         diceNum[hitNum]=move.getDice().getValue();
+        System.out.println("You have succesfully attacked the Solar Lion!");
         return true;}
     else
         {System.out.print("move is not possible");

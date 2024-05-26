@@ -213,7 +213,7 @@ public class Hydra extends Creature {
         String[] Xs = new String[11];
         for(int i = 0; i < 11; i++){
             if(hydra[i] == 0){
-                Xs[i] = "X";
+                Xs[i] = "X  ";
             }
             else{
                 Xs[i] = "---";
@@ -250,6 +250,7 @@ public class Hydra extends Creature {
         if(hydra1Heads < 5){
             if(hydra[hydra1Heads] != 0 && value > hydra1Heads){
                 flag = true;
+                System.out.println("You have succesfully attacked Hydra 1, Head "+hydra1Heads+"!");
                 hydra[hydra1Heads] = 0;
                 hydra1Heads++;
             }
