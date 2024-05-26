@@ -23,6 +23,7 @@ public class Phoenix extends Creature {
         else if(count==0 || move.getDice().getValue()>attack[count-1] || attack[count-1]==6){
             attack[count++] = move.getDice().getValue();
             score_int += move.getDice().getValue();
+            System.out.println("You have succesfully attacked the Majestic Phoenix!");
             return true;
         }
         else{
