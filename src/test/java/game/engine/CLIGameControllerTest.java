@@ -405,6 +405,7 @@ public class CLIGameControllerTest {
             if (possibleMoves.length > 0) {
                 controller.makeMove(player, possibleMoves[0]);
             }
+
         }
 
         for (int i = 0; i < greenDiceValues.length; i++) {
@@ -451,7 +452,6 @@ public class CLIGameControllerTest {
         int expectedYellowScore = 3;
         int expectedElementalCrests = 2;
         int expectedTotalScore = 42;
-
         int actualRedScore = controller.getGameScore(player).getRedRealmScore();
         int actualGreenScore = controller.getGameScore(player).getGreenRealmScore();
         int actualBlueScore = controller.getGameScore(player).getBlueRealmScore();

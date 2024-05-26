@@ -13,7 +13,3 @@ public class Main
         gc.startGame();
     }
 }
-
-
-
-

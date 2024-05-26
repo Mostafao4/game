@@ -34,7 +34,7 @@ public class Gaia extends Creature{
         {9,10,11,12}
     };
     private boolean[] columnFlag = {true,true,true,true};
-    private boolean[] rowFlag = {true,true,true,true};
+    private boolean[] rowFlag = {true,true,true};
 
     private boolean[] verticalBonus = new boolean[4];
     private boolean[] horizontalBonus = new boolean[3];
@@ -140,8 +140,8 @@ public class Gaia extends Creature{
                     gaias[i][j] = 0;
                     defeatedGaias++;
                     flag = true;
-                    //System.out.println("You have successfully attacked the " + (total == 1)?"st":(total == 2)?"nd":(total == 3)?"rd":"th" +" Gaia Guardian!");
-                    System.out.println("You attacked Gaia number " + (total - 1));
+                    System.out.println("You have successfully attacked the "  + (total) +
+                     ((total == 1)?"st":(total == 2)?"nd":(total == 3)?"rd":"th") +" Gaia Guardian!");
                 }
             }
         }
@@ -193,8 +193,9 @@ public class Gaia extends Creature{
 
 
     private void editRewards(){
-        int count = 0;
+        int count;
         for(int j = 0; j < gaias[0].length;j++){
+            count = 0;
             for(int i = 0; i < gaias.length; i++){
                 count+= gaias[i][j];
             }
@@ -204,8 +205,8 @@ public class Gaia extends Creature{
             }
         }
 
-        count = 0;
         for(int i = 0; i < gaias.length; i++){
+            count = 0;
             for(int j = 0; j < gaias[0].length;j++){
                 count += gaias[i][j];
             }
@@ -238,15 +239,17 @@ public class Gaia extends Creature{
             if(horizontalBonus[i]){
                 switch (i) {
                     case 0:
+                        horizontalBonus[i] = false;
                         return rowRewards[0];
                     case 1:
+                        horizontalBonus[i] = false;
                         return rowRewards[1];
                     case 2:
+                        horizontalBonus[i] = false;
                         return rowRewards[2];
                     default:
                         break;
                 }
-                horizontalBonus[i] = false;
             }
         }
         return null;
@@ -257,17 +260,20 @@ public class Gaia extends Creature{
             if(verticalBonus[i]){
                 switch (i) {
                     case 0:
+                        verticalBonus[i] = false;
                         return columnRewards[0];
                     case 1:
+                        verticalBonus[i] = false;
                         return columnRewards[1];
                     case 2:
+                        verticalBonus[i] = false;
                         return columnRewards[2];
                     case 3:
+                        verticalBonus[i] = false;
                         return columnRewards[3];
                     default:
                         break;
                 }
-                verticalBonus[i] = false;
             }
         }
         return null;
@@ -293,11 +299,11 @@ public class Gaia extends Creature{
         + "|  #  |1    |2    |3    |4    |R    |\n"
         + "+-----------------------------------+\n"
         // + "|  1  |X    |2    |3    |4    |YB   | \n"
-        + "|  1  " + scoreSheetHelper(0) + "|" + (horizontalBonus[0]?"X ":initialsRows(0)) + "   |\n"
+        + "|  1  " + scoreSheetHelper(0) + "|" + (!rowFlag[0]?"X ":initialsRows(0)) + "   |\n"
         // + "|  2  |5    |6    |7    |8    |RB   | \n"
-        + "|  2  " + scoreSheetHelper(1) + "|" + (horizontalBonus[1]?"X ":initialsRows(1)) + "   |\n"
+        + "|  2  " + scoreSheetHelper(1) + "|" + (!rowFlag[1]?"X ":initialsRows(1)) + "   |\n"
         // + "|  3  |9    |10   |11   |12   |EC   | \n"
-        + "|  3  " + scoreSheetHelper(2) + "|" + (horizontalBonus[2]?"X ":initialsRows(2)) + "   |\n"
+        + "|  3  " + scoreSheetHelper(2) + "|" + (!rowFlag[2]?"X ":initialsRows(2)) + "   |\n"
         + "+-----------------------------------+\n"
         //+ "|  R  |TW   |BB   |MB   |AB   |     | \n"
         + "|  R  " + scoreSheetHelper3() + "|\n"
@@ -320,7 +326,7 @@ public class Gaia extends Creature{
     private String scoreSheetHelper3(){
         String s = "";
         for(int i = 0; i < verticalBonus.length; i++){
-            if(!verticalBonus[i]){
+            if(columnFlag[i]){
                 switch(i){
                     case 0:
                         s+="|" + initialsColumns(0) + "   ";
@@ -392,7 +398,7 @@ public class Gaia extends Creature{
 
     // public static void main(String[] args){
     //     Gaia g = new Gaia();
-    //     // System.out.println(g);
+    //     System.out.println(g);
     //     // g.makeMove(new Move(new GreenDice(5),g));
     //     // g.makeMove(new Move(new GreenDice(2),g));
     //     // g.makeMove(new Move(new GreenDice(3),g));
@@ -404,29 +410,31 @@ public class Gaia extends Creature{
     //     // g.makeMove(new Move(new GreenDice(7),g));
     //     // g.makeMove(new Move(new GreenDice(8),g));
     //     // System.out.println(g);
-    //     // g.makeMove(new Move(new GreenDice(9),g));
+    //     g.makeMove(new Move(new GreenDice(9),g));
 
-    //     // g.makeMove(new Move(new GreenDice(10),g));
+    //     g.makeMove(new Move(new GreenDice(10),g));
 
-    //     // g.makeMove(new Move(new GreenDice(11),g));
-    //     // //g.makeMove(new Move(new GreenDice(12),g));
-    //     // System.out.println(g);
+    //     g.makeMove(new Move(new GreenDice(11),g));
+    //     g.makeMove(new Move(new GreenDice(12),g));
+    //     System.out.println(g);
 
-    //     CLIGameController controller = new CLIGameController();
-    //     Player player = controller.getActivePlayer();
-    //     Move[] allPossibleMoves = controller.getPossibleMovesForAvailableDice(player);
+    //     // CLIGameController controller = new CLIGameController();
+    //     // Player player = controller.getActivePlayer();
+    //     // Move[] allPossibleMoves = controller.getPossibleMovesForAvailableDice(player);
 
-    //     Dice[] dice = controller.getGameBoard().getDice();
-    //     dice[0].setValue(2);
-    //     dice[1].setValue(3);
-    //     dice[2].setValue(4);
-    //     dice[3].setValue(5);
-    //     dice[4].setValue(6);
-    //     dice[5].setValue(1);
+    //     // Dice[] dice = controller.getGameBoard().getDice();
+    //     // dice[0].setValue(2);
+    //     // dice[1].setValue(3);
+    //     // dice[2].setValue(4);
+    //     // dice[3].setValue(5);
+    //     // dice[4].setValue(6);
+    //     // dice[5].setValue(1);
 
-    //     Move m = allPossibleMoves[1];
+    //     // Move m = allPossibleMoves[1];
         
-    //     g.makeMove(m);
+    //     // g.makeMove(m);
     // }
+
+
 }
 

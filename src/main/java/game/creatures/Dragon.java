@@ -104,7 +104,7 @@ public class Dragon extends Creature {
             bonus [0] = checkBonusHelper(reward[4]);
             bonusBoolean[4] = true;
         }
-        return null;
+        return bonus;
     }
 
     private Reward checkBonusHelper (String s){
@@ -226,11 +226,13 @@ public class Dragon extends Creature {
                 break;
             }
         }
+
         if (w!=-1){
             for (int i = 0; i < dragonParts.length; i++){
                 for (int j = 0; j < dragonParts.length; j++){
                     if ( y == dragonParts [i][j] && z == j+1 ) {
                         dragonParts[i][j] = 0;
+                        System.out.println("You have successfully attacked Pyroclast Dragon "+rd.getDragonNumber()+"!");
                         return true;
                     }
                 }
