@@ -212,7 +212,16 @@ public class Dragon extends Creature {
         }
         else {
                 for (int i = 0; i < b.length; i++) {
-                    possibleDragonNumbers[i] = b[i].getDragonNumber();
+                    int n = 0;
+                    for (int w = 0; w < dragonParts.length && n < b.length; w++) {
+                        for (int j = 0; j < dragonParts.length && n < b.length; j++) {
+                            if (dragonParts[i][j] != 0 && dragonParts[i][j] == rd.getValue()){
+                                possibleDragonNumbers[n] = i + 1;
+                                n++;
+                            }
+                        }
+                    }
+
                 }
                 if (possibleDragonNumbers.length == 1) {
                     if(z!=possibleDragonNumbers[0]) {
