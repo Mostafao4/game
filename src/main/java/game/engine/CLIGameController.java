@@ -285,28 +285,26 @@ public class CLIGameController extends GameController {
                     int i = scanner.nextInt();
                     RedDice d = new RedDice(move.getDice().getValue());
                     d.selectsDragon(i);
-//                    try {
-//                        b = (player.getScoreSheet().getDragon().makeMove(new Move(d, player.getScoreSheet().getDragon())));
-//                    } catch (InvalidMoveException e) {
-//                        e.getMessage();
-//                        getAllDice()[0].setDiceStatus(DiceStatus.INVALID_DICE);
-//                        printDice(getAvailableDice());
-//                        chooseDieHelper();
-//                    } catch (PlayerActionException e) {
-//                        e.getMessage();
-//                        makeMove(player, move);
-//                    }
-//                }
-//                else {
-//                    try {
-//                        b = player.getScoreSheet().getDragon().makeMove(move);
-//                    }
-//                    catch(Exception e){
-//                        return false;
-//                    }
-//                }
-                    break;
+                    try {
+                        b = (player.getScoreSheet().getDragon().makeMove(new Move(d, player.getScoreSheet().getDragon())));
+                    } catch (InvalidMoveException e) {
+                        System.out.println(e.getMessage());
+                        getAllDice()[0].setDiceStatus(DiceStatus.INVALID_DICE);
+                        printDice(getAvailableDice());
+                        chooseDieHelper();
+                    } catch (PlayerActionException e) {
+                        System.out.println(e.getMessage());
+                        makeMove(player, move);
+                    }
                 }
+                else {
+                    try {
+                        b = player.getScoreSheet().getDragon().makeMove(move);
+                    } catch (Exception e) {
+                        return false;
+                    }
+                }
+                break;
             case GREEN:
                 int x = move.getDice().getValue();
                 int y = getAllDice()[5].getValue();
@@ -341,12 +339,12 @@ public class CLIGameController extends GameController {
                     player.getScoreSheet().getDragon().makeMove(move);
                 }
                 catch(InvalidMoveException e){
-                    e.getMessage();
+                    System.out.println(e.getMessage());
                     printDice(getAvailableDice());
                     chooseDieHelper();
                 }
                 catch(PlayerActionException e){
-                    e.getMessage();
+                    System.out.println(e.getMessage());
                     whiteMove(player,i,g);
                 }
                 r = checkReward(move,player);
