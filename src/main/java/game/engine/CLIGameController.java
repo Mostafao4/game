@@ -3,6 +3,9 @@ package game.engine;
 import game.collectibles.*;
 import game.creatures.Realm;
 import game.dice.*;
+import game.exceptions.InvalidMoveException;
+import game.exceptions.PlayerActionException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -276,19 +279,32 @@ public class CLIGameController extends GameController {
         boolean b=false;
         switch(move.getDice().getRealm()){
             case RED:
-                if (((RedDice) (move.getDice())).getDragonNumber() == 0){
+                if (((RedDice) (move.getDice())).getDragonNumber() == 0) {
                     System.out.println(player.getScoreSheet().getDragon());
-                    System.out.println("Select a dragon to attack with attack value: "+move.getDice().getValue());
+                    System.out.println("Select a dragon to attack with attack value: " + move.getDice().getValue());
                     int i = scanner.nextInt();
                     RedDice d = new RedDice(move.getDice().getValue());
                     d.selectsDragon(i);
-                    b=(player.getScoreSheet().getDragon().makeMove(new Move(d,player.getScoreSheet().getDragon())));
-                    break;
+                    try {
+                        b = (player.getScoreSheet().getDragon().makeMove(new Move(d, player.getScoreSheet().getDragon())));
+                    } catch (InvalidMoveException e) {
+                        System.out.println(e.getMessage());
+                        getAllDice()[0].setDiceStatus(DiceStatus.INVALID_DICE);
+                        printDice(getAvailableDice());
+                        chooseDieHelper();
+                    } catch (PlayerActionException e) {
+                        System.out.println(e.getMessage());
+                        makeMove(player, move);
+                    }
                 }
                 else {
-                    b = player.getScoreSheet().getDragon().makeMove(move);
-                    break;
+                    try {
+                        b = player.getScoreSheet().getDragon().makeMove(move);
+                    } catch (Exception e) {
+                        return false;
+                    }
                 }
+                break;
             case GREEN:
                 int x = move.getDice().getValue();
                 int y = getAllDice()[5].getValue();
@@ -319,7 +335,18 @@ public class CLIGameController extends GameController {
                 int in = scanner.nextInt();
                 RedDice d = new RedDice(i);
                 move = new Move(d, player.getScoreSheet().getDragon(), in);
-                player.getScoreSheet().getDragon().makeMove(move);
+                try {
+                    player.getScoreSheet().getDragon().makeMove(move);
+                }
+                catch(InvalidMoveException e){
+                    System.out.println(e.getMessage());
+                    printDice(getAvailableDice());
+                    chooseDieHelper();
+                }
+                catch(PlayerActionException e){
+                    System.out.println(e.getMessage());
+                    whiteMove(player,i,g);
+                }
                 r = checkReward(move,player);
                 getReward(r, player);
                 break;

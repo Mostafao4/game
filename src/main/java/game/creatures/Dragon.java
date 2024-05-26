@@ -6,6 +6,7 @@ import game.dice.RedDice;
 import game.engine.Move;
 import game.exceptions.InvalidDiceSelectionException;
 import game.exceptions.InvalidMoveException;
+import game.exceptions.PlayerActionException;
 
 import java.io.FileInputStream;
 import java. io.IOException;
@@ -157,7 +158,7 @@ public class Dragon extends Creature {
         return sum;
     }
 
-    public Move[] getAllPossibleMoves() throws InvalidMoveException{
+    public Move[] getAllPossibleMoves() {
         int c = 0;
         for (int i = 0; i < dragonParts.length; i++) {
             for (int j = 0; j < dragonParts.length; j++) {
@@ -165,11 +166,7 @@ public class Dragon extends Creature {
                     c++;
             }
         }
-        if (c == 0){
-            throw new InvalidMoveException ("There is no possible moves for the Red Realm");
-        }
-        else {
-            Move [] moves = new Move[c];
+        Move [] moves = new Move[c];
         int x = 0;
         for (int i = 0; i < dragonParts.length; i++) {
             for (int j = 0; j < dragonParts.length; j++) {
@@ -181,19 +178,15 @@ public class Dragon extends Creature {
             }
         }
         return moves;
-        }
     }
 
-    public Move[] getPossibleMovesForADie (Dice dice) throws InvalidDiceSelectionException{
+    public Move[] getPossibleMovesForADie (Dice dice) {
         int c = 0;
         for (int i = 0; i < dragonParts.length; i++) {
             for (int j = 0; j < dragonParts.length; j++) {
                 if (dragonParts[i][j] != 0 && dragonParts[i][j] == dice.getValue())
                     c++;
             }
-        }
-        if (c == 0){
-            throw new InvalidDiceSelectionException ("There is no possible move for this dice value in the red realm");
         }
         Move [] moves = new Move[c];
         int x = 0;
@@ -208,17 +201,42 @@ public class Dragon extends Creature {
         return moves;
     }
 
-    public boolean makeMove (Move a) throws InvalidMoveException{
+    public boolean makeMove (Move a) throws InvalidMoveException, PlayerActionException {
         RedDice rd = (RedDice) a.getDice();
         int y = a.getDice().getValue();
         int z = rd.getDragonNumber();
-        Move [] b = new Move[2];
-        try {
-            b = getPossibleMovesForADie(a.getDice());
+        Move[] b = getPossibleMovesForADie(a.getDice());
+        int[] possibleDragonNumbers = new int[b.length];
+        if(b.length == 0) {
+            throw new InvalidMoveException("No possible moves for this dice value in the red realm");
         }
-        catch (InvalidDiceSelectionException e){
-            throw new InvalidMoveException ("Move is not possible", e);
+        else {
+                for (int i = 0; i < b.length; i++) {
+                    int n = 0;
+                    for (int w = 0; w < dragonParts.length && n < b.length; w++) {
+                        for (int j = 0; j < dragonParts.length && n < b.length; j++) {
+                            if (dragonParts[i][j] != 0 && dragonParts[i][j] == rd.getValue()){
+                                possibleDragonNumbers[n] = i + 1;
+                                n++;
+                            }
+                        }
+                    }
+
+                }
+                if (possibleDragonNumbers.length == 1) {
+                    if(z!=possibleDragonNumbers[0]) {
+                        throw new PlayerActionException("Invalid number, the only dragon that is valid to be attacked is " + possibleDragonNumbers[0]);
+                    }
+                }
+                else {
+                    if(z!=possibleDragonNumbers[0] || z!=possibleDragonNumbers[1]) {
+                        throw new PlayerActionException("Invalid number, the dragons that are valid to be attacked are " + possibleDragonNumbers[0] + " & " + possibleDragonNumbers[1]);
+                    }
+                }
         }
+
+
+
         int w = -1;
         for (int i = 0; i < b.length; i++){
             if (b[i].compareTo(a) == 0){
