@@ -300,11 +300,12 @@ public class CLIGameController extends GameController {
                 else {
                     try {
                         b = player.getScoreSheet().getDragon().makeMove(move);
-                    } catch (Exception e) {
-                        return false;
+                    } catch (InvalidMoveException | PlayerActionException e) {
+                        return b;
                     }
                 }
-                break;
+                return b;
+                // break;
             case GREEN:
                 int x = move.getDice().getValue();
                 int y = getAllDice()[5].getValue();

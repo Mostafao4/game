@@ -207,21 +207,23 @@ public class Dragon extends Creature {
         int z = rd.getDragonNumber();
         Move[] b = getPossibleMovesForADie(a.getDice());
         int[] possibleDragonNumbers = new int[b.length];
-        if(b.length == 0) {
-            throw new InvalidMoveException("No possible moves for this dice value in the red realm");
-        }
-        else {
-                for (int i = 0; i < b.length; i++) {
-                    int n = 0;
-                    for (int w = 0; w < dragonParts.length && n < b.length; w++) {
-                        for (int j = 0; j < dragonParts.length && n < b.length; j++) {
-                            if (dragonParts[i][j] != 0 && dragonParts[i][j] == rd.getValue()){
-                                possibleDragonNumbers[n] = i + 1;
-                                n++;
-                            }
+        if (z != 0){
+            if(b.length == 0) {
+                throw new InvalidMoveException("No possible moves for this dice value in the red realm");
+            }
+            else {  
+                int i = 0;
+                for (int w = 0; w < dragonParts.length; w++) {
+                    for (int j = 0; j < dragonParts.length; j++) {
+                        if (dragonParts[j][w] != 0 && dragonParts[j][w] == y){
+                            possibleDragonNumbers[i] = w + 1;
+                            i++;
+                        }
+                        if (dragonParts[j][w] == y && z == w+1){
+                            dragonParts[j][w] = 0;
+                            return true;
                         }
                     }
-
                 }
                 if (possibleDragonNumbers.length == 1) {
                     if(z!=possibleDragonNumbers[0]) {
@@ -233,20 +235,12 @@ public class Dragon extends Creature {
                         throw new PlayerActionException("Invalid number, the dragons that are valid to be attacked are " + possibleDragonNumbers[0] + " & " + possibleDragonNumbers[1]);
                     }
                 }
-        }
-
-
-
-        int w = -1;
-        for (int i = 0; i < b.length; i++){
-            if (b[i].compareTo(a) == 0){
-                w = i;
-                break;
+                return false;
             }
+            
         }
-
-        if (w!=-1){
-            for (int i = 0; i < dragonParts.length; i++){
+        else{
+                for (int i = 0; i < dragonParts.length; i++){
                 for (int j = 0; j < dragonParts.length; j++){
                     if ( y == dragonParts [i][j] && z == j+1 ) {
                         dragonParts[i][j] = 0;
@@ -257,7 +251,40 @@ public class Dragon extends Creature {
             }
         }
         return false;        
-    }  
+        }
+        
+        // for (int i = 0; i < dragonParts.length; i++){
+        //     for (int j = 0; j < dragonParts.length; j++){
+        //         if ( y == dragonParts [i][j] && z == j+1 ) {
+        //             dragonParts[i][j] = 0;
+        //             System.out.println("You have successfully attacked Pyroclast Dragon "+rd.getDragonNumber()+"!");
+        //             return true;
+        //         }
+        //     }
+        // }
+        // return false;
+
+        // int w = -1;
+        // for (int i = 0; i < b.length; i++){
+        //     if (b[i].compareTo(a) == 0){
+        //         w = i;
+        //         break;
+        //     }
+        // }
+
+        // if (w!=-1){
+        //     for (int i = 0; i < dragonParts.length; i++){
+        //         for (int j = 0; j < dragonParts.length; j++){
+        //             if ( y == dragonParts [i][j] && z == j+1 ) {
+        //                 dragonParts[i][j] = 0;
+        //                 System.out.println("You have successfully attacked Pyroclast Dragon "+rd.getDragonNumber()+"!");
+        //                 return true;
+        //             }
+        //         }
+        //     }
+        // }
+        // return false;        
+      
 
     public String toString(){
         return  "\n\nScoreSheet\n\n" +
