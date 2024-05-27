@@ -7,6 +7,8 @@ import game.dice.DiceStatus;
 import game.dice.YellowDice;
 import game.engine.Move;
 import game.engine.Player;
+import game.exceptions.InvalidMoveException;
+
 import java.io.IOException;
 
 public class Lion extends Creature{
@@ -99,34 +101,26 @@ public void editMultipliers(){
 
 
 //increments hitnum(counter) & adds dice value to array diceNum 
-public boolean makeMove(Move move){
-    if (hitNum<11){
+public boolean makeMove(Move move) {
+    if (hitNum<10){
         hitNum++;
         diceNum[hitNum]=move.getDice().getValue();
         System.out.println("You have succesfully attacked the Solar Lion!");
         return true;}
     else
-        {System.out.print("move is not possible");
-        return false;}
+    return false;    
+   
 }
 
 
-//uses multiplyScore & getScore methods to return total score of lion class
+//returns total score of lion class
 public int getYellowRealmScore(){
-        int score = 0;
-        for(int i = 0; i < diceNum.length; i++){
-            score+= (multipliers[i] * diceNum[i]);
-        }
-
-        return score;
+        totalScore+=multipliers[hitNum] * diceNum[hitNum];
+        return totalScore;
 }
 
  // checks rewards and returns the supposed reward & makes used reward an x
 public Reward[] checkReward(){
-    if(hitNum==-1)
-        System.out.println("ezz error");
-
-
 
     switch (rew[hitNum]){
     case "AB":
@@ -189,7 +183,7 @@ public Reward[] checkReward(){
     "+-----------------------------------------------------------------------+\n" +
     "|  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
     "+-----------------------------------------------------------------------+\n" +
-    "|  H  |"+diceNum[0]*multipliers[0]+( diceNum[0]*multipliers[0]>9?"   |":"    |")+diceNum[1]*multipliers[1]+( diceNum[1]*multipliers[1]>9?"   |":"    |")+diceNum[2]*multipliers[2]+( diceNum[2]*multipliers[2]>9?"   |":"    |")+diceNum[3]*multipliers[3]+( diceNum[3]*multipliers[3]>9?"   |":"    |")+diceNum[4]*multipliers[4]+( diceNum[4]*multipliers[4]>9?"   |":"    |")+diceNum[5]*multipliers[5]+( diceNum[5]*multipliers[5]>9?"   |":"    |")+diceNum[6]*multipliers[6]+( diceNum[6]*multipliers[6]>9?"   |":"    |")+diceNum[7]*multipliers[7]+( diceNum[7]*multipliers[7]>9?"   |":"    |")+diceNum[8]*multipliers[8]+( diceNum[8]*multipliers[8]>9?"   |":"    |")+diceNum[9]*multipliers[9]+( diceNum[9]*multipliers[9]>9?"   |":"    |")+diceNum[10]*multipliers[10]+( diceNum[0]*multipliers[0]>9?"   |\n":"    |\n") +
+    "|  H  |"+diceNum[0]*multipliers[0]+( diceNum[0]*multipliers[0]>9?"   |":"    |")+diceNum[1]*multipliers[1]+( diceNum[1]*multipliers[1]>9?"   |":"    |")+diceNum[2]*multipliers[2]+( diceNum[2]*multipliers[2]>9?"   |":"    |")+diceNum[3]*multipliers[3]+( diceNum[3]*multipliers[3]>9?"   |":"    |")+diceNum[4]*multipliers[4]+( diceNum[4]*multipliers[4]>9?"   |":"    |")+diceNum[5]*multipliers[5]+( diceNum[5]*multipliers[5]>9?"   |":"    |")+diceNum[6]*multipliers[6]+( diceNum[6]*multipliers[6]>9?"   |":"    |")+diceNum[7]*multipliers[7]+( diceNum[7]*multipliers[7]>9?"   |":"    |")+diceNum[8]*multipliers[8]+( diceNum[8]*multipliers[8]>9?"   |":"    |")+diceNum[9]*multipliers[9]+( diceNum[9]*multipliers[9]>9?"   |":"    |")+diceNum[10]*multipliers[10]+( diceNum[10]*multipliers[10]>9?"   |\n":"    |\n") +
     "|  M  |"+mult[0]+"   |"+mult[1]+"   |"+mult[2]+"   |"+mult[3]+"   |"+mult[4]+"   |"+mult[5]+"   |"+mult[6]+"   |"+mult[7]+"   |"+mult[8]+"   |"+mult[9]+"   |"+mult[10]+"   |\n" +
     "|  R  |"+rew[0]+"   |"+rew[1]+"   |"+rew[2]+"   |"+rew[3]+"   |"+rew[4]+"   |"+rew[5]+"   |"+rew[6]+"   |"+rew[7]+"   |"+rew[8]+"   |"+rew[9]+"   |"+rew[10]+"   |\n" +
     "+-----------------------------------------------------------------------+\n\n";
