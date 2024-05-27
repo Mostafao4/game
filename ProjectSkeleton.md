@@ -671,50 +671,32 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 4. `int getYellowRealmScore()`
 
-    - **Description**: Uses multiplyScore & getScore methods to return total score of yellow realm.
+    - **Description**: adds the turns score to the total score and returns it.
     - **Return Type**: `int`
         - `int` total score of yellow realm.
 
-5. `static int multiplyScore(int hitNum,int[] diceNum,int[] multipliers)`
 
-    - **Description**: Gets the new score of the round after multiplying the score by the multiplier.
-    - **Parameters**:
-        - `hitNum`: number of hits on the lion.
-        - `diceNum`: Array of all the dies used in the yellow realm.
-        - `multipliers`: Array of the multipliers that should be multiplied by the hit score.
-    - **Return Type**: `int`
-        - `int` the new score of the round.
-
-6. `static int getScore(int score, int totalScore)`
-
-    - **Description**: calculates total score by adding the score to total score.
-    - **Parameters**:
-        - `score`: The score of this round.
-        - `totalScore`: Total score of the previous rounds.
-    - **Return Type**: `int`
-        - `int` total score of all rounds.
-
-7. `Reward getReward()`
+5. `Reward getReward()`
 
     - **Description**: Checks rewards and returns the supposed reward & makes used reward an x.
     - **Return Type**: `Reward`
         - `Reward` The reward won after this hit.
 
-8. ` Move[] getAllPossibleMoves()`
+6. ` Move[] getAllPossibleMoves()`
 
     - **Description**: gets an array type move with all the possible moves before rolling the dice.
-    - **Return Type**: `Move[]`
-        - `Move[]` all possible moves before rolling the dice.    
+    - **Return Type**: array of `Move`
+        - `Move` array of all possible moves before rolling the dice.    
 
-9. `Move[] getPossibleMovesForADie(Dice dice)`
+7. `Move[] getPossibleMovesForADie(Dice dice)`
 
     - **Description**: gets an array type move with all the possible moves after the dice is rolled.
     - **Parameters**:
         - `dice`: The dice after it is rolled.
-    - **Return Type**: `Move[]`
-        - `Move[]` all possible moves after rolling the dice.   
+    - **Return Type**: array of `Move`
+        - `Move` array of all possible moves after rolling the dice.   
 
-10. `String toString()`
+8. `String toString()`
 
     - **Description**: Returns the scoresheet.
     - **Return Type**: `String`
