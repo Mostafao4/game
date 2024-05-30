@@ -301,11 +301,10 @@ public class CLIGameController extends GameController {
                     try {
                         b = player.getScoreSheet().getDragon().makeMove(move);
                     } catch (InvalidMoveException | PlayerActionException e) {
-                        return b;
+                        System.out.println(e.getMessage());
                     }
                 }
-                return b;
-                // break;
+                break;
             case GREEN:
                 int x = move.getDice().getValue();
                 int y = getAllDice()[5].getValue();
@@ -316,72 +315,109 @@ public class CLIGameController extends GameController {
             case MAGENTA: b=(player.getScoreSheet().getPhoenix().makeMove(move)); break;
             case YELLOW: b=(player.getScoreSheet().getLion().makeMove(move)); break;
             case WHITE:
+//                System.out.println("Choose a realm to attack");
+//                System.out.println("Red(0)  |  Green(1)  |  Blue(2)  |  Magenta(3)  |  Yellow(4)");
+//                int q = scanner.nextInt();
+//                b=(whiteMove(player,move.getDice().getValue(),q));
+//                break;
                 System.out.println("Choose a realm to attack");
                 System.out.println("Red(0)  |  Green(1)  |  Blue(2)  |  Magenta(3)  |  Yellow(4)");
-                int q = scanner.nextInt();
-                b=(whiteMove(player,move.getDice().getValue(),q));
+                boolean flag = false;
+                while(scanner.hasNextInt() && flag==false) {
+                    int q = scanner.nextInt();
+                    Move whiteMove;
+                    int v = move.getDice().getValue();
+                    switch (q) {
+                        case 0:
+                            whiteMove = new Move(new RedDice(v), player.getScoreSheet().getDragon());
+                            flag = true;
+                            break;
+                        case 1:
+                            whiteMove = new Move(getAllDice()[1], player.getScoreSheet().getGaia());
+                            flag = true;
+                            break;
+                        case 2:
+                            whiteMove = new Move(new BlueDice(v), player.getScoreSheet().getHydra());
+                            flag = true;
+                            break;
+                        case 3:
+                            whiteMove = new Move(new MagentaDice(v), player.getScoreSheet().getPhoenix());
+                            flag = true;
+                            break;
+                        case 4:
+                            whiteMove = new Move(new YellowDice(v), player.getScoreSheet().getLion());
+                            flag = true;
+                            break;
+                        default:
+                            System.out.println("Please enter a valid number");
+                            whiteMove = null;
+                    }
+                    b = makeMove(player, whiteMove);
+                    break;
+                }
+
+            default:
                 break;
-            default:break;
         }
         getReward(checkReward(move,player),player);
         return b;
     }
-    public boolean whiteMove(Player player,int i,int g) {
-        Move move;
-        Reward[] r;
-        switch(g) {
-            case 0:
-                System.out.println(player.getScoreSheet().getDragon());
-                System.out.println("Select a dragon to attack with value "+i);
-                int in = scanner.nextInt();
-                RedDice d = new RedDice(i);
-                move = new Move(d, player.getScoreSheet().getDragon(), in);
-                try {
-                    player.getScoreSheet().getDragon().makeMove(move);
-                }
-                catch(InvalidMoveException e){
-                    System.out.println(e.getMessage());
-                    printDice(getAvailableDice());
-                    chooseDieHelper();
-                }
-                catch(PlayerActionException e){
-                    System.out.println(e.getMessage());
-                    whiteMove(player,i,g);
-                }
-                r = checkReward(move,player);
-                getReward(r, player);
-                break;
-            case 1:
-                GreenDice f = new GreenDice(i + getAllDice()[1].getValue());
-                player.getScoreSheet().getGaia().makeMove(new Move(f, player.getScoreSheet().getGaia()));
-                move = new Move(f, player.getScoreSheet().getGaia());
-                r = checkReward(move,player);
-                getReward(r,player);
-                break;
-            case 2:
-                BlueDice b = new BlueDice(i);
-                player.getScoreSheet().getHydra().makeMove(new Move(b,player.getScoreSheet().getHydra()));
-                move = new Move(b,player.getScoreSheet().getHydra());
-                r = checkReward(move,player);
-                getReward(r,player);
-                break;
-            case 3:
-                MagentaDice c = new MagentaDice(i);
-                player.getScoreSheet().getPhoenix().makeMove(new Move(c,player.getScoreSheet().getPhoenix()));
-                move = new Move(c,player.getScoreSheet().getPhoenix());
-                r = checkReward(move,player);
-                getReward(r,player);
-                break;
-            case 4:
-                YellowDice y = new YellowDice(i);
-                player.getScoreSheet().getLion().makeMove(new Move(y,player.getScoreSheet().getLion()));
-                move = new Move(y,player.getScoreSheet().getLion());
-                r = checkReward(move,player);
-                getReward(r,player);
-                break;
-        }
-        return true;
-    }
+//    public boolean whiteMove(Player player,int i,int g) {
+//        Move move;
+//        Reward[] r;
+//        switch(g) {
+//            case 0:
+//                System.out.println(player.getScoreSheet().getDragon());
+//                System.out.println("Select a dragon to attack with value "+i);
+//                int in = scanner.nextInt();
+//                RedDice d = new RedDice(i);
+//                move = new Move(d, player.getScoreSheet().getDragon(), in);
+//                try {
+//                    player.getScoreSheet().getDragon().makeMove(move);
+//                }
+//                catch(InvalidMoveException e){
+//                    System.out.println(e.getMessage());
+//                    printDice(getAvailableDice());
+//                    chooseDieHelper();
+//                }
+//                catch(PlayerActionException e){
+//                    System.out.println(e.getMessage());
+//                    whiteMove(player,i,g);
+//                }
+//                r = checkReward(move,player);
+//                getReward(r, player);
+//                break;
+//            case 1:
+//                GreenDice f = new GreenDice(i + getAllDice()[1].getValue());
+//                player.getScoreSheet().getGaia().makeMove(new Move(f, player.getScoreSheet().getGaia()));
+//                move = new Move(f, player.getScoreSheet().getGaia());
+//                r = checkReward(move,player);
+//                getReward(r,player);
+//                break;
+//            case 2:
+//                BlueDice b = new BlueDice(i);
+//                player.getScoreSheet().getHydra().makeMove(new Move(b,player.getScoreSheet().getHydra()));
+//                move = new Move(b,player.getScoreSheet().getHydra());
+//                r = checkReward(move,player);
+//                getReward(r,player);
+//                break;
+//            case 3:
+//                MagentaDice c = new MagentaDice(i);
+//                player.getScoreSheet().getPhoenix().makeMove(new Move(c,player.getScoreSheet().getPhoenix()));
+//                move = new Move(c,player.getScoreSheet().getPhoenix());
+//                r = checkReward(move,player);
+//                getReward(r,player);
+//                break;
+//            case 4:
+//                YellowDice y = new YellowDice(i);
+//                player.getScoreSheet().getLion().makeMove(new Move(y,player.getScoreSheet().getLion()));
+//                move = new Move(y,player.getScoreSheet().getLion());
+//                r = checkReward(move,player);
+//                getReward(r,player);
+//                break;
+//        }
+//        return true;
+//    }
 
 //      || MOVES ||
 
@@ -585,7 +621,7 @@ public class CLIGameController extends GameController {
                 break;
             case 4:
                 System.out.println(getActivePlayer().getPlayerName()+" You received an Essence Bonus!");
-                useEssenceBonus();
+                //useEssenceBonus();
                 break;
             default:
                 System.out.println("You did not receive any reward");
@@ -626,22 +662,21 @@ public class CLIGameController extends GameController {
             player.subtractArcaneBoostCount();
         }
     }
-    public void useEssenceBonus(){
-        System.out.println("Select a realm to attack");
-        System.out.println("R0  |  G1  |  B2  |  M3  |  Y4");
-        int i = scanner.nextInt();
-        System.out.println("Select an attack value");
-        System.out.println("1  |  2  |  3  |  4  |  5  |  6");
-        int j = scanner.nextInt();
-        if(i==1)
-            getActivePlayer().getScoreSheet().getGaia().makeMove(new Move(new GreenDice(j),getActivePlayer().getScoreSheet().getGaia()));
-        else
-            whiteMove(getActivePlayer(),j,i);
+//    public void useEssenceBonus(){
+////        System.out.println("Select a realm to attack");
+////        System.out.println("R0  |  G1  |  B2  |  M3  |  Y4");
+////        int i = scanner.nextInt();
+//        System.out.println("Select an attack value");
+//        System.out.println("1  |  2  |  3  |  4  |  5  |  6");
+//        int j = scanner.nextInt();
+////        if(i==1)
+////            getActivePlayer().getScoreSheet().getGaia().makeMove(new Move(new GreenDice(j),getActivePlayer().getScoreSheet().getGaia()));
+//        else
+//            makeMove(getActivePlayer(),new Move(new ArcanePrism(j));
 
-    }
+    //}
     public Reward[] checkReward(Move move, Player player){
         Realm r = move.getDice().getRealm();
-        Reward[] reward;
         switch(r){
             case RED:
                 return player.getScoreSheet().getDragon().checkReward();

@@ -444,7 +444,7 @@ public class CLIGameControllerTest {
                 controller.makeMove(player, possibleMoves[0]);
             }
         }
-
+        System.out.println(player.getScoreSheet());
         int expectedRedScore = 10;
         int expectedGreenScore = 7;
         int expectedBlueScore = 6;
