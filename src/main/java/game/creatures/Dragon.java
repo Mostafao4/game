@@ -239,19 +239,8 @@ public class Dragon extends Creature {
             }
             
         }
-        else{
-                for (int i = 0; i < dragonParts.length; i++){
-                for (int j = 0; j < dragonParts.length; j++){
-                    if ( y == dragonParts [i][j] && z == j+1 ) {
-                        dragonParts[i][j] = 0;
-                        System.out.println("You have successfully attacked Pyroclast Dragon "+rd.getDragonNumber()+"!");
-                        return true;
-                    }
-                }
-            }
-        }
         return false;        
-        }
+    }
         
         // for (int i = 0; i < dragonParts.length; i++){
         //     for (int j = 0; j < dragonParts.length; j++){

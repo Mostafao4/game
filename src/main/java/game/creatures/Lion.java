@@ -115,8 +115,12 @@ public boolean makeMove(Move move) {
 
 //returns total score of lion class
 public int getYellowRealmScore(){
-        totalScore+=multipliers[hitNum] * diceNum[hitNum];
-        return totalScore;
+    int score = 0;
+    for(int i = 0; i < diceNum.length; i++){
+        score+= (multipliers[i] * diceNum[i]);
+    }
+
+    return score;
 }
 
  // checks rewards and returns the supposed reward & makes used reward an x
