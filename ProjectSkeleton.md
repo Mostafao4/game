@@ -65,7 +65,7 @@ Dice-Realms/
 │   │       │   ├── EmberfallDominionRewards.properties
 │   │       │   ├── RoundsRewards.properties
 │   │       │   ├── MysticalSkyRewards.properties
-│   │       │   ├── TerrasHeartlandRewards.properties
+│   │       │   ├── TerrasHeartland.properties
 │   │       │   ├── TerrasHeartlandRewards.properties
 │   │       │   ├── RadiantSvannaMultipliers.properties
 │   │       │   ├── RadiantSvannaRewards.properties
@@ -555,29 +555,128 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 #### Methods:
 
-1. `int getPoints()`
+1. `int getGreenRealmScore()`
     - **Description**: Gets the current score by looking for the number of Gaia defeated.
     - **Return Type**: `int`
         - Represents the score from the green realm.
 
-2.  `Collectibles getVerticalBonus(int[][] guardians)`
-    - **Description**: Checks whether the wizard finished all the guardians in one column.
-    - **Parameters**:
-        - `guardians`: Table that contains corresponding dice number for each Gaia Guardian.
-    - **Return Type**: `Collectibles`
-        - Object that represents the collectible that the player may earn after finishing a column.
+2.  `Reward showVerticalRewards()`
+    - **Description**: Checks whether all Gaia Guardians in one column were defeated.
+    - **Return Type**: `Reward`
+        - Object that represents the reward that the player may earn after finishing a column.
 
-3. `Collectibles getHorizontalBonus(int[][] guardians)`
-    - **Description**: Checks whether the wizard finished all the guardians in one row.
-    - **Parameters**:
-        - `guardians`: Table that contains corresponding dice number for each Gaia Guardian.
+3. `Reward getHorizontalBonus()`
+    - **Description**: Checks whether all Gaia Guardians in one row were defeated.
     - **Return Type**: `Collectibles`
-        - Object that represents the collectible that the player may earn after finishing a row.
+        - Object that represents the reward that the player may earn after finishing a row.
 
-4. `Collectibles checkBonusGaia()`
-    - **Description**: Shows all collectibles that the wizard earned. Uses getVerticalBonus(int[][]) and getHorizontalBonus(int[][]).
-    - **Return Type**: `Collectibles`
-        - Returns the collectible that the player earned.
+4. `Reward[] checkReward()`
+    - **Description**: Checks all rewards earned, whether from columns or rows.
+    - **Return Type**: `Reward[]`
+        - Returns the rewards that the player earned in an array.
+
+5.  `void readConfigRewards()`
+    - **Description**: Reads the rewards configuration file.
+    - **Return Type**: `void`
+
+6.  `void loadRewards(String[] rewardsStrings, Reward[] rewards)`
+    - **Description**: Assign the rewards read from the config file to their correct positions.
+    - **Parameters**:
+        - `rewardsStrings`: Array containing the names of all rewards.
+        - `rewards` : Reward array containing the actual rewards.
+    - **Return Type**: `void`
+
+7.  `void readConfigScores()`
+    - **Description**: Reads the green realm scoring from the config file.
+    - **Return Type**: `void`
+
+8.  `boolean attackGaia(Dice combined)`
+    - **Description**: Attacks a gaia guardian.
+    - **Parameters**:
+        - `combined`: Die with combined value of green and white dice.
+    - **Return Type**: `boolean`
+        - Returns true if a gaia guardian was successfully attacked and false otherwise.
+
+9.  `boolean makeMove(Move m)`
+    - **Description**: Makes a move by calling the attackGaia() method.
+    - **Parameters**:
+        - `m`: Move m which contains the dice and creature.
+    - **Return Type**: `boolean`
+        - Returns true if a gaia guardian was successfully attacked and false otherwise.
+
+10.  `Move[] getAllPossibleMoves()`
+    - **Description**: Checks all moves possible in the green realm.
+    - **Return Type**: `Move[]`
+        - Array of moves containing all possible moves in green realm.
+
+11.  `Move[] getPossibleMovesForADie(Dice die)`
+    - **Description**: Checks for possible moves given a die.
+    - **Parameters**:
+        - `die`: Die to be compared to undefeated gaia guardians.
+    - **Return Type**: `Move[]`
+        - Array containing all possible moves given a specific die.
+
+12.  `void editRewards()`
+    - **Description**: Edits array of rewards in the green realm after every move made.
+    - **Return Type**: `void`
+
+13.  `int getDefeatedGaias()`
+    - **Description**: Checks the number of gaias defeated.
+    - **Return Type**: `int`
+        - Number of gaias already defeated.
+
+14.  `int getRemainingGaias()`
+    - **Description**: Checks the number of gaias undefeated.
+    - **Return Type**: `int`
+        - Number of gaias still undefeated.
+
+15.  `String toString()`
+    - **Description**: Shows the current scoresheet of the green realm.
+    - **Return Type**: `String`
+        - Contains the current score sheet of the green realm.
+
+16.  `String scoreSheetHelper(int rowNum)`
+    - **Description**: Fills the scoresheet with an 'X' if the corresponding gaia guardian is defeated and with its number if not.
+    - **Parameters**:
+        - `rowNum`: The number of the row in the scoresheet.
+    - **Return Type**: `String`
+        - String representing the state of the gaia guardians.
+
+17.  `String scoreSheetHelper2()`
+    - **Description**: Fills the score row of the scoresheet.
+    - **Return Type**: `String`
+        - String representing the score guidelines given from the config file.
+
+18.  `String scoreSheetHelper3()`
+    - **Description**: Fills the last row containing the rewards.
+    - **Return Type**: `String`
+        - String representing the rewards after defeating a whole column.
+
+19.  `String initialsRows(int num)`
+    - **Description**: Gets the initials of the row rewards.
+    - **Parameters**:
+        - `num`: Integer to represent the index of the current row reward.
+    - **Return Type**: `String`
+        - String containing the first letter of each word from the reward name.
+
+20.  `String initialsColumns(int num)`
+    - **Description**: Gets the initials of the column rewards.
+    - **Parameters**:
+        - `num`: Integer to represent the index of the current column reward.
+    - **Return Type**: `String`
+        - String containing the first letter of each word from the reward name.
+
+21.  `String getInitials(String reward)`
+    - **Description**: Gets the initials of the rewards.
+    - **Parameters**:
+        - `reward`: String that represents the reward name.
+    - **Return Type**: `String`
+        - String containing the first letter of each word from the reward name.
+
+22.  `boolean[][] checkZeros()`
+    - **Description**: Checks whether each gaia is defeated or still alive.
+    - **Return Type**: `boolean[][]`
+        - Boolean array with each slot representing the state of its corresponding gaia; true if defeated and false otherwise.
 
     
 ### `Hydra_Serpent` class
