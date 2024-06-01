@@ -201,17 +201,13 @@ public class Dragon extends Creature {
         return moves;
     }
 
-    public boolean makeMove (Move a) throws InvalidMoveException, PlayerActionException {
+    public boolean makeMove (Move a) throws PlayerActionException {
         RedDice rd = (RedDice) a.getDice();
         int y = a.getDice().getValue();
         int z = rd.getDragonNumber();
         Move[] b = getPossibleMovesForADie(a.getDice());
         int[] possibleDragonNumbers = new int[b.length];
         if (z != 0){
-            if(b.length == 0) {
-                throw new InvalidMoveException("No possible moves for this dice value in the red realm");
-            }
-            else {  
                 int i = 0;
                 for (int w = 0; w < dragonParts.length; w++) {
                     for (int j = 0; j < dragonParts.length; j++) {
@@ -221,6 +217,7 @@ public class Dragon extends Creature {
                         }
                         if (dragonParts[j][w] == y && z == w+1){
                             dragonParts[j][w] = 0;
+                            System.out.println("You have successfully attacked Pyroclast Dragon number "+z);
                             return true;
                         }
                     }
@@ -237,8 +234,6 @@ public class Dragon extends Creature {
                 }
                 return false;
             }
-            
-        }
         return false;        
     }
         

@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import game.collectibles.ArcaneBoost;
 import game.collectibles.Bonus;
+import game.exceptions.InvalidMoveException;
 
 
 public class Hydra extends Creature {
@@ -244,7 +245,7 @@ public class Hydra extends Creature {
         }
 
 
-    public boolean makeMove(Move move) {
+    public boolean makeMove(Move move) throws InvalidMoveException {
         int value = move.getDice().getValue();
         boolean flag = false;
         if(hydra1Heads < 5){
@@ -254,12 +255,18 @@ public class Hydra extends Creature {
                 hydra[hydra1Heads] = 0;
                 hydra1Heads++;
             }
+            else{
+                throw new InvalidMoveException("Dice value must be greater than "+hydra1Heads+" for this attack");
+            }
         }
         else if(hydra2Heads < 6){
             if(hydra[hydra1Heads + hydra2Heads] != 0 && value > hydra2Heads){
                 flag = true;
                 hydra[hydra1Heads + hydra2Heads] = 0;
                 hydra2Heads++;
+            }
+            else{
+                throw new InvalidMoveException("Dice value must be greater than "+hydra2Heads+" for this attack");
             }
 
         }

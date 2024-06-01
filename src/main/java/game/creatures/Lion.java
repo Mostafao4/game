@@ -101,14 +101,16 @@ public void editMultipliers(){
 
 
 //increments hitnum(counter) & adds dice value to array diceNum 
-public boolean makeMove(Move move) {
+public boolean makeMove(Move move) throws InvalidMoveException {
     if (hitNum<10){
         hitNum++;
         diceNum[hitNum]=move.getDice().getValue();
         System.out.println("You have succesfully attacked the Solar Lion!");
-        return true;}
-    else
-    return false;    
+        return true;
+    }
+    else {
+        throw new InvalidMoveException("You have reached the maximum number of attacks");
+    }
    
 }
 

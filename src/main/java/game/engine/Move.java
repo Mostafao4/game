@@ -7,6 +7,7 @@ import game.dice.RedDice;
 
 public class Move implements Comparable<Move>{
     private Dice dice;
+    private MoveType moveType;
     private Creature creature;
     private int dragonNumber;
     public Move(Dice dice, Creature creature) {
@@ -18,6 +19,21 @@ public class Move implements Comparable<Move>{
         this.creature = creature;
         this.dragonNumber = dragonNumber;
     }
+    public Move(Dice dice, Creature creature, MoveType moveType) {
+        this.dice = dice;
+        this.moveType = moveType;
+        this.creature = creature;
+    }
+
+    public Move(Dice dice, Creature creature, int dragonNumber,MoveType moveType) {
+        this.dice = dice;
+        this.moveType = moveType;
+        this.creature = creature;
+        this.dragonNumber = dragonNumber;
+    }
+
+
+
 
     @Override
     public int compareTo(Move o) {
@@ -46,6 +62,14 @@ public class Move implements Comparable<Move>{
 
     public void setDice(Dice dice) {
         this.dice = dice;
+    }
+
+    public MoveType getMoveType() {
+        return moveType;
+    }
+
+    public void setMoveType(MoveType moveType) {
+        this.moveType = moveType;
     }
 
     public Creature getCreature() {
