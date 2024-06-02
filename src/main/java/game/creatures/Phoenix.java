@@ -2,6 +2,8 @@ package game.creatures;
 import game.dice.*;
 import game.engine.*;
 import game.collectibles.*;
+import game.exceptions.InvalidDiceSelectionException;
+import game.exceptions.InvalidMoveException;
 // import game.exceptions.*;
 import java.io.*;
 import java.util.Properties;
@@ -15,20 +17,18 @@ public class Phoenix extends Creature {
         attack = new int[11];
         rewards = new Reward[11];
     }
-    public boolean makeMove(Move move) {
+    public boolean makeMove(Move move) throws InvalidMoveException, InvalidDiceSelectionException {
         if(count>=11){
-            System.out.println("You reached the maximum possible times of plays");
-            return false;
+            throw new InvalidMoveException("You have reached the maximum number of attacks");
         }
         else if(count==0 || move.getDice().getValue()>attack[count-1] || attack[count-1]==6){
             attack[count++] = move.getDice().getValue();
             score_int += move.getDice().getValue();
-            System.out.println("You have succesfully attacked the Majestic Phoenix!");
+            System.out.println("You have successfully attacked the Majestic Phoenix!");
             return true;
         }
         else{
-            System.out.println("Dice value is not more than the last chosen value");
-            return false;
+            throw new InvalidDiceSelectionException("Dice value must be greater than previous attack");
         }
     }
 

@@ -27,7 +27,7 @@ public class Gaia extends Creature{
     private Reward[] columnRewards;
     private int defeatedGaias;
     private int totalGaias;
-    private int[][] gaias = 
+    private int[][] gaias =
     {
         {0,2,3,4},
         {5,6,7,8},
@@ -150,9 +150,13 @@ public class Gaia extends Creature{
     }
 
     @Override
-    public boolean makeMove(Move m){
+    public boolean makeMove(Move m) throws InvalidMoveException{
         Dice dice = m.getDice();
-        return attackGaia(dice);
+        boolean b = attackGaia(dice);
+        if(!b){
+            throw new InvalidMoveException("No possible moves for this die!");
+        }
+        return b;
     }
 
     @Override
@@ -293,7 +297,7 @@ public class Gaia extends Creature{
     }
 
     public String toString(){
-        String s = 
+        String s =
         "Terra's Heartland: Gaia Guardians (GREEN REALM):\n"
         + "+-----------------------------------+\n"
         + "|  #  |1    |2    |3    |4    |R    |\n"
@@ -313,7 +317,7 @@ public class Gaia extends Creature{
         + "+-----------------------------------------------------------------------+\n\n\n";
         return s;
     }
-    
+
     private String scoreSheetHelper2(){
         String s = "";
         for(int i = 0; i < scores.length; i++){
@@ -388,10 +392,10 @@ public class Gaia extends Creature{
             for(int i = 0; i < scoresBool[rowNum].length; i++){
                 if(scoresBool[rowNum][i])
                     s+= "|X    ";
-                else 
+                else
                     s+= "|" + this.gaias[rowNum][i] + ((this.gaias[rowNum][i] > 9)?"   ":"    ");;
             }
-        
+
         return s;
     }
 
@@ -431,7 +435,7 @@ public class Gaia extends Creature{
     //     // dice[5].setValue(1);
 
     //     // Move m = allPossibleMoves[1];
-        
+
     //     // g.makeMove(m);
     // }
 

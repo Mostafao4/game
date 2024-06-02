@@ -8,7 +8,7 @@ import game.exceptions.InvalidMoveException;
 import game.exceptions.PlayerActionException;
 
 public abstract class Creature {
-    public abstract boolean makeMove(Move move) throws InvalidMoveException, PlayerActionException;
+    public abstract boolean makeMove(Move move) throws InvalidMoveException, PlayerActionException, InvalidDiceSelectionException;
     public abstract Move[] getAllPossibleMoves() ;
     public abstract Move[] getPossibleMovesForADie(Dice dice) throws InvalidDiceSelectionException;
     public abstract Reward[] checkReward();
