@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -14,23 +12,17 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane accessibleRole="TABLE_VIEW" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane accessibleRole="TABLE_VIEW" cache="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="674.0" prefWidth="1229.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="723.0" fitWidth="1280.0" layoutY="-1.0" pickOnBounds="true">
-         <image>
-            <Image url="@wizardss.jpg" />
-         </image>
-      </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="29.0" layoutX="489.0" layoutY="347.0" stroke="BLACK" strokeType="INSIDE" width="34.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fff3d" height="29.0" layoutX="539.0" layoutY="347.0" stroke="BLACK" strokeType="INSIDE" width="34.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b610db" height="29.0" layoutX="643.0" layoutY="346.0" stroke="BLACK" strokeType="INSIDE" width="34.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#480fff" height="29.0" layoutX="589.0" layoutY="347.0" stroke="BLACK" strokeType="INSIDE" width="34.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="29.0" layoutX="743.0" layoutY="346.0" stroke="BLACK" strokeType="INSIDE" width="34.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f6ff1f" height="29.0" layoutX="693.0" layoutY="346.0" stroke="BLACK" strokeType="INSIDE" width="34.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="186.0" prefHeight="45.0" prefWidth="119.0" style="-fx-background-color: Black;" text="player 1" textAlignment="CENTER" textFill="WHITE" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="480.0" prefHeight="38.0" prefWidth="132.0" style="-fx-background-color: Black;" text="player 2" textAlignment="CENTER" textFill="WHITE" />
-      <TableView editable="true" fixedCellSize="2.0" layoutX="36.0" layoutY="8.0" prefHeight="160.0" prefWidth="160.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="552.0" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="1084.6666666666667" AnchorPane.topAnchor="8.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="167.0" prefHeight="45.0" prefWidth="119.0" style="-fx-background-color: Black;" text="player 1" textAlignment="CENTER" textFill="WHITE" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="450.0" prefHeight="38.0" prefWidth="132.0" style="-fx-background-color: Black;" text="player 2" textAlignment="CENTER" textFill="WHITE" />
+      <TableView editable="true" fixedCellSize="2.0" layoutX="4.0" layoutY="10.0" prefHeight="146.0" prefWidth="170.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="518.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="1055.0" AnchorPane.topAnchor="10.0">
         <columns>
           <TableColumn prefWidth="75.0" text="#" />
           <TableColumn prefWidth="75.0" text="1" />
@@ -46,13 +38,13 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </opaqueInsets>
       </TableView>
-      <TableView layoutX="230.0" layoutY="13.0" prefHeight="59.0" prefWidth="391.0">
+      <TableView layoutX="206.0" layoutY="14.0" prefHeight="59.0" prefWidth="391.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <TableView editable="true" fixedCellSize="2.0" layoutX="1105.0" layoutY="10.0" prefHeight="160.0" prefWidth="160.0" style="-fx-border-color: black;">
+      <TableView editable="true" fixedCellSize="2.0" layoutX="1052.0" layoutY="7.0" prefHeight="160.0" prefWidth="160.0" style="-fx-border-color: black;">
          <columns>
             <TableColumn prefWidth="75.0" text="#" />
             <TableColumn prefWidth="75.0" text="1" />
@@ -75,7 +67,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <TableView layoutX="670.0" layoutY="15.0" prefHeight="59.0" prefWidth="391.0">
+      <TableView layoutX="633.0" layoutY="14.0" prefHeight="59.0" prefWidth="391.0">
          <columns>
             <TableColumn prefWidth="75.0" text="C1" />
             <TableColumn prefWidth="75.0" text="C2" />
@@ -87,7 +79,7 @@
             <TableColumn prefWidth="70.88897705078125" text="C2" />
          </columns>
       </TableView>
-      <TableView editable="true" fixedCellSize="2.0" layoutX="37.0" layoutY="545.0" prefHeight="171.0" prefWidth="160.0" style="-fx-border-color: black;">
+      <TableView editable="true" fixedCellSize="2.0" layoutX="10.0" layoutY="499.0" prefHeight="171.0" prefWidth="160.0" style="-fx-border-color: black;">
          <columns>
             <TableColumn prefWidth="75.0" text="#" />
             <TableColumn prefWidth="75.0" text="1" />
@@ -103,13 +95,13 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </opaqueInsets>
       </TableView>
-      <TableView layoutX="222.0" layoutY="646.0" prefHeight="59.0" prefWidth="391.0">
+      <TableView layoutX="206.0" layoutY="604.0" prefHeight="59.0" prefWidth="391.0">
          <columns>
             <TableColumn prefWidth="75.0" text="C1" />
             <TableColumn prefWidth="75.0" text="C2" />
          </columns>
       </TableView>
-      <TableView editable="true" fixedCellSize="2.0" layoutX="1106.0" layoutY="553.0" prefHeight="160.0" prefWidth="160.0" style="-fx-border-color: black;">
+      <TableView editable="true" fixedCellSize="2.0" layoutX="1061.0" layoutY="505.0" prefHeight="160.0" prefWidth="160.0" style="-fx-border-color: black;">
          <columns>
             <TableColumn prefWidth="75.0" text="#" />
             <TableColumn prefWidth="75.0" text="1" />
@@ -125,13 +117,13 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </opaqueInsets>
       </TableView>
-      <TableView layoutX="681.0" layoutY="655.0" prefHeight="58.0" prefWidth="398.0">
+      <TableView layoutX="643.0" layoutY="605.0" prefHeight="58.0" prefWidth="398.0">
          <columns>
             <TableColumn prefWidth="75.0" text="C1" />
             <TableColumn prefWidth="75.0" text="C2" />
          </columns>
       </TableView>
-      <TableView layoutX="473.0" layoutY="573.0" prefHeight="59.0" prefWidth="391.0">
+      <TableView layoutX="436.0" layoutY="536.0" prefHeight="59.0" prefWidth="391.0">
          <columns>
             <TableColumn prefWidth="75.0" text="C1" />
             <TableColumn prefWidth="70.88897705078125" text="C2" />
@@ -156,11 +148,11 @@
           <TableColumn prefWidth="75.0" text="Rounds" />
         </columns>
       </TableView>
-      <TableView layoutX="541.0" layoutY="502.0" prefHeight="60.0" prefWidth="216.0">
+      <TableView layoutX="526.0" layoutY="469.0" prefHeight="60.0" prefWidth="216.0">
          <columns>
             <TableColumn prefWidth="75.0" text="Turn 1" />
-            <TableColumn prefWidth="75.0" text="Turn 2" />
-            <TableColumn prefWidth="64.0" text="Turn 3" />
+            <TableColumn prefWidth="73.33331298828125" text="Turn 2" />
+            <TableColumn prefWidth="66.0" text="Turn 3" />
          </columns>
       </TableView>
       <TableView layoutX="524.0" layoutY="160.0" prefHeight="60.0" prefWidth="216.0">

@@ -1,7 +1,7 @@
 package game.gui;
 
-import java.lang.ModuleLayer.Controller;
 
+import game.engine.CLIGameController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,33 +11,23 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class DiceRealms extends Application {
-
+    public static Stage stage;
+    public static CLIGameController cliGameController;
     @Override
     public void start(Stage primaryStage) throws Exception {
-        
-        FXMLLoader loader= new FXMLLoader(getClass().getResource("/Mainmenu.fxml"));
-        
-        FXMLLoader loader1= new FXMLLoader(getClass().getResource("/mainscene.fxml"));
-        Scene scene2 = new Scene(loader1.load());
-        
-
-     
-        // loader.setController(new controller());
-        Scene scene1 = new Scene(loader.load());
-        
-        
-
-        Image icon = new Image("/Dice realms.jpeg");
-        // Image background = new Image("/Dice realms.jpeg");
-        // ImageView imageView = new ImageView(background);
-
-        // primaryStage.setScene(scene1);
-        primaryStage.setScene(scene2);    
-        // primaryStage.setScene(scene3);
-        primaryStage.setTitle("Dice Realms: Quest for the Elemental Crests!");
-        primaryStage.getIcons().add(icon);
-        
-        primaryStage.show();
+       stage = primaryStage;
+       try{
+                Parent root = FXMLLoader.load(getClass().getResource("/Mainmenu.fxml"));
+                Scene scene = new Scene(root);
+                primaryStage.setTitle("Dice Realms: Quest for the Elemental Crests!");
+                Image icon = new Image("/Dice realms.jpeg");
+                primaryStage.getIcons().add(icon);
+                primaryStage.setScene(scene);
+                primaryStage.show();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
     }
 
    public static void main(String[] args) {
