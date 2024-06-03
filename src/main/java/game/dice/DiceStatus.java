@@ -5,5 +5,4 @@ public enum DiceStatus {
     TURN_SELECTED,
     POWER_SELECTED,
     FORGOTTEN_REALM,
-    INVALID_DICE
 }

@@ -16,6 +16,7 @@ public class Phoenix extends Creature {
     public Phoenix(){
         attack = new int[11];
         rewards = new Reward[11];
+        getReward();
     }
     public boolean makeMove(Move move) throws InvalidMoveException, InvalidDiceSelectionException {
         if(count>=11){
@@ -37,6 +38,8 @@ public class Phoenix extends Creature {
     public Reward[] checkReward(){
        return  new Reward[] {rewards[count]};
     }
+
+
     private void rewardFromString(String N){
         switch (N) {
             case "TimeWarp": rewards[count-1]=new TimeWarp();break; 
@@ -68,7 +71,7 @@ public class Phoenix extends Creature {
             case 9:reward_String=prop.getProperty("hit9Reward"); rewardFromString(reward_String);break;
             case 10:reward_String=prop.getProperty("hit10Reward"); rewardFromString(reward_String);break;
             case 11:reward_String=prop.getProperty("hit11Reward"); rewardFromString(reward_String);break;
-
+            default:
         }
     }catch (IOException e) {
         // TODO Auto-generated catch block

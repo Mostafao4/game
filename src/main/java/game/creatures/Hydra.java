@@ -24,6 +24,7 @@ public class Hydra extends Creature {
     private int[] hydra;
     private int[]scores;
     private String[]reward;
+    private Reward[]rewards;
     private String[] Xb;
     private int hydra1Heads;
     private int hydra2Heads;
@@ -31,6 +32,7 @@ public class Hydra extends Creature {
     public Hydra(){
         hydra1Heads = 0;
         hydra2Heads = 0;
+        rewards = new Reward[11];
         this.hydra = new int[11];
         hydra[0] = 1;   hydra[5] = 1;
         hydra[1] = 2;   hydra[6] = 2;
@@ -88,7 +90,11 @@ public class Hydra extends Creature {
         }
     }
 
-
+    private void fillRewards(){
+        for(int i = 0; i < reward.length; i++){
+            rewards[i] = BonusHelper(reward[i]);
+        }
+    }
 
 
 
@@ -133,46 +139,52 @@ public class Hydra extends Creature {
 
 
     public Reward[] checkReward(){
+        Reward r = rewards[headsKilled()];
+        if(r != null){
+            return new Reward[]{r};
+        }
+        return new Reward[0];
 
-            int i =  headsKilled();
-            if(i <= 5){
-                for(int j = 0; j <= 4; j++){
-                if(hydra[j] == 4){
-                       return new Reward[]{BonusHelper(reward[3])};
-                    }
-                else{
-                        j++;
-                    }
-                }
-                }
+//
+//            int i =  headsKilled();
+//            if(i <= 5){
+//                for(int j = 0; j <= 4; j++){
+//                if(hydra[j] == 4){
+//                       return new Reward[]{BonusHelper(reward[3])};
+//                    }
+//                else{
+//                        j++;
+//                    }
+//                }
+//                }
+//
+//            else{
+//                for(int j = 5; j <= 10; j++){
+//                    switch (hydra[j]) {
+//                        case 1:
+//                            return new Reward[]{BonusHelper(reward[5])};
+//
+//                        case 2:
+//                            return new Reward[]{BonusHelper(reward[6])};
+//
+//
+//                        case 4:
+//                            return new Reward[]{BonusHelper(reward[8])};
+//
+//
+//                        case 5:
+//                            return new Reward[]{BonusHelper(reward[9])};
+//
+//
+//                        default:
+//                            break;
+//                        }
+//                    }
+//
+//                }
+//                return null;
 
-            else{
-                for(int j = 5; j <= 10; j++){
-                    switch (hydra[j]) {
-                        case 1:
-                            return new Reward[]{BonusHelper(reward[5])};
-
-                        case 2:
-                            return new Reward[]{BonusHelper(reward[6])};
-
-
-                        case 4:
-                            return new Reward[]{BonusHelper(reward[8])};
-
-
-                        case 5:
-                            return new Reward[]{BonusHelper(reward[9])};
-
-
-                        default:
-                            break;
-                        }
-                    }
-
-                }
-                return null;
-
-                    }
+    }
 
     private Reward BonusHelper(String s){
         switch (s) {
