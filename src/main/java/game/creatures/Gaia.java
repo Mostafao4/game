@@ -92,8 +92,7 @@ public class Gaia extends Creature{
                     rewards[i] = new ElementalCrest(realm);
                     break;
                 case "TimeWarp":
-                    realm = Realm.YELLOW;
-                    rewards[i] = new Bonus(realm);
+                    rewards[i] = new TimeWarp();
                     break;
                 case "BlueBonus":
                     realm = Realm.BLUE;
@@ -101,7 +100,7 @@ public class Gaia extends Creature{
                     break;
                 case "MagentaBonus":
                     realm = Realm.MAGENTA;
-                    rewards[i] = new ElementalCrest(realm);
+                    rewards[i] = new Bonus(realm);
                     break;
                 case "ArcaneBoost":
                     rewards[i] = new ArcaneBoost();

@@ -28,6 +28,7 @@ public class Hydra extends Creature {
     private String[] Xb;
     private int hydra1Heads;
     private int hydra2Heads;
+    private String[] rew = new String[11];
 
     public Hydra(){
         hydra1Heads = 0;
@@ -42,29 +43,29 @@ public class Hydra extends Creature {
                          hydra[10] = 6;
 
         //config file for the rewards//
-        try{
-
-            Properties prop = new Properties();
-            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TideAbyssRewards.properties");
-            prop.load(rewardConfig);
-            String reward1 = prop.getProperty("null");
-            String reward2 = prop.getProperty("null");
-            String reward3 = prop.getProperty("null");
-            String reward4 = prop.getProperty("ArcaneBoost");
-            String reward5 = prop.getProperty("null");
-            String reward6 = prop.getProperty("GreenBonus");
-            String reward7 = prop.getProperty("ElementalCrest");
-            String reward8 = prop.getProperty("null");
-            String reward9 = prop.getProperty("MagentaBonus");
-            String reward10 = prop.getProperty("TimeWarp");
-            String reward11 = prop.getProperty("null");
-            reward = new String[]{reward1,reward2,reward3,reward4,reward5,reward6,reward7,reward8,reward9,reward10,reward11};
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+//        try{
+//
+//            Properties prop = new Properties();
+//            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TideAbyssRewards.properties");
+//            prop.load(rewardConfig);
+//            String reward1 = prop.getProperty("null");
+//            String reward2 = prop.getProperty("null");
+//            String reward3 = prop.getProperty("null");
+//            String reward4 = prop.getProperty("ArcaneBoost");
+//            String reward5 = prop.getProperty("null");
+//            String reward6 = prop.getProperty("GreenBonus");
+//            String reward7 = prop.getProperty("ElementalCrest");
+//            String reward8 = prop.getProperty("null");
+//            String reward9 = prop.getProperty("MagentaBonus");
+//            String reward10 = prop.getProperty("TimeWarp");
+//            String reward11 = prop.getProperty("null");
+//            reward = new String[]{reward1,reward2,reward3,reward4,reward5,reward6,reward7,reward8,reward9,reward10,reward11};
+//
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
        //config file for the scores//
         try{
 
@@ -88,13 +89,14 @@ public class Hydra extends Creature {
         catch (IOException e) {
             e.printStackTrace();
         }
+        editReward();
     }
 
-    private void fillRewards(){
-        for(int i = 0; i < reward.length; i++){
-            rewards[i] = BonusHelper(reward[i]);
-        }
-    }
+//    private void fillRewards(){
+//        for(int i = 0; i < reward.length; i++){
+//            rewards[i] = BonusHelper(reward[i]);
+//        }
+//    }
 
 
 
@@ -138,12 +140,12 @@ public class Hydra extends Creature {
 
 
 
-    public Reward[] checkReward(){
-        Reward r = rewards[headsKilled()];
-        if(r != null){
-            return new Reward[]{r};
-        }
-        return new Reward[0];
+//    public Reward[] checkReward(){
+//        Reward r = rewards[headsKilled()];
+//        if(r != null){
+//            return new Reward[]{r};
+//        }
+//        return new Reward[0];
 
 //
 //            int i =  headsKilled();
@@ -184,33 +186,63 @@ public class Hydra extends Creature {
 //                }
 //                return null;
 
-    }
+   // }
 
-    private Reward BonusHelper(String s){
-        switch (s) {
-            case "ArcaneBoost":
-                return new ArcaneBoost();
+//    private Reward BonusHelper(String s){
+//        switch (s) {
+//            case "ArcaneBoost":
+//                return new ArcaneBoost();
+//
+//            case "GreenBonus":
+//                return new Bonus(Realm.GREEN);
+//
+//            case "ElementCrest":
+//                return new ElementalCrest(Realm.BLUE);
+//
+//            case "MagentaBonus":
+//                return new Bonus(Realm.MAGENTA);
+//
+//            case "TimeWarp":
+//                return new TimeWarp();
+//
+//            default:
+//                return null;
+//        }
+//    }
 
-            case "GreenBonus":
-                return new Bonus(Realm.GREEN);
 
-            case "ElementCrest":
-                return new ElementalCrest(Realm.BLUE);
 
-            case "MagentaBonus":
-                return new Bonus(Realm.MAGENTA);
+    // checks rewards and returns the corresponding reward in an array & makes used reward an x
+    public Reward[] checkReward(){
 
-            case "TimeWarp":
-                return new TimeWarp();
-
-            default:
-                return null;
+        switch (rew[headsKilled()-1]){
+            case "AB":
+                rew[headsKilled()-1]="X ";
+                return new Reward[]{new ArcaneBoost()};
+            case "BB":
+                rew[headsKilled()-1]="X ";
+                return new Reward[]{new Bonus(Realm.BLUE)};
+            case "EC":
+                rew[headsKilled()-1]="X ";
+                return new Reward[]{new ElementalCrest(Realm.YELLOW)};
+            case "GB":
+                rew[headsKilled()-1]="X ";
+                return new Reward[]{new Bonus(Realm.GREEN)};
+            case "MB":
+                rew[headsKilled()-1]="X ";
+                return new Reward[]{new Bonus(Realm.MAGENTA)};
+            case "RB":
+                rew[headsKilled()-1]="X ";
+                return new Reward[]{new Bonus(Realm.RED)};
+            case "TW":
+                rew[headsKilled()-1]="X ";
+                return new Reward[]{new TimeWarp()};
+            case "YB":
+                rew[headsKilled()-1]="X ";
+                return new Reward[]{new Bonus(Realm.YELLOW)};
+            default: return null;
         }
     }
-
-
-
-
     public int getScore(){
         return scores[hydra1Heads + hydra2Heads - 1];
     }
@@ -250,7 +282,7 @@ public class Hydra extends Creature {
         "+-----------------------------------------------------------------------+\n" +
         "|  H  |"+Xs[0]+"  |"+Xs[1]+"  |"+Xs[2]+"  |"+Xs[3]+"  |"+Xs[4]+"  |"+Xs[5]+"  |"+Xs[6]+"  |"+Xs[7]+"  |"+Xs[8]+"  |"+Xs[9]+"  |"+Xs[10]+"  |\n" +
         "|  C  |≥1   |≥2   |≥3   |≥4   |≥5   |≥1   |≥2   |≥3   |≥4   |≥5   |≥6   |\n" +
-        "|  R  |     |     |     |"+Xb[0]+"   |     |"+Xb[1]+"   |"+Xb[2]+"   |     |"+Xb[3]+"   |"+Xb[4]+"   |     |"+"\n" +
+        "|  R  |"+rew[0]+"   |"+rew[1]+"   |"+rew[2]+"   |"+rew[3]+"   |"+rew[4]+"   |"+rew[5]+"   |"+rew[6]+"   |"+rew[7]+"   |"+rew[8]+"   |"+rew[9]+"   |"+rew[10]+"   |\n" +
         "+-----------------------------------------------------------------------+\n" +
         "|  S  |1    |3    |6    |10   |15   |21   |28   |36   |45   |55   |66   |\n" +
         "+-----------------------------------------------------------------------+\n\n");
@@ -344,6 +376,53 @@ private Move[] removeNullsAndFill(Move[] moves) {
             return moves;
         }
 
+
+    //creates array rew type string from config for rewards
+    public void editReward(){
+        Properties prop = new Properties();
+        try{
+
+            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TideAbyssRewards.properties");
+            prop.load(rewardConfig);
+
+            for (int i=0;i<11;i++){
+                String r=prop.getProperty("hit"+(i+1)+"Reward");
+                rew[i]=r;
+                switch (r){
+                    case "ArcaneBoost":
+                        rew[i]="AB";
+                        break;
+                    case "BlueBonus":
+                        rew[i]="BB";
+                        break;
+                    case "ElementalCrest":
+                        rew[i]="EC";
+                        break;
+                    case "GreenBonus":
+                        rew[i]="GB";
+                        break;
+                    case "MagentaBonus":
+                        rew[i]="MB";
+                        break;
+                    case "RedBonus":
+                        rew[i]="RB";
+                        break;
+                    case "TimeWarp":
+                        rew[i]="TW";
+                        break;
+                    case "YellowBonus":
+                        rew[i]="YB";
+                        break;
+                    default:
+                        rew[i]="  ";
+                        break;
+                }
+            }
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     
 }
 

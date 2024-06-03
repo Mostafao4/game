@@ -13,10 +13,12 @@ public class Phoenix extends Creature {
     private int score_int;
     private int[] attack;
     private Reward[] rewards;
+    private String[] rew = new String[11];
     public Phoenix(){
         attack = new int[11];
         rewards = new Reward[11];
-        getReward();
+        count = 0;
+        editReward();
     }
     public boolean makeMove(Move move) throws InvalidMoveException, InvalidDiceSelectionException {
         if(count>=11){
@@ -35,11 +37,11 @@ public class Phoenix extends Creature {
 
     //////Done
 
-    public Reward[] checkReward(){
-       return  new Reward[] {rewards[count]};
-    }
+//    public Reward[] checkReward(){
+//       return  new Reward[] {rewards[count]};
+//    }
 
-
+/*
     private void rewardFromString(String N){
         switch (N) {
             case "TimeWarp": rewards[count-1]=new TimeWarp();break; 
@@ -52,6 +54,87 @@ public class Phoenix extends Creature {
 
         }
     }
+    */
+//creates array rew type string from config for rewards
+public void editReward(){
+    Properties prop = new Properties();
+    try{
+
+        FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/MysticalSkyRewards.properties");
+        prop.load(rewardConfig);
+
+        for (int i=0;i<11;i++){
+            String r=prop.getProperty("hit"+(i+1)+"Reward");
+            rew[i]=r;
+            switch (r){
+                case "ArcaneBoost":
+                    rew[i]="AB";
+                    break;
+                case "BlueBonus":
+                    rew[i]="BB";
+                    break;
+                case "ElementalCrest":
+                    rew[i]="EC";
+                    break;
+                case "GreenBonus":
+                    rew[i]="GB";
+                    break;
+                case "MagentaBonus":
+                    rew[i]="MB";
+                    break;
+                case "RedBonus":
+                    rew[i]="RB";
+                    break;
+                case "TimeWarp":
+                    rew[i]="TW";
+                    break;
+                case "YellowBonus":
+                    rew[i]="YB";
+                    break;
+                default:
+                    rew[i]="  ";
+                    break;
+            }
+        }
+    }
+    catch (IOException ex) {
+        ex.printStackTrace();
+    }
+}
+    // checks rewards and returns the corresponding reward in an array & makes used reward an x
+    public Reward[] checkReward(){
+
+        switch (rew[count-1]){
+            case "AB":
+                rew[count-1]="X ";
+                return new Reward[]{new ArcaneBoost()};
+            case "BB":
+                rew[count-1]="X ";
+                return new Reward[]{new Bonus(Realm.BLUE)};
+            case "EC":
+                rew[count-1]="X ";
+                return new Reward[]{new ElementalCrest(Realm.YELLOW)};
+            case "GB":
+                rew[count-1]="X ";
+                return new Reward[]{new Bonus(Realm.GREEN)};
+            case "MB":
+                rew[count-1]="X ";
+                return new Reward[]{new Bonus(Realm.MAGENTA)};
+            case "RB":
+                rew[count-1]="X ";
+                return new Reward[]{new Bonus(Realm.RED)};
+            case "TW":
+                rew[count-1]="X ";
+                return new Reward[]{new TimeWarp()};
+            case "YB":
+                rew[count-1]="X ";
+                return new Reward[]{new Bonus(Realm.YELLOW)};
+            default: return null;
+        }
+    }
+
+
+    /*
     private void getReward(){
         Properties prop= new Properties();
         String reward_String;
@@ -79,7 +162,7 @@ public class Phoenix extends Creature {
     }
     }
     ////////Done
-
+*/
     public int getMagentaRealmScore(){
         return score_int;
     }
@@ -87,64 +170,42 @@ public class Phoenix extends Creature {
     
 
 
-
-public Move[] getAllPossibleMoves(){
-    int lastNumber = attack[count];
-    int last_test = attack[count];
-    Move[] possibleMoves;
-    if(lastNumber==6)
-        possibleMoves = new Move[6];
-    else{
-        int length=0;
-        while(last_test<6){
-            length++;
-            last_test++;
+    public Move[] getAllPossibleMoves(){
+        Move[] moves;
+        if(count>10){
+            moves =  new Move[0];
         }
-        possibleMoves=new Move[length];
+        else if (count==0 || attack[count-1]==6){
+            moves = new Move[6];
+            for(int i=0;i<6;i++){
+                moves[i] = new Move(new MagentaDice(i),this);
+            }
+        }
+        else{
+            moves = new Move[6-attack[count-1]];
+            for(int i=attack[count-1];i<=6;i++){
+                moves[i] = new Move(new MagentaDice(i),this);
+            }
+        }
+        return moves;
     }
-    if(lastNumber==6){
-        for(int j=0; j<6;j++){
-            possibleMoves[j]=new Move(new MagentaDice(j+1),this);
-        } 
-        return possibleMoves;
-    }
-    else{
-        for(int i=0;lastNumber<6;i++){
-            possibleMoves[i]=new Move(new MagentaDice(lastNumber),this);
-            lastNumber+=1;
-    }
-    return possibleMoves;
-}
-
-}
 ///////Done
 
-public Move[] getPossibleMovesForADie (Dice dice){
-    Move[] possibleMoves = new Move[1];
-//    if(dice.getValue()==6){
-//        for(int j=0; j<6;j++){
-//            // Temp_dice.setValue(j+1);
-//            possibleMoves[j]=new Move(new MagentaDice(j+1),this);
-//        }
-//        return possibleMoves;
-//    }
-//    else{
-//        for(int i=0;(int)dice.getValue()<=6;i++){
-//            // Temp_dice.setValue((lastNumber));
-//            possibleMoves[i]=new Move(new MagentaDice((dice.getValue())),this);
-//            dice.setValue(dice.getValue()+1);
-//        }
-//        return possibleMoves;
-//    }
-    if(dice.getValue() > attack[count] || dice.getValue() == 6){
-        possibleMoves[0] = new Move(dice,this);
+    public Move[] getPossibleMovesForADie (Dice dice){
+        Move[] moves;
+        if(count==0){
+            return new Move[]{new Move(dice,this)};
+        }
+        if(count>10){
+            return new Move[0];
+        }
+        if(dice.getValue() > attack[count-1] || attack[count-1] == 6){
+            return new Move[]{new Move(dice,this)};
+        }
+       else{
+           return new Move[0];
+        }
     }
-    else {
-        return new Move[0];
-    }
-    return possibleMoves;
-
-}
 /////partially done
 public String toString(){
     return 
@@ -154,7 +215,7 @@ public String toString(){
     "+-----------------------------------------------------------------------+\n" +
     "|  H  |"+attack[0]+"    |"+attack[1]+"    |"+attack[2]+"    |"+attack[3]+"    |"+attack[4]+"    |"+attack[5]+"    |"+attack[6]+"    |"+attack[7]+"    |"+attack[8]+"    |"+attack[9]+"    |"+attack[10]+"    |\n" +
     "|  C  |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |\n" +
-    "|  R  |     |     |"+scoreSheet_helper(rewards,2,"TW")+"   |"+scoreSheet_helper(rewards,2,"GB")+"   |"+scoreSheet_helper(rewards,2,"AB")+"   |"+scoreSheet_helper(rewards,2,"RB")+"   |"+scoreSheet_helper(rewards,2,"EC")+"   |"+scoreSheet_helper(rewards,2,"TW")+"   |"+scoreSheet_helper(rewards,2,"BB")+"   |"+scoreSheet_helper(rewards,2,"YB")+"   |"+scoreSheet_helper(rewards,2,"AB")+"   |\n" +
+    "|  R  |"+rew[0]+"   |"+rew[1]+"   |"+rew[2]+"   |"+rew[3]+"   |"+rew[4]+"   |"+rew[5]+"   |"+rew[6]+"   |"+rew[7]+"   |"+rew[8]+"   |"+rew[9]+"   |"+rew[10]+"   |\n" +
     "+-----------------------------------------------------------------------+\n\n\n";
 }
 private String scoreSheet_helper(Reward[] rewards,int index, String s){
