@@ -125,7 +125,7 @@ public int getYellowRealmScore(){
     return score;
 }
 
- // checks rewards and returns the supposed reward & makes used reward an x
+ // checks rewards and returns the corresponding reward in an array & makes used reward an x
 public Reward[] checkReward(){
 
     switch (rew[hitNum]){
@@ -158,7 +158,7 @@ public Reward[] checkReward(){
  }
  // returns an array type move with all the possible moves before rolling the dice
  public Move[] getAllPossibleMoves(){
-    if (hitNum<11){
+    if (hitNum<10){
     Move[] pm1=new Move[6];
     for(int i=0;i<pm1.length;i++){
         pm1[i]=new Move(new YellowDice(i+1),this);
@@ -166,8 +166,7 @@ public Reward[] checkReward(){
     return pm1;
 }
     else{
-    Move[] pm2=new Move[0];
-    return pm2;
+        return new Move[0];
     }
  }
  //returns possible moves when dice is rolled (dicenumber)
