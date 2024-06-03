@@ -14,7 +14,7 @@ public class GameStatus {
     @Override
     public String toString() {
         String s = status?"Game is ongoing.":"Game has ended.";
-        return "Round number: " + round + "/nTurn: " + turn + "/nStatus: " + s;
+        return "Round: " + round + "/nTurn: " + turn + "/nStatus: " + s;
     }
 
 

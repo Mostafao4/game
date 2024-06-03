@@ -10,6 +10,7 @@ public class Move implements Comparable<Move>{
     private MoveType moveType;
     private Creature creature;
     private int dragonNumber;
+    private boolean whiteMove;
     public Move(Dice dice, Creature creature) {
         this.dice = dice;
         this.creature = creature;
@@ -62,6 +63,14 @@ public class Move implements Comparable<Move>{
 
     public void setDice(Dice dice) {
         this.dice = dice;
+    }
+
+    public boolean isWhiteMove() {
+        return whiteMove;
+    }
+
+    public void setWhiteMove(boolean whiteMove) {
+        this.whiteMove = whiteMove;
     }
 
     public MoveType getMoveType() {
