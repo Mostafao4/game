@@ -207,7 +207,6 @@ public class Dragon extends Creature {
         int z = rd.getDragonNumber();
         Move[] b = getPossibleMovesForADie(a.getDice());
         int[] possibleDragonNumbers = new int[b.length];
-        if (z != 0){
                 int i = 0;
                 for (int w = 0; w < dragonParts.length; w++) {
                     for (int j = 0; j < dragonParts.length; j++) {
@@ -222,7 +221,7 @@ public class Dragon extends Creature {
                         }
                     }
                 }
-                if (possibleDragonNumbers.length == 1) {
+                if (possibleDragonNumbers.length == 1 && z == 0) {
                     if(z!=possibleDragonNumbers[0]) {
                         throw new PlayerActionException("Invalid number, the only dragon that is valid to be attacked is " + possibleDragonNumbers[0]);
                     }
@@ -234,8 +233,7 @@ public class Dragon extends Creature {
                 }
                 return false;
             }
-        return false;        
-    }
+
         
         // for (int i = 0; i < dragonParts.length; i++){
         //     for (int j = 0; j < dragonParts.length; j++){
