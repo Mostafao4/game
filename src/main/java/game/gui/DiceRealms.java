@@ -1,6 +1,8 @@
 package game.gui;
 
 
+import java.util.Random;
+
 import game.engine.CLIGameController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +27,7 @@ public class DiceRealms extends Application {
                 primaryStage.setScene(scene);
                 primaryStage.show();
             }
+        
             catch(Exception e){
                 e.printStackTrace();
             }
