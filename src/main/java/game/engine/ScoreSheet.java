@@ -19,11 +19,11 @@ public class ScoreSheet {
     }
 
     public String toString(){
-        return (dragon.toString()+
-        gaia.toString()+
-        hydra.toString()+
-        phoenix.toString()+
-        lion.toString());
+        return "\u001B[31m"+dragon.toString()+"\u001B[0m"+
+                "\u001B[32m"+gaia.toString()+"\u001B[0m"+
+                "\u001B[34m"+hydra.toString()+"\u001B[0m"+
+                "\u001B[35m"+phoenix.toString()+"\u001B[0m"+
+                "\u001B[33m"+lion.toString()+"\u001B[0m";
      }
     public Creature getCreatureByRealm(Dice dice) {
         switch (dice.getRealm()) {
