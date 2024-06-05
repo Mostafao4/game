@@ -218,13 +218,13 @@ public String toString(){
     "|  R  |"+rew[0]+"   |"+rew[1]+"   |"+rew[2]+"   |"+rew[3]+"   |"+rew[4]+"   |"+rew[5]+"   |"+rew[6]+"   |"+rew[7]+"   |"+rew[8]+"   |"+rew[9]+"   |"+rew[10]+"   |\n" +
     "+-----------------------------------------------------------------------+\n\n\n";
 }
-private String scoreSheet_helper(Reward[] rewards,int index, String s){
-    if(rewards[index]!=null)
-        return "X";
-    else
-        return s;
-    }
-}
+// private String scoreSheet_helper(Reward[] rewards,int index, String s){
+//     if(rewards[index]!=null)
+//         return "X";
+//     else
+//         return s;
+//     }
+ }
 
 
 
