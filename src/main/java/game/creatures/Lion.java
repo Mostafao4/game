@@ -3,10 +3,8 @@ import java.io.FileInputStream;
 import java.util.*;
 import game.collectibles.*;
 import game.dice.Dice;
-import game.dice.DiceStatus;
 import game.dice.YellowDice;
 import game.engine.Move;
-import game.engine.Player;
 import game.exceptions.InvalidMoveException;
 
 import java.io.IOException;

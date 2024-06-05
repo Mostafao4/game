@@ -2,22 +2,14 @@ package game.creatures;
 
 //import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 import game.dice.*;
-import game.engine.CLIGameController;
-import game.engine.GameBoard;
 import game.engine.Move;
-import game.engine.Player;
 import game.collectibles.*;
 import game.exceptions.*;
 
@@ -422,7 +414,7 @@ public class Gaia extends Creature{
     //     System.out.println(g);
 
     //     // CLIGameController controller = new CLIGameController();
-    //     // Player player = controller.getActivePlayer();
+    //     // HumanPlayer player = controller.getActivePlayer();
     //     // Move[] allPossibleMoves = controller.getPossibleMovesForAvailableDice(player);
 
     //     // Dice[] dice = controller.getGameBoard().getDice();

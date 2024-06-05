@@ -3,8 +3,8 @@ package game.engine;
 import game.dice.*;
 
 public class GameBoard {
-    private Player player1;
-    private Player player2;
+    private HumanPlayer player1;
+    private HumanPlayer player2;
     private GameStatus gameStatus;
     private Dice[] dice;
     private RedDice r;
@@ -25,8 +25,8 @@ public class GameBoard {
         a = new ArcanePrism(0);
         dice = new Dice[]{r,g,b,m,y,a};
         gameStatus = new GameStatus();
-        player1 = new Player(PlayerStatus.ACTIVE);
-        player2 = new Player(PlayerStatus.PASSIVE);
+        player1 = new HumanPlayer(PlayerStatus.ACTIVE);
+        player2 = new HumanPlayer(PlayerStatus.PASSIVE);
     }
 
     public Dice[] getDice() {
@@ -37,17 +37,17 @@ public class GameBoard {
     }
 
 
-    public Player getPlayer1() {
+    public HumanPlayer getPlayer1() {
         return player1;
     }
-    public Player getPlayer2() {
+    public HumanPlayer getPlayer2() {
         return player2;
     }
 
-    public void setPlayer1(Player player1) {
+    public void setPlayer1(HumanPlayer player1) {
         this.player1 = player1;
     }
-    public void setPlayer2(Player player2) {
+    public void setPlayer2(HumanPlayer player2) {
         this.player2 = player2;
     }
 

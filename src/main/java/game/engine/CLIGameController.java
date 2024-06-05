@@ -82,7 +82,7 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-    public boolean selectDice(Dice dice, Player player) {
+    public boolean selectDice(Dice dice, HumanPlayer player) {
         player.setSelectedDice(dice);
         player.setTestFlag(true);
         for (Dice value : getAvailableDice()) {
@@ -197,7 +197,7 @@ public class CLIGameController extends GameController {
 //      || MOVES ||
 
     @Override
-    public Move[] getAllPossibleMoves(Player player) {
+    public Move[] getAllPossibleMoves(HumanPlayer player) {
         Move[] red = player.getScoreSheet().getDragon().getAllPossibleMoves();
         Move[] green = player.getScoreSheet().getGaia().getAllPossibleMoves();
         Move[] blue = player.getScoreSheet().getHydra().getAllPossibleMoves();
@@ -213,7 +213,7 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-     public Move[] getPossibleMovesForAvailableDice(Player player) {
+     public Move[] getPossibleMovesForAvailableDice(HumanPlayer player) {
             List<Move> allPossibleMoves = new ArrayList<>();
             Move[] m;
             if(getAllDice()[1].getDiceStatus()==DiceStatus.AVAILABLE && getAllDice()[5].getDiceStatus()==DiceStatus.AVAILABLE) {
@@ -251,7 +251,7 @@ public class CLIGameController extends GameController {
 }
 
     @Override
-    public Move[] getPossibleMovesForADie(Player player, Dice dice) {
+    public Move[] getPossibleMovesForADie(HumanPlayer player, Dice dice) {
         Move[] m;
         switch (dice.getRealm()) {
             case RED:
@@ -286,7 +286,7 @@ public class CLIGameController extends GameController {
         return m;
     }
 
-    public Move[] getPossibleMovesForADieHelper(Player player, Dice dice) {
+    public Move[] getPossibleMovesForADieHelper(HumanPlayer player, Dice dice) {
         Move[] m;
         switch (dice.getRealm()) {
             case RED:
@@ -320,7 +320,7 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-    public boolean makeMove(Player player, Move move)  {
+    public boolean makeMove(HumanPlayer player, Move move)  {
         boolean b=false;
         switch(move.getDice().getRealm()){
             case RED:
@@ -441,7 +441,7 @@ public class CLIGameController extends GameController {
         return b;
     }
 
-    public boolean possibleMovesForArrayOfDice(Player player, Dice[] dice){
+    public boolean possibleMovesForArrayOfDice(HumanPlayer player, Dice[] dice){
         int c = 0;
         for (Dice d : dice){
             if(getPossibleMovesForADie(player, d).length == 0){
@@ -465,7 +465,7 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-    public Player getActivePlayer() {
+    public HumanPlayer getActivePlayer() {
         if(gameBoard.getPlayer1().getPlayerStatus()==PlayerStatus.ACTIVE)
             return gameBoard.getPlayer1();
         else
@@ -473,7 +473,7 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-    public Player getPassivePlayer() {
+    public HumanPlayer getPassivePlayer() {
         if(gameBoard.getPlayer1().getPlayerStatus()==PlayerStatus.PASSIVE)
             return gameBoard.getPlayer1();
         else
@@ -481,7 +481,7 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-    public ScoreSheet getScoreSheet(Player player) {
+    public ScoreSheet getScoreSheet(HumanPlayer player) {
         return player.getScoreSheet();
     }
 
@@ -491,12 +491,12 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-    public GameScore getGameScore(Player player) {
+    public GameScore getGameScore(HumanPlayer player) {
         return player.getGameScore();
     }
 
     @Override
-    public TimeWarp[] getTimeWarpPowers(Player player) {
+    public TimeWarp[] getTimeWarpPowers(HumanPlayer player) {
         int x = getActivePlayer().getTimeWarpCount();
         TimeWarp[] powers = new TimeWarp[x];
         for (TimeWarp tw : powers)
@@ -505,7 +505,7 @@ public class CLIGameController extends GameController {
     }
 
     @Override
-    public ArcaneBoost[] getArcaneBoostPowers(Player player) {
+    public ArcaneBoost[] getArcaneBoostPowers(HumanPlayer player) {
         int x = getActivePlayer().getArcaneBoostCount();
         ArcaneBoost[] powers = new ArcaneBoost[x];
         for (ArcaneBoost ab : powers)
@@ -524,12 +524,25 @@ public class CLIGameController extends GameController {
     public void startGame() {
         gameBoard = new GameBoard();
         System.out.println("Welcome to Dice Realms: Quest for Elemental Crests!!!");
-        System.out.println("Enter Player 1 name");
-        String s1 = scanner.nextLine();
-        System.out.println("Enter Player 2 name");
-        String s2 = scanner.nextLine();
-        gameBoard.setPlayer1(new Player(s1,PlayerStatus.ACTIVE));
-        gameBoard.setPlayer2(new Player(s2,PlayerStatus.PASSIVE));
+        System.out.println("Enter the number of players: (1 or 2)");
+        int i = takeNumberInput();
+        while(i!=1 && i !=2){
+            i = takeNumberInput();
+        }
+        if(i==2) {
+            System.out.println("Enter Player 1 name");
+            String s1 = scanner.nextLine();
+            System.out.println("Enter Player 2 name");
+            String s2 = scanner.nextLine();
+            gameBoard.setPlayer1(new HumanPlayer(s1, PlayerStatus.ACTIVE));
+            gameBoard.setPlayer2(new HumanPlayer(s2, PlayerStatus.PASSIVE));
+        }
+        else {
+            System.out.println("Enter your name");
+            String s1 = scanner.nextLine();
+            gameBoard.setPlayer1(new HumanPlayer(s1, PlayerStatus.ACTIVE));
+            gameBoard.setPlayer2(new ComputerPlayer());
+        }
 //        Dice d = new MagentaDice(5);
 //        Move m = new Move(d,getActivePlayer().getScoreSheet().getPhoenix());
 //        makeMove(getActivePlayer(),m);
@@ -644,7 +657,7 @@ public class CLIGameController extends GameController {
             getRoundReward();
         System.out.println("Round: " + getGameBoard().getGameStatus().getRound());
         System.out.println("Turn: " + getGameBoard().getGameStatus().getTurn());
-        System.out.println("Current Player: " + getActivePlayer().getPlayerName()+"\n");
+        System.out.println("Current HumanPlayer: " + getActivePlayer().getPlayerName()+"\n");
         System.out.println("Press 1 to display Grimoire, 0 to proceed");
         int i = takeNumberInput();
         while(i!=0 && i!=1){
@@ -775,7 +788,7 @@ public class CLIGameController extends GameController {
                 System.out.println("You did not receive any reward");
         }
     }
-    public void useBonus (Player player, Bonus bonus, int i)  {
+    public void useBonus (HumanPlayer player, Bonus bonus, int i)  {
         Realm r = bonus.getRealm();
         Dice d;
         switch (r) {
@@ -822,7 +835,7 @@ public class CLIGameController extends GameController {
             makeMove(player, new Move(d, player.getScoreSheet().getCreatureByRealm(d), MoveType.BONUS));
         }
     }
-    public void useArcaneBoost(Player player)  {
+    public void useArcaneBoost(HumanPlayer player)  {
         int i = takeNumberInput();
         while(i<0 || i>5){
             i = takeNumberInput();
@@ -864,7 +877,7 @@ public class CLIGameController extends GameController {
         }
         useBonusHelper(new Bonus(r), getActivePlayer());
     }
-    public Reward[] checkReward(Move move, Player player){
+    public Reward[] checkReward(Move move, HumanPlayer player){
         Realm r = move.getDice().getRealm();
         switch(r){
             case RED:
@@ -882,7 +895,7 @@ public class CLIGameController extends GameController {
         }
 
     }
-    public void getReward(Reward[] r, Player player){
+    public void getReward(Reward[] r, HumanPlayer player){
         if(r!=null) {
             for (Reward reward : r) {
                 if (reward != null) {
@@ -893,7 +906,7 @@ public class CLIGameController extends GameController {
     }
 
 
-    public void useReward(Reward reward, Player player){
+    public void useReward(Reward reward, HumanPlayer player){
 
         if(reward instanceof TimeWarp){
             player.addTimeWarpCount();
@@ -916,7 +929,7 @@ public class CLIGameController extends GameController {
             useBonusHelper(reward,player);
         }
     }
-    public void useBonusHelper(Reward reward, Player player) {
+    public void useBonusHelper(Reward reward, HumanPlayer player) {
             Realm r = ((Bonus)reward).getRealm();
             System.out.println("Choose an attack value");
             int att = takeNumberInput();
@@ -955,7 +968,7 @@ public class CLIGameController extends GameController {
         }
     }
 
-    public void invalidMoveHelper(Player player, Move move, Realm realm){
+    public void invalidMoveHelper(HumanPlayer player, Move move, Realm realm){
         if(move.getMoveType() == null){
             return;
         }
