@@ -97,12 +97,12 @@ public class Dragon extends Creature {
                         }
                         break;
                     default:
-                        break;
+                        
                 }
             }
         }
         if (x == 4 && bonusBoolean[4] == false){
-            bonus [0] = checkBonusHelper(reward[4]);
+            bonus [1] = checkBonusHelper(reward[4]);
             bonusBoolean[4] = true;
         }
         return bonus;

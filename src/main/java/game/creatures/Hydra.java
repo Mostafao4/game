@@ -275,7 +275,7 @@ public class Hydra extends Creature {
     public String toString(){
         String[] Xs = this.XinScoresheet();
         // String[] Xb = this.Xbonus();
-        String[] Xb = new String[]{"AB","GB","EC","MB","TW"};
+        // String[] Xb = new String[]{"AB","GB","EC","MB","TW"};
         return ("Tide Abyss: Hydra Serpents (BLUE REALM):\n" +
         "+-----------------------------------------------------------------------+\n" +
         "|  #  |H11  |H12  |H13  |H14  |H15  |H21  |H22  |H23  |H24  |H25  |H26  |\n" +
@@ -284,7 +284,7 @@ public class Hydra extends Creature {
         "|  C  |≥1   |≥2   |≥3   |≥4   |≥5   |≥1   |≥2   |≥3   |≥4   |≥5   |≥6   |\n" +
         "|  R  |"+rew[0]+"   |"+rew[1]+"   |"+rew[2]+"   |"+rew[3]+"   |"+rew[4]+"   |"+rew[5]+"   |"+rew[6]+"   |"+rew[7]+"   |"+rew[8]+"   |"+rew[9]+"   |"+rew[10]+"   |\n" +
         "+-----------------------------------------------------------------------+\n" +
-        "|  S  |1    |3    |6    |10   |15   |21   |28   |36   |45   |55   |66   |\n" +
+        "|  S  |"+scores[0]+(scores[0]>9?"   |":"    |")+scores[1]+(scores[1]>9?"   |":"    |")+scores[2]+(scores[2]>9?"   |":"    |")+scores[3]+(scores[3]>9?"   |":"    |")+scores[4]+(scores[4]>9?"   |":"    |")+scores[5]+(scores[5]>9?"   |":"    |")+scores[6]+(scores[6]>9?"   |":"    |")+scores[7]+(scores[7]>9?"   |":"    |")+scores[8]+(scores[8]>9?"   |":"    |")+scores[9]+(scores[9]>9?"   |":"    |")+scores[10]+( scores[10]>9?"   |\n":"    |\n") +
         "+-----------------------------------------------------------------------+\n\n");
         }
 
