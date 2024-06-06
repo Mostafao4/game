@@ -19,7 +19,10 @@ public class MainmenuController {
     public void switchToScene2(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/modescene.fxml"));
         Scene scene = new Scene(root);
-        DiceRealms.stage.setScene(scene);
+        Stage stage = DiceRealms.stage;
+        stage.setScene(scene);
+        stage.setFullScreen(true);
+        stage.setResizable(true);
     }
     public void exitGame(ActionEvent event) {
         System.exit(0);

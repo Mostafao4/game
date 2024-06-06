@@ -9,7 +9,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
          <image>
-            <Image url="@Dice%20realms.jpeg" />
+            <Image url="Dice realms.jpeg" />
          </image>
       </ImageView>
       <Button fx:id="startButton" contentDisplay="CENTER" layoutX="243.0" layoutY="260.0" mnemonicParsing="false" onAction="#switchToScene2" style="-fx-background-color: black;" text="Start Game" textAlignment="CENTER" textFill="WHITE">
