@@ -221,16 +221,16 @@ public class Dragon extends Creature {
                         }
                     }
                 }
-                if (possibleDragonNumbers.length == 1 && z == 0) {
-                    if(z!=possibleDragonNumbers[0]) {
-                        throw new PlayerActionException("Invalid number, the only dragon that is valid to be attacked is " + possibleDragonNumbers[0]);
+                    if (possibleDragonNumbers.length == 1) {
+                        if (z != possibleDragonNumbers[0]) {
+                            throw new PlayerActionException("Invalid number, the only dragon that is valid to be attacked is " + possibleDragonNumbers[0]);
+                        }
+                    } else {
+                        if (z != possibleDragonNumbers[0] || z != possibleDragonNumbers[1]) {
+                            throw new PlayerActionException("Invalid number, the dragons that are valid to be attacked are " + possibleDragonNumbers[0] + " & " + possibleDragonNumbers[1]);
+                        }
                     }
-                }
-                else {
-                    if(z!=possibleDragonNumbers[0] || z!=possibleDragonNumbers[1]) {
-                        throw new PlayerActionException("Invalid number, the dragons that are valid to be attacked are " + possibleDragonNumbers[0] + " & " + possibleDragonNumbers[1]);
-                    }
-                }
+
                 return false;
             }
 
@@ -337,6 +337,7 @@ public class Dragon extends Creature {
                 return null;
         }
     }
+
 
 
 

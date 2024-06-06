@@ -26,10 +26,10 @@ public class controller {
     private final ImageView[] diceViews = new ImageView[6];
     private final Random random = new Random();
 
-    private CLIGameController CliGameController; // Reference to the game controller
+    private CLIGameController cliGameController; // Reference to the game controller
 
     public void setGameController() {
-        this.CliGameController = DiceRealms.cliGameController;
+        cliGameController = DiceRealms.cliGameController;
     }
 
     // @FXML
@@ -42,8 +42,8 @@ public class controller {
     @FXML
     private void handlePlayButtonAction() {
         // Call methods on the game controller when the play button is clicked
-        if (CliGameController != null) {
-            CliGameController.startGame();
+        if (cliGameController != null) {
+            cliGameController.startGame();
         }
     }
 
