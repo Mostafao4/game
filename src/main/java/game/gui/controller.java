@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import game.engine.GameController;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +22,7 @@ import javafx.stage.Stage;
 import game.engine.CLIGameController;
 
 
-public class controller {
+public class controller extends CLIGameController {
     private final Image[] diceImages = new Image[6];
     private final ImageView[] diceViews = new ImageView[6];
     private final Random random = new Random();
@@ -74,9 +75,11 @@ public class controller {
     }
 
     private void rollDice() {
+        //int counter = 1;
         for (ImageView diceView : diceViews) {
             int rollResult = random.nextInt(6); // Get a random number between 0 and 5
             diceView.setImage(diceImages[rollResult]);
+           // counter++;
         }
     }
 

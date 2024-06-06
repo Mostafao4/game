@@ -25,6 +25,7 @@ public class DiceRealms extends Application {
                 Image icon = new Image("/Dice realms.jpeg");
                 primaryStage.getIcons().add(icon);
                 primaryStage.setScene(scene);
+                primaryStage.setResizable(true);
                 primaryStage.setFullScreen(true);
                 primaryStage.show();
             }
