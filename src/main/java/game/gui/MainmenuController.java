@@ -21,8 +21,6 @@ public class MainmenuController {
         Scene scene = new Scene(root);
         Stage stage = DiceRealms.stage;
         stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.setResizable(true);
     }
     public void exitGame(ActionEvent event) {
         System.exit(0);
