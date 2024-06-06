@@ -62,7 +62,7 @@ public abstract class GameController {
      * @param player The player for whom to determine possible moves.
      * @return An array of all possible moves for all rolled dice.
      */
-    public abstract Move[] getAllPossibleMoves(HumanPlayer player);
+    public abstract Move[] getAllPossibleMoves(Player player);
 
     /**
      * Gets possible moves for all currently rolled dice for a given player.
@@ -70,7 +70,7 @@ public abstract class GameController {
      * @param player The player for whom to determine possible moves.
      * @return An array of all possible moves for all rolled dice.
      */
-    public abstract Move[] getPossibleMovesForAvailableDice(HumanPlayer player) throws Exception;
+    public abstract Move[] getPossibleMovesForAvailableDice(Player player) throws Exception;
 
     /**
      * Gets all possible moves for a given die for a given player.
@@ -79,7 +79,7 @@ public abstract class GameController {
      * @param dice   The dice to determine possible moves for.
      * @return An array of possible moves for the given dice.
      */
-    public abstract Move[] getPossibleMovesForADie(HumanPlayer player, Dice dice) throws Exception;
+    public abstract Move[] getPossibleMovesForADie(Player player, Dice dice) throws Exception;
 
     /**
      * Gets the current game board, including all players and all score sheets.
@@ -93,14 +93,14 @@ public abstract class GameController {
      * 
      * @return The active {@code HumanPlayer} object.
      */
-    public abstract HumanPlayer getActivePlayer();
+    public abstract Player getActivePlayer();
 
     /**
      * Gets the current passive player's information.
      * 
      * @return The passive {@code HumanPlayer} object.
      */
-    public abstract HumanPlayer getPassivePlayer();
+    public abstract Player getPassivePlayer();
 
     /**
      * Gets the score sheet for a given player.
@@ -108,7 +108,7 @@ public abstract class GameController {
      * @param player The player to get the current score sheet for.
      * @return The {@code ScoreSheet} object for a given player.
      */
-    public abstract ScoreSheet getScoreSheet(HumanPlayer player);
+    public abstract ScoreSheet getScoreSheet(Player player);
 
     /**
      * Gets the current game status, including round and turn information for the
@@ -125,7 +125,7 @@ public abstract class GameController {
      * @param player The player to determine current score for.
      * @return The current {@code GameScore} object.
      */
-    public abstract GameScore getGameScore(HumanPlayer player);
+    public abstract GameScore getGameScore(Player player);
 
     /**
      * Gets the array of TimeWarp powers and their status for a given player.
@@ -134,7 +134,7 @@ public abstract class GameController {
      * @return An array of {@code TimeWarp} objects representing the TimeWarp powers
      *         for a given player.
      */
-    public abstract TimeWarp[] getTimeWarpPowers(HumanPlayer player);
+    public abstract TimeWarp[] getTimeWarpPowers(Player player);
 
     /**
      * Gets the array of ArcaneBoost powers and their status for a given player.
@@ -143,7 +143,7 @@ public abstract class GameController {
      * @return An array of {@code ArcaneBoost} objects representing the ArcaneBoost
      *         powers for a given player.
      */
-    public abstract ArcaneBoost[] getArcaneBoostPowers(HumanPlayer player);
+    public abstract ArcaneBoost[] getArcaneBoostPowers(Player player);
 
     /**
      * Selects a die and adds it to the player class, then moves
@@ -154,7 +154,7 @@ public abstract class GameController {
      * @return {@code true} if the selection was successful,
      *         {@code false} otherwise.
      */
-    public abstract boolean selectDice(Dice dice, HumanPlayer player);
+    public abstract boolean selectDice(Dice dice, Player player);
 
     /**
      * Executes a move using the selected dice on a specified creature.
@@ -165,5 +165,5 @@ public abstract class GameController {
      * @return {@code true} if the move is successfully completed,
      *         {@code false} otherwise.
      */
-    public abstract boolean makeMove(HumanPlayer player, Move move) throws Exception;
+    public abstract boolean makeMove(Player player, Move move) throws Exception;
 }

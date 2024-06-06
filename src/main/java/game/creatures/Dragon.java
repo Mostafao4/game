@@ -221,7 +221,7 @@ public class Dragon extends Creature {
                         }
                     }
                 }
-                if (possibleDragonNumbers.length == 1 && z == 0) {
+                if (possibleDragonNumbers.length == 1 ) {
                     if(z!=possibleDragonNumbers[0]) {
                         throw new PlayerActionException("Invalid number, the only dragon that is valid to be attacked is " + possibleDragonNumbers[0]);
                     }

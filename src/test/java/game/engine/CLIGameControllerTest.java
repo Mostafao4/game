@@ -16,16 +16,16 @@ public class CLIGameControllerTest {
     public void testSwitchPlayer() {
         CLIGameController controller = new CLIGameController();
 
-        assertEquals("HumanPlayer 1 should be active", PlayerStatus.ACTIVE,
+        assertEquals("Player 1 should be active", PlayerStatus.ACTIVE,
                 controller.getGameBoard().getPlayer1().getPlayerStatus());
-        assertEquals("HumanPlayer 2 should be passive", PlayerStatus.PASSIVE,
+        assertEquals("Player 2 should be passive", PlayerStatus.PASSIVE,
                 controller.getGameBoard().getPlayer2().getPlayerStatus());
 
         controller.switchPlayer();
 
-        assertEquals("HumanPlayer 1 should now be passive", PlayerStatus.PASSIVE,
+        assertEquals("Player 1 should now be passive", PlayerStatus.PASSIVE,
                 controller.getGameBoard().getPlayer1().getPlayerStatus());
-        assertEquals("HumanPlayer 2 should now be active", PlayerStatus.ACTIVE,
+        assertEquals("Player 2 should now be active", PlayerStatus.ACTIVE,
                 controller.getGameBoard().getPlayer2().getPlayerStatus());
     }
 
@@ -85,7 +85,7 @@ public class CLIGameControllerTest {
     public void testGetAllPossibleMoves() {
         CLIGameController controller = new CLIGameController();
         GameBoard gameBoard = controller.getGameBoard();
-        HumanPlayer player = controller.getActivePlayer();
+        Player player = controller.getActivePlayer();
         Move[] allPossibleMoves = controller.getAllPossibleMoves(player);
 
         assertEquals("There should be 41 possible moves", 41, allPossibleMoves.length);
@@ -113,7 +113,7 @@ public class CLIGameControllerTest {
     @Test
     public void testGetPossibleMovesForAvailableDice() {
         CLIGameController controller = new CLIGameController();
-        HumanPlayer player = controller.getActivePlayer();
+        Player player = controller.getActivePlayer();
 
         Dice[] dice = controller.getGameBoard().getDice();
         dice[0].setValue(2);
@@ -157,7 +157,7 @@ public class CLIGameControllerTest {
     public void testGetPossibleMovesForADie() {
         CLIGameController controller = new CLIGameController();
         GameBoard gameBoard = controller.getGameBoard();
-        HumanPlayer player = controller.getActivePlayer();
+        Player player = controller.getActivePlayer();
         Dice greenDie = controller.getGameBoard().getDice()[1];
         greenDie.setValue(2);
         Dice whiteDie = controller.getGameBoard().getDice()[5];
@@ -268,7 +268,7 @@ public class CLIGameControllerTest {
     public void testMakeMoveRedRealm() {
         CLIGameController controller = new CLIGameController();
         GameBoard gameBoard = controller.getGameBoard();
-        HumanPlayer player = controller.getActivePlayer();
+        Player player = controller.getActivePlayer();
         Dice[] dice = gameBoard.getDice();
 
         int[] redDiceValues = { 3, 2, 3, 1, 3 };
@@ -293,7 +293,7 @@ public class CLIGameControllerTest {
     public void testMakeMoveGreenRealm() {
         CLIGameController controller = new CLIGameController();
         GameBoard gameBoard = controller.getGameBoard();
-        HumanPlayer player = controller.getActivePlayer();
+        Player player = controller.getActivePlayer();
         Dice[] dice = gameBoard.getDice();
 
         int[] greenDiceValues = { 2, 2, 3, 4 };
@@ -318,7 +318,7 @@ public class CLIGameControllerTest {
     public void testMakeMoveBlueRealm() {
         CLIGameController controller = new CLIGameController();
         GameBoard gameBoard = controller.getGameBoard();
-        HumanPlayer player = controller.getActivePlayer();
+        Player player = controller.getActivePlayer();
         Dice[] dice = gameBoard.getDice();
 
         int[] blueDiceValues = { 4, 3, 2, 4 };
@@ -341,7 +341,7 @@ public class CLIGameControllerTest {
     public void testMakeMoveMagentaRealm() {
         CLIGameController controller = new CLIGameController();
         GameBoard gameBoard = controller.getGameBoard();
-        HumanPlayer player = controller.getActivePlayer();
+        Player player = controller.getActivePlayer();
         Dice[] dice = gameBoard.getDice();
 
         int[] magentaDiceValues = { 6, 2, 2, 4 };
@@ -364,7 +364,7 @@ public class CLIGameControllerTest {
     public void testMakeMoveYellowRealm() {
         CLIGameController controller = new CLIGameController();
         GameBoard gameBoard = controller.getGameBoard();
-        HumanPlayer player = controller.getActivePlayer();
+        Player player = controller.getActivePlayer();
         Dice[] dice = gameBoard.getDice();
 
         int[] yellowDiceValues = { 1, 2, 3, 4 };
@@ -387,7 +387,7 @@ public class CLIGameControllerTest {
     public void testElementalCrests() {
         CLIGameController controller = new CLIGameController();
         GameBoard gameBoard = controller.getGameBoard();
-        HumanPlayer player = controller.getActivePlayer();
+        Player player = controller.getActivePlayer();
 
         int[] redDiceValues = { 3, 2, 1, 3, 4, 6 };
         int[] dragonNumber = { 1, 1, 1, 2, 3, 4 };

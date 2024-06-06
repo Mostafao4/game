@@ -61,6 +61,7 @@ public class HumanPlayer implements Player{
     public int getArcaneBoostCount() {
         return arcaneBoostCount;
     }
+
     public void addArcaneBoostCount() {
         arcaneBoostCount++;
     }
@@ -83,7 +84,10 @@ public class HumanPlayer implements Player{
     public ScoreSheet getScoreSheet() {
         return gameScore.getScoreSheet();
     }
-
-
-
+    public String getPlayerType(){
+        return "human";
+    }
+    public int chooseDieNum(Dice[] arrayOfDice, int turn ){
+        return 0;
+    }
 }
