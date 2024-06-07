@@ -173,15 +173,14 @@ public class Gaia extends Creature{
 
     @Override
     public Move[] getPossibleMovesForADie(Dice die) {
-        List<Move> possibleMoves = new LinkedList<>();
         int val = die.getValue();
-
-        possibleMoves.add(new Move(new GreenDice(val), this));
-
-        Move[] possibleMovesForADie = new Move[possibleMoves.size()];
-        possibleMovesForADie = possibleMoves.toArray(possibleMovesForADie);
-
-        return possibleMovesForADie;
+        Move[] moves = getAllPossibleMoves();
+        for(Move m : moves){
+            if(m.getDice().getValue() == val){
+                return new Move[]{new Move(new GreenDice(val), this)};
+            }
+        }
+        return new Move[0];
     }
 
 

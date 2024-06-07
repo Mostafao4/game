@@ -1522,8 +1522,8 @@ For each package, add the skeleton details for the class and duplicate as much a
     - **Return Type**: `String`
         - `String` scoresheet of yellow realm.
 
-### `Reward` class
 
+### `Reward` class
 - **Package**: `game.collectibles`
 - **Type**: Abstract Class
 - **Description**: This abstract class serves as a blueprint for all the bonuses and boosts.
@@ -1570,6 +1570,56 @@ For each package, add the skeleton details for the class and duplicate as much a
 - **Package**: `game.collectibles`
 - **Type**: Class
 - **Description**: This class represents the Elemental Crest collectibles and their status.
+
+### `Controller` class
+- **Package**: `game.gui`
+- **Type**: Class
+- **Description**: This class extends CLIGameController, and used as a game controller for the gui.
+- 
+- #### Methods:
+- 
+1. `void setPlayerNames(String player1, String player2)`
+    - **Description**: Setter method to set player names.
+    - **Parameters**:
+        - `player1`: Name of the first player.
+        - `player2`: Name of the second player.
+    - **Return Type**: `void` does not return
+
+2. `void roll()`
+    - **Description**: Rolls the dice for the gui.
+    - **Return Type**: `void` does not return
+
+3. `void handleButtonPress(javafx.event.ActionEvent event)`
+    - **Description**: JavaFX method to handle button press.
+    - **Parameters**:
+        - `event`: Event to execute when button is pressed.
+    - **Return Type**: `void` does not return
+
+4. `Button[] getButtons()`
+    - **Description**: Returns array of buttons with a die in each index.
+    - **Return Type**: `Button[]`
+        -Array of type Button
+
+5. `void highlightGreenPossibleMoves()`
+    - **Description**: Highlights possible moves in the green realm in gui.
+    - **Return Type**: `void` does not return
+
+6. `void highlightBluePossibleMoves()`
+    - **Description**: Highlights possible moves in the blue realm in gui.
+    - **Return Type**: `void` does not return
+
+### `DiceFace` class
+- **Package**: `game.gui`
+- **Type**: Class
+- **Description**: This class represents the dice faces in the gui.
+- 
+- #### Methods:
+- 
+1. `void updateFace(int value)`
+    - **Description**: Changes the appearance of the dice.
+    - **Parameters**:
+        - `value`: Value of the die.
+    - **Return Type**: `void` does not return
 
 
 
