@@ -197,6 +197,12 @@ public class controller extends CLIGameController {
         for(Button button : new Button[]{Blue1,Blue2,Blue3,Blue4,Blue5,Blue6,Blue7,Blue8,Blue9,Blue10,Blue11}){
             button.setStyle("");
         }
+        for(Button button : new Button[]{Magenta1,Magenta2,Magenta3,Magenta4,Magenta5,Magenta6,Magenta7,Magenta8,Magenta9,Magenta10,Magenta11}){
+            button.setStyle("");
+        }
+        for(Button button : new Button[]{Yellow1,Yellow2,Yellow3,Yellow4,Yellow5,Yellow6,Yellow7,Yellow8,Yellow9,Yellow10,Yellow11}){
+            button.setStyle("");
+        }
 
         selectedButton = null;
     }
@@ -221,6 +227,12 @@ public class controller extends CLIGameController {
         }
         else if(button.equals(die3)){
             highlightBluePossibleMoves();
+        }
+        else if(button.equals(die4)){
+            highlightMagentaPossibleMoves();
+        }
+        else if(button.equals(die5)){
+            highlightYellowPossibleMoves();
         }
 
         // Add the selection class to the new button
@@ -354,6 +366,52 @@ public class controller extends CLIGameController {
     @FXML
     private Button Blue11;
 
+    @FXML
+    private Button Magenta1;
+    @FXML
+    private Button Magenta2; 
+    @FXML  
+    private Button Magenta3;
+    @FXML
+    private Button Magenta4;
+    @FXML
+    private Button Magenta5;
+    @FXML
+    private Button Magenta6;
+    @FXML
+    private Button Magenta7;
+    @FXML
+    private Button Magenta8;
+    @FXML
+    private Button Magenta9;
+    @FXML
+    private Button Magenta10;
+    @FXML
+    private Button Magenta11;
+
+    @FXML
+    private Button Yellow1;
+    @FXML
+    private Button Yellow2; 
+    @FXML  
+    private Button Yellow3;
+    @FXML
+    private Button Yellow4;
+    @FXML
+    private Button Yellow5;
+    @FXML
+    private Button Yellow6;
+    @FXML
+    private Button Yellow7;
+    @FXML
+    private Button Yellow8;
+    @FXML
+    private Button Yellow9;
+    @FXML
+    private Button Yellow10;
+    @FXML
+    private Button Yellow11;
+
     private void highlightBluePossibleMoves(){
         int i = getActivePlayer().getScoreSheet().getHydra().headsKilled();
         int value = Integer.parseInt(die3.getText());
@@ -472,6 +530,198 @@ public class controller extends CLIGameController {
         if(m.length>0){
             makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
             Blue11.setText("X");
+        }
+     }
+
+
+     public void highlightMagentaPossibleMoves(){
+        int i = getActivePlayer().getScoreSheet().getPhoenix().getCount();
+        int value = Integer.parseInt(die4.getText());
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new MagentaDice(value));
+        if(m.length>0 ){
+            switch(i){
+                case 0:
+                    Magenta1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 1:
+                    Magenta2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 2:
+                    Magenta3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 3:
+                    Magenta4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 4:
+                    Magenta5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 5:
+                    Magenta6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 6:
+                    Magenta7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 7:
+                    Magenta8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 8:
+                    Magenta9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 9:
+                    Magenta10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 10:
+                    Magenta11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+            }
+        }
+     }
+
+
+     public void highlightYellowPossibleMoves(){
+        int i = getActivePlayer().getScoreSheet().getLion().getHitNum();
+        int value = Integer.parseInt(die5.getText());
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new YellowDice(value));
+        if(m.length>0 ){
+            switch(i){
+                case 0:
+                    Yellow1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 1:
+                    Yellow2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 2:
+                    Yellow3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 3:
+                    Yellow4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 4:
+                    Yellow5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 5:
+                    Yellow6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 6:
+                    Yellow7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 7:
+                    Yellow8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 8:
+                    Yellow9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 9:
+                    Yellow10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 10:
+                    Yellow11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+            }
+        }
+     }
+
+     public void attackMagenta(ActionEvent event){
+        Button button = (Button) event.getSource();
+        int i = Integer.parseInt(die4.getText());
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new MagentaDice(i));
+        if(m.length>0){
+            if(button.equals(Magenta1)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta1.setText(""+i);
+            }
+            else if(button.equals(Magenta2)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta2.setText(""+i);
+            }
+            else if(button.equals(Magenta3)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta3.setText(""+i);
+            }
+            else if(button.equals(Magenta4)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta4.setText(""+i);
+            }
+            else if(button.equals(Magenta5)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta5.setText(""+i);
+            }
+            else if(button.equals(Magenta6)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta6.setText(""+i);
+            }
+            else if(button.equals(Magenta7)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta7.setText(""+i);
+            }
+            else if(button.equals(Magenta8)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta8.setText(""+i);
+            }
+            else if(button.equals(Magenta9)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta9.setText(""+i);
+            }
+            else if(button.equals(Magenta10)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta10.setText(""+i);
+            }
+            else if(button.equals(Magenta11)){
+                makeMove(getActivePlayer(), new Move(new MagentaDice(i),getActivePlayer().getScoreSheet().getPhoenix()));
+                Magenta11.setText(""+i);
+            }
+        }
+     }
+
+     public void yellowAttack(ActionEvent event){
+        Button button = (Button) event.getSource();
+        int i = Integer.parseInt(die5.getText());
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new YellowDice(i));
+        if(m.length>0){
+            if(button.equals(Yellow1)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow1.setText(""+i);
+            }
+            else if(button.equals(Yellow2)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow2.setText(""+i);
+            }
+            else if(button.equals(Yellow3)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow3.setText(""+i);
+            }
+            else if(button.equals(Yellow4)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow4.setText(""+i);
+            }
+            else if(button.equals(Yellow5)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow5.setText(""+i);
+            }
+            else if(button.equals(Yellow6)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow6.setText(""+i);
+            }
+            else if(button.equals(Yellow7)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow7.setText(""+i);
+            }
+            else if(button.equals(Yellow8)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow8.setText(""+i);
+            }
+            else if(button.equals(Yellow9)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow9.setText(""+i);
+            }
+            else if(button.equals(Yellow10)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow10.setText(""+i);
+            }
+            else if(button.equals(Yellow11)){
+                makeMove(getActivePlayer(), new Move(new YellowDice(i),getActivePlayer().getScoreSheet().getLion()));
+                Yellow11.setText(""+i);
+            }
         }
      }
 
