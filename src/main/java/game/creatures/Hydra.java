@@ -248,7 +248,7 @@ public class Hydra extends Creature {
     }
 
 
-    private int headsKilled(){
+    public int headsKilled(){
         return hydra1Heads + hydra2Heads;
     }
 
@@ -371,9 +371,13 @@ private Move[] removeNullsAndFill(Move[] moves) {
 
 
     public Move[] getPossibleMovesForADie(Dice dice){
-            Move[] moves = new Move[1];
-            moves[0] = new Move(dice,this);
-            return moves;
+    
+        if(dice.getValue()<hydra[headsKilled()]){
+            return new Move[0];
+        }
+        else{
+            return new Move[]{new Move(dice,this)};
+        }
         }
 
 
