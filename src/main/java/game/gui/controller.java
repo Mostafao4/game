@@ -75,6 +75,7 @@ public class controller extends CLIGameController {
     }
 
 
+
     // Helper method to get all buttons
     public Button[] getButtons() {
         // Return an array of your buttons here
@@ -111,6 +112,7 @@ public class controller extends CLIGameController {
         else {
             player1Turn.setText("--");
             player2Turn.setText(""+getGameStatus().getTurn());
+
         }
         enablePlayer1();
         for(Button b:getButtons()){
