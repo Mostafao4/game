@@ -192,7 +192,6 @@ public void editReward(){
 ///////Done
 
     public Move[] getPossibleMovesForADie (Dice dice){
-        Move[] moves;
         if(count==0){
             return new Move[]{new Move(dice,this)};
         }
@@ -205,6 +204,9 @@ public void editReward(){
        else{
            return new Move[0];
         }
+    }
+    public int getCount(){
+        return count;
     }
 /////partially done
 public String toString(){
