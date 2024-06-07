@@ -2128,6 +2128,10 @@
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R4" GridPane.columnIndex="4" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R6" GridPane.columnIndex="6" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R5" GridPane.columnIndex="5" />
+            <Label fx:id="round1" text="Time Warp" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="round2" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="round3" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="round4" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="605.0" layoutX="705.0" layoutY="296.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />

@@ -45,35 +45,34 @@ public class controller extends CLIGameController {
     private Button Yellow1, Yellow2, Yellow3, Yellow4, Yellow5, Yellow6, Yellow7, Yellow8, Yellow9, Yellow10, Yellow11;
     @FXML
     private Button rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null;
-
-    private Button[] redButtons = new Button[]{F1, F2, F3, W1, W2, W4, T1, T3, T4, H2, H3, H4},
-                    greenButtons = new Button[]{Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12},
-                    blueButtons = new Button[]{Blue1, Blue2, Blue3, Blue4, Blue5, Blue6, Blue7, Blue8, Blue9, Blue10, Blue11},
-                    magentaButtons = new Button[]{Magenta1, Magenta2, Magenta3, Magenta4, Magenta5, Magenta6, Magenta7, Magenta8, Magenta9, Magenta10, Magenta11},
-                    yellowButtons = new Button[]{Yellow1, Yellow2, Yellow3, Yellow4, Yellow5, Yellow6, Yellow7, Yellow8, Yellow9, Yellow10, Yellow11};
+    @FXML
+    private Label round1, round2, round3, round4;
 
     // Method to change the text of buttons randomly
     public void changeButtonsRandomly() {
         Random random = new Random();
-
+        rollDice();
         // Iterate over your buttons and assign random values to them
-        for (Button button : getButtons()) {
-            int newValue = random.nextInt(6) + 1; // Random value between 1 and 6
-            button.setText(String.valueOf(newValue));
-            button.setDisable(false);
-            button.getStyleClass().remove("selected-button");
+        for (int i=0;i<6;i++) {
+            getButtons()[i].setText(""+getAllDice()[i].getValue());
+            getButtons()[i].setDisable(false);
+            getButtons()[i].getStyleClass().remove("selected-button");
         }
-        for(Button button : redButtons)
-            button.setStyle("");;
-        for(Button button : greenButtons)
+        for(Button button : new Button[]{F1, F2, F3, W1, W2, W4, T1, T3, T4, H2, H3, H4}) {
             button.setStyle("");
-        for(Button button : blueButtons)
+        }
+        for(Button button : new Button[]{Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12}) {
             button.setStyle("");
-        for(Button button : magentaButtons)
+        }
+        for(Button button : new Button[]{Blue1, Blue2, Blue3, Blue4, Blue5, Blue6, Blue7, Blue8, Blue9, Blue10, Blue11}) {
             button.setStyle("");
-        for(Button button : yellowButtons)
+        }
+        for(Button button : new Button[]{Magenta1, Magenta2, Magenta3, Magenta4, Magenta5, Magenta6, Magenta7, Magenta8, Magenta9, Magenta10, Magenta11}) {
             button.setStyle("");
-
+        }
+        for(Button button : new Button[]{Yellow1, Yellow2, Yellow3, Yellow4, Yellow5, Yellow6, Yellow7, Yellow8, Yellow9, Yellow10, Yellow11}) {
+            button.setStyle("");
+        }
         selectedButton = null;
     }
 
@@ -114,51 +113,51 @@ public class controller extends CLIGameController {
 
         // for(int i = 0; i < moves.length;i++){
         //     nums[i] = moves[i].getDice().getValue();
-        // } 
-        int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
-        Move[] moves = getPossibleMovesForADie(getActivePlayer(), new GreenDice(h));
+        // }
+        int i = getAllDice()[0].getValue();
+        Move[] moves = getPossibleMovesForADie(getActivePlayer(), getAllDice()[0]);
         if(moves.length>0){
-            for(int i=0;i<greenButtons.length;i++){
-                if(h == i+2){
-                    greenButtons[i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                }
+            if(F1.getText().equals(""+i)){
+                F1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
             }
-//        switch(h){
-//            case 2:
-//                Green2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//                case 3:
-//                Green3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//                case 4:
-//                Green4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//                case 5:
-//                Green5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//                case 6:
-//                Green6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//                case 7:
-//                Green7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//                case 8:
-//                Green8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//                case 9:
-//                Green9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//                case 10:
-//                Green10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//                case 11:
-//                Green11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//                case 12:
-//                Green12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-//                break;
-//        }
-    }
+             if(F2.getText().equals(""+i)){
+                F2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(F3.getText().equals(""+i)){
+                F3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(W1.getText().equals(""+i)){
+                F2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(W2.getText().equals(""+i)){
+                W2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(W4.getText().equals(""+i)){
+                W4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(T1.getText().equals(""+i)){
+                T1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(T3.getText().equals(""+i)){
+                T3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(T4.getText().equals(""+i)){
+                T4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(H2.getText().equals(""+i)){
+                H2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(H3.getText().equals(""+i)){
+                H3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(H4.getText().equals(""+i)){
+                H4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+             if(F2.getText().equals(""+i)){
+                F2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            }
+
+        }
 }
   
     private void highlightGreenPossibleMoves(){
@@ -173,34 +172,34 @@ public class controller extends CLIGameController {
                 case 2:
                     Green2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;
-                    case 3:
+                case 3:
                     Green3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;
-                    case 4:
+                case 4:
                     Green4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;
-                    case 5:
+                case 5:
                     Green5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;
-                    case 6:
+                case 6:
                     Green6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;
-                    case 7:
+                case 7:
                     Green7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;
-                    case 8:
+                case 8:
                     Green8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;
-                    case 9:
+                case 9:
                     Green9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;
-                    case 10:
+                case 10:
                     Green10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;
-                    case 11:
+                case 11:
                     Green11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;
-                    case 12:
+                case 12:
                     Green12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     break;   
             }
