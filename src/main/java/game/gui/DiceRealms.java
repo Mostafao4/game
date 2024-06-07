@@ -14,11 +14,13 @@ import javafx.stage.Stage;
 
 public class DiceRealms extends Application {
     public static Stage stage;
-    public static CLIGameController cliGameController;
+    public controller c;
     private int turnCounter = 1;      
     @Override
     public void start(Stage primaryStage) throws Exception {
-       stage = primaryStage;
+        stage = primaryStage;
+        c = new controller();
+        // c.start();  
        try{
                 Parent root = FXMLLoader.load(getClass().getResource("/Mainmenu.fxml"));
                 Scene scene = new Scene(root);
@@ -33,7 +35,7 @@ public class DiceRealms extends Application {
                 e.printStackTrace();
             }
     }
-
+    
    public static void main(String[] args) {
        launch(args);
    }
