@@ -176,7 +176,7 @@ public class controller extends CLIGameController {
 
 
     // Method to change the text of buttons randomly
-    public void changeButtonsRandomly() {
+    public void roll() {
         Random random = new Random();
 
         // Iterate over your buttons and assign random values to them
