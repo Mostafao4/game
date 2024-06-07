@@ -248,7 +248,7 @@ public class Hydra extends Creature {
     }
 
 
-    private int headsKilled(){
+    public int headsKilled(){
         return hydra1Heads + hydra2Heads;
     }
 
