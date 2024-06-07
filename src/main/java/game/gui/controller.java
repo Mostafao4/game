@@ -194,6 +194,9 @@ public class controller extends CLIGameController {
         for(Button button : new Button[]{Green2,Green3,Green4,Green5,Green6,Green7,Green8,Green9,Green10,Green11,Green12}){
             button.setStyle("");;
         }
+        for(Button button : new Button[]{Blue1,Blue2,Blue3,Blue4,Blue5,Blue6,Blue7,Blue8,Blue9,Blue10,Blue11}){
+            button.setStyle("");
+        }
 
         selectedButton = null;
     }
@@ -213,8 +216,12 @@ public class controller extends CLIGameController {
         selectedButton = button;
         selectedButton.setDisable(true); // Disable the selected button to prevent further clicks
         //int dieValue = Integer.parseInt(selectedButton.getText());
-        highlightGreenPossibleMoves(getAllDice()[1]);
-
+        if(button.equals(die2)){
+            highlightGreenPossibleMoves();
+        }
+        else if(button.equals(die3)){
+            highlightBluePossibleMoves();
+        }
 
         // Add the selection class to the new button
         selectedButton.getStyleClass().add("selected-button");
@@ -229,13 +236,14 @@ public class controller extends CLIGameController {
 
     
 
-    private void highlightGreenPossibleMoves(Dice d){
+    private void highlightGreenPossibleMoves(){
 
-            Move[] moves = getPossibleMovesForADie(getActivePlayer(), d);
             // for(int i = 0; i < moves.length;i++){
             //     nums[i] = moves[i].getDice().getValue();
             // } 
             int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
+            Move[] moves = getPossibleMovesForADie(getActivePlayer(), new GreenDice(h));
+            if(moves.length>0){
             switch(h){
                 case 2:
                     Green2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
@@ -269,9 +277,9 @@ public class controller extends CLIGameController {
                     break;
                     case 12:
                     Green12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    
+                    break;   
             }
+        }
     }
 
     public void attackGreen2(ActionEvent event){
@@ -346,7 +354,7 @@ public class controller extends CLIGameController {
     @FXML
     private Button Blue11;
 
-    private void highlightBluePossibleMoves(ActionEvent event){
+    private void highlightBluePossibleMoves(){
         int i = getActivePlayer().getScoreSheet().getHydra().headsKilled();
         int value = Integer.parseInt(die3.getText());
         Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(value));
@@ -390,69 +398,80 @@ public class controller extends CLIGameController {
     }
 
     public void attackBlue1(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(1));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue1.setText("X");
         }
      }
      public void attackBlue2(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(2));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue2.setText("X");
         }
      }
      public void attackBlue3(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(3));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue3.setText("X");
         }
      }
      public void attackBlue4(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(4));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue4.setText("X");
         }
      }
      public void attackBlue5(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(5));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue5.setText("X");
         }
      }
      public void attackBlue6(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(1));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue6.setText("X");
         }
      }
      public void attackBlue7(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(2));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue7.setText("X");
         }
      }
      public void attackBlue8(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(3));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue8.setText("X");
         }
      }
      public void attackBlue9(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(4));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue9.setText("X");
         }
      }
      public void attackBlue10(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(5));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue10.setText("X");
         }
      }
      public void attackBlue11(ActionEvent event){   
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(6));
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
         if(m.length>0){
-            makeMove(getActivePlayer(), new Move(new BlueDice(1),getActivePlayer().getScoreSheet().getHydra()));
+            makeMove(getActivePlayer(), new Move(new BlueDice(6),getActivePlayer().getScoreSheet().getHydra()));
+            Blue11.setText("X");
         }
      }
 

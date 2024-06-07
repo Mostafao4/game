@@ -2209,7 +2209,7 @@
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="die3" alignment="CENTER" mnemonicParsing="false" onAction="#highlightBluePossibleMoves" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: Blue;" text="0" textAlignment="CENTER" GridPane.columnIndex="2">
+            <Button fx:id="die3" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: Blue;" text="0" textAlignment="CENTER" GridPane.columnIndex="2">
                <font>
                   <Font size="24.0" />
                </font>
