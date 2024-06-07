@@ -99,6 +99,7 @@ public class CLIGameController extends GameController {
         boolean bool = possibleMovesForArrayOfDice(getActivePlayer(), getAvailableDice()); 
         if(!bool){
             System.out.println("No possible moves for available dice");
+            endTurn(); //TODO: remove this line
             return null;
         }
         int i=(int)(Math.random()*getAvailableDice().length);
@@ -125,8 +126,11 @@ public class CLIGameController extends GameController {
                     if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
                         i=r; 
                     else
-                        if((g!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[g]).length>0))
-                            i=g; 
+                        if((w!=-1) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
+                            i=w;
+                        else
+                            if((g!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[g]).length>0))
+                                i=g; 
                             else
                                 if((w!=-1) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
                             i=w;
@@ -139,52 +143,67 @@ public class CLIGameController extends GameController {
             else
             if(getGameStatus().getTurn()==2 && c>=2){
                 if((y!=-1) && (getAvailableDice()[y].getValue()==6) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[y]).length>0))
-                    i=y;  
+                i=y;  
+            else
+                if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
+                    i=r; 
                 else
-                    if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
-                        i=r; 
+                    if((w!=-1) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
+                        i=w;
                     else
                         if((g!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[g]).length>0))
                             i=g; 
+                        else
+                            if((w!=-1) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
+                        i=w;
                             else
-                                if((w!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
-                            i=w;
+                                if((m!=-1) && (getAvailableDice()[m].getValue()==6) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[m]).length>0))
+                                    i=m; 
                                 else
-                                    if((m!=-1) && (getAvailableDice()[m].getValue()==6) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[m]).length>0))
-                                        i=m; 
-                                    else
-                                        i=(int)(Math.random()*getAvailableDice().length);
+                                    i=(int)(Math.random()*getAvailableDice().length);
              }
             else
             if(getGameStatus().getTurn()==3 && c>=1){
                 if((y!=-1) && (getAvailableDice()[y].getValue()==6) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[y]).length>0))
-                    i=y;  
+                i=y;  
+            else
+                if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
+                    i=r; 
                 else
-                    if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
-                        i=r; 
+                    if((w!=-1) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
+                        i=w;
                     else
                         if((g!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[g]).length>0))
                             i=g; 
+                        else
+                            if((w!=-1) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
+                        i=w;
                             else
-                                if((w!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
-                            i=w;
+                                if((m!=-1) && (getAvailableDice()[m].getValue()==6) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[m]).length>0))
+                                    i=m; 
                                 else
-                                    if((m!=-1) && (getAvailableDice()[m].getValue()==6) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[m]).length>0))
-                                        i=m; 
-                                    else
-                                        i=(int)(Math.random()*getAvailableDice().length);                    
+                                    i=(int)(Math.random()*getAvailableDice().length);                
        }
        else 
-       if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
+       if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0) && getAvailableDice()[r].getValue()<=3 && getGameStatus().getTurn()==1)
             i=r; 
-        else
-            if((g!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[g]).length>0))
-                i=g; 
             else
-                if((w!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
-                    i=w;
+            if((w!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0)&& getAvailableDice()[w].getValue()<=3 && getGameStatus().getTurn()==1)
+                i=w;
+            else
+            if((g!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[g]).length>0)&& getAvailableDice()[g].getValue()<=3&& getGameStatus().getTurn()==1)
+                i=g; 
+           else
+                if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
+                    i=r; 
                 else
-                    i=(int)(Math.random()*getAvailableDice().length); 
+                    if((w!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
+                         i=w;
+                    else
+                        if((g!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[g]).length>0))
+                            i=g; 
+                        else
+                            i=(int)(Math.random()*getAvailableDice().length); 
                  }             // else{
                 //     if(getAvailableDice().length>1){
                 //         boolean flag=true;
@@ -949,8 +968,10 @@ public class CLIGameController extends GameController {
         System.out.println(getGameBoard().getPlayer2().getPlayerName()+" scored "+score2+" points and collected "+getGameBoard().getPlayer2().getGameScore().getElementalCrest().length+" Elemental Crests");
         if (score1 > score2)
             System.out.println(getGameBoard().getPlayer1().getPlayerName() + " has won the game!");
-        else
+        else if(score2 > score1)
             System.out.println(getGameBoard().getPlayer2().getPlayerName() + " has won the game!");
+        else
+            System.out.println("It's a draw!");
     }
 
 //      || GAME LOOP ||
@@ -973,17 +994,22 @@ public class CLIGameController extends GameController {
             if(getActivePlayer().getPlayerType().equals("human")){
                  i = takeNumberInput();
             }
-            else{ if(getAvailableDice().length>=4){
-                boolean flag=false;
-                for(int j=0;j<getAvailableDice().length;j++){
-                    if(getAvailableDice()[j].getValue()>=3){
-                        flag=true;
-                    }
-                }
-                if (flag)
-                    i=0;
-                else
-                    i=1;    }
+            else{ 
+                // if(getAvailableDice().length>=0){
+                // boolean flag=false;
+                // for(int j=0;j<getAvailableDice().length;j++){
+                //     if(getAvailableDice()[j].getValue()>=2){
+                //         flag=true;
+                //     }
+                // }
+                // if (flag)
+                //     i=0;
+                // else
+                //     i=1;    
+                // }
+                    i = 0;
+                    if(getPossibleMovesForAvailableDice(getActivePlayer()).length == 0)
+                        i = 1;
                     System.out.println(i);
             }
             while(i!=0 && i!=1){
