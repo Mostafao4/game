@@ -1605,7 +1605,7 @@ For each package, add the skeleton details for the class and duplicate as much a
     - **Return Type**: `void` does not return
 
 6. `void highlightBluePossibleMoves()`
-    - **Description**: Highlights possible moves in the green realm in gui.
+    - **Description**: Highlights possible moves in the blue realm in gui.
     - **Return Type**: `void` does not return
 
 
