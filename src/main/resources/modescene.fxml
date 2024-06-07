@@ -23,7 +23,7 @@
             <Image url="@wizards.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="multiplayer" alignment="CENTER" layoutX="391.0" layoutY="264.0" mnemonicParsing="false" onAction="#switchToScene3" style="-fx-background-color: black;" text="Multiplayer" textFill="WHITE">
+      <Button fx:id="multiplayer" alignment="CENTER" layoutX="391.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleMultiplayerButtonAction" style="-fx-background-color: black;" text="Multiplayer" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
