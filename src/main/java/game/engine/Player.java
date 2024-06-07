@@ -36,5 +36,5 @@ public interface Player {
 
     public ScoreSheet getScoreSheet() ;
     public String getPlayerType();
-    public int [] chooseDieNum(Dice[] arrayOfDice );
+
 }

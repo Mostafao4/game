@@ -4,6 +4,7 @@ import game.collectibles.ElementalCrest;
 import game.collectibles.TimeWarp;
 import game.dice.BlueDice;
 import game.dice.Dice;
+import game.dice.GreenDice;
 import game.engine.Move;
 import game.collectibles.Reward;
 
@@ -374,9 +375,17 @@ private Move[] removeNullsAndFill(Move[] moves) {
 
 
     public Move[] getPossibleMovesForADie(Dice dice){
-            Move[] moves = new Move[1];
-            moves[0] = new Move(dice,this);
-            return moves;
+            // Move[] moves = new Move[1];
+            // moves[0] = new Move(dice,this);
+            // return moves;
+            int val = dice.getValue();
+            Move[] moves = getAllPossibleMoves();
+            for(Move m : moves){
+                if(m.getDice().getValue() == val){
+                    return new Move[]{new Move(new BlueDice(val), this)};
+                }
+            }
+            return new Move[0];
         }
 
 
