@@ -9,6 +9,7 @@ public class GameStatus {
     public GameStatus() {
         round = 1;
         turn = 1;
+        status = true;
     }
 
     @Override

@@ -183,13 +183,13 @@ public void editReward(){
         }
         else{
             moves = new Move[6-attack[count-1]];
-            for(int i=attack[count-1];i<=6;i++){
-                moves[i] = new Move(new MagentaDice(i),this);
+            int j = 0;
+            for(int i=attack[count-1]+1;i<=6;i++){
+                moves[j++] = new Move(new MagentaDice(i),this);
             }
         }
         return moves;
     }
-///////Done
 
     public Move[] getPossibleMovesForADie (Dice dice){
         if(count==0){

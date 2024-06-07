@@ -25,19 +25,4 @@ public class MainmenuController {
     public void exitGame(ActionEvent event) {
         System.exit(0);
     }
-       
-
-    
-        
-    
-
-
-
-    // private void switchScene(ActionEvent event, String fxmlFile) throws IOException {
-    //     Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
-    //     Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-    //     Scene scene = new Scene(root);
-    //     stage.setScene(scene);
-    //     stage.show();
-    // }
 }

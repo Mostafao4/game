@@ -30,6 +30,7 @@ public class controller extends CLIGameController {
 
 
 //buttons
+
     @FXML
     private Button F1, F2, F3, W1, W2, W4, T1, T3, T4, H2, H3, H4, f1,f2,f3,w1,w2,w4,t1,t3,t4,h2,h3,h4;
     @FXML
@@ -57,6 +58,7 @@ public class controller extends CLIGameController {
             }
             getButtons()[i].setText(""+getAllDice()[i].getValue());
             getButtons()[i].getStyleClass().remove("selected-button");
+
         }
         for(Button button : new Button[]{F1, F2, F3, W1, W2, W4, T1, T3, T4, H2, H3, H4}) {
             button.setStyle("");
