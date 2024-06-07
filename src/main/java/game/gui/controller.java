@@ -188,22 +188,75 @@ public class controller extends CLIGameController {
     private Button die6;
 
     private Button selectedButton = null;
+    @FXML
+    private ImageView button1Icon;
+    @FXML
+    private ImageView button2Icon;
+    @FXML
+    private ImageView button3Icon;
+    @FXML
+    private ImageView button4Icon;
+    @FXML
+    private ImageView button5Icon;
+    @FXML
+    private ImageView button6Icon;
 
-    private final Image[][] diceImages = new Image[6][6]; // 6 types, 6 values each
-    private final ImageView[] diceViews = new ImageView[6]; // Assuming 6 dice views
+    private  Image[][] diceImages = new Image[6][6]; // 6 types, 6 values each
+
+
+    private  ImageView[][] diceViews = new ImageView[6][6]; // Assuming 6 dice views
+    @FXML
+    public void initialize() {
+        // Load dice images
+        for (int type = 0; type < 6; type++) {
+            for (int value = 0; value < 6; value++) {
+                String imagePath = String.format("/type%dvalue%d.png", type + 1, value + 1);
+                diceImages[type][value] = new Image(getClass().getResourceAsStream(imagePath));
+            }
+        }
+
+        // Initialize ImageViews and add to diceBox
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                diceViews[i][j] = new ImageView(diceImages[i][j]);
+                diceViews[i][j].setFitHeight(83.33);
+                diceViews[i][j].setFitWidth(120);
+                diceImages[i][j] = diceViews[i][j].getImage();
+
+            }
+        }
+        int [] newValue = new int[6];
+        button1Icon.setImage(diceImages[0][newValue[0]]);
+        button2Icon.setImage(diceImages[1][newValue[0]]);
+        button3Icon.setImage(diceImages[2][newValue[0]]);
+        button4Icon.setImage(diceImages[3][newValue[0]]);
+        button5Icon.setImage(diceImages[4][newValue[0]]);
+        button6Icon.setImage(diceImages[5][newValue[0]]);
+
+        // Set roll button action
+        rollButton.setOnAction(e -> roll());
+    }
 
     // Method to change the text of buttons randomly
     public void roll() {
         Random random = new Random();
-        int counter = 0;
+        int i = 0;
+        int [] newValue = new int[6];
         // Iterate over your buttons and assign random values to them
         for (Button button : getButtons()) {
-            int newValue = random.nextInt(6) + 1; // Random value between 1 and 6
-            button.setText(String.valueOf(newValue));
+            newValue[i] = random.nextInt(6) + 1; // Random value between 1 and 6
+            button.setText(String.valueOf(newValue[i]));
             button.setDisable(false);
             button.getStyleClass().remove("selected-button");
-            counter++;
+            i++;
         }
+        button1Icon.setImage(diceImages[0][newValue[0]-1]);
+        button2Icon.setImage(diceImages[1][newValue[1]-1]);
+        button3Icon.setImage(diceImages[2][newValue[2]-1]);
+        button4Icon.setImage(diceImages[3][newValue[3]-1]);
+        button5Icon.setImage(diceImages[4][newValue[4]-1]);
+        button6Icon.setImage(diceImages[5][newValue[5]-1]);
+
         for(Button button : new Button[]{Green2,Green3,Green4,Green5,Green6,Green7,Green8,Green9,Green10,Green11,Green12}){
             button.setStyle("");;
         }

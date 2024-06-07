@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -9,7 +8,7 @@
 
 <AnchorPane accessibleRole="TABLE_VIEW" cache="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.controller">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" layoutX="-7.0" layoutY="-8.0" pickOnBounds="true">
+      <ImageView fitHeight="1080.0" fitWidth="1935.0" layoutX="-7.0" layoutY="-8.0" pickOnBounds="true">
          <image>
             <Image url="@/Realm.png" />
          </image>
@@ -35,7 +34,7 @@
             </Label>
          </children>
       </Pane>
-      <StackPane layoutX="28.0" layoutY="110.0" prefHeight="268.0" prefWidth="315.0">
+      <StackPane layoutX="7.0" layoutY="110.0" prefHeight="268.0" prefWidth="315.0">
          <children>
             <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true">
                <image>
@@ -230,7 +229,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <StackPane layoutX="1219.0" layoutY="110.0" prefHeight="268.0" prefWidth="330.0">
+      <StackPane layoutX="1249.0" layoutY="110.0" prefHeight="268.0" prefWidth="330.0">
          <children>
             <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true">
                <image>
@@ -440,7 +439,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <StackPane layoutX="1568.0" layoutY="110.0" prefHeight="268.0" prefWidth="315.0">
+      <StackPane layoutX="1598.0" layoutY="110.0" prefHeight="268.0" prefWidth="315.0">
          <children>
             <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true">
                <image>
@@ -649,7 +648,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <StackPane layoutX="360.0" layoutY="110.0" prefHeight="268.0" prefWidth="330.0">
+      <StackPane layoutX="341.0" layoutY="110.0" prefHeight="268.0" prefWidth="330.0">
          <children>
             <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true">
                <image>
@@ -840,7 +839,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <StackPane layoutX="1219.0" layoutY="389.0" prefHeight="200.0" prefWidth="664.0">
+      <StackPane layoutX="1249.0" layoutY="389.0" prefHeight="200.0" prefWidth="664.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="219.0" pickOnBounds="true">
                <image>
@@ -1089,7 +1088,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <StackPane layoutX="1219.0" layoutY="607.0" prefHeight="179.0" prefWidth="664.0">
+      <StackPane layoutX="1249.0" layoutY="599.0" prefHeight="179.0" prefWidth="664.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true">
                <image>
@@ -1293,7 +1292,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <StackPane layoutX="28.0" layoutY="798.0" prefHeight="179.0" prefWidth="664.0">
+      <StackPane layoutX="7.0" layoutY="786.0" prefHeight="179.0" prefWidth="664.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true">
                <image>
@@ -1439,7 +1438,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <StackPane layoutX="26.0" layoutY="389.0" prefHeight="200.0" prefWidth="664.0">
+      <StackPane layoutX="7.0" layoutY="389.0" prefHeight="200.0" prefWidth="664.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true">
                <image>
@@ -1688,7 +1687,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <StackPane layoutX="28.0" layoutY="607.0" prefHeight="179.0" prefWidth="664.0">
+      <StackPane layoutX="9.0" layoutY="599.0" prefHeight="179.0" prefWidth="664.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true">
                <image>
@@ -1878,7 +1877,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <StackPane layoutX="1217.0" layoutY="798.0" prefHeight="191.0" prefWidth="664.0">
+      <StackPane layoutX="1247.0" layoutY="786.0" prefHeight="191.0" prefWidth="664.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true">
                <image>
@@ -2122,8 +2121,8 @@
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R5" GridPane.columnIndex="5" />
          </children>
       </GridPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="605.0" layoutX="705.0" layoutY="296.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="605.0" layoutX="1185.0" layoutY="304.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="605.0" layoutX="683.0" layoutY="297.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="605.0" layoutX="1217.0" layoutY="297.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
       <GridPane gridLinesVisible="true" layoutX="806.0" layoutY="901.0" prefHeight="81.0" prefWidth="295.0" style="-fx-background-color: white;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -2172,7 +2171,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <GridPane layoutX="784.0" layoutY="510.0" prefHeight="61.0" prefWidth="353.0">
+      <GridPane alignment="CENTER" layoutX="710.0" layoutY="472.0" nodeOrientation="INHERIT" prefHeight="75.0" prefWidth="500.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -2185,44 +2184,63 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="die1" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: red;" text="0" textAlignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <padding>
-                  <Insets right="5.0" />
-               </padding>
+            <AnchorPane prefHeight="200.0" prefWidth="187.0">
+               <children>
+                  <Button fx:id="die1" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="18.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="51.0" prefWidth="45.0" style="-fx-background-color: transparent;" textAlignment="CENTER" />
+               </children></AnchorPane>
+            <ImageView fx:id="button1Icon" fitHeight="75.0" fitWidth="83.33" pickOnBounds="true">
+               <image>
+                  <Image url="@type1value1.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="die2" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleButtonPress" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+               <graphic>
+                  <ImageView fx:id="button2Icon" fitHeight="75.0" fitWidth="83.33" pickOnBounds="true">
+                     <image>
+                        <Image url="@type2value1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="die2" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: Green;" text="0" textAlignment="CENTER" GridPane.columnIndex="1">
-               <font>
-                  <Font size="24.0" />
-               </font>
+            <Button fx:id="die3" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleButtonPress" style="-fx-background-color: transparent;" GridPane.columnIndex="2">
+               <graphic>
+                  <ImageView fx:id="button3Icon" fitHeight="75.0" fitWidth="83.33" pickOnBounds="true">
+                     <image>
+                        <Image url="@type3value1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="die3" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: Blue;" text="0" textAlignment="CENTER" GridPane.columnIndex="2">
-               <font>
-                  <Font size="24.0" />
-               </font>
+            <Button fx:id="die4" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleButtonPress" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
+               <graphic>
+                  <ImageView fx:id="button4Icon" fitHeight="75.0" fitWidth="83.33" pickOnBounds="true">
+                     <image>
+                        <Image url="@type4value1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="die4" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: Magenta;" text="0" textAlignment="CENTER" GridPane.columnIndex="3">
-               <font>
-                  <Font size="24.0" />
-               </font>
+            <Button fx:id="die5" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleButtonPress" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
+               <graphic>
+                  <ImageView fx:id="button5Icon" fitHeight="75.0" fitWidth="83.33" pickOnBounds="true">
+                     <image>
+                        <Image url="@type5value1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="die5" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: yellow;" text="0" textAlignment="CENTER" GridPane.columnIndex="4">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Button>
-            <Button fx:id="die6" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="50.0" prefWidth="50.0" text="0" textAlignment="CENTER" GridPane.columnIndex="5">
-               <font>
-                  <Font size="24.0" />
-               </font>
+            <Button fx:id="die6" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleButtonPress" style="-fx-background-color: transparent;" GridPane.columnIndex="5">
+               <graphic>
+                  <ImageView fx:id="button6Icon" fitHeight="75.0" fitWidth="83.33" pickOnBounds="true">
+                     <image>
+                        <Image url="@type6value1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </GridPane>
+
       <Label fx:id="player1Label" alignment="CENTER" layoutX="28.0" layoutY="23.0" prefHeight="63.0" prefWidth="664.0" text="Player 1: " textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="36.0" />
