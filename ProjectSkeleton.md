@@ -1608,5 +1608,18 @@ For each package, add the skeleton details for the class and duplicate as much a
     - **Description**: Highlights possible moves in the blue realm in gui.
     - **Return Type**: `void` does not return
 
+### `DiceFace` class
+- **Package**: `game.gui`
+- **Type**: Class
+- **Description**: This class represents the dice faces in the gui.
+- 
+- #### Methods:
+- 
+1. `void updateFace(int value)`
+    - **Description**: Changes the appearance of the dice.
+    - **Parameters**:
+        - `value`: Value of the die.
+    - **Return Type**: `void` does not return
+
 
 
