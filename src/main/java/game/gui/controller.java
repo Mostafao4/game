@@ -51,6 +51,7 @@ public class controller extends CLIGameController {
     public void rollButtons() {
         Random random = new Random();
         rollDice();
+        rollButton.setDisable(true);
         // Iterate over your buttons and assign random values to them
         for (int i=0;i<6;i++) {
             if(getButtons()[i].isDisable()){
@@ -60,20 +61,15 @@ public class controller extends CLIGameController {
             getButtons()[i].getStyleClass().remove("selected-button");
 
         }
-        for(Button button : new Button[]{F1, F2, F3, W1, W2, W4, T1, T3, T4, H2, H3, H4}) {
-            button.setStyle("");
+        for(Button[] buttons : getPLayer1Buttons()){
+            for(Button button : buttons) {
+                button.setStyle("");
+            }
         }
-        for(Button button : new Button[]{Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12}) {
-            button.setStyle("");
-        }
-        for(Button button : new Button[]{Blue1, Blue2, Blue3, Blue4, Blue5, Blue6, Blue7, Blue8, Blue9, Blue10, Blue11}) {
-            button.setStyle("");
-        }
-        for(Button button : new Button[]{Magenta1, Magenta2, Magenta3, Magenta4, Magenta5, Magenta6, Magenta7, Magenta8, Magenta9, Magenta10, Magenta11}) {
-            button.setStyle("");
-        }
-        for(Button button : new Button[]{Yellow1, Yellow2, Yellow3, Yellow4, Yellow5, Yellow6, Yellow7, Yellow8, Yellow9, Yellow10, Yellow11}) {
-            button.setStyle("");
+        for(Button[] buttons : getPLayer2Buttons()){
+            for(Button button : buttons) {
+                button.setStyle("");
+            }
         }
         selectedButton = null;
     }
@@ -118,7 +114,6 @@ public class controller extends CLIGameController {
         }
         enablePlayer1();
         for(Button b:getButtons()){
-            b.setDisable(false);
             rollButton.setDisable(false);
         }
         for(Button b : getForgottenRealmButtons()){
@@ -127,23 +122,27 @@ public class controller extends CLIGameController {
 
 
     }
-    public void gameLoop(){
-        while (getGameStatus().getRound() <= 6) {
-            while(getGameStatus().getPartOfRound()<2) {
-                if(getGameStatus().getRound() == 7)
-                    break;
-                while (getGameStatus().getTurn() <= 3 && thereAreAvailableDice()) {
-
-                    rollButtons();
-                    //timeWarpPrompt();
-                }
-
-                endTurn();
-            }
-        }
-        endGame();
-    }
+//    public void gameLoop(){
+//        while (getGameStatus().getRound() <= 6) {
+//            while(getGameStatus().getPartOfRound()<2) {
+//                if(getGameStatus().getRound() == 7)
+//                    break;
+//                while (getGameStatus().getTurn() <= 3 && thereAreAvailableDice()) {
+//
+//                    rollButtons();
+//                    //timeWarpPrompt();
+//                }
+//
+//                endTurn();
+//            }
+//        }
+//        endGame();
+//    }
     public void startTurn(){
+        for(Button b : getButtons()){
+            b.setDisable(false);
+            b.setVisible(true);
+        }
         rollDice();
     }
 
@@ -171,10 +170,6 @@ public class controller extends CLIGameController {
             player1Turn.setText("--");
             player2Turn.setText(""+getGameStatus().getTurn());
         }
-
-
-
-
         if(getGameStatus().getTurn()==4) {
             gameStat.setText(getPassivePlayer().getPlayerName() + ": Choose a die from the forgotten realm");
             for (Button button : getButtons()) {
@@ -186,6 +181,7 @@ public class controller extends CLIGameController {
                 getForgottenRealmButtons()[j].setDisable(false);
             }
         }
+        rollButton.setDisable(false);
     }
 
 
@@ -194,7 +190,24 @@ public class controller extends CLIGameController {
 
     @FXML
     private void handleButtonPress(javafx.event.ActionEvent event) {
-        Button button = (Button) event.getSource(); // Get the button that was pressed
+        Button button = (Button) event.getSource();
+        for(Button[] buttons : getPLayer1Buttons()){
+            for(Button b : buttons) {
+                b.setStyle("");
+            }
+        }
+        for(Button[] buttons : getPLayer2Buttons()){
+            for(Button b : buttons) {
+                b.setStyle("");
+            }
+        }
+        for(Button b : getButtons()){
+            if(button.equals(b)) {
+                continue;
+            }
+            button.setDisable(true);
+        }
+        // Get the button that was pressed
         if (selectedButton != null) {
             selectedButton.setDisable(false); // Re-enable previously selected button
             // Remove the selection class from the previously selected button
@@ -500,17 +513,15 @@ public class controller extends CLIGameController {
                 }
             }
         die1.setDisable(true);
-        forgottenRealm1.setText(die1.getText());
         for (int h=0;h<6;h++) {
             if(Integer.parseInt(getButtons()[h].getText()) < i) {
-                getButtons()[h].setDisable(true);
-                getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText())+"");
+                getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
                 getForgottenRealmButtons()[h].setVisible(true);
                 getButtons()[h].setVisible(false);
             }
+            getButtons()[h].setDisable(true);
         }
         die1.setVisible(false);
-        forgottenRealm1.setVisible(true);
         addTurn(1);
         }
     public void attackGreen1(ActionEvent event){
@@ -577,17 +588,16 @@ public class controller extends CLIGameController {
                 }
             }
         }
-        forgottenRealm2.setText(die2.getText());
+        die2.setDisable(true);
         for (int r=0;r<6;r++) {
-            if(Integer.parseInt(getButtons()[r].getText()) < i) {
-                getButtons()[r].setDisable(true);
-                getForgottenRealmButtons()[r].setText(Integer.parseInt(getButtons()[r].getText())+"");
+            if(Integer.parseInt(getButtons()[r].getText()) < Integer.parseInt(die2.getText())) {
+                getForgottenRealmButtons()[r].setText(getButtons()[r].getText());
                 getForgottenRealmButtons()[r].setVisible(true);
                 getButtons()[r].setVisible(false);
             }
+            getButtons()[r].setDisable(true);
         }
         die2.setVisible(false);
-        forgottenRealm2.setVisible(true);
         addTurn(2);
 
     }
@@ -641,17 +651,15 @@ public class controller extends CLIGameController {
                 Blue11.setText("X");
             }
         }
-        forgottenRealm3.setText(die3.getText());
         for (int h=0;h<6;h++) {
-            if(Integer.parseInt(getButtons()[h].getText()) < i) {
-                getButtons()[h].setDisable(true);
-                getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText())+"");
+            if (Integer.parseInt(getButtons()[h].getText()) < i) {
+                getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText()) + "");
                 getForgottenRealmButtons()[h].setVisible(true);
                 getButtons()[h].setVisible(false);
             }
+            getButtons()[h].setDisable(true);
         }
         die3.setVisible(false);
-        forgottenRealm3.setVisible(true);
         addTurn(3);
     }
     public void attackMagenta1(ActionEvent event){
@@ -704,81 +712,68 @@ public class controller extends CLIGameController {
                 Magenta11.setText(""+i);
             }
         }
-        forgottenRealm4.setText(die4.getText());
         for (int h=0;h<6;h++) {
-            if(Integer.parseInt(getButtons()[h].getText()) < i) {
-                getButtons()[h].setDisable(true);
-                getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText())+"");
+            if (Integer.parseInt(getButtons()[h].getText()) < i) {
+                getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
                 getForgottenRealmButtons()[h].setVisible(true);
                 getButtons()[h].setVisible(false);
             }
+            getButtons()[h].setDisable(true);
         }
         die4.setVisible(false);
-        forgottenRealm4.setVisible(true);
         addTurn(4);
 
     }
-    public void attackYellow1(ActionEvent event){
+    public void attackYellow1(ActionEvent event) {
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die5.getText());
         Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(i));
-        if(m.length>0){
-            if(button.equals(Yellow1)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow1.setText(""+i);
-            }
-            else if(button.equals(Yellow2)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow2.setText(""+i);
-            }
-            else if(button.equals(Yellow3)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow3.setText(""+i);
-            }
-            else if(button.equals(Yellow4)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow4.setText(""+i*2);
-            }
-            else if(button.equals(Yellow5)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow5.setText(""+i);
-            }
-            else if(button.equals(Yellow6)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow6.setText(""+i);
-            }
-            else if(button.equals(Yellow7)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow7.setText(""+i*2);
-            }
-            else if(button.equals(Yellow8)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow8.setText(""+i);
-            }
-            else if(button.equals(Yellow9)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow9.setText(""+i*2);
-            }
-            else if(button.equals(Yellow10)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow10.setText(""+i);
-            }
-            else if(button.equals(Yellow11)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i),getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow11.setText(""+i*3);
+        if (m.length > 0) {
+            if (button.equals(Yellow1)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow1.setText("" + i);
+            } else if (button.equals(Yellow2)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow2.setText("" + i);
+            } else if (button.equals(Yellow3)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow3.setText("" + i);
+            } else if (button.equals(Yellow4)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow4.setText("" + i * 2);
+            } else if (button.equals(Yellow5)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow5.setText("" + i);
+            } else if (button.equals(Yellow6)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow6.setText("" + i);
+            } else if (button.equals(Yellow7)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow7.setText("" + i * 2);
+            } else if (button.equals(Yellow8)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow8.setText("" + i);
+            } else if (button.equals(Yellow9)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow9.setText("" + i * 2);
+            } else if (button.equals(Yellow10)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow10.setText("" + i);
+            } else if (button.equals(Yellow11)) {
+                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
+                Yellow11.setText("" + i * 3);
             }
         }
         forgottenRealm5.setText(die5.getText());
-        for (int h=0;h<6;h++) {
-            if(Integer.parseInt(getButtons()[h].getText()) < i) {
-                getButtons()[h].setDisable(true);
-                getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText())+"");
+        for (int h = 0; h < 6; h++) {
+            if (Integer.parseInt(getButtons()[h].getText()) < i) {
+                getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
                 getForgottenRealmButtons()[h].setVisible(true);
                 getButtons()[h].setVisible(false);
             }
+            getButtons()[h].setDisable(true);
         }
         die5.setVisible(false);
-        forgottenRealm5.setVisible(true);
         addTurn(5);
 
     }
@@ -1299,7 +1294,14 @@ public class controller extends CLIGameController {
             }
         }
     }
-   
+//    @FXML
+//    private Label  player1Label;
+//    @FXML
+//    private Label player2Label;
+//    public void setPlayerNames(String player1, String player2){
+//        player1Label.setText("Player 1: "+player1);
+//        player2Label.setText("Player 2: "+player2);
+//    }
  }
 
 
