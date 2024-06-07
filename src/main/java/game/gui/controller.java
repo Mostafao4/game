@@ -30,251 +30,27 @@ import game.engine.Move;
 
 
 public class controller extends CLIGameController {
-//     private final Random random = new Random();
-//     private final DiceFace[] diceFaces = new DiceFace[6];
-//     private int turnCounter = 1;
 
 
+//buttons
+    @FXML
+    private Button F1, F2, F3, W1, W2, W4, T1, T3, T4, H2, H3, H4;
+    @FXML
+    private Button Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12;
+    @FXML
+    private Button Blue1, Blue2, Blue3, Blue4, Blue5, Blue6, Blue7, Blue8, Blue9, Blue10, Blue11;
+    @FXML
+    private Button Magenta1, Magenta2, Magenta3, Magenta4, Magenta5, Magenta6, Magenta7, Magenta8, Magenta9, Magenta10, Magenta11;
+    @FXML
+    private Button Yellow1, Yellow2, Yellow3, Yellow4, Yellow5, Yellow6, Yellow7, Yellow8, Yellow9, Yellow10, Yellow11;
+    @FXML
+    private Button rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null;
 
-//     // @FXML
-//     // private Button rollButton;
-//     // @FXML
-//     // private void rollDice(ActionEvent event){
-//     //     CliGameController.rollDice();
-//     // }
-
-//     // @FXML
-//     // private void handlePlayButtonAction() {
-//     //     // Call methods on the game controller when the play button is clicked
-//     //     if (CliGameController != null) {
-//     //         CliGameController.startGame();
-//     //     }
-//     // }
-
-
-//     @FXML
-//     private Label player1turn;
-//     private int currentTurn = 1;
-//     @FXML
-//     private Button rollButton;
-//     @FXML
-//     private HBox diceBox;
-//     private DiceFace selectedDiceFace = null;
-//     private Dice[] dice = new Dice[]{new RedDice(0), new GreenDice(0), new BlueDice(0), new MagentaDice(0), new YellowDice(0), new ArcanePrism(0)};
-    
-    
-//     @FXML
-//     public void initialize() {
-        
-//         for (int i = 0; i < dice.length; i++) {
-//             diceFaces[i] = new DiceFace(dice[i].getValue(), getColor(i));
-//             diceBox.getChildren().add(diceFaces[i]);
-//         }
-//     }
-    
-
-//     @FXML
-//     private void handleRollButtonClick() {
-//         rollDice();
-//         // incrementTurn();
-//         // updateTurnLabel();
-//     }
-
-//     public Dice[] rollDice() {
-//         for (int i = 0; i < dice.length; i++) {
-//             dice[i].roll();
-//             diceFaces[i].updateFace(dice[i].getValue());
-//         }
-//         return null;
-//     }
-
-//     private Color getColor(int index) {
-//         Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA, Color.YELLOW, Color.WHITE};
-//         return colors[index % colors.length];
-//     }
-    
-
-//     private void handleDiceSelection(DiceFace selectedDice) {
-//         if (selectedDiceFace != null) {
-//             selectedDiceFace.deselect();
-//         }
-//         selectedDiceFace = selectedDice;
-//         selectedDiceFace.select();
-//     }
-
-
-//     // private void incrementTurn() {
-//     //     currentTurn++;  // Increment the turn counter
-//     // }
-
-//     // private void updateTurnLabel() {
-//     //     player1turn.setText("Turn: " + currentTurn);
-//     // }
-
-
-
-
-
-//   //Scoresheets 
-  
-  
-@FXML
-    private Button F1;
-    @FXML
-    private Button F2; 
-    @FXML  
-    private Button F3;
-    @FXML
-    private Button W1;
-    @FXML
-    private Button W2;
-    @FXML
-    private Button W4;
-    @FXML
-    private Button T1;
-    @FXML
-    private Button T3;
-    @FXML
-    private Button T4;
-    @FXML
-    private Button H2;
-    @FXML
-    private Button H3;
-    @FXML
-    private Button H4;
-
-
-    @FXML
-    private Button Green2;
-    @FXML
-    private Button Green3; 
-    @FXML  
-    private Button Green4;
-    @FXML
-    private Button Green5;
-    @FXML
-    private Button Green6;
-    @FXML
-    private Button Green7;
-    @FXML
-    private Button Green8;
-    @FXML
-    private Button Green9;
-    @FXML
-    private Button Green10;
-    @FXML
-    private Button Green11;
-    @FXML
-    private Button Green12;
-
-    @FXML
-    private Button Blue1;
-    @FXML
-    private Button Blue2; 
-    @FXML  
-    private Button Blue3;
-    @FXML
-    private Button Blue4;
-    @FXML
-    private Button Blue5;
-    @FXML
-    private Button Blue6;
-    @FXML
-    private Button Blue7;
-    @FXML
-    private Button Blue8;
-    @FXML
-    private Button Blue9;
-    @FXML
-    private Button Blue10;
-    @FXML
-    private Button Blue11;
-
-    @FXML
-    private Button Magenta1;
-    @FXML
-    private Button Magenta2; 
-    @FXML  
-    private Button Magenta3;
-    @FXML
-    private Button Magenta4;
-    @FXML
-    private Button Magenta5;
-    @FXML
-    private Button Magenta6;
-    @FXML
-    private Button Magenta7;
-    @FXML
-    private Button Magenta8;
-    @FXML
-    private Button Magenta9;
-    @FXML
-    private Button Magenta10;
-    @FXML
-    private Button Magenta11;
-
-    @FXML
-    private Button Yellow1;
-    @FXML
-    private Button Yellow2; 
-    @FXML  
-    private Button Yellow3;
-    @FXML
-    private Button Yellow4;
-    @FXML
-    private Button Yellow5;
-    @FXML
-    private Button Yellow6;
-    @FXML
-    private Button Yellow7;
-    @FXML
-    private Button Yellow8;
-    @FXML
-    private Button Yellow9;
-    @FXML
-    private Button Yellow10;
-    @FXML
-    private Button Yellow11;
-
-    @FXML
-    private Button rollButton;    
-    @FXML
-    private Button die1;
-    @FXML
-    private Button die2;
-    @FXML
-    private Button die3;
-    @FXML
-    private Button die4;
-    @FXML
-    private Button die5;
-    @FXML
-    private Button die6;
-
-    private Button selectedButton = null;
-    
-//     private void possibleGreen(){
-//         int[] buttonValues = new int[11];
-//         for(int i = 0; i<GreenButtons.length;i++){
-//             buttonValues[i] = Integer.parseInt(GreenButtons[i].getText());
-//         }
-//         Move[] moves = cli.getPossibleMovesForADie(getActivePlayer(), cli.getAllDice()[1]);
-//         int x = moves[0].getDice().getValue();
-//         for(int j =0;j<buttonValues.length;j++){
-//             if(x == buttonValues[j]){
-//                 GreenButtons[j].setText(String.valueOf(buttonValues[j]));
-//                 Button btn = GreenButtons[j];
-//                 btn.setOnAction(e -> btn.setStyle("-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2;"));
-//             }
-//         }
-//     }
-//     public void highlight(){
-//         possibleGreen();
-//     }
-         
-
-    
-
+    private Button[] redButtons = new Button[]{F1, F2, F3, W1, W2, W4, T1, T3, T4, H2, H3, H4},
+                    greenButtons = new Button[]{Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12},
+                    blueButtons = new Button[]{Blue1, Blue2, Blue3, Blue4, Blue5, Blue6, Blue7, Blue8, Blue9, Blue10, Blue11},
+                    magentaButtons = new Button[]{Magenta1, Magenta2, Magenta3, Magenta4, Magenta5, Magenta6, Magenta7, Magenta8, Magenta9, Magenta10, Magenta11},
+                    yellowButtons = new Button[]{Yellow1, Yellow2, Yellow3, Yellow4, Yellow5, Yellow6, Yellow7, Yellow8, Yellow9, Yellow10, Yellow11};
 
     // Method to change the text of buttons randomly
     public void changeButtonsRandomly() {
@@ -287,21 +63,16 @@ public class controller extends CLIGameController {
             button.setDisable(false);
             button.getStyleClass().remove("selected-button");
         }
-        for(Button button : new Button[]{Green2,Green3,Green4,Green5,Green6,Green7,Green8,Green9,Green10,Green11,Green12}){
+        for(Button button : redButtons)
             button.setStyle("");;
-        }
-        for(Button button : new Button[]{Blue1,Blue2,Blue3,Blue4,Blue5,Blue6,Blue7,Blue8,Blue9,Blue10,Blue11}){
+        for(Button button : greenButtons)
             button.setStyle("");
-        }
-        for(Button button : new Button[]{Magenta1,Magenta2,Magenta3,Magenta4,Magenta5,Magenta6,Magenta7,Magenta8,Magenta9,Magenta10,Magenta11}){
+        for(Button button : blueButtons)
             button.setStyle("");
-        }
-        for(Button button : new Button[]{Yellow1,Yellow2,Yellow3,Yellow4,Yellow5,Yellow6,Yellow7,Yellow8,Yellow9,Yellow10,Yellow11}){
+        for(Button button : magentaButtons)
             button.setStyle("");
-        }
-        for(Button button : new Button[]{F1,F2,F3,W1,W2,W4,T1,T3,T4,H2,H3,H4}){
+        for(Button button : yellowButtons)
             button.setStyle("");
-        }
 
         selectedButton = null;
     }
@@ -309,33 +80,25 @@ public class controller extends CLIGameController {
     @FXML
     private void handleButtonPress(javafx.event.ActionEvent event) {
         Button button = (Button) event.getSource(); // Get the button that was pressed
-
         if (selectedButton != null) {
             selectedButton.setDisable(false); // Re-enable previously selected button
-
             // Remove the selection class from the previously selected button
             selectedButton.getStyleClass().remove("selected-button");
         }
-
         // Select the new button and disable it
         selectedButton = button;
         selectedButton.setDisable(true); // Disable the selected button to prevent further clicks
         //int dieValue = Integer.parseInt(selectedButton.getText());
-        if(button.equals(die1)){
+        if(button.equals(die1))
             highlightRedPossibleMoves();
-        }
-        else if(button.equals(die2)){
+        else if(button.equals(die2))
             highlightGreenPossibleMoves();
-        }
-        else if(button.equals(die3)){
+        else if(button.equals(die3))
             highlightBluePossibleMoves();
-        }
-        else if(button.equals(die4)){
+        else if(button.equals(die4))
             highlightMagentaPossibleMoves();
-        }
-        else if(button.equals(die5)){
+        else if(button.equals(die5))
             highlightYellowPossibleMoves();
-        }
 
         // Add the selection class to the new button
         selectedButton.getStyleClass().add("selected-button");
@@ -355,41 +118,46 @@ public class controller extends CLIGameController {
         int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
         Move[] moves = getPossibleMovesForADie(getActivePlayer(), new GreenDice(h));
         if(moves.length>0){
-        switch(h){
-            case 2:
-                Green2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-                case 3:
-                Green3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-                case 4:
-                Green4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-                case 5:
-                Green5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-                case 6:
-                Green6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-                case 7:
-                Green7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-                case 8:
-                Green8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-                case 9:
-                Green9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-                case 10:
-                Green10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-                case 11:
-                Green11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-                case 12:
-                Green12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;   
-        }
+            for(int i=0;i<greenButtons.length;i++){
+                if(h == i+2){
+                    greenButtons[i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                }
+            }
+//        switch(h){
+//            case 2:
+//                Green2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//                case 3:
+//                Green3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//                case 4:
+//                Green4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//                case 5:
+//                Green5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//                case 6:
+//                Green6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//                case 7:
+//                Green7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//                case 8:
+//                Green8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//                case 9:
+//                Green9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//                case 10:
+//                Green10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//                case 11:
+//                Green11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//                case 12:
+//                Green12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//        }
     }
 }
   
