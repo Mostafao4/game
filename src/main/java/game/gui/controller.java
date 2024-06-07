@@ -118,6 +118,32 @@ public class controller extends CLIGameController {
 //   //Scoresheets 
   
   
+@FXML
+    private Button F1;
+    @FXML
+    private Button F2; 
+    @FXML  
+    private Button F3;
+    @FXML
+    private Button W1;
+    @FXML
+    private Button W2;
+    @FXML
+    private Button W4;
+    @FXML
+    private Button T1;
+    @FXML
+    private Button T3;
+    @FXML
+    private Button T4;
+    @FXML
+    private Button H2;
+    @FXML
+    private Button H3;
+    @FXML
+    private Button H4;
+
+
     @FXML
     private Button Green2;
     @FXML
@@ -140,208 +166,6 @@ public class controller extends CLIGameController {
     private Button Green11;
     @FXML
     private Button Green12;
-    private Button[] GreenButtons = new Button[]{Green2,Green3,Green4,Green5,Green6,Green7,Green8,Green9,Green10,Green11,Green12};
-    
-//     private void possibleGreen(){
-//         int[] buttonValues = new int[11];
-//         for(int i = 0; i<GreenButtons.length;i++){
-//             buttonValues[i] = Integer.parseInt(GreenButtons[i].getText());
-//         }
-//         Move[] moves = cli.getPossibleMovesForADie(getActivePlayer(), cli.getAllDice()[1]);
-//         int x = moves[0].getDice().getValue();
-//         for(int j =0;j<buttonValues.length;j++){
-//             if(x == buttonValues[j]){
-//                 GreenButtons[j].setText(String.valueOf(buttonValues[j]));
-//                 Button btn = GreenButtons[j];
-//                 btn.setOnAction(e -> btn.setStyle("-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2;"));
-//             }
-//         }
-//     }
-//     public void highlight(){
-//         possibleGreen();
-//     }
-         
-
-    @FXML
-    private Button rollButton;    
-    @FXML
-    private Button die1;
-    @FXML
-    private Button die2;
-    @FXML
-    private Button die3;
-    @FXML
-    private Button die4;
-    @FXML
-    private Button die5;
-    @FXML
-    private Button die6;
-
-    private Button selectedButton = null;
-
-
-    // Method to change the text of buttons randomly
-    public void changeButtonsRandomly() {
-        Random random = new Random();
-
-        // Iterate over your buttons and assign random values to them
-        for (Button button : getButtons()) {
-            int newValue = random.nextInt(6) + 1; // Random value between 1 and 6
-            button.setText(String.valueOf(newValue));
-            button.setDisable(false);
-            button.getStyleClass().remove("selected-button");
-        }
-        for(Button button : new Button[]{Green2,Green3,Green4,Green5,Green6,Green7,Green8,Green9,Green10,Green11,Green12}){
-            button.setStyle("");;
-        }
-        for(Button button : new Button[]{Blue1,Blue2,Blue3,Blue4,Blue5,Blue6,Blue7,Blue8,Blue9,Blue10,Blue11}){
-            button.setStyle("");
-        }
-        for(Button button : new Button[]{Magenta1,Magenta2,Magenta3,Magenta4,Magenta5,Magenta6,Magenta7,Magenta8,Magenta9,Magenta10,Magenta11}){
-            button.setStyle("");
-        }
-        for(Button button : new Button[]{Yellow1,Yellow2,Yellow3,Yellow4,Yellow5,Yellow6,Yellow7,Yellow8,Yellow9,Yellow10,Yellow11}){
-            button.setStyle("");
-        }
-
-        selectedButton = null;
-    }
-
-    @FXML
-    private void handleButtonPress(javafx.event.ActionEvent event) {
-        Button button = (Button) event.getSource(); // Get the button that was pressed
-
-        if (selectedButton != null) {
-            selectedButton.setDisable(false); // Re-enable previously selected button
-
-            // Remove the selection class from the previously selected button
-            selectedButton.getStyleClass().remove("selected-button");
-        }
-
-        // Select the new button and disable it
-        selectedButton = button;
-        selectedButton.setDisable(true); // Disable the selected button to prevent further clicks
-        //int dieValue = Integer.parseInt(selectedButton.getText());
-        if(button.equals(die2)){
-            highlightGreenPossibleMoves();
-        }
-        else if(button.equals(die3)){
-            highlightBluePossibleMoves();
-        }
-        else if(button.equals(die4)){
-            highlightMagentaPossibleMoves();
-        }
-        else if(button.equals(die5)){
-            highlightYellowPossibleMoves();
-        }
-
-        // Add the selection class to the new button
-        selectedButton.getStyleClass().add("selected-button");
-    }
-
-    // Helper method to get all buttons
-    private Button[] getButtons() {
-        // Return an array of your buttons here
-        return new Button[]{die1, die2, die3, die4, die5, die6}; // Add more buttons as needed...
-    }
-
-
-    
-
-    private void highlightGreenPossibleMoves(){
-
-            // for(int i = 0; i < moves.length;i++){
-            //     nums[i] = moves[i].getDice().getValue();
-            // } 
-            int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
-            Move[] moves = getPossibleMovesForADie(getActivePlayer(), new GreenDice(h));
-            if(moves.length>0){
-            switch(h){
-                case 2:
-                    Green2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    case 3:
-                    Green3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    case 4:
-                    Green4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    case 5:
-                    Green5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    case 6:
-                    Green6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    case 7:
-                    Green7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    case 8:
-                    Green8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    case 9:
-                    Green9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    case 10:
-                    Green10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    case 11:
-                    Green11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                    case 12:
-                    Green12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;   
-            }
-        }
-    }
-
-    public void attackGreen2(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(2),getActivePlayer().getScoreSheet().getGaia()));
-        Green2.setText("X");
-    }
-    public void attackGreen3(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(3),getActivePlayer().getScoreSheet().getGaia()));
-        Green3.setText("X");
-    }
-    public void attackGreen4(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(4),getActivePlayer().getScoreSheet().getGaia()));
-        Green4.setText("X");
-    }
-    public void attackGreen5(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(5),getActivePlayer().getScoreSheet().getGaia()));
-        Green5.setText("X");
-    }
-    public void attackGreen6(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(6),getActivePlayer().getScoreSheet().getGaia()));
-        Green6.setText("X");
-    }
-    public void attackGreen7(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(7),getActivePlayer().getScoreSheet().getGaia()));
-        Green7.setText("X");
-    }
-    public void attackGreen8(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(8),getActivePlayer().getScoreSheet().getGaia()));
-        Green8.setText("X");
-    }
-    public void attackGreen9(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(9),getActivePlayer().getScoreSheet().getGaia()));
-        Green9.setText("X");
-    }
-    public void attackGreen10(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(10),getActivePlayer().getScoreSheet().getGaia()));
-        Green10.setText("X");
-    }
-    public void attackGreen11(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(11),getActivePlayer().getScoreSheet().getGaia()));
-        Green11.setText("X");
-    }
-    public void attackGreen12(ActionEvent event){
-        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(12),getActivePlayer().getScoreSheet().getGaia()));
-        Green12.setText("X");
-    }
-    
-
-
-
 
     @FXML
     private Button Blue1;
@@ -412,6 +236,209 @@ public class controller extends CLIGameController {
     @FXML
     private Button Yellow11;
 
+    @FXML
+    private Button rollButton;    
+    @FXML
+    private Button die1;
+    @FXML
+    private Button die2;
+    @FXML
+    private Button die3;
+    @FXML
+    private Button die4;
+    @FXML
+    private Button die5;
+    @FXML
+    private Button die6;
+
+    private Button selectedButton = null;
+    
+//     private void possibleGreen(){
+//         int[] buttonValues = new int[11];
+//         for(int i = 0; i<GreenButtons.length;i++){
+//             buttonValues[i] = Integer.parseInt(GreenButtons[i].getText());
+//         }
+//         Move[] moves = cli.getPossibleMovesForADie(getActivePlayer(), cli.getAllDice()[1]);
+//         int x = moves[0].getDice().getValue();
+//         for(int j =0;j<buttonValues.length;j++){
+//             if(x == buttonValues[j]){
+//                 GreenButtons[j].setText(String.valueOf(buttonValues[j]));
+//                 Button btn = GreenButtons[j];
+//                 btn.setOnAction(e -> btn.setStyle("-fx-background-color: yellow; -fx-border-color: black; -fx-border-width: 2;"));
+//             }
+//         }
+//     }
+//     public void highlight(){
+//         possibleGreen();
+//     }
+         
+
+    
+
+
+    // Method to change the text of buttons randomly
+    public void changeButtonsRandomly() {
+        Random random = new Random();
+
+        // Iterate over your buttons and assign random values to them
+        for (Button button : getButtons()) {
+            int newValue = random.nextInt(6) + 1; // Random value between 1 and 6
+            button.setText(String.valueOf(newValue));
+            button.setDisable(false);
+            button.getStyleClass().remove("selected-button");
+        }
+        for(Button button : new Button[]{Green2,Green3,Green4,Green5,Green6,Green7,Green8,Green9,Green10,Green11,Green12}){
+            button.setStyle("");;
+        }
+        for(Button button : new Button[]{Blue1,Blue2,Blue3,Blue4,Blue5,Blue6,Blue7,Blue8,Blue9,Blue10,Blue11}){
+            button.setStyle("");
+        }
+        for(Button button : new Button[]{Magenta1,Magenta2,Magenta3,Magenta4,Magenta5,Magenta6,Magenta7,Magenta8,Magenta9,Magenta10,Magenta11}){
+            button.setStyle("");
+        }
+        for(Button button : new Button[]{Yellow1,Yellow2,Yellow3,Yellow4,Yellow5,Yellow6,Yellow7,Yellow8,Yellow9,Yellow10,Yellow11}){
+            button.setStyle("");
+        }
+        for(Button button : new Button[]{F1,F2,F3,W1,W2,W4,T1,T3,T4,H2,H3,H4}){
+            button.setStyle("");
+        }
+
+        selectedButton = null;
+    }
+
+    @FXML
+    private void handleButtonPress(javafx.event.ActionEvent event) {
+        Button button = (Button) event.getSource(); // Get the button that was pressed
+
+        if (selectedButton != null) {
+            selectedButton.setDisable(false); // Re-enable previously selected button
+
+            // Remove the selection class from the previously selected button
+            selectedButton.getStyleClass().remove("selected-button");
+        }
+
+        // Select the new button and disable it
+        selectedButton = button;
+        selectedButton.setDisable(true); // Disable the selected button to prevent further clicks
+        //int dieValue = Integer.parseInt(selectedButton.getText());
+        if(button.equals(die1)){
+            highlightRedPossibleMoves();
+        }
+        else if(button.equals(die2)){
+            highlightGreenPossibleMoves();
+        }
+        else if(button.equals(die3)){
+            highlightBluePossibleMoves();
+        }
+        else if(button.equals(die4)){
+            highlightMagentaPossibleMoves();
+        }
+        else if(button.equals(die5)){
+            highlightYellowPossibleMoves();
+        }
+
+        // Add the selection class to the new button
+        selectedButton.getStyleClass().add("selected-button");
+    }
+
+    // Helper method to get all buttons
+    private Button[] getButtons() {
+        // Return an array of your buttons here
+        return new Button[]{die1, die2, die3, die4, die5, die6}; // Add more buttons as needed...
+    }
+
+    private void highlightRedPossibleMoves(){
+
+        // for(int i = 0; i < moves.length;i++){
+        //     nums[i] = moves[i].getDice().getValue();
+        // } 
+        int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
+        Move[] moves = getPossibleMovesForADie(getActivePlayer(), new GreenDice(h));
+        if(moves.length>0){
+        switch(h){
+            case 2:
+                Green2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;
+                case 3:
+                Green3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;
+                case 4:
+                Green4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;
+                case 5:
+                Green5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;
+                case 6:
+                Green6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;
+                case 7:
+                Green7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;
+                case 8:
+                Green8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;
+                case 9:
+                Green9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;
+                case 10:
+                Green10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;
+                case 11:
+                Green11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;
+                case 12:
+                Green12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                break;   
+        }
+    }
+}
+  
+    private void highlightGreenPossibleMoves(){
+
+            // for(int i = 0; i < moves.length;i++){
+            //     nums[i] = moves[i].getDice().getValue();
+            // } 
+            int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
+            Move[] moves = getPossibleMovesForADie(getActivePlayer(), new GreenDice(h));
+            if(moves.length>0){
+            switch(h){
+                case 2:
+                    Green2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                    case 3:
+                    Green3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                    case 4:
+                    Green4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                    case 5:
+                    Green5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                    case 6:
+                    Green6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                    case 7:
+                    Green7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                    case 8:
+                    Green8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                    case 9:
+                    Green9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                    case 10:
+                    Green10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                    case 11:
+                    Green11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                    case 12:
+                    Green12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;   
+            }
+        }
+    }
+
     private void highlightBluePossibleMoves(){
         int i = getActivePlayer().getScoreSheet().getHydra().headsKilled();
         int value = Integer.parseInt(die3.getText());
@@ -454,6 +481,202 @@ public class controller extends CLIGameController {
             }
         }
     }
+
+    public void highlightMagentaPossibleMoves(){
+        int i = getActivePlayer().getScoreSheet().getPhoenix().getCount();
+        int value = Integer.parseInt(die4.getText());
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new MagentaDice(value));
+        if(m.length>0 ){
+            switch(i){
+                case 0:
+                    Magenta1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 1:
+                    Magenta2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 2:
+                    Magenta3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 3:
+                    Magenta4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 4:
+                    Magenta5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 5:
+                    Magenta6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 6:
+                    Magenta7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 7:
+                    Magenta8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 8:
+                    Magenta9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 9:
+                    Magenta10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 10:
+                    Magenta11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+            }
+        }
+     }
+
+     public void highlightYellowPossibleMoves(){
+        int i = getActivePlayer().getScoreSheet().getLion().getHitNum();
+        int value = Integer.parseInt(die5.getText());
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new YellowDice(value));
+        if(m.length>0 ){
+            switch(i){
+                case 0:
+                    Yellow1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 1:
+                    Yellow2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 2:
+                    Yellow3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 3:
+                    Yellow4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 4:
+                    Yellow5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 5:
+                    Yellow6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 6:
+                    Yellow7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 7:
+                    Yellow8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break; 
+                case 8:
+                    Yellow9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 9:
+                    Yellow10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+                case 10:
+                    Yellow11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    break;
+            }
+        }
+     }
+
+
+
+     public void attackRed(ActionEvent event){
+        Button button = (Button) event.getSource();
+        int i = Integer.parseInt(die5.getText());
+        Move[] m = getPossibleMovesForADie(getActivePlayer(), new RedDice(i));
+        if(m.length>0){
+            if(button.equals(F1)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                F1.setText("X");
+            }
+            else if(button.equals(F2)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                F2.setText("X");
+            }
+            else if(button.equals(F3)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                F3.setText("X");
+            }
+            else if(button.equals(W1)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                W1.setText("X");
+            }
+            else if(button.equals(W2)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                W2.setText("X");
+            }
+            else if(button.equals(W4)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                W4.setText("X");
+            }
+            else if(button.equals(T1)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                T1.setText("X");
+            }
+            else if(button.equals(T3)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                T3.setText("X");
+            }
+            else if(button.equals(T4)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                T4.setText("X");
+            }
+            else if(button.equals(H2)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                H2.setText("X");
+            }
+            else if(button.equals(H3)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                H3.setText("X");
+            }
+            else if(button.equals(H4)){
+                makeMove(getActivePlayer(), new Move(new RedDice(i),getActivePlayer().getScoreSheet().getDragon()));
+                H4.setText("X");
+            }
+        }
+     }
+
+    public void attackGreen2(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(2),getActivePlayer().getScoreSheet().getGaia()));
+        Green2.setText("X");
+    }
+    public void attackGreen3(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(3),getActivePlayer().getScoreSheet().getGaia()));
+        Green3.setText("X");
+    }
+    public void attackGreen4(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(4),getActivePlayer().getScoreSheet().getGaia()));
+        Green4.setText("X");
+    }
+    public void attackGreen5(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(5),getActivePlayer().getScoreSheet().getGaia()));
+        Green5.setText("X");
+    }
+    public void attackGreen6(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(6),getActivePlayer().getScoreSheet().getGaia()));
+        Green6.setText("X");
+    }
+    public void attackGreen7(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(7),getActivePlayer().getScoreSheet().getGaia()));
+        Green7.setText("X");
+    }
+    public void attackGreen8(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(8),getActivePlayer().getScoreSheet().getGaia()));
+        Green8.setText("X");
+    }
+    public void attackGreen9(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(9),getActivePlayer().getScoreSheet().getGaia()));
+        Green9.setText("X");
+    }
+    public void attackGreen10(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(10),getActivePlayer().getScoreSheet().getGaia()));
+        Green10.setText("X");
+    }
+    public void attackGreen11(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(11),getActivePlayer().getScoreSheet().getGaia()));
+        Green11.setText("X");
+    }
+    public void attackGreen12(ActionEvent event){
+        boolean b = makeMove(getActivePlayer(), new Move(new GreenDice(12),getActivePlayer().getScoreSheet().getGaia()));
+        Green12.setText("X");
+    }
+    
+
+
+
+
+
+    
 
     public void attackBlue1(ActionEvent event){   
         Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(Integer.parseInt(die3.getText())));
@@ -534,92 +757,7 @@ public class controller extends CLIGameController {
      }
 
 
-     public void highlightMagentaPossibleMoves(){
-        int i = getActivePlayer().getScoreSheet().getPhoenix().getCount();
-        int value = Integer.parseInt(die4.getText());
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new MagentaDice(value));
-        if(m.length>0 ){
-            switch(i){
-                case 0:
-                    Magenta1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 1:
-                    Magenta2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 2:
-                    Magenta3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 3:
-                    Magenta4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 4:
-                    Magenta5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 5:
-                    Magenta6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 6:
-                    Magenta7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 7:
-                    Magenta8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 8:
-                    Magenta9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 9:
-                    Magenta10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 10:
-                    Magenta11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-            }
-        }
-     }
-
-
-     public void highlightYellowPossibleMoves(){
-        int i = getActivePlayer().getScoreSheet().getLion().getHitNum();
-        int value = Integer.parseInt(die5.getText());
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new YellowDice(value));
-        if(m.length>0 ){
-            switch(i){
-                case 0:
-                    Yellow1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 1:
-                    Yellow2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 2:
-                    Yellow3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 3:
-                    Yellow4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 4:
-                    Yellow5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 5:
-                    Yellow6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 6:
-                    Yellow7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 7:
-                    Yellow8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 8:
-                    Yellow9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 9:
-                    Yellow10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 10:
-                    Yellow11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-            }
-        }
-     }
+     
 
      public void attackMagenta(ActionEvent event){
         Button button = (Button) event.getSource();
