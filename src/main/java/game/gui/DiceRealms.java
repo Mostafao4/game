@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 public class DiceRealms extends Application {
     public static Stage stage;
     public static CLIGameController cliGameController;
+    private int turnCounter = 1;      
     @Override
     public void start(Stage primaryStage) throws Exception {
        stage = primaryStage;
