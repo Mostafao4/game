@@ -100,30 +100,84 @@ public class CLIGameController extends GameController {
             System.out.println("No possible moves for available dice");
             return null;
         }
-        int i=0;
+        int i = (int)(Math.random()*(getAvailableDice().length));;
         System.out.println("Select a die: ");
         if (getActivePlayer().getPlayerType().equals("human")){           
              i = takeNumberInput();
         }
         else{
-            i = (int)(Math.random()*(getAvailableDice().length));
-            //   while(flag){
+        //    do {
+        //     i = (int)(Math.random()*(getAvailableDice().length));
+        //    } while (getPossibleMovesForADie(getActivePlayer(), getAvailableDice()[i]).length==0); 
+        //    System.out.println(i);
+        // }
+            //  while(flag){
             //   i=getActivePlayer().chooseDieNum(getAvailableDice(), getGameStatus().getTurn());
             //   if (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[i]).length>0){
             //   flag=false;
             //   }}
-            int[]sixes=getActivePlayer().chooseDieNum(getAvailableDice(), getGameStatus().getTurn());
-            for(int y=0;y<sixes.length;y++){
-                if(getAvailableDice()[sixes[y]].getValue()==6){
-                      if ((getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[sixes[y]])).length>0){
-                        i= sixes[y];
-                        break;
-                       }  
+            // int[]sixes=getActivePlayer().chooseDieNum(getAvailableDice());
+            int c=0;
+            int f=0;
+            for(int y=0;y<getAvailableDice().length;y++){
+                if(getAvailableDice()[y].getValue()==6){
+                     c++;                     
+                     }  
                 }
-                
+            //if (c>= getGameStatus().getTurn()){
+                if (((c>=3) && (getGameStatus().getTurn()>=1)) || ((c>=2) && (getGameStatus().getTurn()>=2)) || ((c>=1) && (getGameStatus().getTurn()==3))){
+                    for(int z=0;z<getAvailableDice().length;z++){
+                        if ( (getAvailableDice()[z].getValue()==6)){
+                        if  ((getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[z])).length>0)
+                            i= z;
+                            break;
+                            }     
+                    }   
+                }    
+            //}
+                else{
+                int red=0;
+                f=9;
+                    Dice d=getAvailableDice()[0];
+                    for (int x=0;x<getAvailableDice().length;x++){
+                        if((getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[x])).length>0){
+                            switch (getAvailableDice()[x].getRealm()) {
+                            case RED: //if ((getAvailableDice()[x].getValue()==2) || (getAvailableDice()[x].getValue()==1)){
+                                    if ((c>=2)&&((getGameStatus().getTurn()>=2))){
+                                i=x;
+                                red=1;}
+                                    d =getAvailableDice()[x];                                
+                                    f=0;
+                                        break;//}
+                            case YELLOW: case MAGENTA : if (getAvailableDice()[x].getValue()>=4) {
+                                                            d =getAvailableDice()[x]; 
+                                                            f=0;
+                                                            break;
+                                                        }
+                            default :  break;}
+                            if((d.getValue())<(getAvailableDice()[i].getValue())){
+                                    i=x;
+                            }                                     
+                        }
+                    }
+                    if(red==1)
+                    i=0;
             }
-            System.out.println(i);
-        }
+            if (f==9){
+                if (getAllPossibleMoves(getActivePlayer()).length>=2){
+                    do{
+                        i = (int)(Math.random()*(getAvailableDice().length)); 
+                    }while(getAvailableDice()[i].getRealm()!=Realm.BLUE);
+                }
+                else
+                i = (int)(Math.random()*(getAvailableDice().length));
+                // while (getPossibleMovesForADie(getActivePlayer(), getAvailableDice()[i]).length==0)
+                // i = (int)(Math.random()*(getAvailableDice().length));
+              }
+            
+                
+                    System.out.println(i);}
+           
         while (i >= getAvailableDice().length || i<0){
             System.out.println("Please enter a valid number");
             i = takeNumberInput();
@@ -144,19 +198,25 @@ public class CLIGameController extends GameController {
 
 
     public Move chooseForgottenRealm(){
-        boolean bool = possibleMovesForArrayOfDice(getPassivePlayer(), getForgottenRealmDice());
-        int i;
-        if(!bool){
+        int i=0;
+        boolean bool = possibleMovesForArrayOfDice(getPassivePlayer(), getForgottenRealmDice());        
+        if(bool){
             System.out.println("No possible moves for Forgotten Realm dice");
             return null;
-        }
+        }else{
         System.out.println("\n"+getPassivePlayer().getPlayerName()+ ", select a die from the forgotten realm: ");
         printDice(getForgottenRealmDice());
         if(getPassivePlayer().getPlayerType().equals("human")){           
             i = takeNumberInput();}
         else{
-             i=(int) (Math.random()*(getForgottenRealmDice().length));
-             System.out.println(i);
+        i=(int)(Math.random()*getForgottenRealmDice().length);
+               int j=0;
+           while (j<getForgottenRealmDice().length) {
+                if((getPossibleMovesForADie(getPassivePlayer(), getForgottenRealmDice()[j]).length>0) && (getForgottenRealmDice()[i].getValue()<getForgottenRealmDice()[j].getValue()))
+                    i = j;
+                j++;
+              } 
+               System.out.println(i);
         }
         while(i<0 || i>=getForgottenRealmDice().length){
             System.out.println("Please enter a valid number");
@@ -164,7 +224,7 @@ public class CLIGameController extends GameController {
         }
         Move move = new Move(getForgottenRealmDice()[i], getPassivePlayer().getScoreSheet().getCreatureByRealm(getForgottenRealmDice()[i]),MoveType.FORGOTTEN_REALM);
         makeMove(getPassivePlayer(), move);
-        return move;
+        return move;}
     }
     public boolean thereAreAvailableDice(){
         return getAvailableDice().length != 0;
@@ -372,6 +432,7 @@ public class CLIGameController extends GameController {
                     }
                     else {
                         i=(int)(Math.random()*4)+1;
+                        
                     }
                     
                     RedDice d = new RedDice(move.getDice().getValue());
@@ -451,9 +512,9 @@ public class CLIGameController extends GameController {
                     int q;
                     if(player.getPlayerType().equals("human")){
                         q = takeNumberInput();
-                        while(i<0 || i>4){
+                        while(q<0 || q>4){
                             System.out.println("Please enter a valid number");
-                            i = takeNumberInput();
+                            q = takeNumberInput();
                         }
                     }
                     else{
@@ -595,7 +656,7 @@ public class CLIGameController extends GameController {
             gameBoard.setPlayer1(new HumanPlayer(s1, PlayerStatus.ACTIVE));
             gameBoard.setPlayer2(new HumanPlayer(s2, PlayerStatus.PASSIVE));
         }
-        else {if(i==2){
+        else {if(i==1){
             gameBoard = new GameBoard(i);
             System.out.println("Enter your name");
             String s1 = scanner.nextLine();
@@ -810,8 +871,18 @@ public class CLIGameController extends GameController {
             if(getActivePlayer().getPlayerType().equals("human")){
                  i = takeNumberInput();
             }
-            else{
-                i=0;
+            else{ if(getAvailableDice().length>=4){
+                boolean flag=false;
+                for(int j=0;j<getAvailableDice().length;j++){
+                    if(getAvailableDice()[j].getValue()>=3){
+                        flag=true;
+                    }
+                }
+                if (flag=false)
+                    i=1;
+                else
+                    i=0;    }
+                    System.out.println(i);
             }
             while(i!=0 && i!=1){
                 i = takeNumberInput();
@@ -871,7 +942,12 @@ public class CLIGameController extends GameController {
                 j = takeNumberInput();
             }
             else{
-                j=1;
+                j=0;
+                for(int i=0;i<getArcaneBoostDice().length;i++){
+                    if(getArcaneBoostDice()[i].getValue()>3)
+                    j=1;
+                }
+                System.out.println(j);
             }
             while(j!=0 && j!=1){
                 j = takeNumberInput();
@@ -953,12 +1029,32 @@ public class CLIGameController extends GameController {
         }
     }
     public void useArcaneBoost(Player player)  {
-        int i;
+        int i=(int)(Math.random()*getArcaneBoostDice().length);
         if(player.getPlayerType().equals("human")){
             i = takeNumberInput();
         }
         else{
-            i=(int)(Math.random()*getArcaneBoostDice().length);
+            //i=(int)(Math.random()*getArcaneBoostDice().length);
+            //System.out.println(i);
+            if(getArcaneBoostDice().length==6){
+                if((getPossibleMovesForADie(player,getArcaneBoostDice()[5]).length!=0) && (getArcaneBoostDice()[5].getValue()>=getArcaneBoostDice()[4].getValue()) && (getArcaneBoostDice()[5].getValue()>=getArcaneBoostDice()[3].getValue())){
+                    i=5;
+                }
+                else{
+                    if((getPossibleMovesForADie(player,getArcaneBoostDice()[4]).length>0) && (getArcaneBoostDice()[4].getValue()>=getArcaneBoostDice()[3].getValue())){
+                        i=4;}
+                        else{
+                            if(getPossibleMovesForADie(player,getArcaneBoostDice()[3]).length>0){
+                                i=3;
+                            }    
+                        }            
+                    }
+                }
+            // else{
+            //    // while(getPossibleMovesForADie(player, getArcaneBoostDice()[i]).length==0){
+            //         i=(int)(Math.random()*getArcaneBoostDice().length);
+            //     //}
+            // }
             System.out.println(i);
         }
         
@@ -980,6 +1076,10 @@ public class CLIGameController extends GameController {
         System.out.println("\u001B[31mR0\u001B[0m"+"  |  "+"\u001B[32mG1\u001B[0m"+"  |  "+"\u001B[34mB2\u001B[0m"+"  |  "+"\u001B[35mM3\u001B[0m"+"  |  "+"\u001B[33mY4\u001B[0m");
         if(getActivePlayer().getPlayerType().equals("human")){
             i = takeNumberInput();
+            while(i<0 || i>4){
+                System.out.println("Please enter a valid number");
+                i = takeNumberInput();
+            }
         }
         else{
             i=(int)(Math.random()*5);
@@ -1087,8 +1187,15 @@ public class CLIGameController extends GameController {
                 case YELLOW: case BLUE: case MAGENTA: 
                     att=6; break;    
                 case GREEN:
-                    att=(int)(Math.random()*11)+2;
-                    break;           
+                    do{
+                        att=(int)(Math.random()*11)+2;
+                    }
+                    while(getPossibleMovesForADie(player, new GreenDice(att)).length==0);
+                    break;
+                  case RED:
+                  if(getPossibleMovesForADie(player, getAllDice()[0]).length!=0){
+                  att=getPossibleMovesForADie(player, getAllDice()[0])[getPossibleMovesForADie(player, getAllDice()[0]).length-1].getDice().getValue(); break;}
+                              
                 default:
                     att=(int)(Math.random()*6)+1;
                     break;

@@ -92,9 +92,9 @@ public class ComputerPlayer implements Player {
     public String getPlayerType(){
         return "computer";
     }
-    public int[] chooseDieNum(Dice[] arrayOfDice, int turn ){
+    public int[] chooseDieNum(Dice[] arrayOfDice ){
         int c=0;
-        int[] sixes= new int[6];
+        int[] sixes= new int[arrayOfDice.length];
         for(int i=0;i<arrayOfDice.length;i++){
             if ((arrayOfDice[i].getValue())==6){
                 sixes[c]=i;
