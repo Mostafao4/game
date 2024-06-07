@@ -114,11 +114,11 @@ public class controller extends CLIGameController {
 
 
 
-
 //   //Scoresheets 
   
   
     @FXML
+
     private Button Green2;
     @FXML
     private Button Green3; 
@@ -170,6 +170,7 @@ public class controller extends CLIGameController {
     public void setPlayerNames(String player1, String player2) {
         player1Label.setText("Player 1: " + player1);
         player2Label.setText("Player 2: " + player2);
+
     }
 
     @FXML
