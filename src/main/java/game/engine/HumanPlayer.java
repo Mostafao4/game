@@ -87,7 +87,8 @@ public class HumanPlayer implements Player{
     public String getPlayerType(){
         return "human";
     }
-    public int chooseDieNum(Dice[] arrayOfDice, int turn ){
-        return 0;
+    public int[] chooseDieNum(Dice[] arrayOfDice, int turn ){
+        int[] x =new int[1];
+        return x;
     }
 }

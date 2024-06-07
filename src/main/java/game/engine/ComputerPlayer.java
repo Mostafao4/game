@@ -92,7 +92,7 @@ public class ComputerPlayer implements Player {
     public String getPlayerType(){
         return "computer";
     }
-    public int chooseDieNum(Dice[] arrayOfDice, int turn ){
+    public int[] chooseDieNum(Dice[] arrayOfDice, int turn ){
         int c=0;
         int[] sixes= new int[6];
         for(int i=0;i<arrayOfDice.length;i++){
@@ -101,9 +101,10 @@ public class ComputerPlayer implements Player {
                 c++;
             }            
         }
-        if (c>=turn){
-            return (int)(sixes[(int)(Math.random()*c)]);
-        }
-        return (int)(Math.random()*arrayOfDice.length);
+        return sixes;
+        // if (c>=turn){
+        //     return (int)(sixes[(int)(Math.random()*c)]);
+        // }
+        // return (int)(Math.random()*arrayOfDice.length);
     }
 }

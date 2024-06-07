@@ -100,15 +100,29 @@ public class CLIGameController extends GameController {
             System.out.println("No possible moves for available dice");
             return null;
         }
-        int i;
+        int i=0;
         System.out.println("Select a die: ");
         if (getActivePlayer().getPlayerType().equals("human")){           
              i = takeNumberInput();
         }
         else{
-            //  i = (int)(Math.random()*(getAvailableDice().length));
-             i=getActivePlayer().chooseDieNum(getAvailableDice(), getGameStatus().getTurn());
-             System.out.println(i);
+            i = (int)(Math.random()*(getAvailableDice().length));
+            //   while(flag){
+            //   i=getActivePlayer().chooseDieNum(getAvailableDice(), getGameStatus().getTurn());
+            //   if (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[i]).length>0){
+            //   flag=false;
+            //   }}
+            int[]sixes=getActivePlayer().chooseDieNum(getAvailableDice(), getGameStatus().getTurn());
+            for(int y=0;y<sixes.length;y++){
+                if(getAvailableDice()[sixes[y]].getValue()==6){
+                      if ((getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[sixes[y]])).length>0){
+                        i= sixes[y];
+                        break;
+                       }  
+                }
+                
+            }
+            System.out.println(i);
         }
         while (i >= getAvailableDice().length || i<0){
             System.out.println("Please enter a valid number");
