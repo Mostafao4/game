@@ -155,7 +155,17 @@ public class controller extends CLIGameController {
 //     public void highlight(){
 //         possibleGreen();
 //     }
-         
+
+    @FXML
+    private Label player1Label;
+
+    @FXML
+    private Label player2Label;
+
+    public void setPlayerNames(String player1, String player2) {
+        player1Label.setText("Player 1: " + player1);
+        player2Label.setText("Player 2: " + player2);
+    }
 
     @FXML
     private Button rollButton;    
@@ -174,17 +184,20 @@ public class controller extends CLIGameController {
 
     private Button selectedButton = null;
 
+    private final Image[][] diceImages = new Image[6][6]; // 6 types, 6 values each
+    private final ImageView[] diceViews = new ImageView[6]; // Assuming 6 dice views
 
     // Method to change the text of buttons randomly
     public void roll() {
         Random random = new Random();
-
+        int counter = 0;
         // Iterate over your buttons and assign random values to them
         for (Button button : getButtons()) {
             int newValue = random.nextInt(6) + 1; // Random value between 1 and 6
             button.setText(String.valueOf(newValue));
             button.setDisable(false);
             button.getStyleClass().remove("selected-button");
+            counter++;
         }
         selectedButton = null;
     }
