@@ -214,25 +214,6 @@ public class controller extends CLIGameController {
                 diceImages[type][value] = new Image(getClass().getResourceAsStream(imagePath));
             }
         }
-
-        // Initialize ImageViews and add to diceBox
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
-                diceViews[i][j] = new ImageView(diceImages[i][j]);
-                diceViews[i][j].setFitHeight(83.33);
-                diceViews[i][j].setFitWidth(120);
-                diceImages[i][j] = diceViews[i][j].getImage();
-
-            }
-        }
-        int [] newValue = new int[6];
-        button1Icon.setImage(diceImages[0][newValue[0]]);
-        button2Icon.setImage(diceImages[1][newValue[0]]);
-        button3Icon.setImage(diceImages[2][newValue[0]]);
-        button4Icon.setImage(diceImages[3][newValue[0]]);
-        button5Icon.setImage(diceImages[4][newValue[0]]);
-        button6Icon.setImage(diceImages[5][newValue[0]]);
-
         // Set roll button action
         rollButton.setOnAction(e -> roll());
     }
