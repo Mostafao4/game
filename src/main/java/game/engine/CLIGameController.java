@@ -130,13 +130,15 @@ public class CLIGameController extends GameController {
         }
         getActivePlayer().setSelectedDice(getAvailableDice()[i]);
         Move move = new Move(getActivePlayer().getSelectedDice(), getActivePlayer().getScoreSheet().getCreatureByRealm(getActivePlayer().getSelectedDice()), MoveType.AVAILABLE);
-        makeMove(getActivePlayer(), move);
+        boolean b = makeMove(getActivePlayer(), move);
         for (Dice value : getAvailableDice()) {
             if(value.getValue() < getActivePlayer().getSelectedDice().getValue())
                 value.setDiceStatus(DiceStatus.FORGOTTEN_REALM);
         }
         getActivePlayer().getSelectedDice().setDiceStatus(DiceStatus.TURN_SELECTED);
-        getGameBoard().getGameStatus().incrementTurn();
+        if (b) {
+            getGameBoard().getGameStatus().incrementTurn();
+        }
         return move;
     }
 
@@ -363,10 +365,15 @@ public class CLIGameController extends GameController {
                     System.out.println("Select a dragon to attack with attack value: " + move.getDice().getValue());
                     if(player.getPlayerType().equals("human")){
                         i = takeNumberInput();
+                        while(i<1 || i>4){
+                            System.out.println("Please enter a valid number");
+                            i = takeNumberInput();
+                        }
                     }
                     else {
                         i=(int)(Math.random()*4)+1;
                     }
+                    
                     RedDice d = new RedDice(move.getDice().getValue());
                     d.selectsDragon(i);
                     try {
@@ -443,7 +450,12 @@ public class CLIGameController extends GameController {
                 while(!flag) {
                     int q;
                     if(player.getPlayerType().equals("human")){
-                        q = takeNumberInput();}
+                        q = takeNumberInput();
+                        while(i<0 || i>4){
+                            System.out.println("Please enter a valid number");
+                            i = takeNumberInput();
+                        }
+                    }
                     else{
                         q = (int)(Math.random()*5);
                         System.out.println(q);
@@ -542,8 +554,9 @@ public class CLIGameController extends GameController {
     public TimeWarp[] getTimeWarpPowers(Player player) {
         int x = getActivePlayer().getTimeWarpCount();
         TimeWarp[] powers = new TimeWarp[x];
-        for (TimeWarp tw : powers)
-            tw = new TimeWarp();
+        for (int i=0;i<powers.length;i++){
+            powers[i] = new TimeWarp();
+        }
         return powers;
     }
 
@@ -551,8 +564,9 @@ public class CLIGameController extends GameController {
     public ArcaneBoost[] getArcaneBoostPowers(Player player) {
         int x = getActivePlayer().getArcaneBoostCount();
         ArcaneBoost[] powers = new ArcaneBoost[x];
-        for (ArcaneBoost ab : powers)
-            ab = new ArcaneBoost();
+        for(int i=0;i<powers.length;i++){
+            powers[i] = new ArcaneBoost();
+        }
         return powers;
     }
 
@@ -665,12 +679,17 @@ public class CLIGameController extends GameController {
 
     public void gameLoop(){
         while (getGameStatus().getRound() <= 6) {
-            while(getGameStatus().getPartOfRound()<2) {
-                if(getGameStatus().getRound() == 7){
+            if(getGameStatus().getRound()>6){
+                break;
+            }
+            while (getGameStatus().getPartOfRound() < 2) {
+                if(getGameStatus().getRound()>6){
                     break;
                 }
                 while (getGameStatus().getTurn() <= 3 && thereAreAvailableDice()) {
-
+                    if(getGameStatus().getRound()>6){
+                        break;
+                    }
                     startTurn();
                     timeWarpPrompt();
                     chooseDieHelper();
@@ -687,7 +706,7 @@ public class CLIGameController extends GameController {
                             System.out.println("Enter a valid number");
                             i = takeNumberInput();
                         }
-                        if(i==1) {
+                        if (i == 1) {
                             System.out.println("\n" + getActivePlayer().getPlayerName().toUpperCase() + "'S GRIMOIRE:");
                             System.out.println(getActivePlayer().getScoreSheet());
                         }
@@ -707,7 +726,7 @@ public class CLIGameController extends GameController {
                     System.out.println("Enter a valid number");
                     i = takeNumberInput();
                 }
-                if(i==1) {
+                if (i == 1) {
                     System.out.println("\n+-----------------------------------------------------------------------+");
                     System.out.println("\n" + getPassivePlayer().getPlayerName().toUpperCase() + "'S GRIMOIRE:");
                     System.out.println(getPassivePlayer().getScoreSheet());
@@ -760,6 +779,7 @@ public class CLIGameController extends GameController {
     }
     public void endGame(){
         scanner.close();
+        getGameStatus().setStatus(false);
         int score1 = getGameScore(getGameBoard().getPlayer1()).getScore();
         int score2 = getGameScore(getGameBoard().getPlayer2()).getScore();
         System.out.println(getGameBoard().getPlayer1().getPlayerName()+" scored "+score1+" points and collected "+getGameBoard().getPlayer1().getGameScore().getElementalCrest().length+" Elemental Crests");
@@ -778,15 +798,15 @@ public class CLIGameController extends GameController {
 //      || REWARDS ||
 
     public void timeWarpPrompt(){
-        if(getActivePlayer().getTimeWarpCount()>0) {
+        while(getActivePlayer().getTimeWarpCount()>0) {
             String s;
-            int i;
-            if(getTimeWarpPowers(getActivePlayer()).length == 1)
+            if(getActivePlayer().getTimeWarpCount() == 1)
                 s = " Time Warp";
             else
                 s = " Time Warps";
-            System.out.println("\nYou have "+getTimeWarpPowers(getActivePlayer()).length+s);
+            System.out.println("\nYou have "+getActivePlayer().getTimeWarpCount()+s);
             System.out.println("Press 1 to use Time Warp, 0 to proceed");
+            int i=0;
             if(getActivePlayer().getPlayerType().equals("human")){
                  i = takeNumberInput();
             }
@@ -801,18 +821,23 @@ public class CLIGameController extends GameController {
                 rollDice();
                 printDice(getAvailableDice());
             }
+            else{
+                break;
+            }
         }
     }
     public void arcaneBoostPrompt(){
         resetDice();
         while(getActivePlayer().getArcaneBoostCount()>0) {
             String s;
-            int i;
-            if(getArcaneBoostPowers(getActivePlayer()).length == 1)
+            int i=0;
+            if(getActivePlayer().getArcaneBoostCount() == 1) {
                 s = " Arcane Boost";
-            else
+            }
+            else {
                 s = " Arcane Boosts";
-            System.out.println("\n"+getActivePlayer().getPlayerName() + " : You have "+getArcaneBoostPowers(getActivePlayer()).length+s);
+            }
+            System.out.println("\n"+getActivePlayer().getPlayerName() + " : You have "+ getActivePlayer().getArcaneBoostCount()+s);
             System.out.println("Press 1 to use Arcane Boost, 0 to proceed");
             if(getActivePlayer().getPlayerType().equals("human")){
                 i = takeNumberInput();
@@ -835,12 +860,12 @@ public class CLIGameController extends GameController {
         resetDice();
         while(getPassivePlayer().getArcaneBoostCount()>0) {
             String h;
-            int j;
-            if(getArcaneBoostPowers(getActivePlayer()).length == 1)
+            int j=0;
+            if(getPassivePlayer().getArcaneBoostCount() == 1)
                 h = " Arcane Boost";
             else
                 h = " Arcane Boosts";
-            System.out.println("\n"+getPassivePlayer().getPlayerName() + " : You have "+getArcaneBoostPowers(getPassivePlayer()).length+h);
+            System.out.println("\n"+getPassivePlayer().getPlayerName() + " : You have "+ getPassivePlayer().getArcaneBoostCount()+h);
             System.out.println("Press 1 to use Arcane Boost, 0 to proceed");
             if(getPassivePlayer().getPlayerType().equals("human")){
                 j = takeNumberInput();
@@ -933,17 +958,19 @@ public class CLIGameController extends GameController {
             i = takeNumberInput();
         }
         else{
-            i=(int)(Math.random()*6);
+            i=(int)(Math.random()*getArcaneBoostDice().length);
             System.out.println(i);
         }
-        while(i<0 || i>5){
+        
+        player.subtractArcaneBoostCount();
+        while(i<0 || i>= getArcaneBoostDice().length){
+            System.out.println("Please enter a valid number");
             i = takeNumberInput();
         }
-        Dice d = getAllDice()[i];
+        Dice d = getArcaneBoostDice()[i];
         Move m = new Move(d, player.getScoreSheet().getCreatureByRealm(d), MoveType.ARCANE_BOOST);
         makeMove(player, m);
         getAllDice()[i].setDiceStatus(DiceStatus.POWER_SELECTED);
-        player.subtractArcaneBoostCount();
         //getBonus(checkReward(m, player), player);
 
     }
@@ -1016,11 +1043,11 @@ public class CLIGameController extends GameController {
 
         if(reward instanceof TimeWarp){
             player.addTimeWarpCount();
-            System.out.println(player.getPlayerName()+", you received a Time Warp! You now have: "+getTimeWarpPowers(player).length);
+            System.out.println(player.getPlayerName()+", you received a Time Warp! You now have: "+player.getTimeWarpCount());
         }
         else if(reward instanceof ArcaneBoost){
             player.addArcaneBoostCount();
-            System.out.println(player.getPlayerName()+", you received an Arcane Boost! You now have: "+getArcaneBoostPowers(player).length);
+            System.out.println(player.getPlayerName()+", you received an Arcane Boost! You now have: "+player.getArcaneBoostCount());
         }
         else if(reward instanceof ElementalCrest) {
             player.getGameScore().addElementalCrest((ElementalCrest) reward);
@@ -1107,7 +1134,7 @@ public class CLIGameController extends GameController {
                 if(getForgottenRealmDice().length == 1){
                     break;
                 }
-                printDice(getForgottenRealmDice());
+                //printDice(getForgottenRealmDice());
                 chooseForgottenRealmHelper();
                 break;
             case ARCANE_BOOST:

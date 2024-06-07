@@ -10,15 +10,13 @@ import game.exceptions.InvalidMoveException;
 import java.io.IOException;
 
 public class Lion extends Creature{
-   
-
 
     private int hitNum=-1;
     private int[] diceNum={0,0,0,0,0,0,0,0,0,0,0};
     private int [] multipliers={0,0,0,0,0,0,0,0,0,0,0};
-    private int totalScore=0; 
     private String[] rew=new String[11]; 
     private String[] mult=new String[11];
+    
     //creates string for rewards & multipliers
     public Lion( ) {
         editReward();
