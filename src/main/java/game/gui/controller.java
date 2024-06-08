@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
 
+import game.collectibles.ArcaneBoost;
+import game.collectibles.Bonus;
+import game.collectibles.ElementalCrest;
+import game.collectibles.Reward;
+import game.creatures.Realm;
 import game.engine.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +27,9 @@ public class controller extends CLIGameController {
 //buttons
 
     @FXML
-    private Button F1, F2, F3, F4, W1, W2, W4, T1, T3, T4, H2, H3, H4, f1,f2,f3,w1,w2,w4,t1,t3,t4,h2,h3,h4;
+    private Button F1, F2, F3, F4, W1, W2, W3, W4, T1, T2, T3, T4, H1, H2, H3, H4, R1, R2, R3, R4, R5, f1,f2,f3,f4,w1,w2,w3,w4,t1,t2,t3,t4,h1,h2,h3,h4,r1,r2,r3,r4,r5;
+    @FXML
+    private Label SR1, SR2, SR3, SR4, sr1, sr2, sr3, sr4;
     @FXML
     private Button Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12, g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12;
     @FXML
@@ -55,10 +62,7 @@ public class controller extends CLIGameController {
         int [] score = new int[4];
         String [] reward = new String[5];
         int [][] dragonParts = new int[4][4];
-
-        // Load properties from configuration files
         Properties prop = new Properties();
-
         try {
             // Load scores
             prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionScore.properties"));
@@ -84,27 +88,67 @@ public class controller extends CLIGameController {
         catch (IOException e) {
             e.printStackTrace();
         }
-        String x = "";
-        if (dragonParts[0][0] == 0)
-            x = "X";
-        else
-            x = dragonParts[0][0] + "";
-        F1.setText(x);
-        if (dragonParts[0][1] == 0)
-            x = "x";
-        else
-            x = dragonParts[0][1] + "";
-        F2.setText(x);
-        if (dragonParts[0][2] == 0)
-            x = "X";
-        else
-            x = dragonParts[0][2] + "";
-        F3.setText(x);
-        if (dragonParts[0][3] == 0)
-            x = "X";
-        else
-            x = dragonParts[0][3] + "";
-        F4.setText(x);
+        Button[] fields1 = { F1, F2, F3, F4 };
+        Button[] fields11 = { f1, f2, f3, f4 };
+        for (int i = 0; i < 4; i++) {
+            String x = dragonParts[0][i] == 0 ? "X" : String.valueOf(dragonParts[0][i]);
+            fields1[i].setText(x);
+            fields11[i].setText(x);
+        }
+        Button[] fields2 = { W1, W2, W3, W4 };
+        Button[] fields22 = { w1, w2, w3, w4 };
+        for (int i = 0; i < 4; i++) {
+            String x = dragonParts[1][i] == 0 ? "X" : String.valueOf(dragonParts[1][i]);
+            fields2[i].setText(x);
+            fields22[i].setText(x);
+        }
+        Button[] fields3 = { T1, T2, T3, T4 };
+        Button[] fields33 = { t1, t2, t3, t4 };
+        for (int i = 0; i < 4; i++) {
+            String x = dragonParts[2][i] == 0 ? "X" : String.valueOf(dragonParts[2][i]);
+            fields3[i].setText(x);
+            fields33[i].setText(x);
+        }
+        Button[] fields4 = { H1, H2, H3, H4 };
+        Button[] fields44 = { h1, h2, h3, h4 };
+        for (int i = 0; i < 4; i++) {
+            String x = dragonParts[3][i] == 0 ? "X" : String.valueOf(dragonParts[3][i]);
+            fields4[i].setText(x);
+            fields44[i].setText(x);
+        }
+        Label [] scoreLabel1 = {SR1, SR2, SR3, SR4};
+        Label [] scoreLabel11 = {sr1, sr2, sr3, sr4};
+        for (int i = 0; i < 4; i++) {
+            String x = score[i] +"";
+            scoreLabel1[i].setText(x);
+            scoreLabel11[i].setText(x);
+        }
+        Button[] fields5 = { R1, R2, R3, R4, R5};
+        Button[] fields55 = { r1, r2, r3, r4 };
+        for (int i = 0; i < 4; i++) {
+            String s = reward[i];
+            switch (s){
+                case "GreenBonus":
+                    s = "GB";
+                    break;
+                case "YellowBonus":
+                    s = "YB";
+                    break;
+                case "BlueBonus":
+                    s = "BB";
+                    break;
+                case "ElementalCrest":
+                    s = "EC";
+                    break;
+                case "ArcaneBoost":
+                    s = "AB";
+                    break;
+                default:
+                    s = "";
+            }
+            fields5[i].setText(s);
+            fields55[i].setText(s);
+        }
     }
     @FXML
     // Method to change the text of buttons randomly
@@ -114,12 +158,9 @@ public class controller extends CLIGameController {
         rollButton.setDisable(true);
         // Iterate over your buttons and assign random values to them
         for (int i=0;i<6;i++) {
-            if(getButtons()[i].isDisable()){
-                continue;
-            }
             getButtons()[i].setText(""+getAllDice()[i].getValue());
             getButtons()[i].getStyleClass().remove("selected-button");
-
+            getButtons()[i].setDisable(false);
         }
         for(Button[] buttons : getPLayer1Buttons()){
             for(Button button : buttons) {
@@ -176,7 +217,6 @@ public class controller extends CLIGameController {
         }
         enablePlayer1();
         for(Button b:getButtons()){
-            b.setDisable(false);
             rollButton.setDisable(false);
         }
         for(Button b : getForgottenRealmButtons()){
