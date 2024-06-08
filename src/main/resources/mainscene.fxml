@@ -558,27 +558,27 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="1,2,4" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Label fx:id="sg1" alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="1,2,4" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="7,11" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                  <Label fx:id="sg2" alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="7,11" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="46,56" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                  <Label fx:id="sg5" alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="46,56" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="29,37" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                  <Label fx:id="sg4" alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="29,37" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="16,22" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                  <Label fx:id="sg3" alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="16,22" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -603,12 +603,12 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                  <Button fx:id="rg5" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="rg6" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -623,7 +623,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                  <Button fx:id="rg7" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -633,22 +633,22 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="TW" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Button fx:id="rg1" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="TW" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="BB" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                  <Button fx:id="rg2" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="BB" GridPane.columnIndex="2" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                  <Button fx:id="rg4" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="MB" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                  <Button fx:id="rg3" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="MB" GridPane.columnIndex="3" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -754,23 +754,23 @@
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="1,2,4" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Label fx:id="SG1" alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="1,2,4" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="7,11" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                  <Label fx:id="SG2" alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="7,11" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="46,56" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                  <Label fx:id="SG5" alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="46,56" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="29,37" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                  <Label fx:id="SG4" alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="29,37" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="16,22" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                  <Label fx:id="SG3" alignment="CENTER" prefHeight="17.0" prefWidth="171.0" text="16,22" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
@@ -794,12 +794,12 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                  <Button fx:id="RG5" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="RG6" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -814,7 +814,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                  <Button fx:id="RG7" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -824,22 +824,22 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="TW" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Button fx:id="RG1" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="TW" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="BB" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                  <Button fx:id="RG2" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="BB" GridPane.columnIndex="2" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                  <Button fx:id="RG4" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="MB" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                  <Button fx:id="RG3" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="MB" GridPane.columnIndex="3" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1235,14 +1235,14 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button fx:id="rm1" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="rm2" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="rm3" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="GB" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <Button fx:id="rm4" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="GB" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1252,7 +1252,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                  <Button fx:id="rm7" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1262,7 +1262,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                  <Button fx:id="rm8" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="8" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1272,7 +1272,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="BB" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                  <Button fx:id="rm9" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="BB" GridPane.columnIndex="9" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1287,22 +1287,22 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="YB" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                  <Button fx:id="rm10" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="YB" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="11" GridPane.rowIndex="2">
+                  <Button fx:id="rm11" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="11" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="rm5" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="RB" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Button fx:id="rm6" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="RB" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1405,12 +1405,27 @@
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Button fx:id="Yellow1" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button fx:id="Yellow2" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button fx:id="Yellow3" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button fx:id="Yellow1" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="Yellow2" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="RY1" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="RY2" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="Yellow3" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="RY3" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1420,15 +1435,24 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+                  <Button fx:id="RY4" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="RY7" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
                   <Button fx:id="Yellow7" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" text="x2" GridPane.columnIndex="7" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Yellow8" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="EC" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                  <Button fx:id="Yellow8" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="RY8" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="EC" GridPane.columnIndex="8" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1438,9 +1462,15 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="9" GridPane.rowIndex="2" />
-                  <Button fx:id="Yellow10" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="10" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="MB" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                  <Button fx:id="RY9" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="Yellow10" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="10" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="RY10" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="MB" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1450,19 +1480,28 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="11" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="RY11" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="11" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="RY5" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="AB" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Button fx:id="RY6" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="AB" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Yellow5" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="60.0" prefWidth="73.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <Button fx:id="Yellow6" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                  <Button fx:id="Yellow5" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="60.0" prefWidth="73.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="Yellow6" disable="true" mnemonicParsing="false" onAction="#attackYellow1" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
                </children>
             </GridPane>
          </children>
@@ -1820,14 +1859,14 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button fx:id="RM1" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="RM2" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="RM3" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="GB" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <Button fx:id="RM4" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="GB" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1837,7 +1876,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                  <Button fx:id="RM7" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1847,7 +1886,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                  <Button fx:id="RM8" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="8" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1857,7 +1896,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="BB" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                  <Button fx:id="RM9" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="BB" GridPane.columnIndex="9" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1872,22 +1911,22 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="YB" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                  <Button fx:id="RM10" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="YB" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="11" GridPane.rowIndex="2">
+                  <Button fx:id="RM11" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="11" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="RM5" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="RB" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Button fx:id="RM6" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="RB" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -2063,12 +2102,27 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="y1" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button fx:id="y2" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button fx:id="y3" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button fx:id="y1" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="y2" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="ry1" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="ry2" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="y3" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="ry3" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -2078,15 +2132,24 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+                  <Button fx:id="ry4" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="ry7" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
                   <Button fx:id="y7" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" text="x2" GridPane.columnIndex="7" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="y8" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="EC" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                  <Button fx:id="y8" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="ry8" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="EC" GridPane.columnIndex="8" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -2096,9 +2159,15 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="9" GridPane.rowIndex="2" />
-                  <Button fx:id="y10" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="10" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="MB" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                  <Button fx:id="ry9" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="y10" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="10" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="ry10" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="MB" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -2108,19 +2177,28 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="11" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="ry11" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="11" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="ry5" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="AB" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Button fx:id="ry6" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="AB" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="y5" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="60.0" prefWidth="73.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <Button fx:id="y6" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                  <Button fx:id="y5" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="60.0" prefWidth="73.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Button fx:id="y6" disable="true" mnemonicParsing="false" onAction="#attackYellow2" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
                </children>
             </GridPane>
          </children>
