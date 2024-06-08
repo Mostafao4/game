@@ -99,7 +99,7 @@ public class CLIGameController extends GameController {
         boolean bool = possibleMovesForArrayOfDice(getActivePlayer(), getAvailableDice()); 
         if(!bool){
             System.out.println("No possible moves for available dice");
-            endTurn(); //TODO: remove this line
+            endTurn();
             return null;
         }
         int i=(int)(Math.random()*getAvailableDice().length);
@@ -621,13 +621,14 @@ public class CLIGameController extends GameController {
                         }
                     }
                     else{
-                        if(v>=5 && player.getScoreSheet().getLion().getAllPossibleMoves().length>0)
-                            q=4;
-                       
-                            else
-                                if(player.getScoreSheet().getDragon().getPossibleMovesForADie(new RedDice(v)).length>0)
+                        if(player.getScoreSheet().getDragon().getPossibleMovesForADie(new RedDice(v)).length>0)
                                     q=0;
                                 else
+                                    if(v>=5 && player.getScoreSheet().getLion().getAllPossibleMoves().length>0)
+                                        q=4;
+                                
+                                        else
+                                
                                         if( player.getScoreSheet().getPhoenix().getPossibleMovesForADie(new MagentaDice(v)).length>0)
                                             q=3;
                                         else
@@ -1042,6 +1043,7 @@ public class CLIGameController extends GameController {
                 i = takeNumberInput();
             }
             else{
+                
                 i=1;
             }
             while(i!=0 && i!=1){
@@ -1070,13 +1072,13 @@ public class CLIGameController extends GameController {
                 j = takeNumberInput();
             }
             else{
-                j=0;
-                for(int i=0;i<getArcaneBoostDice().length;i++){
-                    if(getArcaneBoostDice()[i].getValue()>3){
-                        j=1;
-                        break;
-                    }
-                }
+                j=1;
+                // for(int i=0;i<getArcaneBoostDice().length;i++){
+                //     if(getArcaneBoostDice()[i].getValue()>3 || getGameStatus().getRound()==6){
+                //         j=1;
+                //         break;
+                //     }
+                // }
                 System.out.println(j);
             }
             while(j!=0 && j!=1){
@@ -1366,7 +1368,7 @@ public class CLIGameController extends GameController {
                     do{
                         att--;
                     }
-                    while(player.getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(att)).length==0);
+                    while(player.getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(att)).length==0 && att > 0);
                     break;
                   case RED:
                     att=7;
