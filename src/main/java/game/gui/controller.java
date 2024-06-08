@@ -1,29 +1,24 @@
 package game.gui;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.Random;
 
+import game.collectibles.ArcaneBoost;
+import game.collectibles.Bonus;
+import game.collectibles.ElementalCrest;
+import game.collectibles.Reward;
+import game.creatures.Realm;
 import game.engine.*;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import game.dice.*;
 import game.engine.Move;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 
 public class controller extends CLIGameController {
@@ -32,7 +27,9 @@ public class controller extends CLIGameController {
 //buttons
 
     @FXML
-    private Button F1, F2, F3, W1, W2, W4, T1, T3, T4, H2, H3, H4, f1,f2,f3,w1,w2,w4,t1,t3,t4,h2,h3,h4;
+    private Button F1, F2, F3, F4, W1, W2, W3, W4, T1, T2, T3, T4, H1, H2, H3, H4, R1, R2, R3, R4, R5, f1,f2,f3,f4,w1,w2,w3,w4,t1,t2,t3,t4,h1,h2,h3,h4,r1,r2,r3,r4,r5;
+    @FXML
+    private Label SR1, SR2, SR3, SR4, sr1, sr2, sr3, sr4;
     @FXML
     private Button Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12, g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12;
     @FXML
@@ -44,8 +41,115 @@ public class controller extends CLIGameController {
     @FXML
     private Button rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null, forgottenRealm1, forgottenRealm2, forgottenRealm3, forgottenRealm4, forgottenRealm5, forgottenRealm6;
     @FXML
-    private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat;
+    private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label;
 
+    @FXML
+    public void setPlayerNames(String player1, String player2) {
+        player1Label.setText("Player 1: " + player1);
+        player2Label.setText("Player 2: " + player2);
+    }
+    private  Image[][] diceImages = new Image[6][6]; // 6 types, 6 values each
+    private  ImageView[][] diceViews = new ImageView[6][6]; // Assuming 6 dice views
+    @FXML
+    public void initialize() {
+        // Load dice images
+        for (int type = 0; type < 6; type++) {
+            for (int value = 0; value < 6; value++) {
+                String imagePath = String.format("/type%dvalue%d.png", type + 1, value + 1);
+                diceImages[type][value] = new Image(getClass().getResourceAsStream(imagePath));
+            }
+        }
+        int [] score = new int[4];
+        String [] reward = new String[5];
+        int [][] dragonParts = new int[4][4];
+        Properties prop = new Properties();
+        try {
+            // Load scores
+            prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionScore.properties"));
+            for (int i = 0; i < 4; i++) {
+                score[i] = Integer.parseInt(prop.getProperty("col" + (i + 1) + "Score"));
+            }
+
+            // Load rewards
+            prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionRewards.properties"));
+            for (int i = 0; i < 4; i++) {
+                reward[i] = prop.getProperty("row" + (i + 1) + "Reward");
+            }
+            reward[4] = prop.getProperty("diagonalReward");
+
+            // Load dice values
+            prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionDiceValue.properties"));
+            for (int row = 0; row < 4; row++) {
+                for (int col = 0; col < 4; col++) {
+                    dragonParts[row][col] = Integer.parseInt(prop.getProperty("row" + (row + 1) + "col" + (col + 1) + "DiceValue"));
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        Button[] fields1 = { F1, F2, F3, F4 };
+        Button[] fields11 = { f1, f2, f3, f4 };
+        for (int i = 0; i < 4; i++) {
+            String x = dragonParts[0][i] == 0 ? "X" : String.valueOf(dragonParts[0][i]);
+            fields1[i].setText(x);
+            fields11[i].setText(x);
+        }
+        Button[] fields2 = { W1, W2, W3, W4 };
+        Button[] fields22 = { w1, w2, w3, w4 };
+        for (int i = 0; i < 4; i++) {
+            String x = dragonParts[1][i] == 0 ? "X" : String.valueOf(dragonParts[1][i]);
+            fields2[i].setText(x);
+            fields22[i].setText(x);
+        }
+        Button[] fields3 = { T1, T2, T3, T4 };
+        Button[] fields33 = { t1, t2, t3, t4 };
+        for (int i = 0; i < 4; i++) {
+            String x = dragonParts[2][i] == 0 ? "X" : String.valueOf(dragonParts[2][i]);
+            fields3[i].setText(x);
+            fields33[i].setText(x);
+        }
+        Button[] fields4 = { H1, H2, H3, H4 };
+        Button[] fields44 = { h1, h2, h3, h4 };
+        for (int i = 0; i < 4; i++) {
+            String x = dragonParts[3][i] == 0 ? "X" : String.valueOf(dragonParts[3][i]);
+            fields4[i].setText(x);
+            fields44[i].setText(x);
+        }
+        Label [] scoreLabel1 = {SR1, SR2, SR3, SR4};
+        Label [] scoreLabel11 = {sr1, sr2, sr3, sr4};
+        for (int i = 0; i < 4; i++) {
+            String x = score[i] +"";
+            scoreLabel1[i].setText(x);
+            scoreLabel11[i].setText(x);
+        }
+        Button[] fields5 = { R1, R2, R3, R4, R5};
+        Button[] fields55 = { r1, r2, r3, r4 };
+        for (int i = 0; i < 4; i++) {
+            String s = reward[i];
+            switch (s){
+                case "GreenBonus":
+                    s = "GB";
+                    break;
+                case "YellowBonus":
+                    s = "YB";
+                    break;
+                case "BlueBonus":
+                    s = "BB";
+                    break;
+                case "ElementalCrest":
+                    s = "EC";
+                    break;
+                case "ArcaneBoost":
+                    s = "AB";
+                    break;
+                default:
+                    s = "";
+            }
+            fields5[i].setText(s);
+            fields55[i].setText(s);
+        }
+    }
     @FXML
     // Method to change the text of buttons randomly
     public void rollButtons() {
@@ -54,12 +158,9 @@ public class controller extends CLIGameController {
         rollButton.setDisable(true);
         // Iterate over your buttons and assign random values to them
         for (int i=0;i<6;i++) {
-            if(getButtons()[i].isDisable()){
-                continue;
-            }
             getButtons()[i].setText(""+getAllDice()[i].getValue());
             getButtons()[i].getStyleClass().remove("selected-button");
-
+            getButtons()[i].setDisable(false);
         }
         for(Button[] buttons : getPLayer1Buttons()){
             for(Button button : buttons) {
@@ -1296,14 +1397,6 @@ public class controller extends CLIGameController {
             }
         }
     }
-//    @FXML
-//    private Label  player1Label;
-//    @FXML
-//    private Label player2Label;
-//    public void setPlayerNames(String player1, String player2){
-//        player1Label.setText("Player 1: "+player1);
-//        player2Label.setText("Player 2: "+player2);
-//    }
  }
 
 

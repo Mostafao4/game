@@ -26,13 +26,13 @@ public class PlayerInputController {
         DiceRealms.stage.close();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainscene.fxml"));
-        Parent root1 = loader.load();
+        Parent root = loader.load();
 
         controller controller = loader.getController();
         controller.setPlayerNames(player1, player2);
 
         Stage stage1 = (Stage) player1Name.getScene().getWindow();
-        stage1.setScene(new Scene(root1));
+        stage1.setScene(new Scene(root));
         stage1.show();
 
     }
