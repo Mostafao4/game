@@ -1571,55 +1571,340 @@ For each package, add the skeleton details for the class and duplicate as much a
 - **Type**: Class
 - **Description**: This class represents the Elemental Crest collectibles and their status.
 
-### `Controller` class
+
+### `controller` class
+
 - **Package**: `game.gui`
 - **Type**: Class
-- **Description**: This class extends CLIGameController, and used as a game controller for the gui.
-- 
-- #### Methods:
-- 
+- **Description**: Handles the graphical user interface (GUI) for the game, including player interactions, displaying dice values, and highlighting possible moves.
+
+#### Methods:
+
 1. `void setPlayerNames(String player1, String player2)`
-    - **Description**: Setter method to set player names.
+    - **Description**: Sets the names of the players in the GUI.
     - **Parameters**:
         - `player1`: Name of the first player.
         - `player2`: Name of the second player.
-    - **Return Type**: `void` does not return
+    - **Return Type**: `void`
 
-2. `void roll()`
-    - **Description**: Rolls the dice for the gui.
-    - **Return Type**: `void` does not return
+2. `void initialize()`
+    - **Description**: Initializes the GUI, loads images, and configuration properties.
+    - **Return Type**: `void`
 
-3. `void handleButtonPress(javafx.event.ActionEvent event)`
-    - **Description**: JavaFX method to handle button press.
-    - **Parameters**:
-        - `event`: Event to execute when button is pressed.
-    - **Return Type**: `void` does not return
+3. `void rollButtons()`
+    - **Description**: Rolls dice and assigns random values to buttons.
+    - **Return Type**: `void`
 
 4. `Button[] getButtons()`
-    - **Description**: Returns array of buttons with a die in each index.
+    - **Description**: Returns an array of dice buttons.
     - **Return Type**: `Button[]`
-        -Array of type Button
 
-5. `void highlightGreenPossibleMoves()`
-    - **Description**: Highlights possible moves in the green realm in gui.
-    - **Return Type**: `void` does not return
+5. `Button[] getForgottenRealmButtons()`
+    - **Description**: Returns an array of buttons for the Forgotten Realm.
+    - **Return Type**: `Button[]`
 
-6. `void highlightBluePossibleMoves()`
-    - **Description**: Highlights possible moves in the blue realm in gui.
-    - **Return Type**: `void` does not return
+6. `Button[][] getPLayer1Buttons()`
+    - **Description**: Returns a 2D array of buttons for player 1.
+    - **Return Type**: `Button[][]`
+
+7. `Button[][] getPLayer2Buttons()`
+    - **Description**: Returns a 2D array of buttons for player 2.
+    - **Return Type**: `Button[][]`
+
+8. `void startGame(ActionEvent event)`
+    - **Description**: Starts the game and initializes the game status.
+    - **Parameters**:
+        - `event`: The action event triggering the game start.
+    - **Return Type**: `void`
+
+9. `void startTurn()`
+    - **Description**: Starts a new turn by enabling dice buttons and rolling dice.
+    - **Return Type**: `void`
+
+10. `void timeWarpPrompt(ActionEvent event)`
+    - **Description**: Displays the available Time Warps for the active player.
+    - **Parameters**:
+        - `event`: The action event triggering the prompt.
+    - **Return Type**: `void`
+
+11. `void useTimeWarp(ActionEvent event)`
+    - **Description**: Uses a Time Warp to roll buttons again.
+    - **Parameters**:
+        - `event`: The action event triggering the use of Time Warp.
+    - **Return Type**: `void`
+
+12. `void addTurn(int i)`
+    - **Description**: Adds a turn to the current game status.
+    - **Parameters**:
+        - `i`: The turn number to add.
+    - **Return Type**: `void`
+
+13. `void handleButtonPress(ActionEvent event)`
+    - **Description**: Handles button press events, updating the GUI and game state.
+    - **Parameters**:
+        - `event`: The action event triggering the button press.
+    - **Return Type**: `void`
+
+14. `void highlightRedPossibleMoves1()`
+    - **Description**: Highlights possible moves for the red dice for player 1.
+    - **Return Type**: `void`
+
+15. `void highlightGreenPossibleMoves1()`
+    - **Description**: Highlights possible moves for the green dice for player 1.
+    - **Return Type**: `void`
+
+16. `void highlightBluePossibleMoves1()`
+    - **Description**: Highlights possible moves for the blue dice for player 1.
+    - **Return Type**: `void`
+
+17. `void highlightMagentaPossibleMoves1()`
+    - **Description**: Highlights possible moves for the magenta dice for player 1.
+    - **Return Type**: `void`
+
+18. `void highlightYellowPossibleMoves1()`
+    - **Description**: Highlights possible moves for the yellow dice for player 1.
+    - **Return Type**: `void`
+
+19. `void attackRed1(ActionEvent event)`
+    - **Description**: Handles the red dice attack by Player 1 and updates the game state accordingly.
+    - **Parameters**:
+        - `event`: The action event triggering the attack.
+    - **Return Type**: `void`
+
+20. `void attackGreen1(ActionEvent event)`
+    - **Description**: Handles the green dice attack by Player 1 and updates the game state accordingly.
+    - **Parameters**:
+        - `event`: The action event triggering the attack.
+    - **Return Type**: `void`
+
+21. `void attackBlue1(ActionEvent event)`
+    - **Description**: Handles the blue dice attack by Player 1 and updates the game state accordingly.
+    - **Parameters**:
+        - `event`: The action event triggering the attack.
+    - **Return Type**: `void`
+
+22. `void attackMagenta1(ActionEvent event)`
+    - **Description**: Handles the magenta dice attack by Player 1 and updates the game state accordingly.
+    - **Parameters**:
+        - `event`: The action event triggering the attack.
+    - **Return Type**: `void`
+
+23. `void attackYellow1(ActionEvent event)`
+    - **Description**: Handles the yellow dice attack by Player 1 and updates the game state accordingly.
+    - **Parameters**:
+        - `event`: The action event triggering the attack.
+    - **Return Type**: `void`
+
+24. `void highlightRedPossibleMoves2()`
+    - **Description**: Highlights possible moves for a red dice roll for the active player.
+    - **Return Type**: `void`
+
+25. `void highlightGreenPossibleMoves2()`
+    - **Description**: Highlights possible moves for a green dice roll for the active player.
+    - **Return Type**: `void`
+
+26. `void highlightBluePossibleMoves2()`
+    - **Description**: Highlights possible moves for a blue dice roll for the active player.
+    - **Return Type**: `void`
+
+27. `void highlightMagentaPossibleMoves2()`
+    - **Description**: Highlights possible moves for a magenta dice roll for the active player.
+    - **Return Type**: `void`
+
+28. `void highlightYellowPossibleMoves2()`
+    - **Description**: Highlights possible moves for a yellow dice roll for the active player.
+    - **Return Type**: `void`
+
+29. `void attackRed2(ActionEvent event)`
+    - **Description**: Handles the red dice attack by Player 2 and updates the game state accordingly.
+    - **Parameters**:
+        - `event`: The action event triggering the attack.
+    - **Return Type**: `void`
+
+30. `void attackGreen2(ActionEvent event)`
+    - **Description**: Handles the green dice attack by Player 2 and updates the game state accordingly.
+    - **Parameters**:
+        - `event`: The action event triggering the attack.
+    - **Return Type**: `void`
+
+31. `void attackBlue2(ActionEvent event)`
+    - **Description**: Handles the blue dice attack by Player 2 and updates the game state accordingly.
+    - **Parameters**:
+        - `event`: The action event triggering the attack.
+    - **Return Type**: `void`
+
+32. `void attackMagenta2(ActionEvent event)`
+    - **Description**: Handles the magenta dice attack by Player 2 and updates the game state accordingly.
+    - **Parameters**:
+        - `event`: The action event triggering the attack.
+    - **Return Type**: `void`
+
+33. `void attackYellow2(ActionEvent event)`
+    - **Description**: Handles the yellow dice attack by Player 2 and updates the game state accordingly.
+    - **Parameters**:
+        - `event`: The action event triggering the attack.
+    - **Return Type**: `void`
+
+34. `private void disablePlayer1()`
+    - **Description**: Disables all action buttons for Player 1.
+    - **Return Type**: `void`
+
+35. `private void disablePlayer2()`
+    - **Description**: Disables all action buttons for Player 2.
+    - **Return Type**: `void`
+
+36. `private void enablePlayer1()`
+    - **Description**: Enables all action buttons for Player 1.
+    - **Return Type**: `void`
+
+37. `private void enablePlayer2()`
+    - **Description**: Enables all action buttons for Player 2.
+    - **Return Type**: `void`
 
 ### `DiceFace` class
+
 - **Package**: `game.gui`
 - **Type**: Class
-- **Description**: This class represents the dice faces in the gui.
-- 
-- #### Methods:
-- 
-1. `void updateFace(int value)`
-    - **Description**: Changes the appearance of the dice.
+- **Description**: Represents the graphical user interface component of a dice face, with functionality to select and deselect it.
+
+#### Methods:
+
+1. `public void updateFace(int value)`
+    - **Description**: Updates the displayed value on the dice face.
     - **Parameters**:
-        - `value`: Value of the die.
-    - **Return Type**: `void` does not return
+        - `value`: The new value to display.
 
+2. `public void select()`
+    - **Description**: Selects the dice face, setting it as the currently selected dice face and updating its appearance.
 
+3. `public void deselect()`
+    - **Description**: Deselects the dice face, updating its appearance and resetting the selection if it was the selected dice face.
 
+4. `public boolean isSelected()`
+    - **Description**: Checks if the dice face is currently selected.
+    - **Return Type**: `boolean`
+        - `true` if the dice face is selected, `false` otherwise.
+
+5. `private void toggleSelection()`
+    - **Description**: Toggles the selection state of the dice face. If it is selected, it will be deselected and vice versa.
+
+### `DiceRealms` class
+
+- **Package**: `game.gui`
+- **Type**: Class
+- **Description**: Entry point for the Dice Realms game application, handling the initialization and display of the main menu interface.
+
+#### Methods:
+
+1. `public void start(Stage primaryStage) throws Exception`
+    - **Description**: Initializes and starts the primary stage of the application, setting up the main menu interface.
+    - **Parameters**:
+        - `primaryStage`: The primary stage for this application, provided by the JavaFX framework.
+    - **Throws**: `Exception` if there is an issue loading the main menu interface.
+
+### `MainmenuController` class
+
+- **Package**: `game.gui`
+- **Type**: Class
+- **Description**: Controller for the main menu interface, managing button actions to start the game or exit the application.
+
+#### Methods:
+
+1. `public void switchToScene2(ActionEvent event) throws IOException`
+    - **Description**: Switches the scene to the game mode selection screen.
+    - **Parameters**:
+        - `event`: The action event triggered by clicking the start button.
+    - **Throws**: `IOException` if there is an issue loading the mode selection scene.
+
+2. `public void exitGame(ActionEvent event)`
+    - **Description**: Exits the application.
+    - **Parameters**:
+        - `event`: The action event triggered by clicking the exit button.
+
+### `modesceneController` class
+
+- **Package**: `game.gui`
+- **Type**: Class
+- **Description**: Controller for the game mode selection scene, handling the transition to the player input window for multiplayer mode.
+
+#### Methods:
+
+1. `private void handleMultiplayerButtonAction(ActionEvent event) throws IOException`
+    - **Description**: Handles the action when the multiplayer button is clicked, loading and displaying the player input window.
+    - **Parameters**:
+        - `event`: The action event triggered by clicking the multiplayer button.
+    - **Throws**: `IOException` if there is an issue loading the player input window.
+
+### `PlayerInputController` class
+
+- **Package**: `game.gui`
+- **Type**: Class
+- **Description**: Controller for the player input window, handling the input of player names and starting the game.
+
+#### Methods:
+
+1. `private void handleStartGame() throws IOException`
+    - **Description**: Handles the action when the start game button is clicked, retrieves player names, closes the player input window, initializes the game with the provided player names, and switches to the main game scene.
+    - **Throws**: `IOException` if there is an issue loading the main game scene.
+
+### `Table` class
+
+- **Package**: `game.gui`
+- **Type**: Class
+- **Description**: Represents a table with six columns.
+
+#### Methods:
+
+1. `public String getColumn1()`
+    - **Return Type**: `String`
+    - **Description**: Gets the value of the first column.
+
+2. `public void setColumn1(String value)`
+    - **Parameters**:
+        - `value`: The value to set for the first column.
+    - **Description**: Sets the value of the first column.
+
+3. `public String getColumn2()`
+    - **Return Type**: `String`
+    - **Description**: Gets the value of the second column.
+
+4. `public void setColumn2(String value)`
+    - **Parameters**:
+        - `value`: The value to set for the second column.
+    - **Description**: Sets the value of the second column.
+
+5. `public String getColumn3()`
+    - **Return Type**: `String`
+    - **Description**: Gets the value of the third column.
+
+6. `public void setColumn3(String value)`
+    - **Parameters**:
+        - `value`: The value to set for the third column.
+    - **Description**: Sets the value of the third column.
+
+7. `public String getColumn4()`
+    - **Return Type**: `String`
+    - **Description**: Gets the value of the fourth column.
+
+8. `public void setColumn4(String value)`
+    - **Parameters**:
+        - `value`: The value to set for the fourth column.
+    - **Description**: Sets the value of the fourth column.
+
+9. `public String getColumn5()`
+    - **Return Type**: `String`
+    - **Description**: Gets the value of the fifth column.
+
+10. `public void setColumn5(String value)`
+    - **Parameters**:
+        - `value`: The value to set for the fifth column.
+    - **Description**: Sets the value of the fifth column.
+
+11. `public String getColumn6()`
+    - **Return Type**: `String`
+    - **Description**: Gets the value of the sixth column.
+
+12. `public void setColumn6(String value)`
+    - **Parameters**:
+        - `value`: The value to set for the sixth column.
+    - **Description**: Sets the value of the sixth column.
