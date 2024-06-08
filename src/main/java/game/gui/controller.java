@@ -1,5 +1,6 @@
 package game.gui;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -37,11 +38,19 @@ public class controller extends CLIGameController {
     @FXML
     private Button Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12, g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12;
     @FXML
+    private Button RG1, RG2, RG3, RG4, RG5, RG6, RG7, rg1, rg2, rg3, rg4, rg5, rg6, rg7;
+    @FXML
+    private Label SG1,SG2,SG3,SG4,SG5,sg1,sg2,sg3,sg4,sg5;
+    @FXML
     private Button Blue1, Blue2, Blue3, Blue4, Blue5, Blue6, Blue7, Blue8, Blue9, Blue10, Blue11,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11;
     @FXML
     private Button Magenta1, Magenta2, Magenta3, Magenta4, Magenta5, Magenta6, Magenta7, Magenta8, Magenta9, Magenta10, Magenta11,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11;
     @FXML
+    private Button RM1,RM2, RM3, RM4, RM5, RM6, RM7, RM8, RM9, RM10, RM11, rm1, rm2, rm3, rm4, rm5, rm6, rm7, rm8, rm9, rm10, rm11;
+    @FXML
     private Button Yellow1, Yellow2, Yellow3, Yellow4, Yellow5, Yellow6, Yellow7, Yellow8, Yellow9, Yellow10, Yellow11,y1,y2,y3,y4,y5,y6,y7,y8,y9,y10,y11;
+    @FXML
+    private Button RY1, RY2, RY3, RY4, RY5, RY6, RY7, RY8, RY9, RY10, RY11, ry1, ry2, ry3, ry4, ry5, ry6, ry7, ry8, ry9, ry10, ry11;
     @FXML
     private Button rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null, forgottenRealm1, forgottenRealm2, forgottenRealm3, forgottenRealm4, forgottenRealm5, forgottenRealm6;
     @FXML
@@ -50,8 +59,17 @@ public class controller extends CLIGameController {
     private int [] scoreRed = new int[4];
     private String [] reward = new String[5];
     private int [][] dragonParts = new int[4][4];
+
     private  Image[][] diceImages = new Image[6][6]; // 6 types, 6 values each
     private  ImageView[][] diceViews = new ImageView[6][6]; // Assuming 6 dice views
+
+    private String[] horizontalRewards = new String[3];
+    private String[] verticalRewards = new String[4];
+    private int[] greenScores = new int[11];
+    private String s;
+
+    String[] yellowRewards = new String[11];
+    int[] yellowMultipliers = new int[11];
 
     public void setPlayerNames(String player1, String player2) {
         player1Label.setText("Player 1: " + player1);
@@ -90,6 +108,7 @@ public class controller extends CLIGameController {
                     dragonParts[row][col] = Integer.parseInt(prop.getProperty("row" + (row + 1) + "col" + (col + 1) + "DiceValue"));
                 }
             }
+
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -235,6 +254,223 @@ public class controller extends CLIGameController {
             RB[i].setText(rew[i]);
             rb[i].setText(rew[i]);
         }
+
+        try{
+            Properties prop3 = new Properties();
+            prop3.load(new FileInputStream("src/main/resources/config/TerrasHeartlandRewards.properties"));
+            horizontalRewards[0] = prop3.getProperty("row1Reward");
+            horizontalRewards[1] = prop3.getProperty("row2Reward");
+            horizontalRewards[2] = prop3.getProperty("row3Reward");
+            verticalRewards[0] = prop3.getProperty("column1Reward");
+            verticalRewards[1] = prop3.getProperty("column2Reward");
+            verticalRewards[2] = prop3.getProperty("column3Reward");
+            verticalRewards[3] = prop3.getProperty("column4Reward");
+            //Load Green scores
+            prop3.load(new FileInputStream("src/main/resources/config/TerrasHeartland.properties"));
+            //String scrs = prop2.getProperty("score");
+            String[] scoreString = prop3.getProperty("score").split(", ");
+            for(int i = 0; i < greenScores.length; i++){
+                greenScores[i] = Integer.parseInt(scoreString[i]);
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+
+        }
+        Button[] rewardsGreen = {RG1, RG2, RG3, RG4};
+        Button[] rewardsGreen1 = {rg1, rg2, rg3, rg4};
+        String s;
+        for (int i = 0; i < 4; i++) {
+            s = verticalRewards[i];
+            switch (s){
+                case "RedBonus":
+                    s = "RB";
+                    break;
+                case "TimeWarp":
+                    s = "TW";
+                    break;
+                case "MagentaBonus":
+                    s = "MB";
+                    break;
+                case "YellowBonus":
+                    s = "YB";
+                    break;
+                case "BlueBonus":
+                    s = "BB";
+                    break;
+                case "ElementalCrest":
+                    s = "EC";
+                    break;
+                case "ArcaneBoost":
+                    s = "AB";
+                    break;
+                default:
+                    s = "";
+            }
+            rewardsGreen[i].setText(s);
+            rewardsGreen1[i].setText(s);
+        }
+        Button[] rewardsGreen2 = {RG5, RG6, RG7};
+        Button[] rewardsGreen3 = {rg5, rg6, rg7};
+        for (int i = 0; i < 3; i++) {
+            s = horizontalRewards[i];
+            switch (s){
+                case "RedBonus":
+                    s = "RB";
+                    break;
+                case "TimeWarp":
+                    s = "TW";
+                    break;
+                case "MagentaBonus":
+                    s = "MB";
+                    break;
+                case "YellowBonus":
+                    s = "YB";
+                    break;
+                case "BlueBonus":
+                    s = "BB";
+                    break;
+                case "ElementalCrest":
+                    s = "EC";
+                    break;
+                case "ArcaneBoost":
+                    s = "AB";
+                    break;
+                default:
+                    s = "";
+            }
+            rewardsGreen2[i].setText(s);
+            rewardsGreen3[i].setText(s);
+        }
+        SG1.setText(greenScores[0] + "," + greenScores[1] + "," + greenScores[2]);
+        sg1.setText(greenScores[0] + "," + greenScores[1] + "," + greenScores[2]);
+        SG2.setText(greenScores[3] + "," + greenScores[4]);
+        sg2.setText(greenScores[3] + "," + greenScores[4]);
+        SG3.setText(greenScores[5] + "," + greenScores[6]);
+        sg3.setText(greenScores[5] + "," + greenScores[6]);
+        SG4.setText(greenScores[7] + "," + greenScores[8]);
+        sg4.setText(greenScores[7] + "," + greenScores[8]);
+        SG5.setText(greenScores[9] + "," + greenScores[10]);
+        sg5.setText(greenScores[9] + "," + greenScores[10]);
+
+        try{
+            Properties prop4 = new Properties();
+            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/MysticalSkyRewards.properties");
+            prop4.load(rewardConfig);
+            for (int i=0;i<11;i++){
+                String r=prop4.getProperty("hit"+(i+1)+"Reward");
+                rew[i]=r;
+                switch (r){
+                    case "ArcaneBoost":
+                        rew[i]="AB";
+                        break;
+                    case "BlueBonus":
+                        rew[i]="BB";
+                        break;
+                    case "ElementalCrest":
+                        rew[i]="EC";
+                        break;
+                    case "GreenBonus":
+                        rew[i]="GB";
+                        break;
+                    case "MagentaBonus":
+                        rew[i]="MB";
+                        break;
+                    case "RedBonus":
+                        rew[i]="RB";
+                        break;
+                    case "TimeWarp":
+                        rew[i]="TW";
+                        break;
+                    case "YellowBonus":
+                        rew[i]="YB";
+                        break;
+                    default:
+                        rew[i]="  ";
+                        break;
+                }
+            }
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Button [] RM = {RM1, RM2, RM3, RM4, RM5, RM6, RM7, RM8, RM9, RM10, RM11};
+        Button [] rm = {rm1, rm2, rm3, rm4, rm5, rm6, rm7, rm8, rm9, rm10, rm11};
+        for (int i = 0; i < 11; i++){
+            RM[i].setText(rew[i]);
+            rm[i].setText(rew[i]);
+        }
+
+        try{
+            Properties prop5 = new Properties();
+            prop5.load(new FileInputStream("src/main/resources/config/RadiantSvannaRewards.properties"));
+            for(int i = 0; i < 11; i++) {
+                yellowRewards[i] = prop5.getProperty("hit" + (i + 1) + "Reward");
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        Button[] RY = {RY1, RY2, RY3, RY4, RY5, RY6, RY7, RY8, RY9, RY10, RY11};
+        Button[] ry = {ry1, ry2, ry3, ry4, ry5, ry6, ry7, ry8, ry9, ry10, ry11};
+        String strYellow = "";
+        for(int i = 0; i < 11; i++){
+
+                switch(yellowRewards[i]){
+                    case "TimeWarp":
+                        strYellow = "TW";
+                        break;
+                    case "RedBonus":
+                        strYellow = "RB";
+                        break;
+                    case "ArcaneBoost":
+                        strYellow = "AB";
+                        break;
+                    case "ElementalCrest":
+                        strYellow = "EC";
+                        break;
+                    case "MagentaBonus":
+                        strYellow = "MB";
+                        break;
+                    case "BlueBonus":
+                        strYellow = "YB";
+                        break;
+                    case "GreenBonus":
+                        strYellow = "GB";
+                        break;
+                    default:
+                        strYellow = "";
+
+                }
+
+            RY[i].setText(strYellow);
+            ry[i].setText(strYellow);
+        }
+
+        try{
+            Properties prop6 = new Properties();
+            prop6.load(new FileInputStream("src/main/resources/config/RadiantSvannaMultipliers.properties"));
+            for(int i = 0; i < 11; i++) {
+                yellowMultipliers[i] = Integer.parseInt(prop6.getProperty("hit" + (i + 1) + "multiplier"));
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        Button[] yellowButtons3 = {Yellow1,Yellow2,Yellow3,Yellow4,Yellow5,Yellow6,Yellow7,Yellow8,Yellow9,Yellow10,Yellow11};
+        Button[] yellowButtons4 = {y1, y2, y3, y4, y5, y6, y7, y8, y9, y10, y11};
+        for(int i = 0; i < yellowButtons3.length; i++){
+            if(yellowMultipliers[i] == 1){
+                yellowButtons3[i].setText("");
+                yellowButtons4[i].setText("");
+                continue;
+            }
+            else {
+                yellowButtons3[i].setText("x" + yellowMultipliers[i]);
+                yellowButtons4[i].setText("x" + yellowMultipliers[i]);
+            }
+        }
+
 
     }
 
