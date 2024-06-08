@@ -350,17 +350,20 @@ public class controller extends CLIGameController {
         rollButtons();
     }
 
-
+    private void helper(){
+        getGameStatus().incrementPartOfRound();
+        gameStat.setText("Your turn has ended");
+    }
 
     public void addTurn(int i){
-        getGameStatus().incrementTurn();
-        if(getGameStatus().getPartOfRound()==0) {
-            player1Turn.setText(""+getGameStatus().getTurn());
-            player2Turn.setText("--");
-        }
-        else {
-            player1Turn.setText("--");
-            player2Turn.setText(""+getGameStatus().getTurn());
+        if(getGameStatus().getTurn()<4){
+            if (getGameStatus().getPartOfRound() == 0) {
+                player1Turn.setText("" + getGameStatus().getTurn());
+                player2Turn.setText("--");
+            } else {
+                player1Turn.setText("--");
+                player2Turn.setText("" + getGameStatus().getTurn());
+            }
         }
         boolean flag = false;
         for(Button b : getButtons()){
@@ -371,6 +374,7 @@ public class controller extends CLIGameController {
         }
         if(getGameStatus().getTurn()==4 || !flag) {
             rollButton.setVisible(false);
+            getGameStatus().setAv(false);
             gameStat.setText(getPassivePlayer().getPlayerName() + ": Choose a die from the forgotten realm");
             for (Button button : getButtons()) {
                 button.setDisable(true);
@@ -420,7 +424,6 @@ public class controller extends CLIGameController {
         selectedButton = button;
         selectedButton.setDisable(true); // Disable the selected button to prevent further clicks
         //int dieValue = Integer.parseInt(selectedButton.getText());
-        if(getGameStatus().getPartOfRound()==0) {
             if (button.equals(die1) || button.equals(forgottenRealm1))
                 highlightRedPossibleMoves1();
             else if (button.equals(die2) || button.equals(forgottenRealm2))
@@ -431,90 +434,168 @@ public class controller extends CLIGameController {
                 highlightMagentaPossibleMoves1();
             else if (button.equals(die5) || button.equals(forgottenRealm5))
                 highlightYellowPossibleMoves1();
-        }
-        else{
-            if(button.equals(die1))
-                highlightRedPossibleMoves2();
-            else if(button.equals(die2))
-                highlightGreenPossibleMoves2();
-            else if(button.equals(die3))
-                highlightBluePossibleMoves2();
-            else if(button.equals(die4))
-                highlightMagentaPossibleMoves2();
-            else if(button.equals(die5))
-                highlightYellowPossibleMoves2();
-        }
+
+
+//        else{
+//            if(button.equals(die1))
+//                highlightRedPossibleMoves2();
+//            else if(button.equals(die2))
+//                highlightGreenPossibleMoves2();
+//            else if(button.equals(die3))
+//                highlightBluePossibleMoves2();
+//            else if(button.equals(die4))
+//                highlightMagentaPossibleMoves2();
+//            else if(button.equals(die5))
+//                highlightYellowPossibleMoves2();
+//        }
         // Add the selection class to the new button
         selectedButton.getStyleClass().add("selected-button");
     }
-    public void highlightRedPossibleMoves1(){
+
+    public void highlightRedPossibleMoves1() {
         int i = getAllDice()[0].getValue();
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), getAllDice()[0]);
-        if(m.length==0){
-            return;
-        }
-        for(int x=0;x<12;x++){
-            if(i == Integer.parseInt(getPLayer1Buttons()[0][x].getText())){
-                getPLayer1Buttons()[0][x].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                getPLayer1Buttons()[0][x].setDisable(false);
-            }
-        }
-}
-    public void highlightGreenPossibleMoves1(){
-            int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
-            Move[] m = getGameBoard().getPlayer1().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h));
-            if(m.length==0){
+        if ((getGameStatus().getPartOfRound() == 0 && getGameStatus().isAv()) || getGameStatus().getPartOfRound() == 1 && !getGameStatus().isAv()) {
+
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), getAllDice()[0]);
+            if (m.length == 0) {
                 return;
             }
-            for(int i=0;i<11;i++){
-                if(h == i+2){
-                    getPLayer1Buttons()[1][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer1Buttons()[1][i].setDisable(false);
+            for (int x = 0; x < 12; x++) {
+                if (i == Integer.parseInt(getPLayer1Buttons()[0][x].getText())) {
+                    getPLayer1Buttons()[0][x].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer1Buttons()[0][x].setDisable(false);
+                }
+            }
+        } else if ((getGameStatus().getPartOfRound() == 0 && !getGameStatus().isAv()) || getGameStatus().getPartOfRound() == 1 && getGameStatus().isAv()) {
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), getAllDice()[0]);
+            if (m.length == 0) {
+                return;
+            }
+            for (int x = 0; x < 12; x++) {
+                if (i == Integer.parseInt(getPLayer2Buttons()[0][x].getText())) {
+                    getPLayer2Buttons()[0][x].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer2Buttons()[0][x].setDisable(false);
+                }
+            }
+        }
+    }
+    public void highlightGreenPossibleMoves1(){
+            int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
+            if((getGameStatus().getPartOfRound()==0 && getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && !getGameStatus().isAv()) {
+                Move[] m = getGameBoard().getPlayer1().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h));
+                if (m.length == 0) {
+                    return;
+                }
+                for (int i = 0; i < 11; i++) {
+                    if (h == i + 2) {
+                        getPLayer1Buttons()[1][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                        getPLayer1Buttons()[1][i].setDisable(false);
+                    }
+                }
+            }
+            else if((getGameStatus().getPartOfRound()==0 && !getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && getGameStatus().isAv()) {
+                Move[] m = getGameBoard().getPlayer2().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h));
+                if (m.length == 0) {
+                    return;
+                }
+                for (int i = 0; i < 11; i++) {
+                    if (h == i + 2) {
+                        getPLayer2Buttons()[1][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                        getPLayer2Buttons()[1][i].setDisable(false);
+                    }
                 }
             }
     }
     public void highlightBluePossibleMoves1(){
-        int i = getGameBoard().getPlayer1().getScoreSheet().getHydra().headsKilled();
         int value = Integer.parseInt(die3.getText());
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(value));
-        if(m.length==0){
-            return;
-        }
-        for(int x=0;x<11;x++){
-            if(i == x){
-                getPLayer1Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                getPLayer1Buttons()[2][i].setDisable(false);
+        if((getGameStatus().getPartOfRound()==0 && getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && !getGameStatus().isAv()) {
+            int i = getGameBoard().getPlayer1().getScoreSheet().getHydra().headsKilled();
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(value));
+            if (m.length == 0) {
+                return;
             }
+            for (int x = 0; x < 11; x++) {
+                if (i == x) {
+                    getPLayer1Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer1Buttons()[2][i].setDisable(false);
+                }
+            }
+        }
+        else if((getGameStatus().getPartOfRound()==0 && !getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && getGameStatus().isAv()){
+                int i = getGameBoard().getPlayer2().getScoreSheet().getHydra().headsKilled();
+                Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new BlueDice(value));
+                if(m.length==0){
+                    return;
+                }
+                for(int x=0;x<11;x++){
+                    if(i == x){
+                        getPLayer2Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                        getPLayer2Buttons()[2][i].setDisable(false);
+                    }
+                }
         }
     }
     public void highlightMagentaPossibleMoves1(){
-        int i = getGameBoard().getPlayer1().getScoreSheet().getPhoenix().getCount();
         int value = Integer.parseInt(die4.getText());
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(value));
-        if(m.length==0){
-            return;
-        }
-        for(int x=0;x<11;x++){
-            if(i == x){
-                getPLayer1Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                getPLayer1Buttons()[3][i].setDisable(false);
+        if((getGameStatus().getPartOfRound()==0 && getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && !getGameStatus().isAv()) {
+            int i = getGameBoard().getPlayer1().getScoreSheet().getPhoenix().getCount();
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(value));
+            if (m.length == 0) {
+                return;
+            }
+            for (int x = 0; x < 11; x++) {
+                if (i == x) {
+                    getPLayer1Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer1Buttons()[3][i].setDisable(false);
+                }
             }
         }
-    }
-    public void highlightYellowPossibleMoves1(){
-        int i = getGameBoard().getPlayer1().getScoreSheet().getLion().getHitNum();
+        else if((getGameStatus().getPartOfRound()==0 && !getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && getGameStatus().isAv()) {
+            int i = getGameBoard().getPlayer2().getScoreSheet().getPhoenix().getCount();
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new MagentaDice(value));
+            if (m.length == 0) {
+                return;
+            }
+            for (int x = 0; x < 11; x++) {
+                if (i == x) {
+                    getPLayer2Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer2Buttons()[3][i].setDisable(false);
+                }
+            }
+        }
+
+        }
+    public void highlightYellowPossibleMoves1() {
         int value = Integer.parseInt(die5.getText());
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(value));
-        if(m.length==0){
-            return;
-        }
-        for(int x=0;x<11;x++){
-            if(i == x){
-                getPLayer1Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                getPLayer1Buttons()[4][i].setDisable(false);
+        if ((getGameStatus().getPartOfRound() == 0 && getGameStatus().isAv()) || getGameStatus().getPartOfRound() == 1 && !getGameStatus().isAv()) {
+
+            int i = getGameBoard().getPlayer1().getScoreSheet().getLion().getHitNum();
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(value));
+            if (m.length == 0) {
+                return;
+            }
+            for (int x = 0; x < 11; x++) {
+                if (i == x) {
+                    getPLayer1Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer1Buttons()[4][i].setDisable(false);
+                }
+            }
+        } else if ((getGameStatus().getPartOfRound() == 0 && !getGameStatus().isAv()) || getGameStatus().getPartOfRound() == 1 && getGameStatus().isAv()) {
+            int i = getGameBoard().getPlayer2().getScoreSheet().getLion().getHitNum();
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new YellowDice(value));
+            if (m.length == 0) {
+                return;
+            }
+            for (int x = 0; x < 11; x++) {
+                if (i == x) {
+                    getPLayer2Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer2Buttons()[4][i].setDisable(false);
+                }
             }
         }
     }
+
+
     public void attackRed1(ActionEvent event) {
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die1.getText());
@@ -547,61 +628,9 @@ public class controller extends CLIGameController {
                 }
             }
         }
-//        if (m.length > 0) {
-//            if (button.equals(F1)) {
-//                d.selectsDragon(1);
-//                makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                F1.setText("X");
-//            }
-//                else if (button.equals(F2)) {
-//                    d.selectsDragon(2);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                    F2.setText("X");
-//                } else if (button.equals(F3)) {
-//                    d.selectsDragon(3);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                        F3.setText("X");
-//                } else if (button.equals(W1)) {
-//                    d.selectsDragon(1);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                        W1.setText("X");
-//                } else if (button.equals(W2)) {
-//                    d.selectsDragon(2);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                        W2.setText("X");
-//                } else if (button.equals(W4)) {
-//                    d.selectsDragon(4);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                        W4.setText("X");
-//                } else if (button.equals(T1)) {
-//                    d.selectsDragon(1);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                        T1.setText("X");
-//                } else if (button.equals(T3)) {
-//                    d.selectsDragon(3);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                        T3.setText("X");
-//                } else if (button.equals(T4)) {
-//                    d.selectsDragon(4);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                        T4.setText("X");
-//                } else if (button.equals(H2)) {
-//                    d.selectsDragon(2);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                        H2.setText("X");
-//                } else if (button.equals(H3)) {
-//                    d.selectsDragon(3);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                        H3.setText("X");
-//                } else if (button.equals(H4)) {
-//                    d.selectsDragon(4);
-//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-//                        H4.setText("X");
-//                }
-//            }
         die1.setDisable(true);
         for (int h=0;h<6;h++) {
-            if(getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i) {
+            if(getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
                 getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
                 getForgottenRealmButtons()[h].setVisible(true);
                 getButtons()[h].setVisible(false);
@@ -609,7 +638,24 @@ public class controller extends CLIGameController {
             getButtons()[h].setDisable(true);
         }
         die1.setVisible(false);
-        addTurn(1);
+        if(getGameStatus().getPartOfRound()==1){
+            getGameStatus().incrementRound();
+            getGameStatus().incrementPartOfRound();
+            getGameStatus().resetTurn();
+            for(Button hds:getForgottenRealmButtons()){
+                hds.setVisible(false);
+            }
+            for(Button hgf:getButtons()){
+                hgf.setVisible(true);
+            }
+            rollButton.setVisible(true);
+            switchPlayer();
+            getGameStatus().setAv(true);
+            return;
+
+        }
+            addTurn(1);
+
         }
     public void attackGreen1(ActionEvent event){
         Button button = (Button) event.getSource();
@@ -629,17 +675,31 @@ public class controller extends CLIGameController {
         }
         die2.setDisable(true);
         for (int r=0;r<6;r++) {
-            if(getButtons()[r].isVisible() && (Integer.parseInt(getButtons()[r].getText()) < Integer.parseInt(die2.getText()))) {
+            if(getButtons()[r].isVisible() && (Integer.parseInt(getButtons()[r].getText()) < Integer.parseInt(die2.getText())) && !getForgottenRealmButtons()[r].isVisible()) {
                 getForgottenRealmButtons()[r].setText(getButtons()[r].getText());
                 getForgottenRealmButtons()[r].setVisible(true);
                 getButtons()[r].setVisible(false);
-
             }
             getButtons()[r].setDisable(true);
         }
         die2.setVisible(false);
-        addTurn(2);
+        if(getGameStatus().getPartOfRound()==1){
+            getGameStatus().incrementRound();
+            getGameStatus().incrementPartOfRound();
+            getGameStatus().resetTurn();
+            for(Button hds:getForgottenRealmButtons()){
+                hds.setVisible(false);
+            }
+            for(Button hgf:getButtons()){
+                hgf.setVisible(true);
+            }
+            rollButton.setVisible(true);
+            switchPlayer();
+            getGameStatus().setAv(true);
+            return;
 
+        }
+        addTurn(1);
     }
     public void attackBlue1(ActionEvent event){
         Button button = (Button) event.getSource();
@@ -657,7 +717,7 @@ public class controller extends CLIGameController {
             }
 
             for (int h = 0; h < 6; h++) {
-                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i) {
+                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
                     getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText()) + "");
                     getForgottenRealmButtons()[h].setVisible(true);
                     getButtons()[h].setVisible(false);
@@ -665,25 +725,43 @@ public class controller extends CLIGameController {
                 getButtons()[h].setDisable(true);
             }
             die3.setVisible(false);
-            addTurn(3);
-        }
+            if(getGameStatus().getPartOfRound()==1){
+                getGameStatus().incrementRound();
+                getGameStatus().incrementPartOfRound();
+                getGameStatus().resetTurn();
+                for(Button hds:getForgottenRealmButtons()){
+                    hds.setVisible(false);
+                }
+                for(Button hgf:getButtons()){
+                    hgf.setVisible(true);
+                }
+                rollButton.setVisible(true);
+                switchPlayer();
+                getGameStatus().setAv(true);
+
+                return;
+
+            }
+            addTurn(1);      }
     }
     public void attackMagenta1(ActionEvent event){
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die4.getText());
         Dice d = new MagentaDice(i);
         Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(i));
-        if(m.length>0) {
+        if(m.length==0){
+            return;
+        }
             for (int x = 0; x < 11; x++) {
-                if (button.equals(getPLayer1Buttons()[2][x])) {
+                if (button.equals(getPLayer1Buttons()[3][x])) {
                     if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getPhoenix()))) {
-                        getPLayer1Buttons()[3][x].setText("X");
+                        getPLayer1Buttons()[3][x].setText(""+i);
                         getPLayer1Buttons()[3][x].setDisable(true);
                     }
                 }
             }
             for (int h = 0; h < 6; h++) {
-                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i) {
+                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
                     getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
                     getForgottenRealmButtons()[h].setVisible(true);
                     getButtons()[h].setVisible(false);
@@ -691,9 +769,24 @@ public class controller extends CLIGameController {
                 getButtons()[h].setDisable(true);
             }
             die4.setVisible(false);
-            addTurn(4);
+        if(getGameStatus().getPartOfRound()==1){
+            getGameStatus().incrementRound();
+            getGameStatus().incrementPartOfRound();
+            getGameStatus().resetTurn();
+            for(Button hds:getForgottenRealmButtons()){
+                hds.setVisible(false);
+            }
+            for(Button hgf:getButtons()){
+                hgf.setVisible(true);
+            }
+            rollButton.setVisible(true);
+            switchPlayer();
+            getGameStatus().setAv(true);
+
+            return;
+
         }
-    }
+        addTurn(1);  }
     public void attackYellow1(ActionEvent event) {
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die5.getText());
@@ -710,7 +803,7 @@ public class controller extends CLIGameController {
             }
             forgottenRealm5.setText(die5.getText());
             for (int h = 0; h < 6; h++) {
-                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i) {
+                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
                     getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
                     getForgottenRealmButtons()[h].setVisible(true);
                     getButtons()[h].setVisible(false);
@@ -718,279 +811,571 @@ public class controller extends CLIGameController {
                 getButtons()[h].setDisable(true);
             }
             die5.setVisible(false);
-            addTurn(5);
-        }
-    }
+            if(getGameStatus().getPartOfRound()==1){
+                getGameStatus().incrementRound();
+                getGameStatus().incrementPartOfRound();
+                getGameStatus().resetTurn();
+                for(Button hds:getForgottenRealmButtons()){
+                    hds.setVisible(false);
+                }
+                for(Button hgf:getButtons()){
+                    hgf.setVisible(true);
+                }
+                rollButton.setVisible(true);
+                switchPlayer();
+                getGameStatus().setAv(true);
 
+                return;
 
-    public void highlightRedPossibleMoves2(){
-        int i = getAllDice()[0].getValue();
-        Move[] moves = getPossibleMovesForADie(getActivePlayer(), getAllDice()[0]);
-        if(moves.length>0){
-            if(f1.getText().equals(""+i)){
-                f1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
             }
-            if(f2.getText().equals(""+i)){
-                f2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-            if(f3.getText().equals(""+i)){
-                f3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-            if(w1.getText().equals(""+i)){
-                w1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-            if(w2.getText().equals(""+i)){
-                w2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-            if(w4.getText().equals(""+i)){
-                w4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-            if(t1.getText().equals(""+i)){
-                t1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-            if(t3.getText().equals(""+i)){
-                t3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-            if(t4.getText().equals(""+i)){
-                t4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-            if(h2.getText().equals(""+i)){
-                h2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-            if(h3.getText().equals(""+i)){
-                h3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-            if(h4.getText().equals(""+i)){
-                h4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-        }
+            addTurn(1);       }
     }
-    public void highlightGreenPossibleMoves2(){
-        int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
-        Move[] m = getActivePlayer().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h));
-        if(m.length==0){
-            return;
-        }
-        switch(h){
-            case 2:
-                g2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-            case 3:
-                g3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-            case 4:
-                g4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-            case 5:
-                g5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-            case 6:
-                g6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-            case 7:
-                g7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-            case 8:
-                g8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-            case 9:
-                g9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-            case 10:
-                g10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-            case 11:
-                g11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-            case 12:
-                g12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                break;
-        }
-    }
-    public void highlightBluePossibleMoves2(){
-        int i = getActivePlayer().getScoreSheet().getHydra().headsKilled();
-        int value = Integer.parseInt(die3.getText());
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(value));
-        if(m.length>0 ){
-            switch(i){
-                case 0:
-                    b1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 1:
-                    b2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 2:
-                    b3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 3:
-                    b4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 4:
-                    b5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 5:
-                    b6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 6:
-                    b7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 7:
-                    b8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 8:
-                    b9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 9:
-                    b10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 10:
-                    b11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-            }
-        }
-    }
-    public void highlightMagentaPossibleMoves2(){
-        int i = getActivePlayer().getScoreSheet().getPhoenix().getCount();
-        int value = Integer.parseInt(die4.getText());
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new MagentaDice(value));
-        if(m.length>0 ){
-            switch(i){
-                case 0:
-                    m1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 1:
-                    m2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 2:
-                    m3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 3:
-                    m4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 4:
-                    m5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 5:
-                    m6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 6:
-                    m7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 7:
-                    m8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 8:
-                    m9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 9:
-                    m10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 10:
-                    m11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-            }
-        }
-    }
-    public void highlightYellowPossibleMoves2(){
-        int i = getActivePlayer().getScoreSheet().getLion().getHitNum();
-        int value = Integer.parseInt(die5.getText());
-        Move[] m = getPossibleMovesForADie(getActivePlayer(), new YellowDice(value));
-        if(m.length>0 ){
-            switch(i){
-                case 0:
-                    y1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 1:
-                    y2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 2:
-                    y3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 3:
-                    y4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 4:
-                    y5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 5:
-                    y6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 6:
-                    y7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 7:
-                    y8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 8:
-                    y9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 9:
-                    y10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 10:
-                    y11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-            }
-        }
-    }
+    //    public void highlightRedPossibleMoves2(){
+//        int i = getAllDice()[0].getValue();
+//        Move[] moves = getPossibleMovesForADie(getActivePlayer(), getAllDice()[0]);
+//        if(moves.length>0){
+//            if(f1.getText().equals(""+i)){
+//                f1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(f2.getText().equals(""+i)){
+//                f2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(f3.getText().equals(""+i)){
+//                f3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(w1.getText().equals(""+i)){
+//                w1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(w2.getText().equals(""+i)){
+//                w2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(w4.getText().equals(""+i)){
+//                w4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(t1.getText().equals(""+i)){
+//                t1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(t3.getText().equals(""+i)){
+//                t3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(t4.getText().equals(""+i)){
+//                t4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(h2.getText().equals(""+i)){
+//                h2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(h3.getText().equals(""+i)){
+//                h3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//            if(h4.getText().equals(""+i)){
+//                h4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//            }
+//        }
+//    }
+//    public void highlightGreenPossibleMoves2(){
+//        int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
+//        Move[] m = getActivePlayer().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h));
+//        if(m.length==0){
+//            return;
+//        }
+//        switch(h){
+//            case 2:
+//                g2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//            case 3:
+//                g3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//            case 4:
+//                g4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//            case 5:
+//                g5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//            case 6:
+//                g6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//            case 7:
+//                g7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//            case 8:
+//                g8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//            case 9:
+//                g9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//            case 10:
+//                g10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//            case 11:
+//                g11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//            case 12:
+//                g12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                break;
+//        }
+//    }
+//    public void highlightBluePossibleMoves2(){
+//        int i = getActivePlayer().getScoreSheet().getHydra().headsKilled();
+//        int value = Integer.parseInt(die3.getText());
+//        Move[] m = getPossibleMovesForADie(getActivePlayer(), new BlueDice(value));
+//        if(m.length>0 ){
+//            switch(i){
+//                case 0:
+//                    b1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 1:
+//                    b2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 2:
+//                    b3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 3:
+//                    b4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 4:
+//                    b5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 5:
+//                    b6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 6:
+//                    b7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 7:
+//                    b8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 8:
+//                    b9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 9:
+//                    b10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 10:
+//                    b11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//            }
+//        }
+//    }
+//    public void highlightMagentaPossibleMoves2(){
+//        int i = getActivePlayer().getScoreSheet().getPhoenix().getCount();
+//        int value = Integer.parseInt(die4.getText());
+//        Move[] m = getPossibleMovesForADie(getActivePlayer(), new MagentaDice(value));
+//        if(m.length>0 ){
+//            switch(i){
+//                case 0:
+//                    m1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 1:
+//                    m2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 2:
+//                    m3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 3:
+//                    m4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 4:
+//                    m5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 5:
+//                    m6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 6:
+//                    m7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 7:
+//                    m8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 8:
+//                    m9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 9:
+//                    m10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 10:
+//                    m11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//            }
+//        }
+//    }
+//    public void highlightYellowPossibleMoves2(){
+//        int i = getActivePlayer().getScoreSheet().getLion().getHitNum();
+//        int value = Integer.parseInt(die5.getText());
+//        Move[] m = getPossibleMovesForADie(getActivePlayer(), new YellowDice(value));
+//        if(m.length>0 ){
+//            switch(i){
+//                case 0:
+//                    y1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 1:
+//                    y2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 2:
+//                    y3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 3:
+//                    y4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 4:
+//                    y5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 5:
+//                    y6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 6:
+//                    y7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 7:
+//                    y8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 8:
+//                    y9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 9:
+//                    y10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//                case 10:
+//                    y11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+//                    break;
+//            }
+//        }
+//    }
+//    public void attackRed2(ActionEvent event) {
+//        Button button = (Button) event.getSource();
+//        int i = Integer.parseInt(die1.getText());
+//        RedDice d = new RedDice(i);
+//        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), d);
+//        boolean b = false;
+//        if (m.length > 0) {
+//            if (button.equals(f1)) {
+//                d.selectsDragon(1);
+//                b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                    f1.setText("X");
+//                } else if (button.equals(f2)) {
+//                    d.selectsDragon(2);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        f2.setText("X");
+//                } else if (button.equals(f3)) {
+//                    d.selectsDragon(3);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        f3.setText("X");
+//                } else if (button.equals(w1)) {
+//                    d.selectsDragon(1);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        w1.setText("X");
+//                } else if (button.equals(w2)) {
+//                    d.selectsDragon(2);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        w2.setText("X");
+//                } else if (button.equals(w4)) {
+//                    d.selectsDragon(4);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        w4.setText("X");
+//                } else if (button.equals(t1)) {
+//                    d.selectsDragon(1);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        t1.setText("X");
+//                } else if (button.equals(t3)) {
+//                    d.selectsDragon(3);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        t3.setText("X");
+//                } else if (button.equals(t4)) {
+//                    d.selectsDragon(4);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        t4.setText("X");
+//                } else if (button.equals(h2)) {
+//                    d.selectsDragon(2);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        h2.setText("X");
+//                } else if (button.equals(h3)) {
+//                    d.selectsDragon(3);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        h3.setText("X");
+//                } else if (button.equals(h4)) {
+//                    d.selectsDragon(4);
+//                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
+//                        h4.setText("X");
+//                }
+//            }
+//        }
+//    public void attackGreen2(ActionEvent event){
+//        Button button = (Button) event.getSource();
+//        int i = Integer.parseInt(die2.getText())+Integer.parseInt(die6.getText());
+//        Dice d = new GreenDice(i);
+//        Dice h = getAllDice()[1];
+//        Move[] m = getGameBoard().getPlayer2().getScoreSheet().getGaia().getPossibleMovesForADie(d);
+//        if(m.length>0){
+//            if(button.equals(g2)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+//                    g2.setText("X");
+//                }
+//            }
+//            else if(button.equals(g3)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia())))
+//                {
+//                    g3.setText("X");
+//                }
+//            }
+//            else if(button.equals(g4)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+//                    g4.setText("X");
+//                }
+//            }
+//            else if(button.equals(g5)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+//                    g5.setText("X");
+//                }
+//            }
+//            else if(button.equals(g6)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+//                    g6.setText("X");
+//                }
+//            }
+//            else if(button.equals(g7)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+//                    g7.setText("X");
+//                }
+//            }
+//            else if(button.equals(g8)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+//                    g8.setText("X");
+//                }
+//            }
+//            else if(button.equals(g9)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+//                    g9.setText("X");
+//                }
+//            }
+//            else if(button.equals(g10)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+//                    g10.setText("X");
+//                }
+//            }
+//            else if(button.equals(g11)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+//                    g11.setText("X");
+//                }
+//            }
+//            else if(button.equals(g12)){
+//                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+//                    g12.setText("X");
+//                }
+//            }
+//        }
+//    }
+//    public void attackBlue2(ActionEvent event){
+//        Button button = (Button) event.getSource();
+//        int i = Integer.parseInt(die3.getText());
+//        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new BlueDice(i));
+//        if(m.length>0){
+//            if(button.equals(b1)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b1.setText("X");
+//            }
+//            else if(button.equals(b2)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b2.setText("X");
+//            }
+//            else if(button.equals(b3)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b3.setText("X");
+//            }
+//            else if(button.equals(b4)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b4.setText("X");
+//            }
+//            else if(button.equals(b5)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b5.setText("X");
+//            }
+//            else if(button.equals(b6)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b6.setText("X");
+//            }
+//            else if(button.equals(b7)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b7.setText("X");
+//            }
+//            else if(button.equals(b8)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b8.setText("X");
+//            }
+//            else if(button.equals(b9)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b9.setText("X");
+//            }
+//            else if(button.equals(b10)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b10.setText("X");
+//            }
+//            else if(button.equals(b11)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
+//                b11.setText("X");
+//            }
+//        }
+//    }
+//    public void attackMagenta2(ActionEvent event){
+//        Button button = (Button) event.getSource();
+//        int i = Integer.parseInt(die4.getText());
+//        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new MagentaDice(i));
+//        if(m.length>0){
+//            if(button.equals(m1)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m1.setText(""+i);
+//            }
+//            else if(button.equals(m2)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m2.setText(""+i);
+//            }
+//            else if(button.equals(m3)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m3.setText(""+i);
+//            }
+//            else if(button.equals(m4)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m4.setText(""+i);
+//            }
+//            else if(button.equals(m5)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m5.setText(""+i);
+//            }
+//            else if(button.equals(m6)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m6.setText(""+i);
+//            }
+//            else if(button.equals(m7)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m7.setText(""+i);
+//            }
+//            else if(button.equals(m8)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m8.setText(""+i);
+//            }
+//            else if(button.equals(m9)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m9.setText(""+i);
+//            }
+//            else if(button.equals(m10)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m10.setText(""+i);
+//            }
+//            else if(button.equals(m11)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
+//                m11.setText(""+i);
+//            }
+//        }
+//    }
+//    public void attackYellow2(ActionEvent event){
+//        Button button = (Button) event.getSource();
+//        int i = Integer.parseInt(die5.getText());
+//        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new YellowDice(i));
+//        if(m.length>0){
+//            if(button.equals(y1)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y1.setText(""+i);
+//            }
+//            else if(button.equals(y2)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y2.setText(""+i);
+//            }
+//            else if(button.equals(y3)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y3.setText(""+i);
+//            }
+//            else if(button.equals(y4)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y4.setText(""+i*2);
+//            }
+//            else if(button.equals(y5)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y5.setText(""+i);
+//            }
+//            else if(button.equals(y6)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y6.setText(""+i);
+//            }
+//            else if(button.equals(y7)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y7.setText(""+i*2);
+//            }
+//            else if(button.equals(y8)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y8.setText(""+i);
+//            }
+//            else if(button.equals(y9)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y9.setText(""+i*2);
+//            }
+//            else if(button.equals(y10)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y10.setText(""+i);
+//            }
+//            else if(button.equals(y11)){
+//                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
+//                y11.setText(""+i*3);
+//            }
+//        }
+//    }
+
     public void attackRed2(ActionEvent event) {
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die1.getText());
         RedDice d = new RedDice(i);
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), d);
-        boolean b = false;
-        if (m.length > 0) {
-            if (button.equals(f1)) {
-                d.selectsDragon(1);
-                b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                    f1.setText("X");
-                } else if (button.equals(f2)) {
-                    d.selectsDragon(2);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        f2.setText("X");
-                } else if (button.equals(f3)) {
-                    d.selectsDragon(3);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        f3.setText("X");
-                } else if (button.equals(w1)) {
+        Move[] m = getGameBoard().getPlayer2().getScoreSheet().getDragon().getPossibleMovesForADie(d);
+        boolean b;
+        if(m.length==0){
+            return;
+        }
+        for(int x=0;x<12;x++){
+            if(i == Integer.parseInt(getPLayer2Buttons()[0][x].getText()) && button.equals(getPLayer2Buttons()[0][x]) ){
+                String s = button.getId();
+                if(s.charAt(1) == '1'){
                     d.selectsDragon(1);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        w1.setText("X");
-                } else if (button.equals(w2)) {
+                }
+                else if (s.charAt(1) == '2'){
                     d.selectsDragon(2);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        w2.setText("X");
-                } else if (button.equals(w4)) {
-                    d.selectsDragon(4);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        w4.setText("X");
-                } else if (button.equals(t1)) {
-                    d.selectsDragon(1);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        t1.setText("X");
-                } else if (button.equals(t3)) {
+                }
+                else if (s.charAt(1) == '3'){
                     d.selectsDragon(3);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        t3.setText("X");
-                } else if (button.equals(t4)) {
+                }
+                else if (s.charAt(1) == '4'){
                     d.selectsDragon(4);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        t4.setText("X");
-                } else if (button.equals(h2)) {
-                    d.selectsDragon(2);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        h2.setText("X");
-                } else if (button.equals(h3)) {
-                    d.selectsDragon(3);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        h3.setText("X");
-                } else if (button.equals(h4)) {
-                    d.selectsDragon(4);
-                    b = makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()));
-                        h4.setText("X");
+                }
+                if(makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()))){
+                    getPLayer2Buttons()[0][x].setText("X");
+                    getPLayer2Buttons()[0][x].setDisable(true);
+                    disablePlayer2();
+                    break;
                 }
             }
         }
+        die1.setDisable(true);
+        for (int h=0;h<6;h++) {
+            if(getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
+                getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
+                getForgottenRealmButtons()[h].setVisible(true);
+                getButtons()[h].setVisible(false);
+            }
+            getButtons()[h].setDisable(true);
+        }
+        die1.setVisible(false);
+        if(getGameStatus().getPartOfRound()==0){
+            getGameStatus().incrementPartOfRound();
+            getGameStatus().resetTurn();
+
+            for(Button hds:getForgottenRealmButtons()){
+                hds.setVisible(false);
+            }
+            for(Button hgf:getButtons()){
+                hgf.setVisible(true);
+            }
+            rollButton.setVisible(true);
+            switchPlayer();
+            getGameStatus().setAv(true);
+            return;
+
+        }
+        addTurn(1);  }
     public void attackGreen2(ActionEvent event){
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die2.getText())+Integer.parseInt(die6.getText());
@@ -998,216 +1383,168 @@ public class controller extends CLIGameController {
         Dice h = getAllDice()[1];
         Move[] m = getGameBoard().getPlayer2().getScoreSheet().getGaia().getPossibleMovesForADie(d);
         if(m.length>0){
-            if(button.equals(g2)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                    g2.setText("X");
-                }
-            }
-            else if(button.equals(g3)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia())))
-                {
-                    g3.setText("X");
-                }
-            }
-            else if(button.equals(g4)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                    g4.setText("X");
-                }
-            }
-            else if(button.equals(g5)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                    g5.setText("X");
-                }
-            }
-            else if(button.equals(g6)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                    g6.setText("X");
-                }
-            }
-            else if(button.equals(g7)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                    g7.setText("X");
-                }
-            }
-            else if(button.equals(g8)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                    g8.setText("X");
-                }
-            }
-            else if(button.equals(g9)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                    g9.setText("X");
-                }
-            }
-            else if(button.equals(g10)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                    g10.setText("X");
-                }
-            }
-            else if(button.equals(g11)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                    g11.setText("X");
-                }
-            }
-            else if(button.equals(g12)){
-                if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                    g12.setText("X");
+            for(int x=0;x<11;x++){
+                if(button.equals(getPLayer2Buttons()[1][x])){
+                    if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
+                        getPLayer2Buttons()[1][x].setText("X");
+                        getPLayer2Buttons()[1][x].setDisable(true);
+                    }
                 }
             }
         }
-    }
+        die2.setDisable(true);
+        for (int r=0;r<6;r++) {
+            if(getButtons()[r].isVisible() && (Integer.parseInt(getButtons()[r].getText()) < Integer.parseInt(die2.getText())) && !getForgottenRealmButtons()[r].isVisible()) {
+                getForgottenRealmButtons()[r].setText(getButtons()[r].getText());
+                getForgottenRealmButtons()[r].setVisible(true);
+                getButtons()[r].setVisible(false);
+            }
+            getButtons()[r].setDisable(true);
+        }
+        die2.setVisible(false);
+        if(getGameStatus().getPartOfRound()==0){
+            getGameStatus().incrementPartOfRound();
+            getGameStatus().resetTurn();
+
+            for(Button hds:getForgottenRealmButtons()){
+                hds.setVisible(false);
+            }
+            for(Button hgf:getButtons()){
+                hgf.setVisible(true);
+            }
+            rollButton.setVisible(true);
+            switchPlayer();
+            getGameStatus().setAv(true);
+            return;
+
+        }
+        addTurn(1);  }
     public void attackBlue2(ActionEvent event){
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die3.getText());
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new BlueDice(i));
-        if(m.length>0){
-            if(button.equals(b1)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b1.setText("X");
+        Dice d = new BlueDice(i);
+        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(i));
+        if(m.length>0) {
+            for (int x = 0; x < 11; x++) {
+                if (button.equals(getPLayer2Buttons()[2][x])) {
+                    if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getHydra()))) {
+                        getPLayer2Buttons()[2][x].setText("X");
+                        getPLayer2Buttons()[2][x].setDisable(true);
+                    }
+                }
             }
-            else if(button.equals(b2)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b2.setText("X");
+
+            for (int h = 0; h < 6; h++) {
+                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
+                    getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText()) + "");
+                    getForgottenRealmButtons()[h].setVisible(true);
+                    getButtons()[h].setVisible(false);
+                }
+                getButtons()[h].setDisable(true);
             }
-            else if(button.equals(b3)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b3.setText("X");
+            die3.setVisible(false);
+            if(getGameStatus().getPartOfRound()==0){
+                getGameStatus().incrementPartOfRound();
+                getGameStatus().resetTurn();
+
+                for(Button hds:getForgottenRealmButtons()){
+                    hds.setVisible(false);
+                }
+                for(Button hgf:getButtons()){
+                    hgf.setVisible(true);
+                }
+                rollButton.setVisible(true);
+                switchPlayer();
+                getGameStatus().setAv(true);
+
+                return;
+
             }
-            else if(button.equals(b4)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b4.setText("X");
-            }
-            else if(button.equals(b5)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b5.setText("X");
-            }
-            else if(button.equals(b6)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b6.setText("X");
-            }
-            else if(button.equals(b7)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b7.setText("X");
-            }
-            else if(button.equals(b8)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b8.setText("X");
-            }
-            else if(button.equals(b9)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b9.setText("X");
-            }
-            else if(button.equals(b10)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b10.setText("X");
-            }
-            else if(button.equals(b11)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new BlueDice(i),getGameBoard().getPlayer2().getScoreSheet().getHydra()));
-                b11.setText("X");
-            }
-        }
+            addTurn(1);   }
     }
     public void attackMagenta2(ActionEvent event){
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die4.getText());
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new MagentaDice(i));
-        if(m.length>0){
-            if(button.equals(m1)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m1.setText(""+i);
-            }
-            else if(button.equals(m2)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m2.setText(""+i);
-            }
-            else if(button.equals(m3)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m3.setText(""+i);
-            }
-            else if(button.equals(m4)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m4.setText(""+i);
-            }
-            else if(button.equals(m5)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m5.setText(""+i);
-            }
-            else if(button.equals(m6)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m6.setText(""+i);
-            }
-            else if(button.equals(m7)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m7.setText(""+i);
-            }
-            else if(button.equals(m8)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m8.setText(""+i);
-            }
-            else if(button.equals(m9)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m9.setText(""+i);
-            }
-            else if(button.equals(m10)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m10.setText(""+i);
-            }
-            else if(button.equals(m11)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new MagentaDice(i),getGameBoard().getPlayer2().getScoreSheet().getPhoenix()));
-                m11.setText(""+i);
+        Dice d = new MagentaDice(i);
+        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(i));
+        if(m.length==0){
+            return;
+        }
+        for (int x = 0; x < 11; x++) {
+            if (button.equals(getPLayer2Buttons()[3][x])) {
+                if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getPhoenix()))) {
+                    getPLayer2Buttons()[3][x].setText(""+i);
+                    getPLayer2Buttons()[3][x].setDisable(true);
+                }
             }
         }
-    }
-    public void attackYellow2(ActionEvent event){
+        for (int h = 0; h < 6; h++) {
+            if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
+                getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
+                getForgottenRealmButtons()[h].setVisible(true);
+                getButtons()[h].setVisible(false);
+            }
+            getButtons()[h].setDisable(true);
+        }
+        die4.setVisible(false);
+        if(getGameStatus().getPartOfRound()==0){
+            getGameStatus().incrementPartOfRound();
+            getGameStatus().resetTurn();
+
+            for(Button hds:getForgottenRealmButtons()){
+                hds.setVisible(false);
+            }
+            for(Button hgf:getButtons()){
+                hgf.setVisible(true);
+            }
+            rollButton.setVisible(true);
+            switchPlayer();
+            getGameStatus().setAv(true);
+            return;
+
+        }
+        addTurn(1);  }
+    public void attackYellow2(ActionEvent event) {
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die5.getText());
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new YellowDice(i));
-        if(m.length>0){
-            if(button.equals(y1)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y1.setText(""+i);
+        Dice d = new YellowDice(i);
+        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(i));
+        if (m.length > 0) {
+            for (int x = 0; x < 11; x++) {
+                if (button.equals(getPLayer2Buttons()[4][x])) {
+                    if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getLion()))) {
+                        getPLayer2Buttons()[4][x].setText(""+i);
+                        getPLayer2Buttons()[4][x].setDisable(true);
+                    }
+                }
             }
-            else if(button.equals(y2)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y2.setText(""+i);
+            forgottenRealm5.setText(die5.getText());
+            for (int h = 0; h < 6; h++) {
+                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
+                    getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
+                    getForgottenRealmButtons()[h].setVisible(true);
+                    getButtons()[h].setVisible(false);
+                }
+                getButtons()[h].setDisable(true);
             }
-            else if(button.equals(y3)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y3.setText(""+i);
+            die5.setVisible(false);
+            if(getGameStatus().getPartOfRound()==0){
+                getGameStatus().incrementPartOfRound();
+                getGameStatus().resetTurn();
+                for(Button hds:getForgottenRealmButtons()){
+                    hds.setVisible(false);
+                }
+                for(Button hgf:getButtons()){
+                    hgf.setVisible(true);
+                }
+                rollButton.setVisible(true);
+                switchPlayer();
+                getGameStatus().setAv(true);
+
+                return;
+
             }
-            else if(button.equals(y4)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y4.setText(""+i*2);
-            }
-            else if(button.equals(y5)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y5.setText(""+i);
-            }
-            else if(button.equals(y6)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y6.setText(""+i);
-            }
-            else if(button.equals(y7)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y7.setText(""+i*2);
-            }
-            else if(button.equals(y8)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y8.setText(""+i);
-            }
-            else if(button.equals(y9)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y9.setText(""+i*2);
-            }
-            else if(button.equals(y10)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y10.setText(""+i);
-            }
-            else if(button.equals(y11)){
-                makeMove(getGameBoard().getPlayer2(), new Move(new YellowDice(i),getGameBoard().getPlayer2().getScoreSheet().getLion()));
-                y11.setText(""+i*3);
-            }
-        }
+            addTurn(1);       }
     }
 
     private void disablePlayer1(){
