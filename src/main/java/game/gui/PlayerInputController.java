@@ -47,6 +47,7 @@ public class PlayerInputController {
         Image icon = new Image("/Dice realms.jpeg");
         stage1.getIcons().add(icon);
         stage1.setScene(new Scene(root));
+        stage1.setTitle("Dice Realms: Quest for the Elemental Crests!");
         stage1.show();
     }
 

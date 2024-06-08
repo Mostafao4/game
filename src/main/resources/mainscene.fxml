@@ -36,13 +36,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <Button fx:id="rollButton" disable="true" layoutX="901.0" layoutY="405.0" mnemonicParsing="false" onAction="#rollButtons" style="-fx-background-color: Black;" text="Roll Dice" textFill="WHITE">
+      <Button fx:id="rollButton" disable="true" layoutX="891.0" layoutY="364.0" mnemonicParsing="false" onAction="#rollButtons" style="-fx-background-color: Black;" text="Roll Dice" textFill="WHITE">
 
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Pane layoutX="785.0" layoutY="630.0" prefHeight="70.0" prefWidth="370.0" style="-fx-background-color: Grey;">
+      <Pane layoutX="778.0" layoutY="743.0" prefHeight="70.0" prefWidth="370.0" style="-fx-background-color: Grey;">
          <children>
             <ImageView fitHeight="81.0" fitWidth="382.0" layoutX="-7.0" layoutY="-1.0" pickOnBounds="true">
                <image>
@@ -2412,6 +2412,7 @@
          <font>
             <Font name="System Bold" size="36.0" />
          </font></Label>
+
       <Label fx:id="player1Turn" alignment="CENTER" layoutX="748.0" layoutY="348.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: white;" text="Turn 1">
          <font>
             <Font size="18.0" />
@@ -2477,78 +2478,114 @@
          </children>
       </GridPane>
 
+
       <Label fx:id="player1Turn" alignment="CENTER" layoutX="748.0" layoutY="348.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: black;" text="Turn 1" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+
       <Label fx:id="player2Turn" alignment="CENTER" layoutX="1053.0" layoutY="346.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: black;" text="Turn 1" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <GridPane layoutX="783.0" layoutY="512.0" prefHeight="61.0" prefWidth="382.0">
-
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="68.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="184.0" minWidth="10.0" prefWidth="59.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="68.0" />
-            <ColumnConstraints maxWidth="196.0" minWidth="50.0" prefWidth="72.0" />
-            <ColumnConstraints maxWidth="193.0" minWidth="37.0" prefWidth="72.0" />
-            <ColumnConstraints maxWidth="178.0" minWidth="39.0" percentWidth="0.0" prefWidth="53.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <GridPane alignment="CENTER" layoutX="742.0" layoutY="437.0" prefHeight="268.0" prefWidth="452.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="117.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="183.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-
-
-            <Button fx:id="die1" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="51.0" prefWidth="68.0" style="-fx-background-color: red;" text="0" textAlignment="CENTER">
+            <Button fx:id="die1" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="92.0" prefWidth="52.0" style="-fx-background-color: 0;" textAlignment="CENTER" textFill="TRANSPARENT">
                <font>
                   <Font size="24.0" />
                </font>
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
+               <graphic>
+                  <ImageView fx:id="imageView1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@type1value0.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="die2" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="51.0" prefWidth="60.0" style="-fx-background-color: Green;" text="0" textAlignment="CENTER" GridPane.columnIndex="1">
+            <Button fx:id="die2" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="45.0" prefWidth="76.0" style="-fx-background-color: 0;" textAlignment="CENTER" textFill="TRANSPARENT" GridPane.columnIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
+               <graphic>
+                  <ImageView fx:id="imageView2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@type2value0.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="die3" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="51.0" prefWidth="65.0" style="-fx-background-color: blue;" text="0" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2">
+            <Button fx:id="die3" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="100.0" prefWidth="139.0" style="-fx-background-color: 0;" textAlignment="CENTER" textFill="TRANSPARENT" GridPane.columnIndex="2">
                <font>
                   <Font size="24.0" />
                </font>
+               <graphic>
+                  <ImageView fx:id="imageView3" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateX="-7.0" translateY="12.0">
+                     <image>
+                        <Image url="@type3value0.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="die4" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="51.0" prefWidth="64.0" style="-fx-background-color: Magenta;" text="0" textAlignment="CENTER" GridPane.columnIndex="3">
-               <font>
-                  <Font size="24.0" />
-               </font>
+            <Button fx:id="die4" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="66.0" prefWidth="64.0" style="-fx-background-color: 0;" textFill="TRANSPARENT" translateX="25.0" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fx:id="imageView4" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                     <image>
+                        <Image url="@type4value0.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="die5" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="51.0" prefWidth="66.0" style="-fx-background-color: yellow;" text="0" textAlignment="CENTER" GridPane.columnIndex="4">
-               <font>
-                  <Font size="24.0" />
-               </font>
+            <Button fx:id="die5" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="94.0" prefWidth="78.0" style="-fx-background-color: 0;" textFill="TRANSPARENT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fx:id="imageView5" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                     <image>
+                        <Image url="@type5value0.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="die6" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="51.0" prefWidth="71.0" text="0" textAlignment="CENTER" GridPane.columnIndex="5">
-               <font>
-                  <Font size="24.0" />
-               </font>
+            <Button fx:id="die6" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="57.0" prefWidth="47.0" style="-fx-background-color: 0;" textFill="TRANSPARENT" translateX="27.0" translateY="15.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fx:id="imageView6" fitHeight="59.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" translateY="5.0">
+                     <image>
+                        <Image url="@type6value0.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </GridPane>
+
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="862.0" layoutY="575.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: Black;" text="Forgotten Realm" textAlignment="CENTER" textFill="WHITE">
+
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+
       <Label fx:id="round" layoutX="917.0" layoutY="355.0" prefWidth="94.0" style="-fx-background-color: black;" text="Round 1" textFill="WHITE">
+
          <font>
             <Font size="22.0" />
          </font>
       </Label>
+
       <Pane layoutX="785.0" layoutY="778.0" prefHeight="70.0" prefWidth="370.0" style="-fx-background-color: 0;">
+
          <children>
             <Button fx:id="forgottenRealm11" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: red;" text="0">
                <font>
@@ -2576,16 +2613,22 @@
                </font></Button>
          </children>
       </Pane>
+
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="864.0" layoutY="728.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: Black;" text="Arcane Boost" textAlignment="CENTER" textFill="WHITE">
+
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+
       <Button fx:id="timeWarpButton" alignment="TOP_RIGHT" disable="true" layoutX="748.0" layoutY="411.0" mnemonicParsing="false" onAction="#useTimeWarp" prefHeight="90.0" prefWidth="123.0" style="-fx-background-color: black;" text="Time Warp" textFill="WHITE" wrapText="true">
+
          <font>
             <Font size="24.0" />
          </font>
       </Button>
+
+
       <Label fx:id="tw1" layoutX="744.0" layoutY="235.0" text="tw1" />
       <Label fx:id="tw2" layoutX="1131.0" layoutY="235.0" text="tw2" />
       <Button layoutX="1183.0" layoutY="942.0" mnemonicParsing="false" text="AB2" />
@@ -2595,6 +2638,7 @@
             <Font size="18.0" />
          </font></Label>
       <Button fx:id="startGameButton" layoutX="1058.0" layoutY="405.0" mnemonicParsing="false" onAction="#startGame" onDragDetected="#startGame" prefHeight="81.0" prefWidth="99.0" style="-fx-background-color: black;" text="Start Game" textFill="WHITE" />
+
 
    </children>
 </AnchorPane>
