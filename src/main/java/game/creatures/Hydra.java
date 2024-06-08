@@ -4,6 +4,7 @@ import game.collectibles.ElementalCrest;
 import game.collectibles.TimeWarp;
 import game.dice.BlueDice;
 import game.dice.Dice;
+import game.dice.GreenDice;
 import game.engine.Move;
 import game.collectibles.Reward;
 
@@ -110,7 +111,10 @@ public class Hydra extends Creature {
         }
     }
     public int getScore(){
-        return scores[hydra1Heads + hydra2Heads - 1];
+        if(headsKilled()>0){
+            return scores[hydra1Heads + hydra2Heads - 1];
+        }
+        return 0;
     }
 
 
@@ -235,14 +239,15 @@ private Move[] removeNullsAndFill(Move[] moves) {
 
 
     public Move[] getPossibleMovesForADie(Dice dice){
+
     
-        if(dice.getValue()<hydra[headsKilled()]){
+        if(dice.getValue()<hydra[headsKilled()] || headsKilled()>=11){
             return new Move[0];
         }
         else{
             return new Move[]{new Move(dice,this)};
         }
-        }
+    }
 
 
     //creates array rew type string from config for rewards

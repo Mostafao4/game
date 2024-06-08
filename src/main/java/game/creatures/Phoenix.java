@@ -130,8 +130,8 @@ public void editReward(){
             }
         }
         else{
-            moves = new Move[6-attack[count-1]];
             int j = 0;
+            moves = new Move[6-attack[count-1]];
             for(int i=attack[count-1]+1;i<=6;i++){
                 moves[j++] = new Move(new MagentaDice(i),this);
             }

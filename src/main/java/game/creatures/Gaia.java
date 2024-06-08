@@ -1,5 +1,6 @@
 package game.creatures;
 
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -390,6 +391,7 @@ public class Gaia extends Creature{
 
         return s;
     }
+
 
 }
 
