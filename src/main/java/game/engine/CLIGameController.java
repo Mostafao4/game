@@ -287,25 +287,29 @@ public class CLIGameController extends GameController {
             int m=FindRealm(getForgottenRealmDice(),Realm.MAGENTA);
             int y=FindRealm(getForgottenRealmDice(),Realm.YELLOW);
             int w=FindRealm(getForgottenRealmDice(),Realm.WHITE);
+            if(g!=-1 && (getAllDice()[5].getValue()+getForgottenRealmDice()[g].getValue()==4 ||getAllDice()[5].getValue()+getForgottenRealmDice()[g].getValue()==8 ||getAllDice()[5].getValue()+getForgottenRealmDice()[g].getValue()==12))
+            i=g;
+            else
             if((y!=-1) && (getForgottenRealmDice()[y].getValue()>=4) && (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[y]).length>0))
                 i=y;
             else
                     if((r!=-1) &&  (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[r]).length>0))
                         i=r;
-                    else
-                        if((g!=-1) && (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[g]).length>0))
-                            i=g;
+                    
                         else
                             if((w!=-1) && (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[w]).length>0))
                                 i=w;
-                            else 
-                                if((m!=-1) && (getForgottenRealmDice()[m].getValue()>=5) && (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[m]).length>0))
-                                        i=m;
-                                    else  
-                                        if((b!=-1) && (getForgottenRealmDice()[b].getValue()==6) && (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[b]).length>0))
-                                            i=b;
-                                        else
-                                            i=(int)(Math.random()*getForgottenRealmDice().length);
+                            else
+                                if((g!=-1) && (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[g]).length>0))
+                                    i=g;
+                                else 
+                                    if((m!=-1) && (getForgottenRealmDice()[m].getValue()>=5) && (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[m]).length>0))
+                                            i=m;
+                                        else  
+                                            if((b!=-1) && (getForgottenRealmDice()[b].getValue()==6) && (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[b]).length>0))
+                                                i=b;
+                                            else
+                                                i=(int)(Math.random()*getForgottenRealmDice().length);
                //int j=0;
         //    for(int j=0;j<getForgottenRealmDice().length;j++){
         //     if((getPossibleMovesForADie(getPassivePlayer(), getForgottenRealmDice()[j])).length>0){
@@ -1369,8 +1373,11 @@ public class CLIGameController extends GameController {
                     att=6; break;    
                 case GREEN:
                     att=13;
+                    int[] z={12,8,4,3,2,7,6,5,11,10,9};
+                    int i =0;
                     do{
-                        att--;
+                        att=z[i];
+                        i++;
                     }
                     while(player.getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(att)).length==0 && att > 0);
                     break;
