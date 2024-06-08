@@ -35,26 +35,6 @@ public class Phoenix extends Creature {
         }
     }
 
-    //////Done
-
-//    public Reward[] checkReward(){
-//       return  new Reward[] {rewards[count]};
-//    }
-
-/*
-    private void rewardFromString(String N){
-        switch (N) {
-            case "TimeWarp": rewards[count-1]=new TimeWarp();break; 
-            case "GreenBonus": rewards[count-1]=new Bonus(Realm.GREEN);break;
-            case "ArcaneBoost": rewards[count-1]=new ArcaneBoost();break;
-            case "RedBonus": rewards[count-1]=new Bonus(Realm.RED);break;
-            case "ElementalCrest": rewards[count-1]= new ElementalCrest(Realm.MAGENTA);break;
-            case "BlueBonus":rewards[count-1]=new Bonus(Realm.BLUE);break;
-            case "YellowBonus": rewards[count-1]= new Bonus(Realm.YELLOW);break;
-
-        }
-    }
-    */
 //creates array rew type string from config for rewards
 public void editReward(){
     Properties prop = new Properties();
@@ -133,41 +113,9 @@ public void editReward(){
         }
     }
 
-
-    /*
-    private void getReward(){
-        Properties prop= new Properties();
-        String reward_String;
-        try {
-            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/MysticalSkyRewards.properties");
-            prop.load(scoreConfig);
-        
-        switch (count) {
-            case 1:reward_String=prop.getProperty("hit1Reward"); rewardFromString(reward_String);break;
-            case 2:reward_String=prop.getProperty("hit2Reward"); rewardFromString(reward_String);break;
-            case 3:reward_String=prop.getProperty("hit3Reward"); rewardFromString(reward_String);break;
-            case 4:reward_String=prop.getProperty("hit4Reward"); rewardFromString(reward_String);break;
-            case 5:reward_String=prop.getProperty("hit5Reward"); rewardFromString(reward_String);break;
-            case 6:reward_String=prop.getProperty("hit6Reward"); rewardFromString(reward_String);break;
-            case 7:reward_String=prop.getProperty("hit7Reward"); rewardFromString(reward_String);break;
-            case 8:reward_String=prop.getProperty("hit8Reward"); rewardFromString(reward_String);break;
-            case 9:reward_String=prop.getProperty("hit9Reward"); rewardFromString(reward_String);break;
-            case 10:reward_String=prop.getProperty("hit10Reward"); rewardFromString(reward_String);break;
-            case 11:reward_String=prop.getProperty("hit11Reward"); rewardFromString(reward_String);break;
-            default:
-        }
-    }catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
-    }
-    ////////Done
-*/
     public int getMagentaRealmScore(){
         return score_int;
     }
-    ///////Done
-    
 
 
     public Move[] getAllPossibleMoves(){
@@ -209,24 +157,19 @@ public void editReward(){
         return count;
     }
 /////partially done
-public String toString(){
-    return 
-    "\nMystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
-    "+-----------------------------------------------------------------------+\n" +
-    "|  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
-    "+-----------------------------------------------------------------------+\n" +
-    "|  H  |"+attack[0]+"    |"+attack[1]+"    |"+attack[2]+"    |"+attack[3]+"    |"+attack[4]+"    |"+attack[5]+"    |"+attack[6]+"    |"+attack[7]+"    |"+attack[8]+"    |"+attack[9]+"    |"+attack[10]+"    |\n" +
-    "|  C  |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |\n" +
-    "|  R  |"+rew[0]+"   |"+rew[1]+"   |"+rew[2]+"   |"+rew[3]+"   |"+rew[4]+"   |"+rew[5]+"   |"+rew[6]+"   |"+rew[7]+"   |"+rew[8]+"   |"+rew[9]+"   |"+rew[10]+"   |\n" +
-    "+-----------------------------------------------------------------------+\n\n\n";
+    public String toString(){
+        return
+        "\nMystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
+        "+-----------------------------------------------------------------------+\n" +
+        "|  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
+        "+-----------------------------------------------------------------------+\n" +
+        "|  H  |"+attack[0]+"    |"+attack[1]+"    |"+attack[2]+"    |"+attack[3]+"    |"+attack[4]+"    |"+attack[5]+"    |"+attack[6]+"    |"+attack[7]+"    |"+attack[8]+"    |"+attack[9]+"    |"+attack[10]+"    |\n" +
+        "|  C  |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |\n" +
+        "|  R  |"+rew[0]+"   |"+rew[1]+"   |"+rew[2]+"   |"+rew[3]+"   |"+rew[4]+"   |"+rew[5]+"   |"+rew[6]+"   |"+rew[7]+"   |"+rew[8]+"   |"+rew[9]+"   |"+rew[10]+"   |\n" +
+        "+-----------------------------------------------------------------------+\n\n\n";
+    }
+
 }
-// private String scoreSheet_helper(Reward[] rewards,int index, String s){
-//     if(rewards[index]!=null)
-//         return "X";
-//     else
-//         return s;
-//     }
- }
 
 
 
