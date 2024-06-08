@@ -55,6 +55,8 @@ public class controller extends CLIGameController {
     private Button rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null, forgottenRealm1, forgottenRealm2, forgottenRealm3, forgottenRealm4, forgottenRealm5, forgottenRealm6;
     @FXML
     private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label;
+    @FXML
+    private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6;
 
     private int [] scoreRed = new int[4];
     private String [] reward = new String[5];
@@ -470,10 +472,14 @@ public class controller extends CLIGameController {
                 yellowButtons4[i].setText("x" + yellowMultipliers[i]);
             }
         }
-
+        die1.setDisable(true);
+        die2.setDisable(true);
+        die3.setDisable(true);
+        die4.setDisable(true);
+        die5.setDisable(true);
+        die6.setDisable(true);
 
     }
-
 
     @FXML
     // Method to change the text of buttons randomly
@@ -481,11 +487,13 @@ public class controller extends CLIGameController {
         Random random = new Random();
         rollDice();
         rollButton.setDisable(true);
+        int [] value = new int [6];
         // Iterate over your buttons and assign random values to them
         for (int i=0;i<6;i++) {
             getButtons()[i].setText(""+getAllDice()[i].getValue());
             getButtons()[i].getStyleClass().remove("selected-button");
             getButtons()[i].setDisable(false);
+            value[i] = getAllDice()[i].getValue();
         }
         for(Button[] buttons : getPLayer1Buttons()){
             for(Button button : buttons) {
@@ -497,6 +505,12 @@ public class controller extends CLIGameController {
                 button.setStyle("");
             }
         }
+        imageView1.setImage(diceImages[0][value[0]-1]);
+        imageView2.setImage(diceImages[1][value[1]-1]);
+        imageView3.setImage(diceImages[2][value[2]-1]);
+        imageView4.setImage(diceImages[3][value[3]-1]);
+        imageView5.setImage(diceImages[4][value[4]-1]);
+        imageView6.setImage(diceImages[5][value[5]-1]);
         selectedButton = null;
     }
 

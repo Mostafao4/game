@@ -33,6 +33,7 @@ public class PlayerInputController {
 
         Stage stage1 = (Stage) player1Name.getScene().getWindow();
         stage1.setScene(new Scene(root));
+        stage1.setTitle("Dice Realms: Quest for the Elemental Crests!");
         stage1.show();
 
     }
