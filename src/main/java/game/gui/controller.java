@@ -57,9 +57,6 @@ public class controller extends CLIGameController {
     @FXML
     private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label, tw1, tw2;
     @FXML
-
-    private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label;
-    @FXML
     private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6;
 
     private Label score1,score2;
