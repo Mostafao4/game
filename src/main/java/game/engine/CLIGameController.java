@@ -773,9 +773,10 @@ public class CLIGameController extends GameController {
     public void startGame() {
         
         System.out.println("Welcome to Dice Realms: Quest for Elemental Crests!!!");
-        System.out.println("Enter the number of players: (0, 1 or 2)");
+        System.out.println("Enter the number of players: (1 or 2)");
         int i = takeNumberInput();
-        while(i!=0&&i!=1 && i !=2){
+        while(i!=1 && i !=2){
+            System.out.println("Enter the number of players: (1 or 2)");
             i = takeNumberInput();
         }
         if(i==2) {
@@ -795,13 +796,13 @@ public class CLIGameController extends GameController {
             gameBoard.setPlayer1(new HumanPlayer(s1, PlayerStatus.ACTIVE));
             gameBoard.setPlayer2(new ComputerPlayer(s2, PlayerStatus.PASSIVE));
         }
-        else{
-            gameBoard = new GameBoard(i);
-            String s1 = "COMPUTER1";
-            String s2 ="COMPUTER2";
-            gameBoard.setPlayer1(new ComputerPlayer(s1, PlayerStatus.ACTIVE));
-            gameBoard.setPlayer2(new ComputerPlayer(s2, PlayerStatus.PASSIVE));
-        }
+        // else{
+        //     gameBoard = new GameBoard(i);
+        //     String s1 = "COMPUTER1";
+        //     String s2 ="COMPUTER2";
+        //     gameBoard.setPlayer1(new ComputerPlayer(s1, PlayerStatus.ACTIVE));
+        //     gameBoard.setPlayer2(new ComputerPlayer(s2, PlayerStatus.PASSIVE));
+        // }
         }
 //        Dice d = new MagentaDice(5);
 //        Move m = new Move(d,getActivePlayer().getScoreSheet().getPhoenix());
@@ -1022,6 +1023,7 @@ public class CLIGameController extends GameController {
                     System.out.println(i);
             }
             while(i!=0 && i!=1){
+                System.out.println("Press 1 to use Time Warp, 0 to proceed");
                 i = takeNumberInput();
             }
             if (i==1) {
