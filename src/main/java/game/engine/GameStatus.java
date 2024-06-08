@@ -5,11 +5,13 @@ public class GameStatus {
     private int turn;
     private int partOfRound;
     private boolean status;
+    private boolean av;
 
     public GameStatus() {
         round = 1;
         turn = 1;
         status = true;
+        av = true;
     }
 
     @Override
@@ -18,6 +20,13 @@ public class GameStatus {
         return "Round: " + round + "/nTurn: " + turn + "/nStatus: " + s;
     }
 
+    public boolean isAv() {
+        return av;
+    }
+
+    public void setAv(boolean av) {
+        this.av = av;
+    }
 
     public int getRound() {
         return round;

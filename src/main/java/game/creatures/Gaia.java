@@ -1,6 +1,5 @@
 package game.creatures;
 
-//import static org.junit.Assert.assertEquals;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -63,6 +62,16 @@ public class Gaia extends Creature{
             loadRewards(colStrings, columnRewards);
         } catch (IOException e) {
             System.out.println("Error loading reward configuration: " +  e.getMessage());
+            rowStrings[0] = "YellowBonus";
+            rowStrings[1] = "RedBonus";
+            rowStrings[2] = "ElementalCrest";
+            colStrings[0] = "TimeWarp";
+            colStrings[1] = "BlueBonus";
+            colStrings[2] = "MagentaBonus";
+            colStrings[3] = "ArcaneBoost";
+
+            loadRewards(rowStrings, rowRewards);
+            loadRewards(colStrings, columnRewards);
         }
     }
 
@@ -97,8 +106,11 @@ public class Gaia extends Creature{
                 case "ArcaneBoost":
                     rewards[i] = new ArcaneBoost();
                     break;
+                case "GreenBonus":
+                    realm = Realm.GREEN;
+                    rewards[i] = new Bonus(realm);
+                    break;
                 default:
-                    System.out.println("Unknown reward type: " + rewardStrings[i]);
                     break;
             }
         }
@@ -118,10 +130,14 @@ public class Gaia extends Creature{
         }
         catch(IOException ex){
             ex.printStackTrace();
+            String[] scoreString = {"0, 1, 2, 4, 7, 11, 16, 22, 29, 37, 46"};
+            for(int i = 0; i < scores.length; i++){
+                scores[i] = Integer.parseInt(scoreString[i]);
+            }
         }
     }
 
-    private boolean attackGaia(Dice combined) {//throws InvalidMoveException{
+    private boolean attackGaia(Dice combined) {
         boolean flag = false;
         int total = combined.getValue();
 
@@ -152,19 +168,15 @@ public class Gaia extends Creature{
 
     @Override
     public Move[] getAllPossibleMoves() {
-        //Move[] allPossibleMoves = new Move[11];
         List<Move> allPossible = new LinkedList<>();
-        //int count = 0;
 
         for(int i = 0; i < 3; i++){
 
             for(int j = 0; j < 4; j++){
                 if(gaias[i][j] != 0){
                     int val = gaias[i][j];
-                    //allPossibleMoves[count] = new Move(new GreenDice(val), this);
                     allPossible.add(new Move(new GreenDice(val), this));
                 }
-                //count++;
             }
         }
         Move[] allPossibleMoves = new Move[allPossible.size()];
@@ -362,25 +374,16 @@ public class Gaia extends Creature{
             case "ElementalCrest": return "EC";
             case "ArcaneBoost": return "AB";
             case "TimeWarp": return "TW";
-            default: return "";
+            case "GreenBonus": return "GB";
+            default: return "  ";
         }
     }
 
-    private boolean[][] checkZero(){
-        boolean[][] zeros = new boolean[3][4];
-        for(int i = 0; i < gaias.length; i++){
-            for(int j = 0; j < gaias[i].length; j++){
-                if(gaias[i][j] == 0)
-                    zeros[i][j] = true;
-            }
-        }
-        return zeros;
-    }
+
     private String scoreSheetHelper(int rowNum){
-        boolean[][] scoresBool = checkZero();
         String s = "";
-            for(int i = 0; i < scoresBool[rowNum].length; i++){
-                if(scoresBool[rowNum][i])
+            for(int i = 0; i < gaias[rowNum].length; i++){
+                if(gaias[rowNum][i] == 0)
                     s+= "|X    ";
                 else
                     s+= "|" + this.gaias[rowNum][i] + ((this.gaias[rowNum][i] > 9)?"   ":"    ");;
@@ -388,46 +391,6 @@ public class Gaia extends Creature{
 
         return s;
     }
-
-
-    // public static void main(String[] args){
-    //     Gaia g = new Gaia();
-    //     System.out.println(g);
-    //     // g.makeMove(new Move(new GreenDice(5),g));
-    //     // g.makeMove(new Move(new GreenDice(2),g));
-    //     // g.makeMove(new Move(new GreenDice(3),g));
-    //     // g.makeMove(new Move(new GreenDice(4),g));
-
-    //     // System.out.println(g);
-    //     // g.makeMove(new Move(new GreenDice(5),g));
-    //     // g.makeMove(new Move(new GreenDice(6),g));
-    //     // g.makeMove(new Move(new GreenDice(7),g));
-    //     // g.makeMove(new Move(new GreenDice(8),g));
-    //     // System.out.println(g);
-    //     g.makeMove(new Move(new GreenDice(9),g));
-
-    //     g.makeMove(new Move(new GreenDice(10),g));
-
-    //     g.makeMove(new Move(new GreenDice(11),g));
-    //     g.makeMove(new Move(new GreenDice(12),g));
-    //     System.out.println(g);
-
-    //     // CLIGameController controller = new CLIGameController();
-    //     // HumanPlayer player = controller.getActivePlayer();
-    //     // Move[] allPossibleMoves = controller.getPossibleMovesForAvailableDice(player);
-
-    //     // Dice[] dice = controller.getGameBoard().getDice();
-    //     // dice[0].setValue(2);
-    //     // dice[1].setValue(3);
-    //     // dice[2].setValue(4);
-    //     // dice[3].setValue(5);
-    //     // dice[4].setValue(6);
-    //     // dice[5].setValue(1);
-
-    //     // Move m = allPossibleMoves[1];
-
-    //     // g.makeMove(m);
-    // }
 
 
 }

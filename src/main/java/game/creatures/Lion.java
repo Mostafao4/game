@@ -177,6 +177,10 @@ public Reward[] checkReward(){
             return pm2;
         }
  }
+
+    public int getHitNum(){
+        return hitNum+1;
+    }
 //returns the scoresheet  
  public String toString(){
     

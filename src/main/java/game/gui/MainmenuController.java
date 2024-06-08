@@ -11,29 +11,18 @@ import java.io.IOException;
 
 
 public class MainmenuController {
-    
     @FXML
-    private Button starButton;
+    private Button startButton;
+    @FXML
+    private Button Exit;
     @FXML
     public void switchToScene2(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/modescene.fxml"));
         Scene scene = new Scene(root);
-        DiceRealms.stage.setScene(scene);
+        Stage stage = DiceRealms.stage;
+        stage.setScene(scene);
     }
-    
-       
-
-    
-        
-    
-
-
-
-    // private void switchScene(ActionEvent event, String fxmlFile) throws IOException {
-    //     Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
-    //     Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-    //     Scene scene = new Scene(root);
-    //     stage.setScene(scene);
-    //     stage.show();
-    // }
+    public void exitGame(ActionEvent event) {
+        System.exit(0);
+    }
 }
