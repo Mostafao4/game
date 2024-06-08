@@ -150,6 +150,8 @@ public class controller extends CLIGameController {
             fields55[i].setText(s);
         }
     }
+
+
     @FXML
     // Method to change the text of buttons randomly
     public void rollButtons() {
@@ -215,7 +217,7 @@ public class controller extends CLIGameController {
             player2Turn.setText(""+getGameStatus().getTurn());
 
         }
-        enablePlayer1();
+        //enablePlayer1();
         for(Button b:getButtons()){
             rollButton.setDisable(false);
         }
@@ -273,17 +275,25 @@ public class controller extends CLIGameController {
             player1Turn.setText("--");
             player2Turn.setText(""+getGameStatus().getTurn());
         }
-        if(getGameStatus().getTurn()==4) {
+        boolean flag = false;
+        for(Button b : getButtons()){
+            if(b.isVisible()){
+                flag = true;
+                break;
+            }
+        }
+        if(getGameStatus().getTurn()==4 || !flag) {
+            rollButton.setVisible(false);
             gameStat.setText(getPassivePlayer().getPlayerName() + ": Choose a die from the forgotten realm");
             for (Button button : getButtons()) {
                 button.setDisable(true);
-                rollButton.setDisable(true);
             }
             for(int j=0;j<getForgottenRealmButtons().length;j++) {
                 getForgottenRealmButtons()[j].setText(""+getForgottenRealmDice()[j].getValue());
                 getForgottenRealmButtons()[j].setDisable(false);
             }
         }
+
         rollButton.setDisable(false);
     }
 
@@ -297,13 +307,16 @@ public class controller extends CLIGameController {
         for(Button[] buttons : getPLayer1Buttons()){
             for(Button b : buttons) {
                 b.setStyle("");
+                b.setDisable(true);
             }
         }
         for(Button[] buttons : getPLayer2Buttons()){
             for(Button b : buttons) {
                 b.setStyle("");
+                b.setDisable(true);
             }
         }
+        button.setDisable(false);
         for(Button b : getButtons()){
             if(button.equals(b)) {
                 continue;
@@ -321,15 +334,15 @@ public class controller extends CLIGameController {
         selectedButton.setDisable(true); // Disable the selected button to prevent further clicks
         //int dieValue = Integer.parseInt(selectedButton.getText());
         if(getGameStatus().getPartOfRound()==0) {
-            if (button.equals(die1))
+            if (button.equals(die1) || button.equals(forgottenRealm1))
                 highlightRedPossibleMoves1();
-            else if (button.equals(die2))
+            else if (button.equals(die2) || button.equals(forgottenRealm2))
                 highlightGreenPossibleMoves1();
-            else if (button.equals(die3))
+            else if (button.equals(die3) || button.equals(forgottenRealm3))
                 highlightBluePossibleMoves1();
-            else if (button.equals(die4))
+            else if (button.equals(die4) || button.equals(forgottenRealm4))
                 highlightMagentaPossibleMoves1();
-            else if (button.equals(die5))
+            else if (button.equals(die5) || button.equals(forgottenRealm5))
                 highlightYellowPossibleMoves1();
         }
         else{
@@ -349,43 +362,14 @@ public class controller extends CLIGameController {
     }
     public void highlightRedPossibleMoves1(){
         int i = getAllDice()[0].getValue();
-        Move[] moves = getPossibleMovesForADie(getGameBoard().getPlayer1(), getAllDice()[0]);
-        if(moves.length>0){
-            if(F1.getText().equals(""+i)){
-                F1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(F2.getText().equals(""+i)){
-                F2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(F3.getText().equals(""+i)){
-                F3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(W1.getText().equals(""+i)){
-                W1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(W2.getText().equals(""+i)){
-                W2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(W4.getText().equals(""+i)){
-                W4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(T1.getText().equals(""+i)){
-                T1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(T3.getText().equals(""+i)){
-                T3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(T4.getText().equals(""+i)){
-                T4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(H2.getText().equals(""+i)){
-                H2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(H3.getText().equals(""+i)){
-                H3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-            }
-             if(H4.getText().equals(""+i)){
-                H4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
+        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), getAllDice()[0]);
+        if(m.length==0){
+            return;
+        }
+        for(int x=0;x<12;x++){
+            if(i == Integer.parseInt(getPLayer1Buttons()[0][x].getText())){
+                getPLayer1Buttons()[0][x].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer1Buttons()[0][x].setDisable(false);
             }
         }
 }
@@ -395,81 +379,24 @@ public class controller extends CLIGameController {
             if(m.length==0){
                 return;
             }
-            switch(h){
-                case 2:
-                    Green2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 3:
-                    Green3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 4:
-                    Green4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 5:
-                    Green5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 6:
-                    Green6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 7:
-                    Green7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 8:
-                    Green8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 9:
-                    Green9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 10:
-                    Green10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 11:
-                    Green11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 12:
-                    Green12.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-        }
+            for(int i=0;i<11;i++){
+                if(h == i+2){
+                    getPLayer1Buttons()[1][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer1Buttons()[1][i].setDisable(false);
+                }
+            }
     }
     public void highlightBluePossibleMoves1(){
         int i = getGameBoard().getPlayer1().getScoreSheet().getHydra().headsKilled();
         int value = Integer.parseInt(die3.getText());
         Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(value));
-        if(m.length>0 ){
-            switch(i){
-                case 0:
-                    Blue1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 1:
-                    Blue2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 2:
-                    Blue3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 3:
-                    Blue4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 4:
-                    Blue5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 5:
-                    Blue6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 6:
-                    Blue7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 7:
-                    Blue8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 8:
-                    Blue9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 9:
-                    Blue10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 10:
-                    Blue11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
+        if(m.length==0){
+            return;
+        }
+        for(int x=0;x<11;x++){
+            if(i == x){
+                getPLayer1Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer1Buttons()[2][i].setDisable(false);
             }
         }
     }
@@ -477,41 +404,13 @@ public class controller extends CLIGameController {
         int i = getGameBoard().getPlayer1().getScoreSheet().getPhoenix().getCount();
         int value = Integer.parseInt(die4.getText());
         Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(value));
-        if(m.length>0 ){
-            switch(i){
-                case 0:
-                    Magenta1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 1:
-                    Magenta2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 2:
-                    Magenta3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 3:
-                    Magenta4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 4:
-                    Magenta5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 5:
-                    Magenta6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 6:
-                    Magenta7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 7:
-                    Magenta8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break; 
-                case 8:
-                    Magenta9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 9:
-                    Magenta10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 10:
-                    Magenta11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
+        if(m.length==0){
+            return;
+        }
+        for(int x=0;x<11;x++){
+            if(i == x){
+                getPLayer1Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer1Buttons()[3][i].setDisable(false);
             }
         }
     }
@@ -519,41 +418,13 @@ public class controller extends CLIGameController {
         int i = getGameBoard().getPlayer1().getScoreSheet().getLion().getHitNum();
         int value = Integer.parseInt(die5.getText());
         Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(value));
-        if(m.length>0 ){
-            switch(i){
-                case 0:
-                    Yellow1.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 1:
-                    Yellow2.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 2:
-                    Yellow3.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 3:
-                    Yellow4.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 4:
-                    Yellow5.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 5:
-                    Yellow6.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 6:
-                    Yellow7.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 7:
-                    Yellow8.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 8:
-                    Yellow9.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 9:
-                    Yellow10.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
-                case 10:
-                    Yellow11.setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    break;
+        if(m.length==0){
+            return;
+        }
+        for(int x=0;x<11;x++){
+            if(i == x){
+                getPLayer1Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer1Buttons()[4][i].setDisable(false);
             }
         }
     }
@@ -563,61 +434,87 @@ public class controller extends CLIGameController {
         RedDice d = new RedDice(i);
         Move[] m = getGameBoard().getPlayer1().getScoreSheet().getDragon().getPossibleMovesForADie(d);
         boolean b;
-        if (m.length > 0) {
-            if (button.equals(F1)) {
-                d.selectsDragon(1);
-                b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                F1.setText("X");
-            }
-                else if (button.equals(F2)) {
-                    d.selectsDragon(2);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                    F2.setText("X");
-                } else if (button.equals(F3)) {
-                    d.selectsDragon(3);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                        F3.setText("X");
-                } else if (button.equals(W1)) {
+        if(m.length==0){
+            return;
+        }
+        for(int x=0;x<12;x++){
+            if(i == Integer.parseInt(getPLayer1Buttons()[0][x].getText()) && button.equals(getPLayer1Buttons()[0][x]) ){
+                String s = button.getId();
+                if(s.charAt(1) == '1'){
                     d.selectsDragon(1);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                        W1.setText("X");
-                } else if (button.equals(W2)) {
+                }
+                else if (s.charAt(1) == '2'){
                     d.selectsDragon(2);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                        W2.setText("X");
-                } else if (button.equals(W4)) {
-                    d.selectsDragon(4);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                        W4.setText("X");
-                } else if (button.equals(T1)) {
-                    d.selectsDragon(1);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                        T1.setText("X");
-                } else if (button.equals(T3)) {
+                }
+                else if (s.charAt(1) == '3'){
                     d.selectsDragon(3);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                        T3.setText("X");
-                } else if (button.equals(T4)) {
+                }
+                else if (s.charAt(1) == '4'){
                     d.selectsDragon(4);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                        T4.setText("X");
-                } else if (button.equals(H2)) {
-                    d.selectsDragon(2);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                        H2.setText("X");
-                } else if (button.equals(H3)) {
-                    d.selectsDragon(3);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                        H3.setText("X");
-                } else if (button.equals(H4)) {
-                    d.selectsDragon(4);
-                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
-                        H4.setText("X");
+                }
+                if(makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()))){
+                    getPLayer1Buttons()[0][x].setText("X");
+                    getPLayer1Buttons()[0][x].setDisable(true);
+                    disablePlayer1();
+                    break;
                 }
             }
+        }
+//        if (m.length > 0) {
+//            if (button.equals(F1)) {
+//                d.selectsDragon(1);
+//                makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                F1.setText("X");
+//            }
+//                else if (button.equals(F2)) {
+//                    d.selectsDragon(2);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                    F2.setText("X");
+//                } else if (button.equals(F3)) {
+//                    d.selectsDragon(3);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                        F3.setText("X");
+//                } else if (button.equals(W1)) {
+//                    d.selectsDragon(1);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                        W1.setText("X");
+//                } else if (button.equals(W2)) {
+//                    d.selectsDragon(2);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                        W2.setText("X");
+//                } else if (button.equals(W4)) {
+//                    d.selectsDragon(4);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                        W4.setText("X");
+//                } else if (button.equals(T1)) {
+//                    d.selectsDragon(1);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                        T1.setText("X");
+//                } else if (button.equals(T3)) {
+//                    d.selectsDragon(3);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                        T3.setText("X");
+//                } else if (button.equals(T4)) {
+//                    d.selectsDragon(4);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                        T4.setText("X");
+//                } else if (button.equals(H2)) {
+//                    d.selectsDragon(2);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                        H2.setText("X");
+//                } else if (button.equals(H3)) {
+//                    d.selectsDragon(3);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                        H3.setText("X");
+//                } else if (button.equals(H4)) {
+//                    d.selectsDragon(4);
+//                    b = makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()));
+//                        H4.setText("X");
+//                }
+//            }
         die1.setDisable(true);
         for (int h=0;h<6;h++) {
-            if(Integer.parseInt(getButtons()[h].getText()) < i) {
+            if(getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i) {
                 getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
                 getForgottenRealmButtons()[h].setVisible(true);
                 getButtons()[h].setVisible(false);
@@ -634,69 +531,22 @@ public class controller extends CLIGameController {
         Dice h = getAllDice()[1];
         Move[] m = getGameBoard().getPlayer1().getScoreSheet().getGaia().getPossibleMovesForADie(d);
         if(m.length>0){
-            if(button.equals(Green2)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                    Green2.setText("X");
-                }
-            }
-            else if(button.equals(Green3)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia())))
-                {
-                    Green3.setText("X");
-                }
-            }
-            else if(button.equals(Green4)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                    Green4.setText("X");
-                }
-            }
-            else if(button.equals(Green5)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                    Green5.setText("X");
-                }
-            }
-            else if(button.equals(Green6)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                    Green6.setText("X");
-                }
-            }
-            else if(button.equals(Green7)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                    Green7.setText("X");
-                }
-            }
-            else if(button.equals(Green8)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                    Green8.setText("X");
-                }
-            }
-            else if(button.equals(Green9)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                    Green9.setText("X");
-                }
-            }
-            else if(button.equals(Green10)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                    Green10.setText("X");
-                }
-            }
-            else if(button.equals(Green11)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                    Green11.setText("X");
-                }
-            }
-            else if(button.equals(Green12)){
-                if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                    Green12.setText("X");
+            for(int x=0;x<11;x++){
+                if(button.equals(getPLayer1Buttons()[1][x])){
+                    if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
+                        getPLayer1Buttons()[1][x].setText("X");
+                        getPLayer1Buttons()[1][x].setDisable(true);
+                    }
                 }
             }
         }
         die2.setDisable(true);
         for (int r=0;r<6;r++) {
-            if(Integer.parseInt(getButtons()[r].getText()) < Integer.parseInt(die2.getText())) {
+            if(getButtons()[r].isVisible() && (Integer.parseInt(getButtons()[r].getText()) < Integer.parseInt(die2.getText()))) {
                 getForgottenRealmButtons()[r].setText(getButtons()[r].getText());
                 getForgottenRealmButtons()[r].setVisible(true);
                 getButtons()[r].setVisible(false);
+
             }
             getButtons()[r].setDisable(true);
         }
@@ -707,178 +557,82 @@ public class controller extends CLIGameController {
     public void attackBlue1(ActionEvent event){
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die3.getText());
+        Dice d = new BlueDice(i);
         Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(i));
-        if(m.length>0){
-            if(button.equals(Blue1)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue1.setText("X");
+        if(m.length>0) {
+            for (int x = 0; x < 11; x++) {
+                if (button.equals(getPLayer1Buttons()[2][x])) {
+                    if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getHydra()))) {
+                        getPLayer1Buttons()[2][x].setText("X");
+                        getPLayer1Buttons()[2][x].setDisable(true);
+                    }
+                }
             }
-            else if(button.equals(Blue2)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue2.setText("X");
+
+            for (int h = 0; h < 6; h++) {
+                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i) {
+                    getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText()) + "");
+                    getForgottenRealmButtons()[h].setVisible(true);
+                    getButtons()[h].setVisible(false);
+                }
+                getButtons()[h].setDisable(true);
             }
-            else if(button.equals(Blue3)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue3.setText("X");
-            }
-            else if(button.equals(Blue4)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue4.setText("X");
-            }
-            else if(button.equals(Blue5)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue5.setText("X");
-            }
-            else if(button.equals(Blue6)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue6.setText("X");
-            }
-            else if(button.equals(Blue7)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue7.setText("X");
-            }
-            else if(button.equals(Blue8)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue8.setText("X");
-            }
-            else if(button.equals(Blue9)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue9.setText("X");
-            }
-            else if(button.equals(Blue10)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue10.setText("X");
-            }
-            else if(button.equals(Blue11)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new BlueDice(i),getGameBoard().getPlayer1().getScoreSheet().getHydra()));
-                Blue11.setText("X");
-            }
+            die3.setVisible(false);
+            addTurn(3);
         }
-        for (int h=0;h<6;h++) {
-            if (Integer.parseInt(getButtons()[h].getText()) < i) {
-                getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText()) + "");
-                getForgottenRealmButtons()[h].setVisible(true);
-                getButtons()[h].setVisible(false);
-            }
-            getButtons()[h].setDisable(true);
-        }
-        die3.setVisible(false);
-        addTurn(3);
     }
     public void attackMagenta1(ActionEvent event){
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die4.getText());
+        Dice d = new MagentaDice(i);
         Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(i));
-        if(m.length>0){
-            if(button.equals(Magenta1)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta1.setText(""+i);
+        if(m.length>0) {
+            for (int x = 0; x < 11; x++) {
+                if (button.equals(getPLayer1Buttons()[2][x])) {
+                    if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getPhoenix()))) {
+                        getPLayer1Buttons()[3][x].setText("X");
+                        getPLayer1Buttons()[3][x].setDisable(true);
+                    }
+                }
             }
-            else if(button.equals(Magenta2)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta2.setText(""+i);
+            for (int h = 0; h < 6; h++) {
+                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i) {
+                    getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
+                    getForgottenRealmButtons()[h].setVisible(true);
+                    getButtons()[h].setVisible(false);
+                }
+                getButtons()[h].setDisable(true);
             }
-            else if(button.equals(Magenta3)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta3.setText(""+i);
-            }
-            else if(button.equals(Magenta4)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta4.setText(""+i);
-            }
-            else if(button.equals(Magenta5)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta5.setText(""+i);
-            }
-            else if(button.equals(Magenta6)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta6.setText(""+i);
-            }
-            else if(button.equals(Magenta7)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta7.setText(""+i);
-            }
-            else if(button.equals(Magenta8)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta8.setText(""+i);
-            }
-            else if(button.equals(Magenta9)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta9.setText(""+i);
-            }
-            else if(button.equals(Magenta10)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta10.setText(""+i);
-            }
-            else if(button.equals(Magenta11)){
-                makeMove(getGameBoard().getPlayer1(), new Move(new MagentaDice(i),getGameBoard().getPlayer1().getScoreSheet().getPhoenix()));
-                Magenta11.setText(""+i);
-            }
+            die4.setVisible(false);
+            addTurn(4);
         }
-        for (int h=0;h<6;h++) {
-            if (Integer.parseInt(getButtons()[h].getText()) < i) {
-                getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
-                getForgottenRealmButtons()[h].setVisible(true);
-                getButtons()[h].setVisible(false);
-            }
-            getButtons()[h].setDisable(true);
-        }
-        die4.setVisible(false);
-        addTurn(4);
-
     }
     public void attackYellow1(ActionEvent event) {
         Button button = (Button) event.getSource();
         int i = Integer.parseInt(die5.getText());
+        Dice d = new YellowDice(i);
         Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(i));
         if (m.length > 0) {
-            if (button.equals(Yellow1)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow1.setText("" + i);
-            } else if (button.equals(Yellow2)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow2.setText("" + i);
-            } else if (button.equals(Yellow3)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow3.setText("" + i);
-            } else if (button.equals(Yellow4)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow4.setText("" + i * 2);
-            } else if (button.equals(Yellow5)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow5.setText("" + i);
-            } else if (button.equals(Yellow6)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow6.setText("" + i);
-            } else if (button.equals(Yellow7)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow7.setText("" + i * 2);
-            } else if (button.equals(Yellow8)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow8.setText("" + i);
-            } else if (button.equals(Yellow9)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow9.setText("" + i * 2);
-            } else if (button.equals(Yellow10)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow10.setText("" + i);
-            } else if (button.equals(Yellow11)) {
-                makeMove(getGameBoard().getPlayer1(), new Move(new YellowDice(i), getGameBoard().getPlayer1().getScoreSheet().getLion()));
-                Yellow11.setText("" + i * 3);
+            for (int x = 0; x < 11; x++) {
+                if (button.equals(getPLayer1Buttons()[4][x])) {
+                    if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getLion()))) {
+                        getPLayer1Buttons()[4][x].setText("X");
+                        getPLayer1Buttons()[4][x].setDisable(true);
+                    }
+                }
             }
-        }
-        forgottenRealm5.setText(die5.getText());
-        for (int h = 0; h < 6; h++) {
-            if (Integer.parseInt(getButtons()[h].getText()) < i) {
-                getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
-                getForgottenRealmButtons()[h].setVisible(true);
-                getButtons()[h].setVisible(false);
+            forgottenRealm5.setText(die5.getText());
+            for (int h = 0; h < 6; h++) {
+                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i) {
+                    getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
+                    getForgottenRealmButtons()[h].setVisible(true);
+                    getButtons()[h].setVisible(false);
+                }
+                getButtons()[h].setDisable(true);
             }
-            getButtons()[h].setDisable(true);
+            die5.setVisible(false);
+            addTurn(5);
         }
-        die5.setVisible(false);
-        addTurn(5);
-
     }
 
 
