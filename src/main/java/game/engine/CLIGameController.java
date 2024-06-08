@@ -95,7 +95,6 @@ public class CLIGameController extends GameController {
     }
 
     public Move chooseDie() {
-        
         boolean bool = possibleMovesForArrayOfDice(getActivePlayer(), getAvailableDice()); 
         if(!bool){
             System.out.println("No possible moves for available dice");
@@ -262,7 +261,7 @@ public class CLIGameController extends GameController {
                 value.setDiceStatus(DiceStatus.FORGOTTEN_REALM);
         }
         if (b) {
-            getGameBoard().getGameStatus().incrementTurn();
+            gameBoard.getGameStatus().incrementTurn();
         }
         return move;
     }
@@ -934,8 +933,8 @@ public class CLIGameController extends GameController {
         System.out.println("\n+-----------------------------------------------------------------------+");
         if(getGameStatus().getTurn()==1)
             getRoundReward();
-            System.out.println("Round: " + getGameBoard().getGameStatus().getRound());
-            System.out.println("Turn: " + getGameBoard().getGameStatus().getTurn());
+            System.out.println("Round: " + gameBoard.getGameStatus().getRound());
+            System.out.println("Turn: " + gameBoard.getGameStatus().getTurn());
             System.out.println("Current Player: " + getActivePlayer().getPlayerName()+"\n");
             System.out.println("Press 1 to display Grimoire, 0 to proceed");
             int i;
@@ -972,14 +971,14 @@ public class CLIGameController extends GameController {
     public void endGame(){
         scanner.close();
         getGameStatus().setStatus(false);
-        int score1 = getGameScore(getGameBoard().getPlayer1()).getScore();
-        int score2 = getGameScore(getGameBoard().getPlayer2()).getScore();
-        System.out.println(getGameBoard().getPlayer1().getPlayerName()+" scored "+score1+" points and collected "+getGameBoard().getPlayer1().getGameScore().getElementalCrest().length+" Elemental Crests");
-        System.out.println(getGameBoard().getPlayer2().getPlayerName()+" scored "+score2+" points and collected "+getGameBoard().getPlayer2().getGameScore().getElementalCrest().length+" Elemental Crests");
+        int score1 = getGameScore(gameBoard.getPlayer1()).getScore();
+        int score2 = getGameScore(gameBoard.getPlayer2()).getScore();
+        System.out.println(gameBoard.getPlayer1().getPlayerName()+" scored "+score1+" points and collected "+gameBoard.getPlayer1().getGameScore().getElementalCrest().length+" Elemental Crests");
+        System.out.println(gameBoard.getPlayer2().getPlayerName()+" scored "+score2+" points and collected "+gameBoard.getPlayer2().getGameScore().getElementalCrest().length+" Elemental Crests");
         if (score1 > score2)
-            System.out.println(getGameBoard().getPlayer1().getPlayerName() + " has won the game!");
+            System.out.println(gameBoard.getPlayer1().getPlayerName() + " has won the game!");
         else if(score2 > score1)
-            System.out.println(getGameBoard().getPlayer2().getPlayerName() + " has won the game!");
+            System.out.println(gameBoard.getPlayer2().getPlayerName() + " has won the game!");
         else
             System.out.println("It's a draw!");
     }
@@ -1105,7 +1104,7 @@ public class CLIGameController extends GameController {
         }
     }
     public void getRoundReward(){
-        switch (getGameBoard().getGameStatus().getRound()) {
+        switch (gameBoard.getGameStatus().getRound()) {
             case 1:
             case 3:
                 getActivePlayer().addTimeWarpCount();
