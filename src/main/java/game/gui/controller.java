@@ -1,29 +1,19 @@
 package game.gui;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.Random;
 
 import game.engine.*;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import game.dice.*;
 import game.engine.Move;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 
 public class controller extends CLIGameController {
@@ -32,7 +22,7 @@ public class controller extends CLIGameController {
 //buttons
 
     @FXML
-    private Button F1, F2, F3, W1, W2, W4, T1, T3, T4, H2, H3, H4, f1,f2,f3,w1,w2,w4,t1,t3,t4,h2,h3,h4;
+    private Button F1, F2, F3, F4, W1, W2, W4, T1, T3, T4, H2, H3, H4, f1,f2,f3,w1,w2,w4,t1,t3,t4,h2,h3,h4;
     @FXML
     private Button Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12, g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12;
     @FXML
@@ -44,8 +34,78 @@ public class controller extends CLIGameController {
     @FXML
     private Button rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null, forgottenRealm1, forgottenRealm2, forgottenRealm3, forgottenRealm4, forgottenRealm5, forgottenRealm6;
     @FXML
-    private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat;
+    private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label;
 
+    @FXML
+    public void setPlayerNames(String player1, String player2) {
+        player1Label.setText("Player 1: " + player1);
+        player2Label.setText("Player 2: " + player2);
+    }
+    private  Image[][] diceImages = new Image[6][6]; // 6 types, 6 values each
+    private  ImageView[][] diceViews = new ImageView[6][6]; // Assuming 6 dice views
+    @FXML
+    public void initialize() {
+        // Load dice images
+        for (int type = 0; type < 6; type++) {
+            for (int value = 0; value < 6; value++) {
+                String imagePath = String.format("/type%dvalue%d.png", type + 1, value + 1);
+                diceImages[type][value] = new Image(getClass().getResourceAsStream(imagePath));
+            }
+        }
+        int [] score = new int[4];
+        String [] reward = new String[5];
+        int [][] dragonParts = new int[4][4];
+
+        // Load properties from configuration files
+        Properties prop = new Properties();
+
+        try {
+            // Load scores
+            prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionScore.properties"));
+            for (int i = 0; i < 4; i++) {
+                score[i] = Integer.parseInt(prop.getProperty("col" + (i + 1) + "Score"));
+            }
+
+            // Load rewards
+            prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionRewards.properties"));
+            for (int i = 0; i < 4; i++) {
+                reward[i] = prop.getProperty("row" + (i + 1) + "Reward");
+            }
+            reward[4] = prop.getProperty("diagonalReward");
+
+            // Load dice values
+            prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionDiceValue.properties"));
+            for (int row = 0; row < 4; row++) {
+                for (int col = 0; col < 4; col++) {
+                    dragonParts[row][col] = Integer.parseInt(prop.getProperty("row" + (row + 1) + "col" + (col + 1) + "DiceValue"));
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        String x = "";
+        if (dragonParts[0][0] == 0)
+            x = "X";
+        else
+            x = dragonParts[0][0] + "";
+        F1.setText(x);
+        if (dragonParts[0][1] == 0)
+            x = "x";
+        else
+            x = dragonParts[0][1] + "";
+        F2.setText(x);
+        if (dragonParts[0][2] == 0)
+            x = "X";
+        else
+            x = dragonParts[0][2] + "";
+        F3.setText(x);
+        if (dragonParts[0][3] == 0)
+            x = "X";
+        else
+            x = dragonParts[0][3] + "";
+        F4.setText(x);
+    }
     @FXML
     // Method to change the text of buttons randomly
     public void rollButtons() {
@@ -116,6 +176,7 @@ public class controller extends CLIGameController {
         }
         enablePlayer1();
         for(Button b:getButtons()){
+            b.setDisable(false);
             rollButton.setDisable(false);
         }
         for(Button b : getForgottenRealmButtons()){
@@ -1296,14 +1357,6 @@ public class controller extends CLIGameController {
             }
         }
     }
-//    @FXML
-//    private Label  player1Label;
-//    @FXML
-//    private Label player2Label;
-//    public void setPlayerNames(String player1, String player2){
-//        player1Label.setText("Player 1: "+player1);
-//        player2Label.setText("Player 2: "+player2);
-//    }
  }
 
 
