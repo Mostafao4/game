@@ -23,7 +23,7 @@
             <Image url="@/Realm.png" />
          </image>
       </ImageView>
-      <ImageView disable="true" fitHeight="1080.0" fitWidth="1920.0" layoutX="-7.0" layoutY="-8.0" pickOnBounds="true">
+      <ImageView disable="true" fitHeight="1080.0" fitWidth="1920.0" layoutX="-59.0" layoutY="2.0" pickOnBounds="true">
 
          <image>
             <Image url="@/Realm.png" />
@@ -44,6 +44,11 @@
       </Button>
       <Pane layoutX="785.0" layoutY="630.0" prefHeight="70.0" prefWidth="370.0" style="-fx-background-color: Grey;">
          <children>
+            <ImageView fitHeight="81.0" fitWidth="382.0" layoutX="-7.0" layoutY="-1.0" pickOnBounds="true">
+               <image>
+                  <Image url="@forgotten_realm_png.png" />
+               </image>
+            </ImageView>
             <Button fx:id="forgottenRealm1" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: red;" text="0">
 
                <font>
@@ -78,7 +83,7 @@
                   <Image url="@Dragon.png" />
                </image>
             </ImageView>
-            <GridPane gridLinesVisible="true" prefHeight="192.0" prefWidth="233.0" style="-fx-background-color: Red;">
+            <GridPane gridLinesVisible="true" prefHeight="192.0" prefWidth="233.0" style="-fx-background-color: Maroon;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -156,7 +161,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Button fx:id="R1" mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" text="GB" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                  <Button fx:id="R1" mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" style="-fx-background-color: 0;" text="GB" GridPane.columnIndex="5" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -201,7 +206,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="R2" mnemonicParsing="false" prefHeight="51.0" prefWidth="52.0" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="R2" mnemonicParsing="false" prefHeight="51.0" prefWidth="52.0" style="-fx-background-color: 0;" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -221,12 +226,12 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="R3" mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" text="BB" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                  <Button fx:id="R3" mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" style="-fx-background-color: 0;" text="BB" GridPane.columnIndex="5" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="R4" mnemonicParsing="false" prefHeight="46.0" prefWidth="52.0" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                  <Button fx:id="R4" mnemonicParsing="false" prefHeight="46.0" prefWidth="52.0" style="-fx-background-color: 0;" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -251,7 +256,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="R5" mnemonicParsing="false" prefHeight="48.0" prefWidth="52.0" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                  <Button fx:id="R5" mnemonicParsing="false" prefHeight="48.0" prefWidth="52.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -261,6 +266,26 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <ImageView fitHeight="45.0" fitWidth="51.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@elemental-crest.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="43.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@hydra-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="43.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@lion-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@green-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -272,7 +297,7 @@
                   <Image url="@Dragon.png" />
                </image>
             </ImageView>
-            <GridPane gridLinesVisible="true" prefHeight="192.0" prefWidth="233.0" style="-fx-background-color: Red;">
+            <GridPane gridLinesVisible="true" prefHeight="192.0" prefWidth="233.0" style="-fx-background-color: Maroon;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -365,7 +390,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="r1" mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" text="GB" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                  <Button fx:id="r1" mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" style="-fx-background-color: 0;" text="GB" GridPane.columnIndex="5" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -396,7 +421,7 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="w2" disable="true" mnemonicParsing="false" onAction="#attackRed2" prefHeight="54.0" prefWidth="69.0" text="1" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Button fx:id="w2" disable="true" mnemonicParsing="false" onAction="#attackRed2" prefHeight="45.0" prefWidth="52.0" text="1" GridPane.columnIndex="2" GridPane.rowIndex="2">
 
                      <font>
                         <Font size="18.0" />
@@ -412,7 +437,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="r2" mnemonicParsing="false" prefHeight="51.0" prefWidth="52.0" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="r2" mnemonicParsing="false" prefHeight="51.0" prefWidth="52.0" style="-fx-background-color: 0;" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -432,12 +457,12 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="r3" mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" text="BB" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                  <Button fx:id="r3" mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" style="-fx-background-color: 0;" text="BB" GridPane.columnIndex="5" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="r4" mnemonicParsing="false" prefHeight="46.0" prefWidth="52.0" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                  <Button fx:id="r4" mnemonicParsing="false" prefHeight="46.0" prefWidth="52.0" style="-fx-background-color: 0;" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -462,7 +487,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="r5" mnemonicParsing="false" prefHeight="48.0" prefWidth="52.0" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                  <Button fx:id="r5" mnemonicParsing="false" prefHeight="48.0" prefWidth="52.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -472,6 +497,16 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <ImageView fitHeight="45.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@hydra-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="43.0" fitWidth="53.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@lion-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -611,12 +646,12 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rg5" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                  <Button fx:id="rg5" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rg6" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="rg6" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -631,7 +666,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rg7" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                  <Button fx:id="rg7" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -641,22 +676,22 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rg1" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="TW" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Button fx:id="rg1" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="TW" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rg2" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="BB" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                  <Button fx:id="rg2" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="BB" GridPane.columnIndex="2" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rg4" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                  <Button fx:id="rg4" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rg3" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="MB" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                  <Button fx:id="rg3" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="MB" GridPane.columnIndex="3" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -681,6 +716,16 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <ImageView fitHeight="43.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@hydra-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="43.0" fitWidth="53.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@lion-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -802,12 +847,12 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RG5" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                  <Button fx:id="RG5" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="YB" GridPane.columnIndex="5" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RG6" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="RG6" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -832,22 +877,22 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RG1" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="TW" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Button fx:id="RG1" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="TW" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RG2" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="BB" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                  <Button fx:id="RG2" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="BB" GridPane.columnIndex="2" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RG4" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                  <Button fx:id="RG4" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RG3" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="MB" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                  <Button fx:id="RG3" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="MB" GridPane.columnIndex="3" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -872,6 +917,21 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <ImageView fitHeight="45.0" fitWidth="51.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@elemental-crest.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="44.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@hydra-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="43.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@lion-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -883,7 +943,7 @@
                   <Image url="@Serpant.png" />
                </image>
             </ImageView>
-            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="320.0" style="-fx-background-color: Blue;">
+            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="320.0" style="-fx-background-color: Darkblue;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -1040,25 +1100,25 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb1" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="rb1" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button fx:id="b2" disable="true" mnemonicParsing="false" onAction="#attackBlue2" prefHeight="48.0" prefWidth="55.0" text="≥2" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb2" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="rb2" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Button fx:id="b3" disable="true" mnemonicParsing="false" onAction="#attackBlue2" prefHeight="48.0" prefWidth="55.0" text="≥3" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb3" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Button fx:id="rb3" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <Button fx:id="b4" disable="true" mnemonicParsing="false" onAction="#attackBlue2" prefHeight="48.0" prefWidth="55.0" text="≥4" GridPane.columnIndex="4" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb4" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <Button fx:id="rb4" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1068,7 +1128,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb5" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <Button fx:id="rb5" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                   <Button fx:id="b6" disable="true" mnemonicParsing="false" onAction="#attackBlue2" prefHeight="48.0" prefWidth="55.0" text="≥1" GridPane.columnIndex="6" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
@@ -1079,12 +1139,12 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb6" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" text="GB" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Button fx:id="rb6" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" text="GB" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb7" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                  <Button fx:id="rb7" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1094,13 +1154,13 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb8" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                  <Button fx:id="rb8" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="8" GridPane.rowIndex="2" />
                   <Button fx:id="b9" disable="true" mnemonicParsing="false" onAction="#attackBlue2" prefHeight="48.0" prefWidth="55.0" text="≥4" GridPane.columnIndex="9" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb9" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" text="MB" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                  <Button fx:id="rb9" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" text="MB" GridPane.columnIndex="9" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1110,7 +1170,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb10" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" text="TW" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                  <Button fx:id="rb10" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" text="TW" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1120,7 +1180,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rb11" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="11" GridPane.rowIndex="2" />
+                  <Button fx:id="rb11" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="11" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>
@@ -1132,7 +1192,7 @@
                   <Image url="@phoenix.png" />
                </image>
             </ImageView>
-            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="479.0" style="-fx-background-color: Magenta;">
+            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="479.0" style="-fx-background-color: darkmagenta;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -1243,14 +1303,14 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rm1" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="rm2" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button fx:id="rm3" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button fx:id="rm1" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="rm2" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="rm3" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rm4" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="GB" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <Button fx:id="rm4" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="GB" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1260,7 +1320,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rm7" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                  <Button fx:id="rm7" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1270,7 +1330,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rm8" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                  <Button fx:id="rm8" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="TW" GridPane.columnIndex="8" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1280,7 +1340,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rm9" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="BB" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                  <Button fx:id="rm9" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="BB" GridPane.columnIndex="9" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1295,22 +1355,22 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rm10" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="YB" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                  <Button fx:id="rm10" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="YB" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rm11" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="11" GridPane.rowIndex="2">
+                  <Button fx:id="rm11" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="11" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rm5" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="rm5" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rm6" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="RB" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Button fx:id="rm6" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="RB" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1325,6 +1385,16 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@hydra-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="43.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@lion-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -1336,7 +1406,7 @@
                   <Image url="@Lion.png" />
                </image>
             </ImageView>
-            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="320.0" style="-fx-background-color: Yellow;">
+            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="320.0" style="-fx-background-color: Gold;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -1421,11 +1491,11 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="RY1" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button fx:id="RY1" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="RY2" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Button fx:id="RY2" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
@@ -1433,7 +1503,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="RY3" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button fx:id="RY3" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1443,11 +1513,11 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RY4" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <Button fx:id="RY4" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="RY7" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                  <Button fx:id="RY7" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="7" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
@@ -1460,7 +1530,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="RY8" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="EC" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                  <Button fx:id="RY8" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" text="EC" GridPane.columnIndex="8" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1470,7 +1540,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RY9" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                  <Button fx:id="RY9" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="9" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
@@ -1478,7 +1548,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="RY10" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="MB" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                  <Button fx:id="RY10" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" text="MB" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1488,16 +1558,16 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RY11" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="11" GridPane.rowIndex="2">
+                  <Button fx:id="RY11" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="11" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="RY5" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="RY5" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RY6" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="AB" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Button fx:id="RY6" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1521,7 +1591,7 @@
                   <Image url="@Serpant.png" />
                </image>
             </ImageView>
-            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="320.0" style="-fx-background-color: Blue;">
+            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="320.0" style="-fx-background-color: Darkblue;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -1678,25 +1748,25 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB1" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="RB1" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button fx:id="Blue2" disable="true" mnemonicParsing="false" onAction="#attackBlue1" prefHeight="48.0" prefWidth="55.0" text="≥2" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB2" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="RB2" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Button fx:id="Blue3" disable="true" mnemonicParsing="false" onAction="#attackBlue1" prefHeight="48.0" prefWidth="55.0" text="≥3" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB3" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Button fx:id="RB3" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <Button fx:id="Blue4" disable="true" mnemonicParsing="false" onAction="#attackBlue1" prefHeight="48.0" prefWidth="55.0" text="≥4" GridPane.columnIndex="4" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB4" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <Button fx:id="RB4" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1706,7 +1776,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB5" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <Button fx:id="RB5" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                   <Button fx:id="Blue6" disable="true" mnemonicParsing="false" onAction="#attackBlue1" prefHeight="48.0" prefWidth="55.0" text="≥1" GridPane.columnIndex="6" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
@@ -1717,12 +1787,12 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB6" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" text="GB" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Button fx:id="RB6" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" text="GB" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB7" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                  <Button fx:id="RB7" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1732,13 +1802,13 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB8" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                  <Button fx:id="RB8" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="8" GridPane.rowIndex="2" />
                   <Button fx:id="Blue9" disable="true" mnemonicParsing="false" onAction="#attackBlue1" prefHeight="48.0" prefWidth="55.0" text="≥4" GridPane.columnIndex="9" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB9" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" text="MB" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                  <Button fx:id="RB9" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" text="MB" GridPane.columnIndex="9" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1748,7 +1818,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB10" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" text="TW" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                  <Button fx:id="RB10" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" text="TW" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1758,7 +1828,17 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RB11" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="11" GridPane.rowIndex="2" />
+                  <Button fx:id="RB11" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="11" GridPane.rowIndex="2" />
+                  <ImageView fitHeight="45.0" fitWidth="53.0" pickOnBounds="true" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@elemental-crest.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@green-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -1770,7 +1850,7 @@
                   <Image url="@phoenix.png" />
                </image>
             </ImageView>
-            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="479.0" style="-fx-background-color: Magenta;">
+            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="479.0" style="-fx-background-color: darkmagenta;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -1867,14 +1947,14 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RM1" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="RM2" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button fx:id="RM3" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button fx:id="RM1" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="RM2" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="RM3" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RM4" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="GB" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <Button fx:id="RM4" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="GB" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1884,7 +1964,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RM7" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                  <Button fx:id="RM7" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="EC" GridPane.columnIndex="7" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1894,7 +1974,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RM8" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="TW" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                  <Button fx:id="RM8" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="TW" GridPane.columnIndex="8" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1904,7 +1984,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RM9" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="BB" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                  <Button fx:id="RM9" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="BB" GridPane.columnIndex="9" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1919,22 +1999,22 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RM10" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="YB" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                  <Button fx:id="RM10" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="YB" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RM11" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="11" GridPane.rowIndex="2">
+                  <Button fx:id="RM11" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="11" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RM5" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="RM5" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RM6" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" text="RB" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Button fx:id="RM6" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" style="-fx-background-color: 0;" text="RB" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -1949,6 +2029,26 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <ImageView fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@hydra-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="43.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@lion-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@green-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@green-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -2019,7 +2119,7 @@
                   <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="320.0" style="-fx-background-color: Yellow;">
+            <GridPane gridLinesVisible="true" prefHeight="150.0" prefWidth="320.0" style="-fx-background-color: Gold;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -2118,11 +2218,11 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="ry1" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button fx:id="ry1" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="ry2" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Button fx:id="ry2" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
@@ -2130,7 +2230,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="ry3" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button fx:id="ry3" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" text="TW" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -2140,11 +2240,11 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="ry4" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <Button fx:id="ry4" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="ry7" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                  <Button fx:id="ry7" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="7" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
@@ -2157,7 +2257,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="ry8" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="EC" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                  <Button fx:id="ry8" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" text="EC" GridPane.columnIndex="8" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -2167,7 +2267,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="ry9" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                  <Button fx:id="ry9" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="9" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
@@ -2175,7 +2275,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="ry10" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="MB" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                  <Button fx:id="ry10" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" text="MB" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -2185,16 +2285,16 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="ry11" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" GridPane.columnIndex="11" GridPane.rowIndex="2">
+                  <Button fx:id="ry11" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="11" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button fx:id="ry5" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Button fx:id="ry5" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" text="RB" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="ry6" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" text="AB" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Button fx:id="ry6" mnemonicParsing="false" prefHeight="63.0" prefWidth="55.0" style="-fx-background-color: 0;" text="AB" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -2212,7 +2312,7 @@
          </children>
       </StackPane>
       <HBox fx:id="diceBox" layoutX="840.0" layoutY="1022.0" prefHeight="39.0" prefWidth="256.0" spacing="10.0" />
-      <GridPane gridLinesVisible="true" layoutX="779.0" layoutY="39.0" prefHeight="120.0" prefWidth="365.0" style="-fx-background-color: black;">
+      <GridPane gridLinesVisible="true" layoutX="707.0" layoutY="35.0" prefHeight="150.0" prefWidth="507.0" style="-fx-background-color: black;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -2227,17 +2327,58 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="70.0" text="Rewards" textFill="WHITE" wrapText="true" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R1" textFill="WHITE" GridPane.columnIndex="1" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R2" textFill="WHITE" GridPane.columnIndex="2" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R3" textFill="WHITE" GridPane.columnIndex="3" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R4" textFill="WHITE" GridPane.columnIndex="4" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R6" textFill="WHITE" GridPane.columnIndex="6" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R5" textFill="WHITE" GridPane.columnIndex="5" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="70.0" text="Rewards" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="74.0" text="R1" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="86.0" text="R2" textFill="WHITE" GridPane.columnIndex="2">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="87.0" text="R3" textFill="WHITE" GridPane.columnIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="90.0" text="R4" textFill="WHITE" GridPane.columnIndex="4">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="84.0" text="R6" textFill="WHITE" GridPane.columnIndex="6">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="88.0" text="R5" textFill="WHITE" GridPane.columnIndex="5">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
             <Label fx:id="round1" text="Time Warp" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="round2" text="Arcane Boost" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label fx:id="round3" text="Time Warp" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label fx:id="round4" text="Essence Bonus" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <ImageView fitHeight="72.0" fitWidth="71.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@Time-warp.gif" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@arcane-boost.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="72.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@Time-warp.gif" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="74.0" pickOnBounds="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@essence-bonus.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="605.0" layoutX="683.0" layoutY="297.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
@@ -2262,15 +2403,16 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <GridPane gridLinesVisible="true" layoutX="806.0" layoutY="901.0" prefHeight="81.0" prefWidth="295.0" style="-fx-background-color: black;">
+      <GridPane gridLinesVisible="true" layoutX="796.0" layoutY="901.0" prefHeight="110.0" prefWidth="356.0" style="-fx-background-color: black;">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="461.0" minWidth="10.0" prefWidth="187.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="86.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="91.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="101.0" text="Player 1" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
@@ -2283,7 +2425,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="109.0" text="Total Score" textFill="WHITE" GridPane.rowIndex="1">
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="199.0" text="Total Score" textFill="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
@@ -2294,6 +2436,21 @@
                </font>
             </Label>
             <Label fx:id="score2" alignment="CENTER" prefHeight="17.0" prefWidth="100.0" text="0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="385.0" text="Elemental Crests" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="score11" alignment="CENTER" prefHeight="17.0" prefWidth="99.0" text="0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="score12" alignment="CENTER" prefHeight="17.0" prefWidth="99.0" text="0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
@@ -2362,7 +2519,7 @@
             </Button>
          </children>
       </GridPane>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="785.0" layoutY="580.0" prefHeight="50.0" prefWidth="370.0" style="-fx-background-color: Black;" text="Forgotten Realm" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="862.0" layoutY="575.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: Black;" text="Forgotten Realm" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
@@ -2372,7 +2529,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Pane layoutX="785.0" layoutY="778.0" prefHeight="70.0" prefWidth="370.0" style="-fx-background-color: Grey;">
+      <Pane layoutX="785.0" layoutY="778.0" prefHeight="70.0" prefWidth="370.0" style="-fx-background-color: 0;">
          <children>
             <Button fx:id="forgottenRealm11" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: red;" text="0">
                <font>
@@ -2400,7 +2557,7 @@
                </font></Button>
          </children>
       </Pane>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="785.0" layoutY="728.0" prefHeight="50.0" prefWidth="370.0" style="-fx-background-color: Black;" text="Arcane Boost" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="864.0" layoutY="728.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: Black;" text="Arcane Boost" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
@@ -2413,7 +2570,7 @@
       <Label layoutX="744.0" layoutY="235.0" text="tw1" />
       <Label layoutX="1131.0" layoutY="235.0" text="tw2" />
       <Button layoutX="1183.0" layoutY="942.0" mnemonicParsing="false" text="AB2" />
-      <Button layoutX="692.0" layoutY="942.0" mnemonicParsing="false" text="AB1" />
+      <Button layoutX="692.0" layoutY="942.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="75.0" text="AB1" />
       <Label fx:id="gameStat" alignment="TOP_CENTER" layoutX="858.0" layoutY="217.0" prefHeight="110.0" prefWidth="191.0" style="-fx-background-color: black;" text="Label" textFill="WHITE" wrapText="true">
          <font>
             <Font size="18.0" />
