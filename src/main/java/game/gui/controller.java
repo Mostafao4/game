@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
 
-import game.collectibles.ArcaneBoost;
-import game.collectibles.Bonus;
-import game.collectibles.ElementalCrest;
-import game.collectibles.Reward;
+import game.collectibles.*;
 import game.creatures.Realm;
 import game.engine.*;
 import javafx.event.ActionEvent;
@@ -56,6 +53,7 @@ public class controller extends CLIGameController {
     private Button startGameButton, timeWarpButton, rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null, forgottenRealm1, forgottenRealm2, forgottenRealm3, forgottenRealm4, forgottenRealm5, forgottenRealm6;
     @FXML
     private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label, tw1, tw2;
+
     @FXML
     private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6;
 
@@ -613,20 +611,12 @@ public class controller extends CLIGameController {
     @FXML
     public void startGame(ActionEvent event){
         gameStat.setText("Welcome to Dice Realms!!!\nPlayer 1's turn");
-        if(getGameStatus().getPartOfRound()==0) {
-            player1Turn.setText(""+getGameStatus().getTurn());
-            player2Turn.setText("--");
-        }
-        else {
-            player1Turn.setText("--");
-            player2Turn.setText(""+getGameStatus().getTurn());
-
-        }
+        player1Turn.setText("" + getGameStatus().getTurn());
         startGameButton.setVisible(false);
         rollButton.setDisable(false);
-        for(Button b : getForgottenRealmButtons()){
-            b.setVisible(false);
-        }
+        hideFRButtons();
+        tw1.setText("TW: 1");
+
 
     }
 //    public void gameLoop(){
@@ -691,10 +681,14 @@ public class controller extends CLIGameController {
             hideButtons();
             fRealm();
         }
-        if(getGameStatus().getPartOfRound() == 2){
+        else if(getGameStatus().getPartOfRound() == 2){
             getGameStatus().incrementRound();
             getGameStatus().resetPartofRound();
             round.setText("Round: "+getGameStatus().getRound());
+        }
+        else if(getGameStatus().getPartOfRound() == 7){
+            gameStat.setText("Game is over");
+
         }
         else{
             setPlayerTurns();
@@ -714,8 +708,32 @@ public class controller extends CLIGameController {
     }
 
     private void afterAttack(Button button, Realm r){
-        chooseDie(button, r);
+        checkReward(chooseDie(button, r), getActivePlayer());
         checkStatus();
+    }
+
+    public void useReward(Reward reward, Player player){
+
+        if(reward instanceof TimeWarp){
+            player.addTimeWarpCount();
+            gameStat.setText(player.getPlayerName()+", you received a Time Warp! You now have: "+player.getTimeWarpCount());
+            System.out.println(player.getPlayerName()+", you received a Time Warp! You now have: "+player.getTimeWarpCount());
+        }
+        else if(reward instanceof ArcaneBoost){
+            player.addArcaneBoostCount();
+            gameStat.setText(player.getPlayerName()+", you received an Arcane Boost! You now have: "+player.getArcaneBoostCount());
+            System.out.println(player.getPlayerName()+", you received an Arcane Boost! You now have: "+player.getArcaneBoostCount());
+        }
+        else if(reward instanceof ElementalCrest) {
+            player.getGameScore().addElementalCrest((ElementalCrest) reward);
+            gameStat.setText(player.getPlayerName() + ", you received an Elemental Crest! You now have: " + player.getElementalCrest().length);
+            System.out.println(player.getPlayerName() + ", you received an Elemental Crest! You now have: " + player.getElementalCrest().length);
+        }
+        else if(reward instanceof Bonus){
+            Realm r = ((Bonus) reward).getRealm();
+            System.out.println("\n"+player.getPlayerName()+", you received a " + r + " Bonus!");
+            useBonusHelper(reward,player);
+        }
     }
 
     private Move chooseDie(Button button, Realm r) {
@@ -1014,7 +1032,7 @@ public class controller extends CLIGameController {
         int i = getAllDice()[1].getValue()+getAllDice()[5].getValue();
         Dice d = new GreenDice(i);
         Dice h = getAllDice()[1];
-        boolean flag = (selectedButton.equals(die6) || selectedButton.equals(forgottenRealm6)) ? true : false;
+        boolean flag = (selectedButton.equals(die6) || selectedButton.equals(forgottenRealm6));
         if(Character.isUpperCase(button.getId().charAt(0))){
             for(int x=0;x<11;x++){
                 if(button.equals(getPLayer1Buttons()[1][x]) && makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))){
