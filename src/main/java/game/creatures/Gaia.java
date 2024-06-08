@@ -110,8 +110,6 @@ public class Gaia extends Creature{
                     rewards[i] = new Bonus(realm);
                     break;
                 default:
-                    System.out.println("Unknown reward type: " + rewardStrings[i]);
-                    rewards[i] = new Bonus(Realm.GREEN);
                     break;
             }
         }
@@ -169,19 +167,15 @@ public class Gaia extends Creature{
 
     @Override
     public Move[] getAllPossibleMoves() {
-        //Move[] allPossibleMoves = new Move[11];
         List<Move> allPossible = new LinkedList<>();
-        //int count = 0;
 
         for(int i = 0; i < 3; i++){
 
             for(int j = 0; j < 4; j++){
                 if(gaias[i][j] != 0){
                     int val = gaias[i][j];
-                    //allPossibleMoves[count] = new Move(new GreenDice(val), this);
                     allPossible.add(new Move(new GreenDice(val), this));
                 }
-                //count++;
             }
         }
         Move[] allPossibleMoves = new Move[allPossible.size()];

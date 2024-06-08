@@ -9,9 +9,6 @@ import game.collectibles.Reward;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
 
 import game.collectibles.ArcaneBoost;
@@ -42,30 +39,7 @@ public class Hydra extends Creature {
         hydra[4] = 5;   hydra[9] = 5;
                          hydra[10] = 6;
 
-        //config file for the rewards//
-//        try{
-//
-//            Properties prop = new Properties();
-//            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TideAbyssRewards.properties");
-//            prop.load(rewardConfig);
-//            String reward1 = prop.getProperty("null");
-//            String reward2 = prop.getProperty("null");
-//            String reward3 = prop.getProperty("null");
-//            String reward4 = prop.getProperty("ArcaneBoost");
-//            String reward5 = prop.getProperty("null");
-//            String reward6 = prop.getProperty("GreenBonus");
-//            String reward7 = prop.getProperty("ElementalCrest");
-//            String reward8 = prop.getProperty("null");
-//            String reward9 = prop.getProperty("MagentaBonus");
-//            String reward10 = prop.getProperty("TimeWarp");
-//            String reward11 = prop.getProperty("null");
-//            reward = new String[]{reward1,reward2,reward3,reward4,reward5,reward6,reward7,reward8,reward9,reward10,reward11};
-//
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
+
        //config file for the scores//
         try{
 
@@ -92,14 +66,6 @@ public class Hydra extends Creature {
         editReward();
     }
 
-//    private void fillRewards(){
-//        for(int i = 0; i < reward.length; i++){
-//            rewards[i] = BonusHelper(reward[i]);
-//        }
-//    }
-
-
-
 
     private String currhydra(int i){
         if( i > 4){
@@ -111,106 +77,6 @@ public class Hydra extends Creature {
             return "Hydra 1";
         }
     }
-
-    // private String[] Xbonus(){
-    //     String[] XB = new String[]{"AB","GB","EC","MB","TW"};
-    //     Reward reward = checkBonus();
-
-    //     switch (reward) {
-    //         case "ArcaneBoost":
-    //             XB[0] = "X";
-    //             break;
-    //         case "GreenBonus":
-    //             XB[1] = "X";
-    //             break;
-    //         case "ElementalCrest":
-    //             XB[2] = "X";
-    //             break;
-    //         case "MagentaBonus":
-    //             XB[3] = "X";
-    //             break;
-    //         case "TimeWarp":
-    //             XB[4] = "X";
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    //     return XB;
-    // }
-
-
-
-//    public Reward[] checkReward(){
-//        Reward r = rewards[headsKilled()];
-//        if(r != null){
-//            return new Reward[]{r};
-//        }
-//        return new Reward[0];
-
-//
-//            int i =  headsKilled();
-//            if(i <= 5){
-//                for(int j = 0; j <= 4; j++){
-//                if(hydra[j] == 4){
-//                       return new Reward[]{BonusHelper(reward[3])};
-//                    }
-//                else{
-//                        j++;
-//                    }
-//                }
-//                }
-//
-//            else{
-//                for(int j = 5; j <= 10; j++){
-//                    switch (hydra[j]) {
-//                        case 1:
-//                            return new Reward[]{BonusHelper(reward[5])};
-//
-//                        case 2:
-//                            return new Reward[]{BonusHelper(reward[6])};
-//
-//
-//                        case 4:
-//                            return new Reward[]{BonusHelper(reward[8])};
-//
-//
-//                        case 5:
-//                            return new Reward[]{BonusHelper(reward[9])};
-//
-//
-//                        default:
-//                            break;
-//                        }
-//                    }
-//
-//                }
-//                return null;
-
-   // }
-
-//    private Reward BonusHelper(String s){
-//        switch (s) {
-//            case "ArcaneBoost":
-//                return new ArcaneBoost();
-//
-//            case "GreenBonus":
-//                return new Bonus(Realm.GREEN);
-//
-//            case "ElementCrest":
-//                return new ElementalCrest(Realm.BLUE);
-//
-//            case "MagentaBonus":
-//                return new Bonus(Realm.MAGENTA);
-//
-//            case "TimeWarp":
-//                return new TimeWarp();
-//
-//            default:
-//                return null;
-//        }
-//    }
-
-
 
     // checks rewards and returns the corresponding reward in an array & makes used reward an x
     public Reward[] checkReward(){
@@ -274,8 +140,6 @@ public class Hydra extends Creature {
 
     public String toString(){
         String[] Xs = this.XinScoresheet();
-        // String[] Xb = this.Xbonus();
-        // String[] Xb = new String[]{"AB","GB","EC","MB","TW"};
         return ("Tide Abyss: Hydra Serpents (BLUE REALM):\n" +
         "+-----------------------------------------------------------------------+\n" +
         "|  #  |H11  |H12  |H13  |H14  |H15  |H21  |H22  |H23  |H24  |H25  |H26  |\n" +
