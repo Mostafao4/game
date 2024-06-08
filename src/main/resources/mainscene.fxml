@@ -286,6 +286,11 @@
                         <Image url="@green-bonus.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="49.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -422,7 +427,7 @@
                   </Button>
 
 
-                  <Button fx:id="w2" disable="true" mnemonicParsing="false" onAction="#attackRed" prefHeight="54.0" prefWidth="69.0" text="1" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Button fx:id="w2" disable="true" mnemonicParsing="false" onAction="#attackRed" prefHeight="45.0" prefWidth="52.0" text="1" GridPane.columnIndex="2" GridPane.rowIndex="2">
 
 
                      <font>
@@ -507,6 +512,16 @@
                   <ImageView fitHeight="43.0" fitWidth="53.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <image>
                         <Image url="@lion-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@green-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="49.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@arcane-boost.png" />
                      </image>
                   </ImageView>
                </children>
@@ -728,6 +743,21 @@
                         <Image url="@lion-bonus.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="49.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@red-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@magenta-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -934,6 +964,21 @@
                         <Image url="@lion-bonus.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="49.0" pickOnBounds="true" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="58.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@red-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@magenta-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -1103,14 +1148,14 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="rb1" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="rb1" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button fx:id="b2" disable="true" mnemonicParsing="false" onAction="#attackBlue" prefHeight="48.0" prefWidth="55.0" text="≥2" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
 
-                  <Button fx:id="rb2" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="rb2" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Button fx:id="b3" disable="true" mnemonicParsing="false" onAction="#attackBlue" prefHeight="48.0" prefWidth="55.0" text="≥3" GridPane.columnIndex="3" GridPane.rowIndex="1">
 
                      <font>
@@ -1118,7 +1163,7 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="rb3" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Button fx:id="rb3" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <Button fx:id="b4" disable="true" mnemonicParsing="false" onAction="#attackBlue" prefHeight="48.0" prefWidth="55.0" text="≥4" GridPane.columnIndex="4" GridPane.rowIndex="1">
 
                      <font>
@@ -1136,7 +1181,7 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="rb5" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <Button fx:id="rb5" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                   <Button fx:id="b6" disable="true" mnemonicParsing="false" onAction="#attackBlue" prefHeight="48.0" prefWidth="55.0" text="≥1" GridPane.columnIndex="6" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
@@ -1163,7 +1208,7 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="rb8" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                  <Button fx:id="rb8" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="8" GridPane.rowIndex="2" />
                   <Button fx:id="b9" disable="true" mnemonicParsing="false" onAction="#attackBlue" prefHeight="48.0" prefWidth="55.0" text="≥4" GridPane.columnIndex="9" GridPane.rowIndex="1">
 
                      <font>
@@ -1191,6 +1236,21 @@
                      </font>
                   </Button>
                   <Button fx:id="rb11" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="11" GridPane.rowIndex="2" />
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@magenta-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@green-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -1405,6 +1465,26 @@
                         <Image url="@lion-bonus.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@green-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="11" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="54.0" pickOnBounds="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@red-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -1590,6 +1670,21 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
+                  <ImageView fitHeight="45.0" fitWidth="49.0" pickOnBounds="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="57.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@red-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@magenta-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -1759,7 +1854,7 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="RB1" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="RB1" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button fx:id="Blue2" disable="true" mnemonicParsing="false" onAction="#attackBlue" prefHeight="48.0" prefWidth="55.0" text="≥2" GridPane.columnIndex="2" GridPane.rowIndex="1">
 
                      <font>
@@ -1767,7 +1862,7 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="RB2" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="RB2" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Button fx:id="Blue3" disable="true" mnemonicParsing="false" onAction="#attackBlue" prefHeight="48.0" prefWidth="55.0" text="≥3" GridPane.columnIndex="3" GridPane.rowIndex="1">
 
                      <font>
@@ -1775,7 +1870,7 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="RB3" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Button fx:id="RB3" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <Button fx:id="Blue4" disable="true" mnemonicParsing="false" onAction="#attackBlue" prefHeight="48.0" prefWidth="55.0" text="≥4" GridPane.columnIndex="4" GridPane.rowIndex="1">
 
                      <font>
@@ -1793,7 +1888,7 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="RB5" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <Button fx:id="RB5" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                   <Button fx:id="Blue6" disable="true" mnemonicParsing="false" onAction="#attackBlue" prefHeight="48.0" prefWidth="55.0" text="≥1" GridPane.columnIndex="6" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
@@ -1820,7 +1915,7 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="RB8" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                  <Button fx:id="RB8" mnemonicParsing="false" prefHeight="48.0" prefWidth="55.0" style="-fx-background-color: 0;" GridPane.columnIndex="8" GridPane.rowIndex="2" />
                   <Button fx:id="Blue9" disable="true" mnemonicParsing="false" onAction="#attackBlue" prefHeight="48.0" prefWidth="55.0" text="≥4" GridPane.columnIndex="9" GridPane.rowIndex="1">
 
                      <font>
@@ -1856,6 +1951,21 @@
                   <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
                      <image>
                         <Image url="@green-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="53.0" pickOnBounds="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="1.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@magenta-bonus.png" />
                      </image>
                   </ImageView>
                </children>
@@ -2058,14 +2168,24 @@
                         <Image url="@lion-bonus.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true">
+                  <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <image>
                         <Image url="@green-bonus.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="42.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <ImageView fitHeight="45.0" fitWidth="49.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <image>
-                        <Image url="@green-bonus.png" />
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="47.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@red-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="11" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@arcane-boost.png" />
                      </image>
                   </ImageView>
                </children>
@@ -2326,6 +2446,21 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="54.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@red-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@magenta-bonus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
