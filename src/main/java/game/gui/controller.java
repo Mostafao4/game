@@ -31,6 +31,10 @@ public class controller extends CLIGameController {
     @FXML
     private Label SR1, SR2, SR3, SR4, sr1, sr2, sr3, sr4;
     @FXML
+    private Label SB1, SB2, SB3, SB4, SB5, SB6, SB7, SB8, SB9, SB10, SB11, sb1, sb2, sb3, sb4, sb5, sb6, sb7, sb8, sb9, sb10, sb11;
+    @FXML
+    private Button RB1, RB2, RB3, RB4, RB5, RB6, RB7, RB8, RB9, RB10, RB11, rb1, rb2, rb3, rb4, rb5, rb6, rb7, rb8, rb9, rb10, rb11;
+    @FXML
     private Button Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12, g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12;
     @FXML
     private Button Blue1, Blue2, Blue3, Blue4, Blue5, Blue6, Blue7, Blue8, Blue9, Blue10, Blue11,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11;
@@ -43,13 +47,17 @@ public class controller extends CLIGameController {
     @FXML
     private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label;
 
-    @FXML
+    private int [] scoreRed = new int[4];
+    private String [] reward = new String[5];
+    private int [][] dragonParts = new int[4][4];
+    private  Image[][] diceImages = new Image[6][6]; // 6 types, 6 values each
+    private  ImageView[][] diceViews = new ImageView[6][6]; // Assuming 6 dice views
+
     public void setPlayerNames(String player1, String player2) {
         player1Label.setText("Player 1: " + player1);
         player2Label.setText("Player 2: " + player2);
     }
-    private  Image[][] diceImages = new Image[6][6]; // 6 types, 6 values each
-    private  ImageView[][] diceViews = new ImageView[6][6]; // Assuming 6 dice views
+
     @FXML
     public void initialize() {
         // Load dice images
@@ -59,15 +67,13 @@ public class controller extends CLIGameController {
                 diceImages[type][value] = new Image(getClass().getResourceAsStream(imagePath));
             }
         }
-        int [] score = new int[4];
-        String [] reward = new String[5];
-        int [][] dragonParts = new int[4][4];
+
         Properties prop = new Properties();
         try {
             // Load scores
             prop.load(new FileInputStream("src/main/resources/config/EmberfallDominionScore.properties"));
             for (int i = 0; i < 4; i++) {
-                score[i] = Integer.parseInt(prop.getProperty("col" + (i + 1) + "Score"));
+                scoreRed[i] = Integer.parseInt(prop.getProperty("col" + (i + 1) + "Score"));
             }
 
             // Load rewards
@@ -119,13 +125,13 @@ public class controller extends CLIGameController {
         Label [] scoreLabel1 = {SR1, SR2, SR3, SR4};
         Label [] scoreLabel11 = {sr1, sr2, sr3, sr4};
         for (int i = 0; i < 4; i++) {
-            String x = score[i] +"";
+            String x = scoreRed[i] +"";
             scoreLabel1[i].setText(x);
             scoreLabel11[i].setText(x);
         }
         Button[] fields5 = { R1, R2, R3, R4, R5};
-        Button[] fields55 = { r1, r2, r3, r4 };
-        for (int i = 0; i < 4; i++) {
+        Button[] fields55 = { r1, r2, r3, r4, r5 };
+        for (int i = 0; i < 5; i++) {
             String s = reward[i];
             switch (s){
                 case "GreenBonus":
@@ -149,6 +155,87 @@ public class controller extends CLIGameController {
             fields5[i].setText(s);
             fields55[i].setText(s);
         }
+
+        Label [] SB = {SB1, SB2, SB3, SB4, SB5, SB6, SB7, SB8, SB9, SB10, SB11};
+        Label [] sb = {sb1, sb2, sb3, sb4, sb5, sb6, sb7, sb8, sb9, sb10, sb11};
+        int [] scoreBlue = new int[11];
+        try{
+
+            Properties prop1 = new Properties();
+            FileInputStream scoreConfig = new FileInputStream("src/main/resources/config/TideAbyssScore.properties");
+            prop1.load(scoreConfig);
+            int score1 = Integer.parseInt(prop1.getProperty("col1"));
+            int score2 = Integer.parseInt(prop1.getProperty("col2"));
+            int score3 = Integer.parseInt(prop1.getProperty("col3"));
+            int score4 = Integer.parseInt(prop1.getProperty("col4"));
+            int score5 = Integer.parseInt(prop1.getProperty("col5"));
+            int score6 = Integer.parseInt(prop1.getProperty("col6"));
+            int score7 = Integer.parseInt(prop1.getProperty("col7"));
+            int score8 = Integer.parseInt(prop1.getProperty("col8"));
+            int score9 = Integer.parseInt(prop1.getProperty("col9"));
+            int score10 = Integer.parseInt(prop1.getProperty("col10"));
+            int score11 = Integer.parseInt(prop1.getProperty("col11"));
+            scoreBlue = new int[]{score1,score2,score3,score4,score5,score6,score7,score8,score9,score10,score11};
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < 11; i++) {
+            String x = scoreBlue[i] +"";
+            SB[i].setText(x);
+            sb[i].setText(x);
+        }
+        Button [] RB = new Button[]{RB1, RB2, RB3, RB4, RB5, RB6, RB7, RB8, RB9, RB10, RB11};
+        Button [] rb = new Button[]{rb1, rb2, rb3, rb4, rb5, rb6, rb7, rb8, rb9, rb10, rb11};
+        String[] rew = new String[11];
+        try{
+            Properties prop2 = new Properties();
+            FileInputStream rewardConfig = new FileInputStream("src/main/resources/config/TideAbyssRewards.properties");
+            prop2.load(rewardConfig);
+
+            for (int i=0;i<11;i++){
+                String r=prop2.getProperty("hit"+(i+1)+"Reward");
+                rew[i]=r;
+                switch (r){
+                    case "ArcaneBoost":
+                        rew[i]="AB";
+                        break;
+                    case "BlueBonus":
+                        rew[i]="BB";
+                        break;
+                    case "ElementalCrest":
+                        rew[i]="EC";
+                        break;
+                    case "GreenBonus":
+                        rew[i]="GB";
+                        break;
+                    case "MagentaBonus":
+                        rew[i]="MB";
+                        break;
+                    case "RedBonus":
+                        rew[i]="RB";
+                        break;
+                    case "TimeWarp":
+                        rew[i]="TW";
+                        break;
+                    case "YellowBonus":
+                        rew[i]="YB";
+                        break;
+                    default:
+                        rew[i]="  ";
+                        break;
+                }
+            }
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        for (int i = 0; i < 11; i++){
+            RB[i].setText(rew[i]);
+            rb[i].setText(rew[i]);
+        }
+
     }
 
 
