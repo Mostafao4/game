@@ -55,6 +55,9 @@ public class controller extends CLIGameController {
     private Button rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null, forgottenRealm1, forgottenRealm2, forgottenRealm3, forgottenRealm4, forgottenRealm5, forgottenRealm6;
     @FXML
     private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label;
+    @FXML
+    private Label score1,score2;
+
 
     private int [] scoreRed = new int[4];
     private String [] reward = new String[5];
@@ -620,7 +623,8 @@ public class controller extends CLIGameController {
                 getForgottenRealmButtons()[j].setDisable(false);
             }
         }
-
+        score1.setText(""+getGameBoard().getPlayer1().getGameScore().getScore());
+        score2.setText(""+getGameBoard().getPlayer2().getGameScore().getScore());
         rollButton.setDisable(false);
     }
 

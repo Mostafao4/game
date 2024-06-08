@@ -2212,7 +2212,7 @@
          </children>
       </StackPane>
       <HBox fx:id="diceBox" layoutX="840.0" layoutY="1022.0" prefHeight="39.0" prefWidth="256.0" spacing="10.0" />
-      <GridPane gridLinesVisible="true" layoutX="779.0" layoutY="39.0" prefHeight="120.0" prefWidth="365.0" style="-fx-background-color: white;">
+      <GridPane gridLinesVisible="true" layoutX="779.0" layoutY="39.0" prefHeight="120.0" prefWidth="365.0" style="-fx-background-color: black;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -2227,17 +2227,17 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="70.0" text="Rewards" wrapText="true" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R1" GridPane.columnIndex="1" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R2" GridPane.columnIndex="2" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R3" GridPane.columnIndex="3" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R4" GridPane.columnIndex="4" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R6" GridPane.columnIndex="6" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R5" GridPane.columnIndex="5" />
-            <Label fx:id="round1" text="Time Warp" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="round2" text="Arcane Boost" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="round3" text="Time Warp" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Label fx:id="round4" text="Essence Bonus" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="70.0" text="Rewards" textFill="WHITE" wrapText="true" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R1" textFill="WHITE" GridPane.columnIndex="1" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R2" textFill="WHITE" GridPane.columnIndex="2" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R3" textFill="WHITE" GridPane.columnIndex="3" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R4" textFill="WHITE" GridPane.columnIndex="4" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R6" textFill="WHITE" GridPane.columnIndex="6" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="R5" textFill="WHITE" GridPane.columnIndex="5" />
+            <Label fx:id="round1" text="Time Warp" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="round2" text="Arcane Boost" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="round3" text="Time Warp" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="round4" text="Essence Bonus" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="605.0" layoutX="683.0" layoutY="297.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
@@ -2262,7 +2262,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <GridPane gridLinesVisible="true" layoutX="806.0" layoutY="901.0" prefHeight="81.0" prefWidth="295.0" style="-fx-background-color: white;">
+      <GridPane gridLinesVisible="true" layoutX="806.0" layoutY="901.0" prefHeight="81.0" prefWidth="295.0" style="-fx-background-color: black;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -2273,27 +2273,27 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="101.0" text="Player 1" textAlignment="CENTER" GridPane.columnIndex="1">
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="101.0" text="Player 1" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="101.0" text="Player 2" textAlignment="CENTER" GridPane.columnIndex="2">
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="101.0" text="Player 2" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="109.0" text="Total Score" GridPane.rowIndex="1">
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="109.0" text="Total Score" textFill="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="99.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="score1" alignment="CENTER" prefHeight="17.0" prefWidth="99.0" text="0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="100.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="score2" alignment="CENTER" prefHeight="17.0" prefWidth="100.0" text="0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
@@ -2301,12 +2301,12 @@
          </children>
       </GridPane>
 
-      <Label fx:id="player1Turn" alignment="CENTER" layoutX="748.0" layoutY="348.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: white;" text="Turn 1">
+      <Label fx:id="player1Turn" alignment="CENTER" layoutX="748.0" layoutY="348.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: black;" text="Turn 1" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="player2Turn" alignment="CENTER" layoutX="1053.0" layoutY="346.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: white;" text="Turn 1">
+      <Label fx:id="player2Turn" alignment="CENTER" layoutX="1053.0" layoutY="346.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: black;" text="Turn 1" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
@@ -2367,7 +2367,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="round" layoutX="917.0" layoutY="355.0" prefWidth="94.0" style="-fx-background-color: white;" text="Round 1">
+      <Label fx:id="round" layoutX="917.0" layoutY="355.0" prefWidth="94.0" style="-fx-background-color: black;" text="Round 1" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
@@ -2405,17 +2405,20 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="timeWarpButton" alignment="TOP_RIGHT" disable="true" layoutX="755.0" layoutY="411.0" mnemonicParsing="false" onAction="#useTimeWarp" prefHeight="90.0" prefWidth="123.0" text="Time Warp" wrapText="true">
+      <Button fx:id="timeWarpButton" alignment="TOP_RIGHT" disable="true" layoutX="748.0" layoutY="411.0" mnemonicParsing="false" onAction="#useTimeWarp" prefHeight="90.0" prefWidth="123.0" style="-fx-background-color: black;" text="Time Warp" textFill="WHITE" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Label layoutX="740.0" layoutY="197.0" text="tw1" />
+      <Label layoutX="744.0" layoutY="235.0" text="tw1" />
       <Label layoutX="1131.0" layoutY="235.0" text="tw2" />
-      <Button layoutX="1132.0" layoutY="985.0" mnemonicParsing="false" text="AB2" />
-      <Button layoutX="696.0" layoutY="950.0" mnemonicParsing="false" text="AB1" />
-      <Label fx:id="gameStat" layoutX="883.0" layoutY="217.0" prefHeight="110.0" prefWidth="141.0" style="-fx-background-color: white;" text="Label" wrapText="true" />
-      <Button fx:id="startGameButton" layoutX="1058.0" layoutY="405.0" mnemonicParsing="false" onAction="#startGame" onDragDetected="#startGame" prefHeight="81.0" prefWidth="99.0" text="Start Game" />
+      <Button layoutX="1183.0" layoutY="942.0" mnemonicParsing="false" text="AB2" />
+      <Button layoutX="692.0" layoutY="942.0" mnemonicParsing="false" text="AB1" />
+      <Label fx:id="gameStat" alignment="TOP_CENTER" layoutX="858.0" layoutY="217.0" prefHeight="110.0" prefWidth="191.0" style="-fx-background-color: black;" text="Label" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Button fx:id="startGameButton" layoutX="1058.0" layoutY="405.0" mnemonicParsing="false" onAction="#startGame" onDragDetected="#startGame" prefHeight="81.0" prefWidth="99.0" style="-fx-background-color: black;" text="Start Game" textFill="WHITE" />
 
    </children>
 </AnchorPane>
