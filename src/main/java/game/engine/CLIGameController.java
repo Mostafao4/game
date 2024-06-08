@@ -120,7 +120,7 @@ public class CLIGameController extends GameController {
                     c++;
             }
             if(getGameStatus().getTurn()==1 && c>=3){
-                if((y!=-1) && (getAvailableDice()[y].getValue()==6) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[y]).length>0))
+                if((y!=-1) && (getAvailableDice()[y].getValue()>=4) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[y]).length>0))
                     i=y;  
                 else
                     if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
@@ -142,7 +142,7 @@ public class CLIGameController extends GameController {
                 }
             else
             if(getGameStatus().getTurn()==2 && c>=2){
-                if((y!=-1) && (getAvailableDice()[y].getValue()==6) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[y]).length>0))
+                if((y!=-1) && (getAvailableDice()[y].getValue()>=4) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[y]).length>0))
                 i=y;  
             else
                 if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
@@ -164,7 +164,7 @@ public class CLIGameController extends GameController {
              }
             else
             if(getGameStatus().getTurn()==3 && c>=1){
-                if((y!=-1) && (getAvailableDice()[y].getValue()==6) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[y]).length>0))
+                if((y!=-1) && (getAvailableDice()[y].getValue()>=4) && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[y]).length>0))
                 i=y;  
             else
                 if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
@@ -193,13 +193,17 @@ public class CLIGameController extends GameController {
             else
             if((g!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[g]).length>0)&& getAvailableDice()[g].getValue()<=3&& getGameStatus().getTurn()==1)
                 i=g; 
-           else
+           
+
+                else
                 if((r!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[r]).length>0))
                     i=r; 
                 else
                     if((w!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[w]).length>0))
                          i=w;
-                    else
+                    // else if((y!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[y]).length>0)&& getAvailableDice()[y].getValue()>=4)
+                    // i=y;
+                         else
                         if((g!=-1)  && (getPossibleMovesForADie(getActivePlayer(),getAvailableDice()[g]).length>0))
                             i=g; 
                         else
@@ -283,7 +287,7 @@ public class CLIGameController extends GameController {
             int m=FindRealm(getForgottenRealmDice(),Realm.MAGENTA);
             int y=FindRealm(getForgottenRealmDice(),Realm.YELLOW);
             int w=FindRealm(getForgottenRealmDice(),Realm.WHITE);
-            if((y!=-1) && (getForgottenRealmDice()[y].getValue()>=5) && (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[y]).length>0))
+            if((y!=-1) && (getForgottenRealmDice()[y].getValue()>=4) && (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[y]).length>0))
                 i=y;
             else
                     if((r!=-1) &&  (getPossibleMovesForADie(getPassivePlayer(),getForgottenRealmDice()[r]).length>0))
@@ -624,7 +628,7 @@ public class CLIGameController extends GameController {
                         if(player.getScoreSheet().getDragon().getPossibleMovesForADie(new RedDice(v)).length>0)
                                     q=0;
                                 else
-                                    if(v>=5 && player.getScoreSheet().getLion().getAllPossibleMoves().length>0)
+                                    if(v>=4 && player.getScoreSheet().getLion().getAllPossibleMoves().length>0)
                                         q=4;
                                 
                                         else
@@ -1174,12 +1178,9 @@ public class CLIGameController extends GameController {
             int m=FindRealm(getArcaneBoostDice(),Realm.MAGENTA);
             int y=FindRealm(getArcaneBoostDice(),Realm.YELLOW);
             int w=FindRealm(getArcaneBoostDice(),Realm.WHITE);
-            if((y!=-1) && (getArcaneBoostDice()[y].getValue()>=5) && (getPossibleMovesForADie(player,getArcaneBoostDice()[y]).length>0))
+            if((y!=-1) && (getArcaneBoostDice()[y].getValue()>=4) && (getPossibleMovesForADie(player,getArcaneBoostDice()[y]).length>0))
                i=y;
                else
-                if((m!=-1) && (getArcaneBoostDice()[m].getValue()>=5) && (getPossibleMovesForADie(player,getArcaneBoostDice()[m]).length>0))
-                i=m;
-                else
                     if((r!=-1) && (getPossibleMovesForADie(player,getArcaneBoostDice()[r]).length>0))
                         i=r;
                     else  
@@ -1189,6 +1190,9 @@ public class CLIGameController extends GameController {
                         
                         if((g!=-1)  && (getPossibleMovesForADie(player,getArcaneBoostDice()[g]).length>0))
                             i=g;
+                            else
+                            if((m!=-1) && (getArcaneBoostDice()[m].getValue()>=5) && (getPossibleMovesForADie(player,getArcaneBoostDice()[m]).length>0))
+                                i=m;
                             else{
                                 do {
                                     i=(int)(Math.random()*getArcaneBoostDice().length);
