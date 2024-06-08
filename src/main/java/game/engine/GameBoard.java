@@ -23,7 +23,7 @@ public class GameBoard {
         m = new MagentaDice(0);
         y = new YellowDice(0);
         a = new ArcanePrism(0);
-        dice = new Dice[]{r,g,b,m,y,a};
+        dice = new Dice[]{r, g, b, m, y, a};
         gameStatus = new GameStatus();
         
         if(i==2){

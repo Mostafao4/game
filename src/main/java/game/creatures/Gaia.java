@@ -287,6 +287,9 @@ public class Gaia extends Creature{
 
 
     public int getGreenRealmScore(){
+        if(defeatedGaias == 0){
+            return 0;
+        }
         return scores[defeatedGaias - 1];
     }
 

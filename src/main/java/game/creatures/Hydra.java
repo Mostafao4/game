@@ -111,10 +111,10 @@ public class Hydra extends Creature {
         }
     }
     public int getScore(){
-        if(headsKilled()>0){
-            return scores[hydra1Heads + hydra2Heads - 1];
-        }
-        return 0;
+        if(headsKilled()==0)
+            return 0;
+        return scores[hydra1Heads + hydra2Heads - 1];
+
     }
 
 

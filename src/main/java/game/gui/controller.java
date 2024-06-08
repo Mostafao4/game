@@ -23,9 +23,10 @@ import javafx.scene.image.ImageView;
 
 
 public class controller extends CLIGameController {
-
-
-//buttons
+    private GameBoard gameBoard;
+    public controller() {
+        gameBoard = new GameBoard();
+    }
 
     @FXML
     private Button F1, F2, F3, F4, W1, W2, W3, W4, T1, T2, T3, T4, H1, H2, H3, H4, R1, R2, R3, R4, R5, f1,f2,f3,f4,w1,w2,w3,w4,t1,t2,t3,t4,h1,h2,h3,h4,r1,r2,r3,r4,r5;
@@ -52,11 +53,18 @@ public class controller extends CLIGameController {
     @FXML
     private Button RY1, RY2, RY3, RY4, RY5, RY6, RY7, RY8, RY9, RY10, RY11, ry1, ry2, ry3, ry4, ry5, ry6, ry7, ry8, ry9, ry10, ry11;
     @FXML
-    private Button rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null, forgottenRealm1, forgottenRealm2, forgottenRealm3, forgottenRealm4, forgottenRealm5, forgottenRealm6;
+    private Button startGameButton, timeWarpButton, rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null, forgottenRealm1, forgottenRealm2, forgottenRealm3, forgottenRealm4, forgottenRealm5, forgottenRealm6;
     @FXML
+    private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label, tw1, tw2;
+    @FXML
+
     private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label;
     @FXML
     private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6;
+
+    private Label score1,score2;
+
+
 
     private int [] scoreRed = new int[4];
     private String [] reward = new String[5];
@@ -76,6 +84,8 @@ public class controller extends CLIGameController {
     public void setPlayerNames(String player1, String player2) {
         player1Label.setText("Player 1: " + player1);
         player2Label.setText("Player 2: " + player2);
+        gameBoard.setPlayer1(new HumanPlayer(player1, PlayerStatus.ACTIVE));
+        gameBoard.setPlayer2(new HumanPlayer(player2, PlayerStatus.PASSIVE));
     }
 
     @FXML
@@ -517,7 +527,7 @@ public class controller extends CLIGameController {
 
 
     // Helper method to get all buttons
-    public Button[] getButtons() {
+    private Button[] getButtons() {
         // Return an array of your buttons here
         return new Button[]{die1, die2, die3, die4, die5, die6}; // Add more buttons as needed...
     }
@@ -542,7 +552,68 @@ public class controller extends CLIGameController {
                 {y1,y2,y3,y4,y5,y6,y7,y8,y9,y10,y11}
         };
     }
-
+    private void disablePlayer1(){
+        for(int i=0;i<getPLayer1Buttons().length;i++) {
+            for(int j=0;j<getPLayer1Buttons()[i].length;j++) {
+                getPLayer1Buttons()[i][j].setDisable(true); getPLayer1Buttons()[i][j].setStyle("");
+            }
+        }
+    }
+    private void disablePlayer2(){
+        for(int i=0;i<getPLayer2Buttons().length;i++) {
+            for(int j=0;j<getPLayer2Buttons()[i].length;j++) {
+                getPLayer2Buttons()[i][j].setDisable(true); getPLayer2Buttons()[i][j].setStyle("");
+            }
+        }
+    }
+    private void enablePlayer1(){
+        for(int i=0;i<getPLayer1Buttons().length;i++) {
+            for(int j=0;j<getPLayer1Buttons()[i].length;j++) {
+                getPLayer1Buttons()[i][j].setDisable(false);
+            }
+        }
+    }
+    private void enablePlayer2(){
+        for(int i=0;i<getPLayer2Buttons().length;i++) {
+            for(int j=0;j<getPLayer2Buttons()[i].length;j++) {
+                getPLayer2Buttons()[i][j].setDisable(false);
+            }
+        }
+    }
+    private void disableButtons(){
+        for(Button b : getButtons()){
+            b.setDisable(true);
+        }
+    }
+    private void hideButtons(){
+        for(Button b : getButtons()){
+            b.setVisible(false);
+        }
+    }
+    private void hideFRButtons(){
+        for(Button b : getForgottenRealmButtons()){
+            b.setVisible(false);
+        }
+    }
+    private void showFRButtons(){
+        for(Button b : getForgottenRealmButtons()){
+            b.setVisible(true);
+            b.setDisable(false);
+        }
+    }
+    private void showButtons(){
+        for(Button b : getButtons()){
+            b.setVisible(true);
+        }
+    }
+    private boolean noButtons(){
+        for(Button b : getButtons()){
+            if(b.isVisible())
+                return false;
+        }
+        return true;
+    }
+    @FXML
     public void startGame(ActionEvent event){
         gameStat.setText("Welcome to Dice Realms!!!\nPlayer 1's turn");
         if(getGameStatus().getPartOfRound()==0) {
@@ -554,14 +625,11 @@ public class controller extends CLIGameController {
             player2Turn.setText(""+getGameStatus().getTurn());
 
         }
-        //enablePlayer1();
-        for(Button b:getButtons()){
-            rollButton.setDisable(false);
-        }
+        startGameButton.setVisible(false);
+        rollButton.setDisable(false);
         for(Button b : getForgottenRealmButtons()){
             b.setVisible(false);
         }
-
 
     }
 //    public void gameLoop(){
@@ -588,82 +656,125 @@ public class controller extends CLIGameController {
         rollDice();
     }
 
-
+    @FXML
     public void timeWarpPrompt(ActionEvent event){
 
             gameStat.setText("Available Time Warps: "+getActivePlayer().getTimeWarpCount());
 
 
     }
+    @FXML
     public void useTimeWarp(ActionEvent event){
         getActivePlayer().subtractTimeWarpCount();
         rollButtons();
     }
 
-    private void helper(){
-        getGameStatus().incrementPartOfRound();
-        gameStat.setText("Your turn has ended");
-    }
 
-    public void addTurn(int i){
-        if(getGameStatus().getTurn()<4){
-            if (getGameStatus().getPartOfRound() == 0) {
-                player1Turn.setText("" + getGameStatus().getTurn());
-                player2Turn.setText("--");
-            } else {
-                player1Turn.setText("--");
-                player2Turn.setText("" + getGameStatus().getTurn());
+
+
+    private void fRealm(){
+        gameStat.setText(getPassivePlayer().getPlayerName() + ": Choose a die from the forgotten realm");
+        showFRButtons();
+        player1Turn.setText("--");
+        player2Turn.setText("--");
+        for(Dice d : getForgottenRealmDice()){
+            Realm r = d.getRealm();
+            int i = r==Realm.RED?0:r==Realm.GREEN?1:r==Realm.BLUE?2:r==Realm.MAGENTA?3:r==Realm.YELLOW?4:5;
+            getForgottenRealmButtons()[i].setText(""+d.getValue());
+        }
+        for(Button b : getForgottenRealmButtons()){
+            if(b.getText().equals("0")){
+                b.setVisible(false);
             }
         }
-        boolean flag = false;
-        for(Button b : getButtons()){
-            if(b.isVisible()){
-                flag = true;
-                break;
-            }
-        }
-        if(getGameStatus().getTurn()==4 || !flag) {
+    }
+    private void checkStatus(){
+        if (getGameStatus().getTurn() == 4 || noButtons()) {
             rollButton.setVisible(false);
-            getGameStatus().setAv(false);
-            gameStat.setText(getPassivePlayer().getPlayerName() + ": Choose a die from the forgotten realm");
-            for (Button button : getButtons()) {
-                button.setDisable(true);
-            }
-            for(int j=0;j<getForgottenRealmButtons().length;j++) {
-                getForgottenRealmButtons()[j].setText(""+getForgottenRealmDice()[j].getValue());
-                getForgottenRealmButtons()[j].setDisable(false);
-            }
+            hideButtons();
+            fRealm();
         }
-
-        rollButton.setDisable(false);
+        if(getGameStatus().getPartOfRound() == 2){
+            getGameStatus().incrementRound();
+            getGameStatus().resetPartofRound();
+            round.setText("Round: "+getGameStatus().getRound());
+        }
+        else{
+            setPlayerTurns();
+        }
     }
 
+    private void setPlayerTurns(){
+        if(getGameStatus().getPartOfRound()==0){
 
+            player1Turn.setText(getGameStatus().getTurn()+"");
+            player2Turn.setText("--");
+        }
+        else{
+            player2Turn.setText(getGameStatus().getTurn()+"");
+            player1Turn.setText("--");
+        }
+    }
 
+    private void afterAttack(Button button, Realm r){
+        chooseDie(button, r);
+        checkStatus();
+    }
 
+    private Move chooseDie(Button button, Realm r) {
+        int v = r==Realm.RED?0:r==Realm.GREEN?1:r==Realm.BLUE?2:r==Realm.MAGENTA?3:r==Realm.YELLOW?4:5;
+        Move m;
+        if(button.getId().charAt(0)=='f'){
+            getGameStatus().resetTurn();
+            getGameStatus().incrementPartOfRound();
+            Dice d = getAllDice()[v];
+            m = new Move(d,getPassivePlayer().getScoreSheet().getCreatureByRealm(d));
+            hideFRButtons();
+            showButtons();
+            disableButtons();
+            rollButton.setVisible(true);
+            gameStat.setText(getPassivePlayer().getPlayerName()+"'s Turn");
+            switchPlayer();
+            resetDice();
+        }
+        else {
+            int i = 0;
+            for (int x = 0; x < getAvailableDice().length; x++) {
+                if (getAvailableDice()[x].getRealm() == r) {
+                    i = x;
+                    break;
+                }
+            }
+            getActivePlayer().setSelectedDice(getAvailableDice()[i]);
+            getActivePlayer().getSelectedDice().setDiceStatus(DiceStatus.TURN_SELECTED);
+            for (Dice value : getAvailableDice()) {
+                if (value.getValue() < getActivePlayer().getSelectedDice().getValue())
+                    value.setDiceStatus(DiceStatus.FORGOTTEN_REALM);
+            }
+            Dice d = getActivePlayer().getSelectedDice();
+            button.setVisible(false);
+            for (Button b : getButtons()) {
+                if (Integer.parseInt(b.getText()) < d.getValue()) {
+                    b.setVisible(false);
+                } else {
+                    b.setDisable(true);
+                }
+            }
+            m = new Move(d,getActivePlayer().getScoreSheet().getCreatureByRealm(d));
+            getGameStatus().incrementTurn();
+        }
+        getReward(checkReward(m,getActivePlayer()),getActivePlayer());
+        tw1.setText(""+getActivePlayer().getTimeWarpCount());
+        tw2.setText(""+getPassivePlayer().getTimeWarpCount());
+        rollButton.setDisable(false);
+        return m;
+
+    }
 
     @FXML
-    private void handleButtonPress(javafx.event.ActionEvent event) {
+    public void handleButtonPress(ActionEvent event) {
         Button button = (Button) event.getSource();
-        for(Button[] buttons : getPLayer1Buttons()){
-            for(Button b : buttons) {
-                b.setStyle("");
-                b.setDisable(true);
-            }
-        }
-        for(Button[] buttons : getPLayer2Buttons()){
-            for(Button b : buttons) {
-                b.setStyle("");
-                b.setDisable(true);
-            }
-        }
-        button.setDisable(false);
-        for(Button b : getButtons()){
-            if(button.equals(b)) {
-                continue;
-            }
-            button.setDisable(true);
-        }
+        disablePlayer1(); disablePlayer2(); //disableButtons(button);
         // Get the button that was pressed
         if (selectedButton != null) {
             selectedButton.setDisable(false); // Re-enable previously selected button
@@ -674,76 +785,63 @@ public class controller extends CLIGameController {
         selectedButton = button;
         selectedButton.setDisable(true); // Disable the selected button to prevent further clicks
         //int dieValue = Integer.parseInt(selectedButton.getText());
+
+
             if (button.equals(die1) || button.equals(forgottenRealm1))
-                highlightRedPossibleMoves1();
+                highlightRedPossibleMoves(button);
             else if (button.equals(die2) || button.equals(forgottenRealm2))
-                highlightGreenPossibleMoves1();
+                highlightGreenPossibleMoves(button);
             else if (button.equals(die3) || button.equals(forgottenRealm3))
-                highlightBluePossibleMoves1();
+                highlightBluePossibleMoves(button);
             else if (button.equals(die4) || button.equals(forgottenRealm4))
-                highlightMagentaPossibleMoves1();
+                highlightMagentaPossibleMoves(button);
             else if (button.equals(die5) || button.equals(forgottenRealm5))
-                highlightYellowPossibleMoves1();
+                highlightYellowPossibleMoves(button);
+            else if (button.equals(die6) || button.equals(forgottenRealm6))
+                highlightArcanePrismPossibleMoves(button);
 
-
-//        else{
-//            if(button.equals(die1))
-//                highlightRedPossibleMoves2();
-//            else if(button.equals(die2))
-//                highlightGreenPossibleMoves2();
-//            else if(button.equals(die3))
-//                highlightBluePossibleMoves2();
-//            else if(button.equals(die4))
-//                highlightMagentaPossibleMoves2();
-//            else if(button.equals(die5))
-//                highlightYellowPossibleMoves2();
-//        }
         // Add the selection class to the new button
         selectedButton.getStyleClass().add("selected-button");
     }
-
-    public void highlightRedPossibleMoves1() {
-        int i = getAllDice()[0].getValue();
-        if ((getGameStatus().getPartOfRound() == 0 && getGameStatus().isAv()) || getGameStatus().getPartOfRound() == 1 && !getGameStatus().isAv()) {
-
-            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), getAllDice()[0]);
+    private void highlightRedPossibleMoves(Button button) {
+        int i = Integer.parseInt(button.getText());
+        int pr = getGameStatus().getPartOfRound();
+        boolean fr = button.getId().charAt(0)=='f';
+        boolean av = button.getId().charAt(0)=='d';
+        boolean p0fr = (fr && pr==0), p1fr = (fr && pr==1), p0av = (av && pr==0), p1av = (av && pr==1);
+        if (p0fr || p1av) {
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new RedDice(Integer.parseInt(button.getText())));
             if (m.length == 0) {
                 return;
             }
             for (int x = 0; x < 12; x++) {
-                if (i == Integer.parseInt(getPLayer1Buttons()[0][x].getText())) {
-                    getPLayer1Buttons()[0][x].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer1Buttons()[0][x].setDisable(false);
-                }
-            }
-        } else if ((getGameStatus().getPartOfRound() == 0 && !getGameStatus().isAv()) || getGameStatus().getPartOfRound() == 1 && getGameStatus().isAv()) {
-            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), getAllDice()[0]);
-            if (m.length == 0) {
-                return;
-            }
-            for (int x = 0; x < 12; x++) {
-                if (i == Integer.parseInt(getPLayer2Buttons()[0][x].getText())) {
+                if (!getPLayer2Buttons()[0][x].getText().equals("X") && i == Integer.parseInt(getPLayer2Buttons()[0][x].getText())) {
                     getPLayer2Buttons()[0][x].setStyle("-fx-border-color: black; -fx-border-width: 3;");
                     getPLayer2Buttons()[0][x].setDisable(false);
                 }
             }
         }
-    }
-    public void highlightGreenPossibleMoves1(){
-            int h = Integer.parseInt(die2.getText()) + Integer.parseInt(die6.getText());
-            if((getGameStatus().getPartOfRound()==0 && getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && !getGameStatus().isAv()) {
-                Move[] m = getGameBoard().getPlayer1().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h));
-                if (m.length == 0) {
-                    return;
-                }
-                for (int i = 0; i < 11; i++) {
-                    if (h == i + 2) {
-                        getPLayer1Buttons()[1][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                        getPLayer1Buttons()[1][i].setDisable(false);
-                    }
+        else if(p1fr || p0av){
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new RedDice(Integer.parseInt(button.getText())));
+            if (m.length == 0) {
+                return;
+            }
+            for (int x = 0; x < 12; x++) {
+                if (!getPLayer1Buttons()[0][x].getText().equals("X") && i == Integer.parseInt(getPLayer1Buttons()[0][x].getText())) {
+                    getPLayer1Buttons()[0][x].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer1Buttons()[0][x].setDisable(false);
                 }
             }
-            else if((getGameStatus().getPartOfRound()==0 && !getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && getGameStatus().isAv()) {
+        }
+    }
+    private void highlightGreenPossibleMoves(Button button){
+        int h = getAllDice()[1].getValue() + getAllDice()[5].getValue();
+        int pr = getGameStatus().getPartOfRound();
+        boolean fr = button.getId().charAt(0)=='f';
+        boolean av = button.getId().charAt(0)=='d';
+        boolean p0fr = (fr && pr==0), p1fr = (fr && pr==1), p0av = (av && pr==0), p1av = (av && pr==1);
+        if (p0fr || p1av) {
+            if (getGameStatus().getPartOfRound() == 1) {
                 Move[] m = getGameBoard().getPlayer2().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h));
                 if (m.length == 0) {
                     return;
@@ -755,10 +853,41 @@ public class controller extends CLIGameController {
                     }
                 }
             }
+        }
+        else if(p1fr || p0av) {
+            Move[] m = getGameBoard().getPlayer1().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h));
+            if (m.length == 0) {
+                return;
+            }
+            for (int i = 0; i < 11; i++) {
+                if (h == i + 2) {
+                    getPLayer1Buttons()[1][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer1Buttons()[1][i].setDisable(false);
+                }
+            }
+        }
     }
-    public void highlightBluePossibleMoves1(){
-        int value = Integer.parseInt(die3.getText());
-        if((getGameStatus().getPartOfRound()==0 && getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && !getGameStatus().isAv()) {
+    private void highlightBluePossibleMoves(Button button){
+        int value = Integer.parseInt(button.getText());
+        int pr = getGameStatus().getPartOfRound();
+        System.out.println(button.getId());
+        boolean fr = button.getId().charAt(0)=='f';
+        boolean av = button.getId().charAt(0)=='d';
+        boolean p0fr = (fr && pr==0), p1fr = (fr && pr==1), p0av = (av && pr==0), p1av = (av && pr==1);
+        if (p0fr || p1av) {
+            int i = getGameBoard().getPlayer2().getScoreSheet().getHydra().headsKilled();
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new BlueDice(value));
+            if (m.length == 0) {
+                return;
+            }
+            for (int x = 0; x < 11; x++) {
+                if (i == x) {
+                    getPLayer2Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer2Buttons()[2][i].setDisable(false);
+                }
+            }
+        }
+        else if (p1fr || p0av) {
             int i = getGameBoard().getPlayer1().getScoreSheet().getHydra().headsKilled();
             Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(value));
             if (m.length == 0) {
@@ -771,36 +900,14 @@ public class controller extends CLIGameController {
                 }
             }
         }
-        else if((getGameStatus().getPartOfRound()==0 && !getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && getGameStatus().isAv()){
-                int i = getGameBoard().getPlayer2().getScoreSheet().getHydra().headsKilled();
-                Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new BlueDice(value));
-                if(m.length==0){
-                    return;
-                }
-                for(int x=0;x<11;x++){
-                    if(i == x){
-                        getPLayer2Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                        getPLayer2Buttons()[2][i].setDisable(false);
-                    }
-                }
-        }
     }
-    public void highlightMagentaPossibleMoves1(){
-        int value = Integer.parseInt(die4.getText());
-        if((getGameStatus().getPartOfRound()==0 && getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && !getGameStatus().isAv()) {
-            int i = getGameBoard().getPlayer1().getScoreSheet().getPhoenix().getCount();
-            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(value));
-            if (m.length == 0) {
-                return;
-            }
-            for (int x = 0; x < 11; x++) {
-                if (i == x) {
-                    getPLayer1Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer1Buttons()[3][i].setDisable(false);
-                }
-            }
-        }
-        else if((getGameStatus().getPartOfRound()==0 && !getGameStatus().isAv()) || getGameStatus().getPartOfRound()==1 && getGameStatus().isAv()) {
+    private void highlightMagentaPossibleMoves(Button button){
+        int value = Integer.parseInt(button.getText());
+        int pr = getGameStatus().getPartOfRound();
+        boolean fr = button.getId().charAt(0)=='f';
+        boolean av = button.getId().charAt(0)=='d';
+        boolean p0fr = (fr && pr==0), p1fr = (fr && pr==1), p0av = (av && pr==0), p1av = (av && pr==1);
+        if(p0fr || p1av) {
             int i = getGameBoard().getPlayer2().getScoreSheet().getPhoenix().getCount();
             Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new MagentaDice(value));
             if (m.length == 0) {
@@ -813,24 +920,27 @@ public class controller extends CLIGameController {
                 }
             }
         }
-
-        }
-    public void highlightYellowPossibleMoves1() {
-        int value = Integer.parseInt(die5.getText());
-        if ((getGameStatus().getPartOfRound() == 0 && getGameStatus().isAv()) || getGameStatus().getPartOfRound() == 1 && !getGameStatus().isAv()) {
-
-            int i = getGameBoard().getPlayer1().getScoreSheet().getLion().getHitNum();
-            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(value));
+        else if(p1fr || p0av) {
+            int i = getGameBoard().getPlayer1().getScoreSheet().getPhoenix().getCount();
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(value));
             if (m.length == 0) {
                 return;
             }
             for (int x = 0; x < 11; x++) {
                 if (i == x) {
-                    getPLayer1Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer1Buttons()[4][i].setDisable(false);
+                    getPLayer1Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer1Buttons()[3][i].setDisable(false);
                 }
             }
-        } else if ((getGameStatus().getPartOfRound() == 0 && !getGameStatus().isAv()) || getGameStatus().getPartOfRound() == 1 && getGameStatus().isAv()) {
+        }
+    }
+    private void highlightYellowPossibleMoves(Button button) {
+        int value = Integer.parseInt(button.getText());
+        int pr = getGameStatus().getPartOfRound();
+        boolean fr = button.getId().charAt(0)=='f';
+        boolean av = button.getId().charAt(0)=='d';
+        boolean p0fr = (fr && pr==0), p1fr = (fr && pr==1), p0av = (av && pr==0), p1av = (av && pr==1);
+        if (p0fr || p1av) {
             int i = getGameBoard().getPlayer2().getScoreSheet().getLion().getHitNum();
             Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new YellowDice(value));
             if (m.length == 0) {
@@ -843,34 +953,44 @@ public class controller extends CLIGameController {
                 }
             }
         }
-    }
-
-
-    public void attackRed1(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        int i = Integer.parseInt(die1.getText());
-        RedDice d = new RedDice(i);
-        Move[] m = getGameBoard().getPlayer1().getScoreSheet().getDragon().getPossibleMovesForADie(d);
-        boolean b;
-        if(m.length==0){
-            return;
+        else if (p1fr || p0av) {
+            int i = getGameBoard().getPlayer1().getScoreSheet().getLion().getHitNum();
+            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(value));
+            if (m.length == 0) {
+                return;
+            }
+            for (int x = 0; x < 11; x++) {
+                if (i == x) {
+                    getPLayer1Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                    getPLayer1Buttons()[4][i].setDisable(false);
+                }
+            }
         }
-        for(int x=0;x<12;x++){
-            if(i == Integer.parseInt(getPLayer1Buttons()[0][x].getText()) && button.equals(getPLayer1Buttons()[0][x]) ){
-                String s = button.getId();
-                if(s.charAt(1) == '1'){
-                    d.selectsDragon(1);
-                }
-                else if (s.charAt(1) == '2'){
-                    d.selectsDragon(2);
-                }
-                else if (s.charAt(1) == '3'){
-                    d.selectsDragon(3);
-                }
-                else if (s.charAt(1) == '4'){
-                    d.selectsDragon(4);
-                }
-                if(makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()))){
+    }
+    private void highlightArcanePrismPossibleMoves(Button button){
+        highlightRedPossibleMoves(button);
+        highlightGreenPossibleMoves(button);
+        highlightBluePossibleMoves(button);
+        highlightMagentaPossibleMoves(button);
+        highlightYellowPossibleMoves(button);
+    }
+    @FXML
+    public void attackRed(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        RedDice d;
+        boolean flag = false;
+        if(selectedButton.equals(die6) || selectedButton.equals(forgottenRealm6)) {
+            int a = getAllDice()[5].getValue();
+            d = new RedDice(a);
+            flag = true;
+        }
+        else
+            d = (RedDice)getAllDice()[0];
+        int i = d.getValue();
+        d.selectsDragon(button.getId().charAt(1)-48);
+        if(Character.isUpperCase(button.getId().charAt(0))){
+            for(int x=0;x<12;x++){
+                if(!getPLayer1Buttons()[0][x].getText().equals("X") && i == Integer.parseInt(getPLayer1Buttons()[0][x].getText()) && button.equals(getPLayer1Buttons()[0][x]) && makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()))){
                     getPLayer1Buttons()[0][x].setText("X");
                     getPLayer1Buttons()[0][x].setDisable(true);
                     disablePlayer1();
@@ -878,207 +998,148 @@ public class controller extends CLIGameController {
                 }
             }
         }
-        die1.setDisable(true);
-        for (int h=0;h<6;h++) {
-            if(getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
-                getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
-                getForgottenRealmButtons()[h].setVisible(true);
-                getButtons()[h].setVisible(false);
+        else{
+            for(int x=0;x<12;x++){
+                if(!getPLayer2Buttons()[0][x].getText().equals("X") && i == Integer.parseInt(getPLayer2Buttons()[0][x].getText()) && button.equals(getPLayer2Buttons()[0][x]) && makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()))){
+                    getPLayer2Buttons()[0][x].setText("X");
+                    getPLayer2Buttons()[0][x].setDisable(true);
+                    disablePlayer2();
+                    break;
+                }
             }
-            getButtons()[h].setDisable(true);
         }
-        die1.setVisible(false);
-        if(getGameStatus().getPartOfRound()==1){
-            getGameStatus().incrementRound();
-            getGameStatus().incrementPartOfRound();
-            getGameStatus().resetTurn();
-            for(Button hds:getForgottenRealmButtons()){
-                hds.setVisible(false);
-            }
-            for(Button hgf:getButtons()){
-                hgf.setVisible(true);
-            }
-            rollButton.setVisible(true);
-            switchPlayer();
-            getGameStatus().setAv(true);
-            return;
-
+        Realm r = flag ? Realm.WHITE : Realm.RED;
+        afterAttack(selectedButton, r);
         }
-            addTurn(1);
-
-        }
-    public void attackGreen1(ActionEvent event){
+    @FXML
+    public void attackGreen(ActionEvent event){
         Button button = (Button) event.getSource();
-        int i = Integer.parseInt(die2.getText())+Integer.parseInt(die6.getText());
+        int i = getAllDice()[1].getValue()+getAllDice()[5].getValue();
         Dice d = new GreenDice(i);
         Dice h = getAllDice()[1];
-        Move[] m = getGameBoard().getPlayer1().getScoreSheet().getGaia().getPossibleMovesForADie(d);
-        if(m.length>0){
+        boolean flag = (selectedButton.equals(die6) || selectedButton.equals(forgottenRealm6)) ? true : false;
+        if(Character.isUpperCase(button.getId().charAt(0))){
             for(int x=0;x<11;x++){
-                if(button.equals(getPLayer1Buttons()[1][x])){
-                    if(makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))) {
-                        getPLayer1Buttons()[1][x].setText("X");
-                        getPLayer1Buttons()[1][x].setDisable(true);
-                    }
+                if(button.equals(getPLayer1Buttons()[1][x]) && makeMove(getGameBoard().getPlayer1(), new Move(h,getGameBoard().getPlayer1().getScoreSheet().getGaia()))){
+                    getPLayer1Buttons()[1][x].setText("X");
+                    disablePlayer1();
+                break;
                 }
             }
         }
-        die2.setDisable(true);
-        for (int r=0;r<6;r++) {
-            if(getButtons()[r].isVisible() && (Integer.parseInt(getButtons()[r].getText()) < Integer.parseInt(die2.getText())) && !getForgottenRealmButtons()[r].isVisible()) {
-                getForgottenRealmButtons()[r].setText(getButtons()[r].getText());
-                getForgottenRealmButtons()[r].setVisible(true);
-                getButtons()[r].setVisible(false);
+        else{
+            for(int x=0;x<11;x++){
+                if(button.equals(getPLayer2Buttons()[1][x]) && makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))){
+                        getPLayer2Buttons()[1][x].setText("X");
+                        disablePlayer2();
+                        break;
+                }
             }
-            getButtons()[r].setDisable(true);
         }
-        die2.setVisible(false);
-        if(getGameStatus().getPartOfRound()==1){
-            getGameStatus().incrementRound();
-            getGameStatus().incrementPartOfRound();
-            getGameStatus().resetTurn();
-            for(Button hds:getForgottenRealmButtons()){
-                hds.setVisible(false);
-            }
-            for(Button hgf:getButtons()){
-                hgf.setVisible(true);
-            }
-            rollButton.setVisible(true);
-            switchPlayer();
-            getGameStatus().setAv(true);
-            return;
-
-        }
-        addTurn(1);
+        Realm r = flag ? Realm.WHITE : Realm.GREEN;
+        afterAttack(selectedButton, r);
     }
-    public void attackBlue1(ActionEvent event){
+    @FXML
+    public void attackBlue(ActionEvent event){
         Button button = (Button) event.getSource();
-        int i = Integer.parseInt(die3.getText());
-        Dice d = new BlueDice(i);
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(i));
-        if(m.length>0) {
+        BlueDice d;
+        boolean flag = false;
+        if(selectedButton.equals(die6) || selectedButton.equals(forgottenRealm6)) {
+            int a = Integer.parseInt(selectedButton.getText());
+            d = new BlueDice(a);
+            flag = true;
+        }
+        else
+            d = (BlueDice)getAllDice()[2];
+        int i = d.getValue();
+        if(Character.isUpperCase(button.getId().charAt(0))) {
             for (int x = 0; x < 11; x++) {
-                if (button.equals(getPLayer1Buttons()[2][x])) {
-                    if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getHydra()))) {
-                        getPLayer1Buttons()[2][x].setText("X");
-                        getPLayer1Buttons()[2][x].setDisable(true);
-                    }
+                if (button.equals(getPLayer1Buttons()[2][x]) && makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getHydra()))) {
+                    getPLayer1Buttons()[2][x].setText("X");
+                    disablePlayer1();
+                    break;
                 }
             }
-
-            for (int h = 0; h < 6; h++) {
-                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
-                    getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText()) + "");
-                    getForgottenRealmButtons()[h].setVisible(true);
-                    getButtons()[h].setVisible(false);
+        }
+        else{
+            for (int x = 0; x < 11; x++) {
+                if (button.equals(getPLayer2Buttons()[2][x]) && makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getHydra()))) {
+                        getPLayer2Buttons()[2][x].setText("X");
+                        disablePlayer2();
+                        break;
                 }
-                getButtons()[h].setDisable(true);
             }
-            die3.setVisible(false);
-            if(getGameStatus().getPartOfRound()==1){
-                getGameStatus().incrementRound();
-                getGameStatus().incrementPartOfRound();
-                getGameStatus().resetTurn();
-                for(Button hds:getForgottenRealmButtons()){
-                    hds.setVisible(false);
-                }
-                for(Button hgf:getButtons()){
-                    hgf.setVisible(true);
-                }
-                rollButton.setVisible(true);
-                switchPlayer();
-                getGameStatus().setAv(true);
-
-                return;
-
-            }
-            addTurn(1);      }
+        }
+        Realm r = flag ? Realm.WHITE : Realm.BLUE;
+        afterAttack(selectedButton, Realm.BLUE);
     }
-    public void attackMagenta1(ActionEvent event){
+    @FXML
+    public void attackMagenta(ActionEvent event){
         Button button = (Button) event.getSource();
-        int i = Integer.parseInt(die4.getText());
-        Dice d = new MagentaDice(i);
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(i));
-        if(m.length==0){
-            return;
+        MagentaDice d;
+        boolean flag = false;
+        if(selectedButton.equals(die6) || selectedButton.equals(forgottenRealm6)) {
+            int a = Integer.parseInt(selectedButton.getText());
+            d = new MagentaDice(a);
+            flag = true;
         }
+        else
+            d = (MagentaDice)getAllDice()[3];
+        int i = d.getValue();
+        if(Character.isUpperCase(button.getId().charAt(0))) {
             for (int x = 0; x < 11; x++) {
-                if (button.equals(getPLayer1Buttons()[3][x])) {
-                    if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getPhoenix()))) {
-                        getPLayer1Buttons()[3][x].setText(""+i);
-                        getPLayer1Buttons()[3][x].setDisable(true);
-                    }
+                if (button.equals(getPLayer1Buttons()[3][x]) && makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getPhoenix()))) {
+                    getPLayer1Buttons()[3][x].setText("" + i);
+                    disablePlayer1();
+                    break;
                 }
             }
-            for (int h = 0; h < 6; h++) {
-                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
-                    getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
-                    getForgottenRealmButtons()[h].setVisible(true);
-                    getButtons()[h].setVisible(false);
-                }
-                getButtons()[h].setDisable(true);
-            }
-            die4.setVisible(false);
-        if(getGameStatus().getPartOfRound()==1){
-            getGameStatus().incrementRound();
-            getGameStatus().incrementPartOfRound();
-            getGameStatus().resetTurn();
-            for(Button hds:getForgottenRealmButtons()){
-                hds.setVisible(false);
-            }
-            for(Button hgf:getButtons()){
-                hgf.setVisible(true);
-            }
-            rollButton.setVisible(true);
-            switchPlayer();
-            getGameStatus().setAv(true);
-
-            return;
-
         }
-        addTurn(1);  }
-    public void attackYellow1(ActionEvent event) {
+        else{
+            for (int x = 0; x < 11; x++) {
+                if (button.equals(getPLayer2Buttons()[3][x]) && makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getPhoenix()))) {
+                    getPLayer2Buttons()[3][x].setText("" + i);
+                    disablePlayer2();
+                    break;
+                }
+            }
+        }
+        Realm r = flag ? Realm.WHITE : Realm.MAGENTA;
+        afterAttack(selectedButton, r);
+    }
+    @FXML
+    public void attackYellow(ActionEvent event) {
         Button button = (Button) event.getSource();
-        int i = Integer.parseInt(die5.getText());
-        Dice d = new YellowDice(i);
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(i));
-        if (m.length > 0) {
+        YellowDice d;
+        boolean flag = false;
+        if(selectedButton.equals(die6) || selectedButton.equals(forgottenRealm6)) {
+            int a = Integer.parseInt(selectedButton.getText());
+            d = new YellowDice(a);
+            flag = true;
+        }
+        else
+            d = (YellowDice)getAllDice()[4];
+        int i = d.getValue();
+        if(Character.isUpperCase(button.getId().charAt(0))) {
             for (int x = 0; x < 11; x++) {
-                if (button.equals(getPLayer1Buttons()[4][x])) {
-                    if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getLion()))) {
-                        getPLayer1Buttons()[4][x].setText("X");
-                        getPLayer1Buttons()[4][x].setDisable(true);
-                    }
+                if (button.equals(getPLayer1Buttons()[4][x]) && makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getLion()))) {
+                    getPLayer1Buttons()[4][x].setText(""+i);
+                    disablePlayer1();
+                    break;
                 }
             }
-            forgottenRealm5.setText(die5.getText());
-            for (int h = 0; h < 6; h++) {
-                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
-                    getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
-                    getForgottenRealmButtons()[h].setVisible(true);
-                    getButtons()[h].setVisible(false);
+        }
+        else {
+            for (int x = 0; x < 11; x++) {
+                if (button.equals(getPLayer2Buttons()[4][x]) && makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getLion()))) {
+                    getPLayer2Buttons()[4][x].setText(""+i);
+                    disablePlayer2();
+                    break;
                 }
-                getButtons()[h].setDisable(true);
             }
-            die5.setVisible(false);
-            if(getGameStatus().getPartOfRound()==1){
-                getGameStatus().incrementRound();
-                getGameStatus().incrementPartOfRound();
-                getGameStatus().resetTurn();
-                for(Button hds:getForgottenRealmButtons()){
-                    hds.setVisible(false);
-                }
-                for(Button hgf:getButtons()){
-                    hgf.setVisible(true);
-                }
-                rollButton.setVisible(true);
-                switchPlayer();
-                getGameStatus().setAv(true);
-
-                return;
-
-            }
-            addTurn(1);       }
+        }
+        Realm r = flag ? Realm.WHITE : Realm.YELLOW;
+        afterAttack(selectedButton, r);
     }
     //    public void highlightRedPossibleMoves2(){
 //        int i = getAllDice()[0].getValue();
@@ -1567,264 +1628,8 @@ public class controller extends CLIGameController {
 //        }
 //    }
 
-    public void attackRed2(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        int i = Integer.parseInt(die1.getText());
-        RedDice d = new RedDice(i);
-        Move[] m = getGameBoard().getPlayer2().getScoreSheet().getDragon().getPossibleMovesForADie(d);
-        boolean b;
-        if(m.length==0){
-            return;
-        }
-        for(int x=0;x<12;x++){
-            if(i == Integer.parseInt(getPLayer2Buttons()[0][x].getText()) && button.equals(getPLayer2Buttons()[0][x]) ){
-                String s = button.getId();
-                if(s.charAt(1) == '1'){
-                    d.selectsDragon(1);
-                }
-                else if (s.charAt(1) == '2'){
-                    d.selectsDragon(2);
-                }
-                else if (s.charAt(1) == '3'){
-                    d.selectsDragon(3);
-                }
-                else if (s.charAt(1) == '4'){
-                    d.selectsDragon(4);
-                }
-                if(makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()))){
-                    getPLayer2Buttons()[0][x].setText("X");
-                    getPLayer2Buttons()[0][x].setDisable(true);
-                    disablePlayer2();
-                    break;
-                }
-            }
-        }
-        die1.setDisable(true);
-        for (int h=0;h<6;h++) {
-            if(getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
-                getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
-                getForgottenRealmButtons()[h].setVisible(true);
-                getButtons()[h].setVisible(false);
-            }
-            getButtons()[h].setDisable(true);
-        }
-        die1.setVisible(false);
-        if(getGameStatus().getPartOfRound()==0){
-            getGameStatus().incrementPartOfRound();
-            getGameStatus().resetTurn();
 
-            for(Button hds:getForgottenRealmButtons()){
-                hds.setVisible(false);
-            }
-            for(Button hgf:getButtons()){
-                hgf.setVisible(true);
-            }
-            rollButton.setVisible(true);
-            switchPlayer();
-            getGameStatus().setAv(true);
-            return;
 
-        }
-        addTurn(1);  }
-    public void attackGreen2(ActionEvent event){
-        Button button = (Button) event.getSource();
-        int i = Integer.parseInt(die2.getText())+Integer.parseInt(die6.getText());
-        Dice d = new GreenDice(i);
-        Dice h = getAllDice()[1];
-        Move[] m = getGameBoard().getPlayer2().getScoreSheet().getGaia().getPossibleMovesForADie(d);
-        if(m.length>0){
-            for(int x=0;x<11;x++){
-                if(button.equals(getPLayer2Buttons()[1][x])){
-                    if(makeMove(getGameBoard().getPlayer2(), new Move(h,getGameBoard().getPlayer2().getScoreSheet().getGaia()))) {
-                        getPLayer2Buttons()[1][x].setText("X");
-                        getPLayer2Buttons()[1][x].setDisable(true);
-                    }
-                }
-            }
-        }
-        die2.setDisable(true);
-        for (int r=0;r<6;r++) {
-            if(getButtons()[r].isVisible() && (Integer.parseInt(getButtons()[r].getText()) < Integer.parseInt(die2.getText())) && !getForgottenRealmButtons()[r].isVisible()) {
-                getForgottenRealmButtons()[r].setText(getButtons()[r].getText());
-                getForgottenRealmButtons()[r].setVisible(true);
-                getButtons()[r].setVisible(false);
-            }
-            getButtons()[r].setDisable(true);
-        }
-        die2.setVisible(false);
-        if(getGameStatus().getPartOfRound()==0){
-            getGameStatus().incrementPartOfRound();
-            getGameStatus().resetTurn();
-
-            for(Button hds:getForgottenRealmButtons()){
-                hds.setVisible(false);
-            }
-            for(Button hgf:getButtons()){
-                hgf.setVisible(true);
-            }
-            rollButton.setVisible(true);
-            switchPlayer();
-            getGameStatus().setAv(true);
-            return;
-
-        }
-        addTurn(1);  }
-    public void attackBlue2(ActionEvent event){
-        Button button = (Button) event.getSource();
-        int i = Integer.parseInt(die3.getText());
-        Dice d = new BlueDice(i);
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(i));
-        if(m.length>0) {
-            for (int x = 0; x < 11; x++) {
-                if (button.equals(getPLayer2Buttons()[2][x])) {
-                    if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getHydra()))) {
-                        getPLayer2Buttons()[2][x].setText("X");
-                        getPLayer2Buttons()[2][x].setDisable(true);
-                    }
-                }
-            }
-
-            for (int h = 0; h < 6; h++) {
-                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
-                    getForgottenRealmButtons()[h].setText(Integer.parseInt(getButtons()[h].getText()) + "");
-                    getForgottenRealmButtons()[h].setVisible(true);
-                    getButtons()[h].setVisible(false);
-                }
-                getButtons()[h].setDisable(true);
-            }
-            die3.setVisible(false);
-            if(getGameStatus().getPartOfRound()==0){
-                getGameStatus().incrementPartOfRound();
-                getGameStatus().resetTurn();
-
-                for(Button hds:getForgottenRealmButtons()){
-                    hds.setVisible(false);
-                }
-                for(Button hgf:getButtons()){
-                    hgf.setVisible(true);
-                }
-                rollButton.setVisible(true);
-                switchPlayer();
-                getGameStatus().setAv(true);
-
-                return;
-
-            }
-            addTurn(1);   }
-    }
-    public void attackMagenta2(ActionEvent event){
-        Button button = (Button) event.getSource();
-        int i = Integer.parseInt(die4.getText());
-        Dice d = new MagentaDice(i);
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(i));
-        if(m.length==0){
-            return;
-        }
-        for (int x = 0; x < 11; x++) {
-            if (button.equals(getPLayer2Buttons()[3][x])) {
-                if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getPhoenix()))) {
-                    getPLayer2Buttons()[3][x].setText(""+i);
-                    getPLayer2Buttons()[3][x].setDisable(true);
-                }
-            }
-        }
-        for (int h = 0; h < 6; h++) {
-            if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
-                getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
-                getForgottenRealmButtons()[h].setVisible(true);
-                getButtons()[h].setVisible(false);
-            }
-            getButtons()[h].setDisable(true);
-        }
-        die4.setVisible(false);
-        if(getGameStatus().getPartOfRound()==0){
-            getGameStatus().incrementPartOfRound();
-            getGameStatus().resetTurn();
-
-            for(Button hds:getForgottenRealmButtons()){
-                hds.setVisible(false);
-            }
-            for(Button hgf:getButtons()){
-                hgf.setVisible(true);
-            }
-            rollButton.setVisible(true);
-            switchPlayer();
-            getGameStatus().setAv(true);
-            return;
-
-        }
-        addTurn(1);  }
-    public void attackYellow2(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        int i = Integer.parseInt(die5.getText());
-        Dice d = new YellowDice(i);
-        Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(i));
-        if (m.length > 0) {
-            for (int x = 0; x < 11; x++) {
-                if (button.equals(getPLayer2Buttons()[4][x])) {
-                    if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getLion()))) {
-                        getPLayer2Buttons()[4][x].setText(""+i);
-                        getPLayer2Buttons()[4][x].setDisable(true);
-                    }
-                }
-            }
-            forgottenRealm5.setText(die5.getText());
-            for (int h = 0; h < 6; h++) {
-                if (getButtons()[h].isVisible() && Integer.parseInt(getButtons()[h].getText()) < i && !getForgottenRealmButtons()[h].isVisible()) {
-                    getForgottenRealmButtons()[h].setText(getButtons()[h].getText());
-                    getForgottenRealmButtons()[h].setVisible(true);
-                    getButtons()[h].setVisible(false);
-                }
-                getButtons()[h].setDisable(true);
-            }
-            die5.setVisible(false);
-            if(getGameStatus().getPartOfRound()==0){
-                getGameStatus().incrementPartOfRound();
-                getGameStatus().resetTurn();
-                for(Button hds:getForgottenRealmButtons()){
-                    hds.setVisible(false);
-                }
-                for(Button hgf:getButtons()){
-                    hgf.setVisible(true);
-                }
-                rollButton.setVisible(true);
-                switchPlayer();
-                getGameStatus().setAv(true);
-
-                return;
-
-            }
-            addTurn(1);       }
-    }
-
-    private void disablePlayer1(){
-        for(int i=0;i<getPLayer1Buttons().length;i++) {
-            for(int j=0;j<getPLayer1Buttons()[i].length;j++) {
-                getPLayer1Buttons()[i][j].setDisable(true);
-            }
-        }
-    }
-    private void disablePlayer2(){
-        for(int i=0;i<getPLayer2Buttons().length;i++) {
-            for(int j=0;j<getPLayer2Buttons()[i].length;j++) {
-                getPLayer2Buttons()[i][j].setDisable(true);
-            }
-        }
-    }
-    private void enablePlayer1(){
-        for(int i=0;i<getPLayer1Buttons().length;i++) {
-            for(int j=0;j<getPLayer1Buttons()[i].length;j++) {
-                getPLayer1Buttons()[i][j].setDisable(false);
-            }
-        }
-    }
-    private void enablePlayer2(){
-        for(int i=0;i<getPLayer2Buttons().length;i++) {
-            for(int j=0;j<getPLayer2Buttons()[i].length;j++) {
-                getPLayer2Buttons()[i][j].setDisable(false);
-            }
-        }
-    }
  }
 
 
