@@ -36,13 +36,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <Button fx:id="rollButton" disable="true" layoutX="891.0" layoutY="364.0" mnemonicParsing="false" onAction="#rollButtons" style="-fx-background-color: Black;" text="Roll Dice" textFill="WHITE">
+      <Button fx:id="rollButton" disable="true" layoutX="891.0" layoutY="330.0" mnemonicParsing="false" onAction="#rollButtons" style="-fx-background-color: Black;" text="Roll Dice" textFill="WHITE">
 
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Pane layoutX="778.0" layoutY="743.0" prefHeight="70.0" prefWidth="370.0" style="-fx-background-color: Grey;">
+      <Pane layoutX="778.0" layoutY="700.0" prefHeight="70.0" prefWidth="370.0" style="-fx-background-color: Grey;">
          <children>
             <ImageView fitHeight="81.0" fitWidth="382.0" layoutX="-7.0" layoutY="-1.0" pickOnBounds="true">
                <image>
@@ -2331,7 +2331,7 @@
          </children>
       </StackPane>
       <HBox fx:id="diceBox" layoutX="840.0" layoutY="1022.0" prefHeight="39.0" prefWidth="256.0" spacing="10.0" />
-      <GridPane gridLinesVisible="true" layoutX="707.0" layoutY="35.0" prefHeight="150.0" prefWidth="507.0" style="-fx-background-color: black;">
+      <GridPane gridLinesVisible="true" layoutX="707.0" layoutY="11.0" prefHeight="150.0" prefWidth="507.0" style="-fx-background-color: black;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -2412,18 +2412,7 @@
          <font>
             <Font name="System Bold" size="36.0" />
          </font></Label>
-
-      <Label fx:id="player1Turn" alignment="CENTER" layoutX="748.0" layoutY="348.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: white;" text="Turn 1">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="1053.0" layoutY="346.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: white;" text="Turn 1">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <GridPane gridLinesVisible="true" layoutX="796.0" layoutY="901.0" prefHeight="110.0" prefWidth="356.0" style="-fx-background-color: black;">
+      <GridPane gridLinesVisible="true" layoutX="796.0" layoutY="921.0" prefHeight="110.0" prefWidth="356.0" style="-fx-background-color: black;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="461.0" minWidth="10.0" prefWidth="187.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="86.0" />
@@ -2479,18 +2468,18 @@
       </GridPane>
 
 
-      <Label fx:id="player1Turn" alignment="CENTER" layoutX="748.0" layoutY="348.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: black;" text="Turn 1" textFill="WHITE">
+      <Label fx:id="player1Turn" alignment="CENTER" layoutX="742.0" layoutY="290.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: black;" text="Turn 1" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
 
-      <Label fx:id="player2Turn" alignment="CENTER" layoutX="1053.0" layoutY="346.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: black;" text="Turn 1" textFill="WHITE">
+      <Label fx:id="player2Turn" alignment="CENTER" layoutX="1064.0" layoutY="290.0" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: black;" text="Turn 1" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <GridPane alignment="CENTER" layoutX="742.0" layoutY="437.0" prefHeight="268.0" prefWidth="452.0">
+      <GridPane alignment="CENTER" layoutX="789.0" layoutY="389.0" prefHeight="244.0" prefWidth="330.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="117.0" />
@@ -2570,21 +2559,21 @@
          </children>
       </GridPane>
 
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="862.0" layoutY="575.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: Black;" text="Forgotten Realm" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="854.0" layoutY="650.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: Black;" text="Forgotten Realm" textAlignment="CENTER" textFill="WHITE">
 
          <font>
             <Font size="24.0" />
          </font>
       </Label>
 
-      <Label fx:id="round" layoutX="917.0" layoutY="355.0" prefWidth="94.0" style="-fx-background-color: black;" text="Round 1" textFill="WHITE">
+      <Label fx:id="round" layoutX="907.0" layoutY="298.0" prefWidth="94.0" style="-fx-background-color: black;" text="Round 1" textFill="WHITE">
 
          <font>
             <Font size="22.0" />
          </font>
       </Label>
 
-      <Pane layoutX="785.0" layoutY="778.0" prefHeight="70.0" prefWidth="370.0" style="-fx-background-color: 0;">
+      <Pane layoutX="775.0" layoutY="847.0" prefHeight="70.0" prefWidth="370.0" style="-fx-background-color: 0;">
 
          <children>
             <Button fx:id="forgottenRealm11" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: red;" text="0">
@@ -2614,30 +2603,23 @@
          </children>
       </Pane>
 
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="864.0" layoutY="728.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: Black;" text="Arcane Boost" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="863.0" layoutY="797.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: Black;" text="Arcane Boost" textAlignment="CENTER" textFill="WHITE">
 
          <font>
             <Font size="24.0" />
          </font>
       </Label>
 
-      <Button fx:id="timeWarpButton" alignment="TOP_RIGHT" disable="true" layoutX="748.0" layoutY="411.0" mnemonicParsing="false" onAction="#useTimeWarp" prefHeight="90.0" prefWidth="123.0" style="-fx-background-color: black;" text="Time Warp" textFill="WHITE" wrapText="true">
-
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
-
 
       <Label fx:id="tw1" layoutX="744.0" layoutY="235.0" text="tw1" />
       <Label fx:id="tw2" layoutX="1131.0" layoutY="235.0" text="tw2" />
       <Button layoutX="1183.0" layoutY="942.0" mnemonicParsing="false" text="AB2" />
       <Button layoutX="692.0" layoutY="942.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="75.0" text="AB1" />
-      <Label fx:id="gameStat" alignment="TOP_CENTER" layoutX="858.0" layoutY="217.0" prefHeight="110.0" prefWidth="191.0" style="-fx-background-color: black;" text="Label" textFill="WHITE" wrapText="true">
+      <Label fx:id="gameStat" alignment="TOP_CENTER" layoutX="858.0" layoutY="180.0" prefHeight="110.0" prefWidth="191.0" style="-fx-background-color: black;" text="Label" textFill="WHITE" wrapText="true">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Button fx:id="startGameButton" layoutX="1058.0" layoutY="405.0" mnemonicParsing="false" onAction="#startGame" onDragDetected="#startGame" prefHeight="81.0" prefWidth="99.0" style="-fx-background-color: black;" text="Start Game" textFill="WHITE" />
+      <Button fx:id="startGameButton" layoutX="1118.0" layoutY="338.0" mnemonicParsing="false" onAction="#startGame" onDragDetected="#startGame" prefHeight="81.0" prefWidth="99.0" style="-fx-background-color: black;" text="Start Game" textFill="WHITE" />
 
 
    </children>
