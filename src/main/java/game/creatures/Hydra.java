@@ -1,10 +1,10 @@
 package game.creatures;
 
 import game.collectibles.ElementalCrest;
+import game.collectibles.EssenceBonus;
 import game.collectibles.TimeWarp;
 import game.dice.BlueDice;
 import game.dice.Dice;
-import game.dice.GreenDice;
 import game.engine.Move;
 import game.collectibles.Reward;
 
@@ -21,9 +21,9 @@ public class Hydra extends Creature {
 
     private int[] hydra;
     private int[]scores;
-    private String[]reward;
-    private Reward[]rewards;
-    private String[] Xb;
+    //private String[]reward;
+    //private Reward[]rewards;
+    //private String[] Xb;
     private int hydra1Heads;
     private int hydra2Heads;
     private String[] rew = new String[11];
@@ -31,7 +31,7 @@ public class Hydra extends Creature {
     public Hydra(){
         hydra1Heads = 0;
         hydra2Heads = 0;
-        rewards = new Reward[11];
+        //rewards = new Reward[11];
         this.hydra = new int[11];
         hydra[0] = 1;   hydra[5] = 1;
         hydra[1] = 2;   hydra[6] = 2;
@@ -68,16 +68,16 @@ public class Hydra extends Creature {
     }
 
 
-    private String currhydra(int i){
-        if( i > 4){
-            System.out.println("You killed first hydra and will attack the new hydra with 6 heads");
-            return "Hydra 2";
-        }
-        else{
-            System.out.println("You will attack the first hydra");
-            return "Hydra 1";
-        }
-    }
+    // private String currhydra(int i){
+    //     if( i > 4){
+    //         System.out.println("You killed first hydra and will attack the new hydra with 6 heads");
+    //         return "Hydra 2";
+    //     }
+    //     else{
+    //         System.out.println("You will attack the first hydra");
+    //         return "Hydra 1";
+    //     }
+    // }
 
     // checks rewards and returns the corresponding reward in an array & makes used reward an x
     public Reward[] checkReward(){
@@ -107,6 +107,9 @@ public class Hydra extends Creature {
             case "YB":
                 rew[headsKilled()-1]="X ";
                 return new Reward[]{new Bonus(Realm.YELLOW)};
+            case "EB": 
+                rew[headsKilled()-1]="X ";
+                return new Reward[]{new EssenceBonus()};
             default: return null;
         }
     }
@@ -285,6 +288,9 @@ private Move[] removeNullsAndFill(Move[] moves) {
                         break;
                     case "YellowBonus":
                         rew[i]="YB";
+                        break;
+                    case "EssenceBonus":
+                        rew[i]="EB";
                         break;
                     default:
                         rew[i]="  ";
