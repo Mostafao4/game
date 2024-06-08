@@ -91,14 +91,14 @@ public abstract class GameController {
     /**
      * Gets the current active player's information.
      * 
-     * @return The active {@code HumanPlayer} object.
+     * @return The active {@code Player} object.
      */
     public abstract Player getActivePlayer();
 
     /**
      * Gets the current passive player's information.
      * 
-     * @return The passive {@code HumanPlayer} object.
+     * @return The passive {@code Player} object.
      */
     public abstract Player getPassivePlayer();
 
