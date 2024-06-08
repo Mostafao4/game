@@ -61,6 +61,16 @@ public class Gaia extends Creature{
             loadRewards(colStrings, columnRewards);
         } catch (IOException e) {
             System.out.println("Error loading reward configuration: " +  e.getMessage());
+            rowStrings[0] = "YellowBonus";
+            rowStrings[1] = "RedBonus";
+            rowStrings[2] = "ElementalCrest";
+            colStrings[0] = "TimeWarp";
+            colStrings[1] = "BlueBonus";
+            colStrings[2] = "MagentaBonus";
+            colStrings[3] = "ArcaneBoost";
+
+            loadRewards(rowStrings, rowRewards);
+            loadRewards(colStrings, columnRewards);
         }
     }
 
@@ -95,8 +105,13 @@ public class Gaia extends Creature{
                 case "ArcaneBoost":
                     rewards[i] = new ArcaneBoost();
                     break;
+                case "GreenBonus":
+                    realm = Realm.GREEN;
+                    rewards[i] = new Bonus(realm);
+                    break;
                 default:
                     System.out.println("Unknown reward type: " + rewardStrings[i]);
+                    rewards[i] = new Bonus(Realm.GREEN);
                     break;
             }
         }
@@ -116,10 +131,14 @@ public class Gaia extends Creature{
         }
         catch(IOException ex){
             ex.printStackTrace();
+            String[] scoreString = {"0, 1, 2, 4, 7, 11, 16, 22, 29, 37, 46"};
+            for(int i = 0; i < scores.length; i++){
+                scores[i] = Integer.parseInt(scoreString[i]);
+            }
         }
     }
 
-    private boolean attackGaia(Dice combined) {//throws InvalidMoveException{
+    private boolean attackGaia(Dice combined) {
         boolean flag = false;
         int total = combined.getValue();
 
@@ -360,6 +379,7 @@ public class Gaia extends Creature{
             case "ElementalCrest": return "EC";
             case "ArcaneBoost": return "AB";
             case "TimeWarp": return "TW";
+            case "GreenBonus": return "GB";
             default: return "  ";
         }
     }
