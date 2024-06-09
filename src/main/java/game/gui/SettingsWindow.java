@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -45,13 +46,20 @@ public class SettingsWindow extends Stage {
         configSelector.setOnAction(e -> loadConfig(configSelector.getValue()));
 
         Button saveButton = new Button("Save");
-        saveButton.setOnAction(e -> {
+        saveButton.setOnAction(e -> saveConfig());
+
+        Button saveAndCloseButton = new Button("Save & Close");
+        saveAndCloseButton.setOnAction(e -> {
             saveConfig();
-            unselectConfigFile();
-            clearWindow();
+            close();
         });
 
-        VBox root = new VBox(10, configSelector, scrollPane, saveButton);
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction(e -> closeWithoutSaving());
+
+        HBox buttonBox = new HBox(10, saveButton, saveAndCloseButton, closeButton);
+
+        VBox root = new VBox(10, configSelector, scrollPane, buttonBox);
         Scene scene = new Scene(root, 400, 300);
 
         this.setTitle("Settings");
@@ -106,17 +114,16 @@ public class SettingsWindow extends Stage {
         }
         try {
             config.store(Files.newOutputStream(Paths.get(currentConfigFile)), null);
-            // No need to close the window here
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
-    private void unselectConfigFile() {
-        configSelector.getSelectionModel().clearSelection();
-    }
-
-    private void clearWindow() {
+        // Reset the selected config file and clear the settings grid
+        configSelector.setValue(null);
         settingsGrid.getChildren().clear();
+    }
+
+    private void closeWithoutSaving() {
+        close();
     }
 }
