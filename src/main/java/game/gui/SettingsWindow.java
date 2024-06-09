@@ -1,23 +1,20 @@
 package game.gui;
-import javafx.stage.Stage;
+
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Properties;
+import java.util.*;
 
 public class SettingsWindow extends Stage {
 
-    private Properties config;
+    private Map<String, String> config;
     private ComboBox<String> configSelector;
     private GridPane settingsGrid;
     private ScrollPane scrollPane;
@@ -37,7 +34,7 @@ public class SettingsWindow extends Stage {
     };
 
     public SettingsWindow() {
-        config = new Properties();
+        config = new LinkedHashMap<>(); // Using LinkedHashMap to preserve order
         settingsGrid = new GridPane();
         scrollPane = createScrollPane(settingsGrid);
 
@@ -82,12 +79,24 @@ public class SettingsWindow extends Stage {
         currentConfigFile = fileName;
 
         settingsGrid.getChildren().clear();
-        try {
-            config.load(Files.newInputStream(Paths.get(fileName)));
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Ignore comments and empty lines
+                if (!line.trim().startsWith("#") && !line.trim().isEmpty()) {
+                    int index = line.indexOf("=");
+                    if (index != -1) {
+                        String key = line.substring(0, index).trim();
+                        String value = line.substring(index + 1).trim();
+                        config.put(key, value);
+                    }
+                }
+            }
 
             int row = 0;
-            for (String key : config.stringPropertyNames()) {
-                String value = config.getProperty(key);
+            for (Map.Entry<String, String> entry : config.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
                 settingsGrid.add(new Label(key), 0, row);
                 TextField valueField = new TextField(value);
                 valueField.setId(key);
@@ -109,11 +118,14 @@ public class SettingsWindow extends Stage {
         for (javafx.scene.Node node : settingsGrid.getChildren()) {
             if (node instanceof TextField) {
                 TextField textField = (TextField) node;
-                config.setProperty(textField.getId(), textField.getText());
+                config.put(textField.getId(), textField.getText());
             }
         }
-        try {
-            config.store(Files.newOutputStream(Paths.get(currentConfigFile)), null);
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(currentConfigFile))) {
+            for (Map.Entry<String, String> entry : config.entrySet()) {
+                writer.write(entry.getKey() + "=" + entry.getValue());
+                writer.newLine();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
