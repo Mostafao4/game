@@ -50,13 +50,12 @@ public class controller extends CLIGameController {
     @FXML
     private Button RY1, RY2, RY3, RY4, RY5, RY6, RY7, RY8, RY9, RY10, RY11, ry1, ry2, ry3, ry4, ry5, ry6, ry7, ry8, ry9, ry10, ry11;
     @FXML
-    private Button startGameButton, timeWarpButton, rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null, forgottenRealm1, forgottenRealm2, forgottenRealm3, forgottenRealm4, forgottenRealm5, forgottenRealm6;
+    private Button startGameButton, timeWarpButton, rollButton, die1, die2, die3, die4, die5, die6, selectedButton = null, forgottenRealm1, forgottenRealm2, forgottenRealm3, forgottenRealm4, forgottenRealm5, forgottenRealm6, tw1, tw2;
     @FXML
-    private Label round1, round2, round3, round4, round, player1Turn, player2Turn, gameStat, player1Label, player2Label, tw1, tw2;
-
+    private Label round1, round2, round3, round4, round, turn, gameStat, player1Label, player2Label;
     @FXML
     private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6;
-
+    @FXML
     private Label score1,score2;
 
 
@@ -80,7 +79,9 @@ public class controller extends CLIGameController {
         player1Label.setText("Player 1: " + player1);
         player2Label.setText("Player 2: " + player2);
         gameBoard.setPlayer1(new HumanPlayer(player1, PlayerStatus.ACTIVE));
+        ((HumanPlayer)gameBoard.getPlayer1()).setLeftRight(false);
         gameBoard.setPlayer2(new HumanPlayer(player2, PlayerStatus.PASSIVE));
+        ((HumanPlayer)gameBoard.getPlayer2()).setLeftRight(true);
     }
 
     @FXML
@@ -611,11 +612,14 @@ public class controller extends CLIGameController {
     @FXML
     public void startGame(ActionEvent event){
         gameStat.setText("Welcome to Dice Realms!!!\nPlayer 1's turn");
-        player1Turn.setText("" + getGameStatus().getTurn());
+        turn.setText("" + getGameStatus().getTurn());
         startGameButton.setVisible(false);
         rollButton.setDisable(false);
         hideFRButtons();
-        tw1.setText("TW: 1");
+        tw1.setDisable(true);
+        tw2.setDisable(true);
+
+        //tw1.setText("TW: 1");
 
 
     }
@@ -652,7 +656,13 @@ public class controller extends CLIGameController {
     }
     @FXML
     public void useTimeWarp(ActionEvent event){
+        Button button = (Button)event.getSource();
         getActivePlayer().subtractTimeWarpCount();
+        if(getActivePlayer().getTimeWarpCount()==0) {
+            if (button.getText().equals("tw1"))
+                tw1.setDisable(true);
+            else tw2.setDisable(true);
+        }
         rollButtons();
     }
 
@@ -662,8 +672,7 @@ public class controller extends CLIGameController {
     private void fRealm(){
         gameStat.setText(getPassivePlayer().getPlayerName() + ": Choose a die from the forgotten realm");
         showFRButtons();
-        player1Turn.setText("--");
-        player2Turn.setText("--");
+        turn.setText("--");
         for(Dice d : getForgottenRealmDice()){
             Realm r = d.getRealm();
             int i = r==Realm.RED?0:r==Realm.GREEN?1:r==Realm.BLUE?2:r==Realm.MAGENTA?3:r==Realm.YELLOW?4:5;
@@ -698,12 +707,10 @@ public class controller extends CLIGameController {
     private void setPlayerTurns(){
         if(getGameStatus().getPartOfRound()==0){
 
-            player1Turn.setText(getGameStatus().getTurn()+"");
-            player2Turn.setText("--");
+            turn.setText(getGameStatus().getTurn()+"");
         }
         else{
-            player2Turn.setText(getGameStatus().getTurn()+"");
-            player1Turn.setText("--");
+            turn.setText(getGameStatus().getTurn()+"");
         }
     }
 
@@ -735,6 +742,17 @@ public class controller extends CLIGameController {
             useBonusHelper(reward,player);
         }
     }
+
+    public void useBonusHelper(Reward reward, Player player) {
+        Realm r = ((Bonus)reward).getRealm();
+        int i = r==Realm.RED?0:r==Realm.GREEN?1:r==Realm.BLUE?2:r==Realm.MAGENTA?3:4;
+        if(((HumanPlayer)player).isLeftRight()){
+
+        }
+        int att = 0;
+        useBonus(player, (Bonus) reward, att);
+    }
+
 
     private Move chooseDie(Button button, Realm r) {
         int v = r==Realm.RED?0:r==Realm.GREEN?1:r==Realm.BLUE?2:r==Realm.MAGENTA?3:r==Realm.YELLOW?4:5;
@@ -779,12 +797,13 @@ public class controller extends CLIGameController {
             getGameStatus().incrementTurn();
         }
         getReward(checkReward(m,getActivePlayer()),getActivePlayer());
-        tw1.setText(""+getActivePlayer().getTimeWarpCount());
-        tw2.setText(""+getPassivePlayer().getTimeWarpCount());
+        //tw1.setText(""+getActivePlayer().getTimeWarpCount());
+        //tw2.setText(""+getPassivePlayer().getTimeWarpCount());
         rollButton.setDisable(false);
         return m;
 
     }
+
 
     @FXML
     public void handleButtonPress(ActionEvent event) {
@@ -800,20 +819,22 @@ public class controller extends CLIGameController {
         selectedButton = button;
         selectedButton.setDisable(true); // Disable the selected button to prevent further clicks
         //int dieValue = Integer.parseInt(selectedButton.getText());
-
-
-            if (button.equals(die1) || button.equals(forgottenRealm1))
-                highlightRedPossibleMoves(button);
-            else if (button.equals(die2) || button.equals(forgottenRealm2))
-                highlightGreenPossibleMoves(button);
-            else if (button.equals(die3) || button.equals(forgottenRealm3))
-                highlightBluePossibleMoves(button);
-            else if (button.equals(die4) || button.equals(forgottenRealm4))
-                highlightMagentaPossibleMoves(button);
-            else if (button.equals(die5) || button.equals(forgottenRealm5))
-                highlightYellowPossibleMoves(button);
-            else if (button.equals(die6) || button.equals(forgottenRealm6))
-                highlightArcanePrismPossibleMoves(button);
+        char c;
+        if(button.getText().length()>5)
+            c = button.getId().charAt(5);
+        else c = 0;
+        if (button.equals(die1) || button.equals(forgottenRealm1) || c == 'R')
+            highlightRedPossibleMoves(button);
+        else if (button.equals(die2) || button.equals(forgottenRealm2) || c == 'G')
+            highlightGreenPossibleMoves(button);
+        else if (button.equals(die3) || button.equals(forgottenRealm3) || c == 'B')
+            highlightBluePossibleMoves(button);
+        else if (button.equals(die4) || button.equals(forgottenRealm4) || c == 'M')
+            highlightMagentaPossibleMoves(button);
+        else if (button.equals(die5) || button.equals(forgottenRealm5) || c == 'Y')
+            highlightYellowPossibleMoves(button);
+        else if (button.equals(die6) || button.equals(forgottenRealm6))
+            highlightArcanePrismPossibleMoves(button);
 
         // Add the selection class to the new button
         selectedButton.getStyleClass().add("selected-button");
@@ -856,29 +877,33 @@ public class controller extends CLIGameController {
         boolean av = button.getId().charAt(0)=='d';
         boolean p0fr = (fr && pr==0), p1fr = (fr && pr==1), p0av = (av && pr==0), p1av = (av && pr==1);
         if (p0fr || p1av) {
-            if (getGameStatus().getPartOfRound() == 1) {
-                Move[] m = getGameBoard().getPlayer2().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h));
-                if (m.length == 0) {
+                if (getGameBoard().getPlayer2().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h)).length == 0) {
                     return;
                 }
-                for (int i = 0; i < 11; i++) {
-                    if (h == i + 2) {
-                        getPLayer2Buttons()[1][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                        getPLayer2Buttons()[1][i].setDisable(false);
-                    }
-                }
-            }
+                getPLayer2Buttons()[1][h-2].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer2Buttons()[1][h-2].setDisable(false);
         }
         else if(p1fr || p0av) {
-            Move[] m = getGameBoard().getPlayer1().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h));
-            if (m.length == 0) {
+            if (getGameBoard().getPlayer1().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h)).length == 0) {
                 return;
             }
-            for (int i = 0; i < 11; i++) {
-                if (h == i + 2) {
-                    getPLayer1Buttons()[1][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer1Buttons()[1][i].setDisable(false);
+            getPLayer1Buttons()[1][h-2].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            getPLayer1Buttons()[1][h-2].setDisable(false);
+        }
+        else if(button.getId().charAt(0)=='b') {
+            if (((HumanPlayer) getActivePlayer()).isLeftRight()) {
+                if (getGameBoard().getPlayer2().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h)).length == 0) {
+                    return;
                 }
+                getPLayer2Buttons()[1][h-2].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer2Buttons()[1][h-2].setDisable(false);
+            }
+            else{
+                if (getGameBoard().getPlayer1().getScoreSheet().getGaia().getPossibleMovesForADie(new GreenDice(h)).length == 0) {
+                    return;
+                }
+                getPLayer1Buttons()[1][h-2].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer1Buttons()[1][h-2].setDisable(false);
             }
         }
     }
@@ -891,30 +916,38 @@ public class controller extends CLIGameController {
         boolean p0fr = (fr && pr==0), p1fr = (fr && pr==1), p0av = (av && pr==0), p1av = (av && pr==1);
         if (p0fr || p1av) {
             int i = getGameBoard().getPlayer2().getScoreSheet().getHydra().headsKilled();
-            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new BlueDice(value));
-            if (m.length == 0) {
+            if (getPossibleMovesForADie(getGameBoard().getPlayer2(), new BlueDice(value)).length == 0) {
                 return;
             }
-            for (int x = 0; x < 11; x++) {
-                if (i == x) {
-                    getPLayer2Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer2Buttons()[2][i].setDisable(false);
-                }
-            }
+            getPLayer2Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            getPLayer2Buttons()[2][i].setDisable(false);
         }
         else if (p1fr || p0av) {
             int i = getGameBoard().getPlayer1().getScoreSheet().getHydra().headsKilled();
-            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(value));
-            if (m.length == 0) {
+            if (getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(value)).length == 0) {
                 return;
             }
-            for (int x = 0; x < 11; x++) {
-                if (i == x) {
-                    getPLayer1Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer1Buttons()[2][i].setDisable(false);
+            getPLayer1Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            getPLayer1Buttons()[2][i].setDisable(false);
+        }
+        else if(button.getId().charAt(0)=='b') {
+            if (((HumanPlayer) getActivePlayer()).isLeftRight()) {
+                int i = getGameBoard().getPlayer2().getScoreSheet().getHydra().headsKilled();
+                if (getPossibleMovesForADie(getGameBoard().getPlayer2(), new BlueDice(value)).length == 0) {
+                    return;
                 }
+                getPLayer2Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer2Buttons()[2][i].setDisable(false);
             }
         }
+            else {
+                int i = getGameBoard().getPlayer1().getScoreSheet().getHydra().headsKilled();
+                if (getPossibleMovesForADie(getGameBoard().getPlayer1(), new BlueDice(value)).length == 0) {
+                    return;
+                }
+                getPLayer1Buttons()[2][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer1Buttons()[2][i].setDisable(false);
+            }
     }
     private void highlightMagentaPossibleMoves(Button button){
         int value = Integer.parseInt(button.getText());
@@ -924,28 +957,36 @@ public class controller extends CLIGameController {
         boolean p0fr = (fr && pr==0), p1fr = (fr && pr==1), p0av = (av && pr==0), p1av = (av && pr==1);
         if(p0fr || p1av) {
             int i = getGameBoard().getPlayer2().getScoreSheet().getPhoenix().getCount();
-            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new MagentaDice(value));
-            if (m.length == 0) {
+            if (getPossibleMovesForADie(getGameBoard().getPlayer2(), new MagentaDice(value)).length == 0) {
                 return;
             }
-            for (int x = 0; x < 11; x++) {
-                if (i == x) {
-                    getPLayer2Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer2Buttons()[3][i].setDisable(false);
-                }
-            }
+            getPLayer2Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            getPLayer2Buttons()[3][i].setDisable(false);
         }
         else if(p1fr || p0av) {
             int i = getGameBoard().getPlayer1().getScoreSheet().getPhoenix().getCount();
-            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(value));
-            if (m.length == 0) {
+            if (getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(value)).length == 0) {
                 return;
             }
-            for (int x = 0; x < 11; x++) {
-                if (i == x) {
-                    getPLayer1Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer1Buttons()[3][i].setDisable(false);
+            getPLayer1Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            getPLayer1Buttons()[3][i].setDisable(false);
+        }
+        else if(button.getId().charAt(0)=='b'){
+            if(((HumanPlayer)getActivePlayer()).isLeftRight()) {
+                int i = getGameBoard().getPlayer2().getScoreSheet().getPhoenix().getCount();
+                if (getPossibleMovesForADie(getGameBoard().getPlayer2(), new MagentaDice(value)).length == 0) {
+                    return;
                 }
+                getPLayer2Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer2Buttons()[3][i].setDisable(false);
+            }
+            else{
+                int i = getGameBoard().getPlayer1().getScoreSheet().getPhoenix().getCount();
+                if (getPossibleMovesForADie(getGameBoard().getPlayer1(), new MagentaDice(value)).length == 0) {
+                    return;
+                }
+                getPLayer1Buttons()[3][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer1Buttons()[3][i].setDisable(false);
             }
         }
     }
@@ -957,28 +998,32 @@ public class controller extends CLIGameController {
         boolean p0fr = (fr && pr==0), p1fr = (fr && pr==1), p0av = (av && pr==0), p1av = (av && pr==1);
         if (p0fr || p1av) {
             int i = getGameBoard().getPlayer2().getScoreSheet().getLion().getHitNum();
-            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer2(), new YellowDice(value));
-            if (m.length == 0) {
+            if (getPossibleMovesForADie(getGameBoard().getPlayer2(), new YellowDice(value)).length == 0)
                 return;
-            }
-            for (int x = 0; x < 11; x++) {
-                if (i == x) {
-                    getPLayer2Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer2Buttons()[4][i].setDisable(false);
-                }
-            }
+            getPLayer2Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            getPLayer2Buttons()[4][i].setDisable(false);
         }
         else if (p1fr || p0av) {
             int i = getGameBoard().getPlayer1().getScoreSheet().getLion().getHitNum();
-            Move[] m = getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(value));
-            if (m.length == 0) {
+            if (getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(value)).length == 0)
                 return;
+            getPLayer1Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+            getPLayer1Buttons()[4][i].setDisable(false);
+        }
+        else if(button.getId().charAt(0)=='b') {
+            if(((HumanPlayer)getActivePlayer()).isLeftRight()) {
+                int i = getGameBoard().getPlayer2().getScoreSheet().getLion().getHitNum();
+                if (getPossibleMovesForADie(getGameBoard().getPlayer2(), new YellowDice(value)).length == 0)
+                    return;
+                getPLayer2Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer2Buttons()[4][i].setDisable(false);
             }
-            for (int x = 0; x < 11; x++) {
-                if (i == x) {
-                    getPLayer1Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
-                    getPLayer1Buttons()[4][i].setDisable(false);
-                }
+            else{
+                int i = getGameBoard().getPlayer1().getScoreSheet().getLion().getHitNum();
+                if (getPossibleMovesForADie(getGameBoard().getPlayer1(), new YellowDice(value)).length == 0)
+                    return;
+                getPLayer1Buttons()[4][i].setStyle("-fx-border-color: black; -fx-border-width: 3;");
+                getPLayer1Buttons()[4][i].setDisable(false);
             }
         }
     }

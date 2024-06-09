@@ -9,6 +9,7 @@ public class HumanPlayer implements Player{
     private int timeWarpCount;
     private int arcaneBoostCount;
     private boolean testFlag;
+    private boolean leftRight;
     public HumanPlayer(PlayerStatus playerStatus) {
         this.playerStatus = playerStatus;
         gameScore = new GameScore();
@@ -39,6 +40,14 @@ public class HumanPlayer implements Player{
 
     public void setTestFlag(boolean testFlag) {
         this.testFlag = testFlag;
+    }
+
+    public boolean isLeftRight() {
+        return leftRight;
+    }
+
+    public void setLeftRight(boolean leftRight) {
+        this.leftRight = leftRight;
     }
 
     public String getPlayerName() {
