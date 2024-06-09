@@ -20,7 +20,9 @@ import javafx.scene.image.ImageView;
 
 
 public class controller extends CLIGameController {
+
     private GameBoard gameBoard;
+    int count = 0;
     public controller() {
         gameBoard = new GameBoard();
     }
@@ -32,7 +34,7 @@ public class controller extends CLIGameController {
     @FXML
     private Label SB1, SB2, SB3, SB4, SB5, SB6, SB7, SB8, SB9, SB10, SB11, sb1, sb2, sb3, sb4, sb5, sb6, sb7, sb8, sb9, sb10, sb11;
     @FXML
-    private Button RB1, RB2, RB3, RB4, RB5, RB6, RB7, RB8, RB9, RB10, RB11, rb1, rb2, rb3, rb4, rb5, rb6, rb7, rb8, rb9, rb10, rb11;
+    private Button arboostq, RB1, RB2, RB3, RB4, RB5, RB6, RB7, RB8, RB9, RB10, RB11, rb1, rb2, rb3, rb4, rb5, rb6, rb7, rb8, rb9, rb10, rb11;
     @FXML
     private Button Green2, Green3, Green4, Green5, Green6, Green7, Green8, Green9, Green10, Green11, Green12, g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12;
     @FXML
@@ -57,6 +59,8 @@ public class controller extends CLIGameController {
     private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6;
     @FXML
     private Label score1,score2;
+    @FXML
+    private Button twarp, bonusRed, bonusGreen, bonusBlue, bonusMagenta, bonusYellow, yes, no, arcane1, arcane2, arcane3, arcane4, arcane5, arcane6;
 
 
 
@@ -518,6 +522,10 @@ public class controller extends CLIGameController {
         imageView5.setImage(diceImages[4][value[4]-1]);
         imageView6.setImage(diceImages[5][value[5]-1]);
         selectedButton = null;
+        if(getActivePlayer().getTimeWarpCount()>0) {
+            twarp.setText("Click to use Time Warp");
+            twarp.setVisible(true);
+        }
     }
 
 
@@ -616,8 +624,6 @@ public class controller extends CLIGameController {
         startGameButton.setVisible(false);
         rollButton.setDisable(false);
         hideFRButtons();
-        tw1.setDisable(true);
-        tw2.setDisable(true);
 
         //tw1.setText("TW: 1");
 
@@ -658,12 +664,26 @@ public class controller extends CLIGameController {
     public void useTimeWarp(ActionEvent event){
         Button button = (Button)event.getSource();
         getActivePlayer().subtractTimeWarpCount();
-        if(getActivePlayer().getTimeWarpCount()==0) {
-            if (button.getText().equals("tw1"))
-                tw1.setDisable(true);
-            else tw2.setDisable(true);
-        }
         rollButtons();
+        twarp.setVisible(false);
+    }
+
+    @FXML
+    private void useArcaneBoost(ActionEvent event){
+
+    }
+    @FXML
+    private void abHelper(ActionEvent event){
+        Button button = (Button)event.getSource();
+        if(button.equals(no) && count == 0){
+            count++;
+            gameStat.setText("Does player2 want to use Arcane Boost?");
+        }
+        else if(button.equals(no) && count == 1){
+            count=0;
+
+        }
+
     }
 
 
@@ -672,7 +692,7 @@ public class controller extends CLIGameController {
     private void fRealm(){
         gameStat.setText(getPassivePlayer().getPlayerName() + ": Choose a die from the forgotten realm");
         showFRButtons();
-        turn.setText("--");
+        turn.setText("FR");
         for(Dice d : getForgottenRealmDice()){
             Realm r = d.getRealm();
             int i = r==Realm.RED?0:r==Realm.GREEN?1:r==Realm.BLUE?2:r==Realm.MAGENTA?3:r==Realm.YELLOW?4:5;
@@ -689,6 +709,7 @@ public class controller extends CLIGameController {
             rollButton.setVisible(false);
             hideButtons();
             fRealm();
+
         }
         else if(getGameStatus().getPartOfRound() == 2){
             getGameStatus().incrementRound();
@@ -715,7 +736,13 @@ public class controller extends CLIGameController {
     }
 
     private void afterAttack(Button button, Realm r){
-        checkReward(chooseDie(button, r), getActivePlayer());
+        Reward[] rew = checkReward(chooseDie(button, r), getActivePlayer());
+        if(rew != null) {
+            for (Reward rewe : rew) {
+                if(rewe!=null)
+                    useBonusHelper(rewe, getActivePlayer());
+            }
+        }
         checkStatus();
     }
 
@@ -747,21 +774,24 @@ public class controller extends CLIGameController {
         Realm r = ((Bonus)reward).getRealm();
         int i = r==Realm.RED?0:r==Realm.GREEN?1:r==Realm.BLUE?2:r==Realm.MAGENTA?3:4;
         if(((HumanPlayer)player).isLeftRight()){
-
+            getBonusButtons()[i].setVisible(true);
         }
-        int att = 0;
-        useBonus(player, (Bonus) reward, att);
-    }
 
+    }
+    private Button[] getBonusButtons(){
+        return new Button[]{bonusRed, bonusGreen, bonusBlue, bonusMagenta, bonusYellow};
+    }
 
     private Move chooseDie(Button button, Realm r) {
         int v = r==Realm.RED?0:r==Realm.GREEN?1:r==Realm.BLUE?2:r==Realm.MAGENTA?3:r==Realm.YELLOW?4:5;
         Move m;
         if(button.getId().charAt(0)=='f'){
-            getGameStatus().resetTurn();
-            getGameStatus().incrementPartOfRound();
+//            arboostq.setVisible(true);
+     //       arboostq.setText("Does Player 1 want to use arcane boost?");
             Dice d = getAllDice()[v];
             m = new Move(d,getPassivePlayer().getScoreSheet().getCreatureByRealm(d));
+            getGameStatus().resetTurn();
+            getGameStatus().incrementPartOfRound();
             hideFRButtons();
             showButtons();
             disableButtons();
@@ -1049,23 +1079,35 @@ public class controller extends CLIGameController {
         int i = d.getValue();
         d.selectsDragon(button.getId().charAt(1)-48);
         if(Character.isUpperCase(button.getId().charAt(0))){
-            for(int x=0;x<12;x++){
-                if(!getPLayer1Buttons()[0][x].getText().equals("X") && i == Integer.parseInt(getPLayer1Buttons()[0][x].getText()) && button.equals(getPLayer1Buttons()[0][x]) && makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()))){
-                    getPLayer1Buttons()[0][x].setText("X");
-                    getPLayer1Buttons()[0][x].setDisable(true);
-                    disablePlayer1();
-                    break;
+            if(makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()))){
+                button.setText("X");
+                disablePlayer1();
+            }
+        }
+        else if(button.getId().charAt(0)=='b' && button.getId().charAt(1)=='o' && button.getId().charAt(2)=='n'){
+            System.out.println(button.getId());
+            if(((HumanPlayer)getActivePlayer()).isLeftRight()) {
+                if (makeMove(getGameBoard().getPlayer2(),new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()))){
+                    button.setText("X");
+                    disablePlayer2();
                 }
+                else{
+                    if(makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getDragon()))){
+                        button.setText("X");
+                        disablePlayer1();
+                    }
+                }
+                useBonus(getActivePlayer(), new Bonus(Realm.RED), i);
+            }
+            else{
+                button.setText("X");
+                disablePlayer1();
             }
         }
         else{
-            for(int x=0;x<12;x++){
-                if(!getPLayer2Buttons()[0][x].getText().equals("X") && i == Integer.parseInt(getPLayer2Buttons()[0][x].getText()) && button.equals(getPLayer2Buttons()[0][x]) && makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()))){
-                    getPLayer2Buttons()[0][x].setText("X");
-                    getPLayer2Buttons()[0][x].setDisable(true);
-                    disablePlayer2();
-                    break;
-                }
+            if(makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getDragon()))){
+                button.setText("X");
+                disablePlayer2();
             }
         }
         Realm r = flag ? Realm.WHITE : Realm.RED;
@@ -1173,31 +1215,26 @@ public class controller extends CLIGameController {
         YellowDice d;
         boolean flag = false;
         if(selectedButton.equals(die6) || selectedButton.equals(forgottenRealm6)) {
-            int a = Integer.parseInt(selectedButton.getText());
-            d = new YellowDice(a);
+            d = new YellowDice(getAllDice()[5].getValue());
             flag = true;
         }
-        else
-            d = (YellowDice)getAllDice()[4];
-        int i = d.getValue();
+        else d = (YellowDice)getAllDice()[4];
+        int a = d.getValue();
+        int x = getGameBoard().getPlayer1().getScoreSheet().getLion().getHitNum();
         if(Character.isUpperCase(button.getId().charAt(0))) {
-            for (int x = 0; x < 11; x++) {
-                if (button.equals(getPLayer1Buttons()[4][x]) && makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getLion()))) {
-                    getPLayer1Buttons()[4][x].setText(""+i);
+                if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getLion()))) {
+                    button.setText(""+a*getGameBoard().getPlayer1().getScoreSheet().getLion().getMultipliers()[x]);
                     disablePlayer1();
-                    break;
                 }
-            }
         }
         else {
-            for (int x = 0; x < 11; x++) {
-                if (button.equals(getPLayer2Buttons()[4][x]) && makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getLion()))) {
-                    getPLayer2Buttons()[4][x].setText(""+i);
+                if (makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getLion()))) {
+                    button.setText(""+a*getGameBoard().getPlayer2().getScoreSheet().getLion().getMultipliers()[x]);
+
                     disablePlayer2();
-                    break;
                 }
             }
-        }
+
         Realm r = flag ? Realm.WHITE : Realm.YELLOW;
         afterAttack(selectedButton, r);
     }

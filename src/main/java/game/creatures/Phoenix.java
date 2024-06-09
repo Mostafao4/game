@@ -86,7 +86,8 @@ public void editReward(){
 }
     // checks rewards and returns the corresponding reward in an array & makes used reward an x
     public Reward[] checkReward(){
-
+        if(count==0)
+            return new Reward[0];
         switch (rew[count-1]){
             case "AB":
                 rew[count-1]="X ";
