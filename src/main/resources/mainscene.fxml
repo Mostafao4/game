@@ -899,7 +899,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="RG7" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                  <Button fx:id="RG7" mnemonicParsing="false" prefHeight="46.0" prefWidth="59.0" style="-fx-background-color: 0;" text="EC" GridPane.columnIndex="5" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -977,6 +977,11 @@
                   <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
                      <image>
                         <Image url="@magenta-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@Time-warp.gif" />
                      </image>
                   </ImageView>
                </children>
@@ -1485,6 +1490,11 @@
                         <Image url="@red-bonus.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@Time-warp.gif" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -1683,6 +1693,11 @@
                   <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <image>
                         <Image url="@magenta-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@Time-warp.gif" />
                      </image>
                   </ImageView>
                </children>
@@ -1968,6 +1983,11 @@
                         <Image url="@magenta-bonus.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@Time-warp.gif" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
@@ -2186,6 +2206,16 @@
                   <ImageView fitHeight="45.0" fitWidth="52.0" pickOnBounds="true" GridPane.columnIndex="11" GridPane.rowIndex="2">
                      <image>
                         <Image url="@arcane-boost.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@Time-warp.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@Time-warp.gif" />
                      </image>
                   </ImageView>
                </children>
@@ -2459,6 +2489,21 @@
                   <ImageView fitHeight="41.0" fitWidth="55.0" pickOnBounds="true" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <image>
                         <Image url="@magenta-bonus.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@Time-warp.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@Time-warp.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@Time-warp.gif" />
                      </image>
                   </ImageView>
                </children>
@@ -2749,6 +2794,7 @@
             <Font size="18.0" />
          </font></Label>
       <Button fx:id="startGameButton" layoutX="1118.0" layoutY="338.0" mnemonicParsing="false" onAction="#startGame" onDragDetected="#startGame" prefHeight="81.0" prefWidth="99.0" style="-fx-background-color: black;" text="Start Game" textFill="WHITE" />
+
       <Button fx:id="bonusYellow" layoutX="778.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="100.0" prefWidth="382.0" text="You received a Yellow Bonus! Click to activate." textAlignment="CENTER" visible="false" wrapText="true">
          <font>
             <Font size="19.0" />
