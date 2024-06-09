@@ -106,6 +106,9 @@ public class Gaia extends Creature{
                 case "ArcaneBoost":
                     rewards[i] = new ArcaneBoost();
                     break;
+                case "EssenceBonus":
+                    rewards[i] = new EssenceBonus();
+                    break;
                 case "GreenBonus":
                     realm = Realm.GREEN;
                     rewards[i] = new Bonus(realm);
@@ -378,6 +381,7 @@ public class Gaia extends Creature{
             case "ArcaneBoost": return "AB";
             case "TimeWarp": return "TW";
             case "GreenBonus": return "GB";
+            case "EssenceBonuse": return "EB";
             default: return "  ";
         }
     }

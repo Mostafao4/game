@@ -17,6 +17,8 @@ public class Dragon extends Creature {
     private String[] reward;
     private boolean[] bonusBoolean;
     private boolean[] scoringBoolean;
+    private int [] possibleDragonNumbers;
+
 
     public Dragon() {
         bonusBoolean = new boolean[5];
@@ -197,13 +199,27 @@ public class Dragon extends Creature {
         }
         return moves;
     }
+    public int [] getPossibleDragonNumbers (Dice die){
+        Move[] b = getPossibleMovesForADie(die);
+        possibleDragonNumbers = new int[b.length];
+        int i = 0;
+        for (int w = 0; w < dragonParts.length; w++) {
+            for (int j = 0; j < dragonParts.length; j++) {
+                if (dragonParts[j][w] != 0 && dragonParts[j][w] == die.getValue()) {
+                    possibleDragonNumbers[i] = w + 1;
+                    i++;
+                }
+            }
+        }
+        return possibleDragonNumbers;
+    }
 
     public boolean makeMove(Move a) throws PlayerActionException {
         RedDice rd = (RedDice) a.getDice();
         int y = a.getDice().getValue();
         int z = rd.getDragonNumber();
         Move[] b = getPossibleMovesForADie(a.getDice());
-        int[] possibleDragonNumbers = new int[b.length];
+        possibleDragonNumbers = new int[b.length];
         int i = 0;
         for (int w = 0; w < dragonParts.length; w++) {
             for (int j = 0; j < dragonParts.length; j++) {
