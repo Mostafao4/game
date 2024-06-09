@@ -154,11 +154,11 @@ public class CLIGameController extends GameController {
             i=takeNumberInput();
         }
         Move move = new Move(getForgottenRealmDice()[i], getPassivePlayer().getScoreSheet().getCreatureByRealm(getForgottenRealmDice()[i]),MoveType.FORGOTTEN_REALM);
-        // if(!getForgottenRealmDice()[i].getRealm().equals(Realm.WHITE)){
-        //     getForgottenRealmDice()[i].setDiceStatus(DiceStatus.TURN_SELECTED); //TODO: test line
-        // }
+         //if(!getForgottenRealmDice()[i].getRealm().equals(Realm.WHITE)){
+         //    getForgottenRealmDice()[i].setDiceStatus(DiceStatus.TURN_SELECTED); //TODO: test line
+         //}
         makeMove(getPassivePlayer(), move);
-        getForgottenRealmDice()[i].setDiceStatus(DiceStatus.TURN_SELECTED);
+        //getForgottenRealmDice()[i].setDiceStatus(DiceStatus.TURN_SELECTED);
         return move;}
     }
     public boolean thereAreAvailableDice(){
@@ -349,6 +349,7 @@ public class CLIGameController extends GameController {
         boolean b=false;
         switch(move.getDice().getRealm()){
             case RED:
+            int[] z =player.getScoreSheet().getDragon().getPossibleDragonNumbers(move.getDice());
                 if (((RedDice) (move.getDice())).getDragonNumber() == 0) {
                     if(getPossibleMovesForADie(player,move.getDice()).length == 0){
                         System.out.println("No possible moves for this die");
@@ -360,16 +361,24 @@ public class CLIGameController extends GameController {
                     System.out.println("Select a dragon to attack with attack value: " + move.getDice().getValue());
                     if(player.getPlayerType().equals("human")){
                         i = takeNumberInput();
+                        while(z.length==2 && (i!=z[0] && i!=z[1])){
+                            System.out.println("Invalid number, the dragons that are valid to be attacked are " + z[0] + " & " + z[1]);
+                            i = takeNumberInput();
+                        }
+                            while(z.length==1 && i!=z[0]){
+                            System.out.println("Invalid number, the only dragon that is valid to be attacked is " + z[0]);
+                            i = takeNumberInput();
+                            }
                         while(i<1 || i>4){
                             System.out.println("Please enter a valid number");
                             i = takeNumberInput();
                         }
                     }
                     else {
-                       int[] y =player.getScoreSheet().getDragon().getPossibleDragonNumbers(move.getDice());
+                        z =player.getScoreSheet().getDragon().getPossibleDragonNumbers(move.getDice());
                        
-                        int j =(int)(Math.random()*y.length);
-                       i=y[j];
+                        int j =(int)(Math.random()*z.length);
+                       i=z[j];
                         System.out.println(i); 
                     }
                     
