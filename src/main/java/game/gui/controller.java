@@ -1180,24 +1180,21 @@ public class controller extends CLIGameController {
         else
             d = (YellowDice)getAllDice()[4];
         int i = d.getValue();
+        int x = getGameBoard().getPlayer1().getScoreSheet().getLion().getHitNum();
         if(Character.isUpperCase(button.getId().charAt(0))) {
-            for (int x = 0; x < 11; x++) {
-                if (button.equals(getPLayer1Buttons()[4][x]) && makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getLion()))) {
-                    getPLayer1Buttons()[4][x].setText(""+i);
+                if (makeMove(getGameBoard().getPlayer1(), new Move(d, getGameBoard().getPlayer1().getScoreSheet().getLion()))) {
+                    getPLayer1Buttons()[4][x].setText(""+getGameBoard().getPlayer1().getScoreSheet().getLion().getDiceNum()[x]*getGameBoard().getPlayer1().getScoreSheet().getLion().getMultipliers()[x]);
                     disablePlayer1();
-                    break;
                 }
-            }
         }
         else {
-            for (int x = 0; x < 11; x++) {
-                if (button.equals(getPLayer2Buttons()[4][x]) && makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getLion()))) {
-                    getPLayer2Buttons()[4][x].setText(""+i);
+                if (makeMove(getGameBoard().getPlayer2(), new Move(d, getGameBoard().getPlayer2().getScoreSheet().getLion()))) {
+                    getPLayer2Buttons()[4][x].setText(""+getGameBoard().getPlayer2().getScoreSheet().getLion().getDiceNum()[x]*getGameBoard().getPlayer2().getScoreSheet().getLion().getMultipliers()[x]);
+
                     disablePlayer2();
-                    break;
                 }
             }
-        }
+
         Realm r = flag ? Realm.WHITE : Realm.YELLOW;
         afterAttack(selectedButton, r);
     }

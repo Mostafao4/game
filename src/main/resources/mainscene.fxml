@@ -2785,10 +2785,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-
-
-      <Button fx:id="tw1" disable="true" layoutX="900" layoutY="300" mnemonicParsing="false" onAction="#useTimeWarp" prefHeight="41.0" prefWidth="52.0" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Button fx:id="tw2" disable="true" layoutX="1020" layoutY="300" mnemonicParsing="false" onAction="#useTimeWarp" prefHeight="41.0" prefWidth="52.0" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Label fx:id="gameStat" alignment="TOP_CENTER" layoutX="858.0" layoutY="180.0" prefHeight="110.0" prefWidth="191.0" style="-fx-background-color: black;" text="Label" textFill="WHITE" wrapText="true">
          <font>
             <Font size="18.0" />

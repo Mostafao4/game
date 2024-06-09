@@ -98,8 +98,11 @@ public void editMultipliers(){
     }
 }
 
+    public int[] getMultipliers() {
+        return multipliers;
+    }
 
-//increments hitnum(counter) & adds dice value to array diceNum 
+    //increments hitnum(counter) & adds dice value to array diceNum
 public boolean makeMove(Move move) throws InvalidMoveException {
     if (hitNum<10){
         hitNum++;
@@ -159,7 +162,12 @@ public Reward[] checkReward(){
     default: return null;
     }
  }
- // returns an array type move with all the possible moves before rolling the dice
+
+    public int[] getDiceNum() {
+        return diceNum;
+    }
+
+    // returns an array type move with all the possible moves before rolling the dice
  public Move[] getAllPossibleMoves(){
     if (hitNum<10){
     Move[] pm1=new Move[6];
