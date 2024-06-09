@@ -11,11 +11,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 public class SettingsWindow extends Stage {
@@ -25,7 +21,6 @@ public class SettingsWindow extends Stage {
     private GridPane settingsGrid;
     private ScrollPane scrollPane;
     private String currentConfigFile;
-    private Map<String, Path> originalConfigFiles;
     private static final String[] configFiles = {
             "src/main/resources/config/RoundsRewards.properties",
             "src/main/resources/config/EmberfallDominionDiceValue.properties",
@@ -44,23 +39,20 @@ public class SettingsWindow extends Stage {
         config = new Properties();
         settingsGrid = new GridPane();
         scrollPane = createScrollPane(settingsGrid);
-        originalConfigFiles = new HashMap<>();
-
-        // Create a copy of the original config files
-        createOriginalConfigFiles();
 
         configSelector = new ComboBox<>();
         configSelector.getItems().addAll(configFiles);
         configSelector.setOnAction(e -> loadConfig(configSelector.getValue()));
 
         Button saveButton = new Button("Save");
-        saveButton.setOnAction(e -> saveConfig());
+        saveButton.setOnAction(e -> {
+            saveConfig();
+            unselectConfigFile();
+            clearWindow();
+        });
 
         VBox root = new VBox(10, configSelector, scrollPane, saveButton);
         Scene scene = new Scene(root, 400, 300);
-
-        // Hook into window close event
-        setOnCloseRequest(event -> onClose());
 
         this.setTitle("Settings");
         this.setScene(scene);
@@ -72,19 +64,6 @@ public class SettingsWindow extends Stage {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         return scrollPane;
-    }
-
-    private void createOriginalConfigFiles() {
-        for (String configFile : configFiles) {
-            Path originalFile = Paths.get(configFile + ".original");
-            Path configFileSource = Paths.get(configFile);
-            try {
-                Files.copy(configFileSource, originalFile, StandardCopyOption.REPLACE_EXISTING);
-                originalConfigFiles.put(configFile, originalFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private void loadConfig(String fileName) {
@@ -113,14 +92,9 @@ public class SettingsWindow extends Stage {
     }
 
     private void closeConfigFile() {
-        // Restore the original config file
-        Path originalFile = originalConfigFiles.get(currentConfigFile);
-        Path configFile = Paths.get(currentConfigFile);
-        try {
-            Files.copy(originalFile, configFile, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Clear properties and close the file
+        config.clear();
+        currentConfigFile = null;
     }
 
     private void saveConfig() {
@@ -132,21 +106,17 @@ public class SettingsWindow extends Stage {
         }
         try {
             config.store(Files.newOutputStream(Paths.get(currentConfigFile)), null);
-            // Close the window after saving
-            this.close();
+            // No need to close the window here
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void onClose() {
-        // Delete temporary files
-        originalConfigFiles.values().forEach(file -> {
-            try {
-                Files.deleteIfExists(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    private void unselectConfigFile() {
+        configSelector.getSelectionModel().clearSelection();
+    }
+
+    private void clearWindow() {
+        settingsGrid.getChildren().clear();
     }
 }
