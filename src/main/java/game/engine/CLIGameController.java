@@ -1029,7 +1029,7 @@ public class CLIGameController extends GameController {
                             i=w;
                         else 
                         
-                        if((g!=-1)  && (getPossibleMovesForADie(player,getArcaneBoostDice()[g]).length>0))
+                        if((g!=-1)  && (getPossibleMovesForADie(player,new GreenDice(getArcaneBoostDice()[g].getValue()+getAllDice()[5].getValue())).length>0))
                             i=g;
                             else
                             if((m!=-1) && (getArcaneBoostDice()[m].getValue()>=5) && (getPossibleMovesForADie(player,getArcaneBoostDice()[m]).length>0))
