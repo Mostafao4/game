@@ -174,7 +174,7 @@ public Reward[] checkReward(){
  }
  //returns possible moves when dice is rolled (dicenumber)
  public Move[] getPossibleMovesForADie(Dice dice){
-        if (hitNum<11){
+        if (hitNum<10){
             Move[] pmd=new Move[1];
             pmd[0]=new Move(dice,this);
             return pmd;
