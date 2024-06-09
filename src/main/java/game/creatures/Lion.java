@@ -58,6 +58,9 @@ public void editReward(){
                 case "YellowBonus":
                         rew[i]="YB";
                         break;
+                case "EssenceBonus":
+                        rew[i]="EB";
+                        break;
                 default: 
                         rew[i]="  ";
                         break;
@@ -123,7 +126,8 @@ public int getYellowRealmScore(){
 
  // checks rewards and returns the corresponding reward in an array & makes used reward an x
 public Reward[] checkReward(){
-
+    if(hitNum==-1)
+    return null;
     switch (rew[hitNum]){
     case "AB":
             rew[hitNum]="X ";
@@ -149,6 +153,9 @@ public Reward[] checkReward(){
     case "YB": 
             rew[hitNum]="X ";
             return new Reward[]{new Bonus(Realm.YELLOW)};
+    case "EB": 
+            rew[hitNum]="X ";
+            return new Reward[]{new EssenceBonus()};
     default: return null;
     }
  }
@@ -167,7 +174,7 @@ public Reward[] checkReward(){
  }
  //returns possible moves when dice is rolled (dicenumber)
  public Move[] getPossibleMovesForADie(Dice dice){
-        if (hitNum<11){
+        if (hitNum<10){
             Move[] pmd=new Move[1];
             pmd[0]=new Move(dice,this);
             return pmd;

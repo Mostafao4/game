@@ -568,6 +568,21 @@ For each package, add the skeleton details for the class and duplicate as much a
         - `player`: The player who made the invalid move.
         - `move`: The invalid move.
         - `realm`: The realm of the move.
+46.  `int chooseDieAi()`
+    - **Description**: Makes the computer choose the best possible die.
+    - **Return Type**: `int`
+        - The number chosen by the computer.
+47.  `int chooseForgottenRealmAi()`
+    - **Description**: Makes the computer choose the best possible die in the forgotten realm.
+    - **Return Type**: `int`
+        - The number chosen by the computer.
+46.  `int FindRealm(Dice[] dicearray,Realm realm)`
+    - **Description**: finds the index of a dice for a specific realm if available.
+    - **Parameters**:
+        - `dicearray`: Array with all the available dice.
+        - `realm`: The realm you want to find the dice coresponding to.
+    - **Return Type**: `int`
+        - The index of the wanted dice in the array of available dice.              
 
 ### `Player` class
 
@@ -1491,15 +1506,14 @@ For each package, add the skeleton details for the class and duplicate as much a
 
 4. `int getYellowRealmScore()`
 
-    - **Description**: adds the turns score to the total score and returns it.
+    - **Description**: calculates the total score of the yellow realm and returns it.
     - **Return Type**: `int`
         - `int` total score of yellow realm.
 
-
-5. `Reward getReward()`
+5. `Reward[] checkReward()`
 
     - **Description**: Checks rewards and returns the supposed reward & makes used reward an x.
-    - **Return Type**: `Reward`
+    - **Return Type**: array of `Reward`
         - `Reward` The reward won after this hit.
 
 6. ` Move[] getAllPossibleMoves()`

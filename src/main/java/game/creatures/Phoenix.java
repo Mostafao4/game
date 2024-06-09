@@ -12,11 +12,11 @@ public class Phoenix extends Creature {
     private int count;
     private int score_int;
     private int[] attack;
-    private Reward[] rewards;
+    //private Reward[] rewards;
     private String[] rew = new String[11];
     public Phoenix(){
         attack = new int[11];
-        rewards = new Reward[11];
+        //rewards = new Reward[11];
         count = 0;
         editReward();
     }
@@ -71,6 +71,9 @@ public void editReward(){
                 case "YellowBonus":
                     rew[i]="YB";
                     break;
+                case "EssenceBonus":
+                    rew[i]="EB";
+                    break;
                 default:
                     rew[i]="  ";
                     break;
@@ -109,6 +112,9 @@ public void editReward(){
             case "YB":
                 rew[count-1]="X ";
                 return new Reward[]{new Bonus(Realm.YELLOW)};
+            case "EB": 
+                rew[count-1]="X ";
+                return new Reward[]{new EssenceBonus()};
             default: return null;
         }
     }
