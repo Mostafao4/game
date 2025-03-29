@@ -8,8 +8,10 @@ public abstract class Dice {
     private Realm realm;
 
     public Dice(int value){
+        diceStatus = DiceStatus.AVAILABLE;
         this.value = value;
     }
+
     public final void roll(){
         value = (int) (Math.random() * 6) + 1;
     }
@@ -22,7 +24,7 @@ public abstract class Dice {
     }
 
     public Realm getRealm() {
-        return color;
+        return realm;
     }
     public void setRealm(Realm realm) {
         this.realm = realm;
@@ -34,4 +36,5 @@ public abstract class Dice {
     public void setDiceStatus(DiceStatus diceStatus) {
         this.diceStatus = diceStatus;
     }
+    public abstract String toString();
 }

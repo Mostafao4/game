@@ -141,8 +141,8 @@ public class CLIGameControllerTest {
                 new Move(new BlueDice(4), player.getScoreSheet().getCreatureByRealm(new BlueDice(4))),
                 new Move(new MagentaDice(1), player.getScoreSheet().getCreatureByRealm(new MagentaDice(1))),
                 new Move(new MagentaDice(5), player.getScoreSheet().getCreatureByRealm(new MagentaDice(5))),
-                new Move(new YellowDice(6), player.getScoreSheet().getCreatureByRealm(new YellowDice(1))),
-                new Move(new YellowDice(1), player.getScoreSheet().getCreatureByRealm(new YellowDice(6)))));
+                new Move(new YellowDice(1), player.getScoreSheet().getCreatureByRealm(new YellowDice(1))),
+                new Move(new YellowDice(6), player.getScoreSheet().getCreatureByRealm(new YellowDice(6)))));
 
         List<Move> actualMoves = new ArrayList<>(Arrays.asList(allPossibleMoves));
 
@@ -257,6 +257,9 @@ public class CLIGameControllerTest {
                 "|  M  |     |     |     |x2   |     |     |x2   |     |x2   |     |x3   |\n" +
                 "|  R  |     |     |TW   |     |RB   |AB   |     |EC   |     |MB   |     |\n" +
                 "+-----------------------------------------------------------------------+\n\n";
+
+        String ANSI_CODE_PATTERN = "\u001B\\[[;\\d]*m";
+        emptyScoreSheet = emptyScoreSheet.replaceAll(ANSI_CODE_PATTERN, "");
 
         assertEquals("ScoreSheet display is wrong", expectedScoreSheet, emptyScoreSheet);
     }
@@ -380,4 +383,89 @@ public class CLIGameControllerTest {
         }
     }
 
+    @Test
+    public void testElementalCrests() {
+        CLIGameController controller = new CLIGameController();
+        GameBoard gameBoard = controller.getGameBoard();
+        Player player = controller.getActivePlayer();
+
+        int[] redDiceValues = { 3, 2, 1, 3, 4, 6 };
+        int[] dragonNumber = { 1, 1, 1, 2, 3, 4 };
+        int[] greenDiceValues = { 3, 4, 5, 6 };
+        int[] whiteDiceValues = { 6, 6, 6, 6 };
+        int[] blueDiceValues = { 1, 2, 3 };
+        int[] magentaDiceValues = { 1, 3, 6 };
+        int[] yellowDiceValues = { 1, 1, 1 };
+
+        for (int i = 0; i < redDiceValues.length; i++) {
+            Dice[] dice = gameBoard.getDice();
+            dice[0].setValue(redDiceValues[i]);
+            ((RedDice) dice[0]).selectsDragon(dragonNumber[i]);
+            Move[] possibleMoves = controller.getPossibleMovesForADie(player, dice[0]);
+            if (possibleMoves.length > 0) {
+                controller.makeMove(player, possibleMoves[0]);
+            }
+
+        }
+
+        for (int i = 0; i < greenDiceValues.length; i++) {
+            Dice[] dice = gameBoard.getDice();
+            dice[1].setValue(greenDiceValues[i]);
+            dice[5].setValue(whiteDiceValues[i]);
+            Move[] possibleMoves = controller.getPossibleMovesForADie(player, dice[1]);
+            if (possibleMoves.length > 0) {
+                controller.makeMove(player, possibleMoves[0]);
+            }
+        }
+
+        for (int i = 0; i < blueDiceValues.length; i++) {
+            Dice[] dice = gameBoard.getDice();
+            dice[2].setValue(blueDiceValues[i]);
+            Move[] possibleMoves = controller.getPossibleMovesForADie(player, dice[2]);
+            if (possibleMoves.length > 0) {
+                controller.makeMove(player, possibleMoves[0]);
+            }
+        }
+
+        for (int i = 0; i < magentaDiceValues.length; i++) {
+            Dice[] dice = gameBoard.getDice();
+            dice[3].setValue(magentaDiceValues[i]);
+            Move[] possibleMoves = controller.getPossibleMovesForADie(player, dice[3]);
+            if (possibleMoves.length > 0) {
+                controller.makeMove(player, possibleMoves[0]);
+            }
+        }
+
+        for (int i = 0; i < yellowDiceValues.length; i++) {
+            Dice[] dice = gameBoard.getDice();
+            dice[4].setValue(yellowDiceValues[i]);
+            Move[] possibleMoves = controller.getPossibleMovesForADie(player, dice[4]);
+            if (possibleMoves.length > 0) {
+                controller.makeMove(player, possibleMoves[0]);
+            }
+        }
+        System.out.println(player.getScoreSheet());
+        int expectedRedScore = 10;
+        int expectedGreenScore = 7;
+        int expectedBlueScore = 6;
+        int expectedMagentaScore = 10;
+        int expectedYellowScore = 3;
+        int expectedElementalCrests = 2;
+        int expectedTotalScore = 42;
+        int actualRedScore = controller.getGameScore(player).getRedRealmScore();
+        int actualGreenScore = controller.getGameScore(player).getGreenRealmScore();
+        int actualBlueScore = controller.getGameScore(player).getBlueRealmScore();
+        int actualMagentaScore = controller.getGameScore(player).getMagentaRealmScore();
+        int actualYellowScore = controller.getGameScore(player).getYellowRealmScore();
+        int actualElementalCrests = player.getElementalCrest().length;
+        int actualTotalScore = controller.getGameScore(player).getScore();
+
+        assertEquals("Red realm score mismatch", expectedRedScore, actualRedScore);
+        assertEquals("Green realm score mismatch", expectedGreenScore, actualGreenScore);
+        assertEquals("Blue realm score mismatch", expectedBlueScore, actualBlueScore);
+        assertEquals("Magenta realm score mismatch", expectedMagentaScore, actualMagentaScore);
+        assertEquals("Yellow realm score mismatch", expectedYellowScore, actualYellowScore);
+        assertEquals("Elemental Crests mismatch", expectedElementalCrests, actualElementalCrests);
+        assertEquals("Total score mismatch", expectedTotalScore, actualTotalScore);
+    }
 }

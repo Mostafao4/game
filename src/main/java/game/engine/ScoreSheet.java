@@ -1,64 +1,63 @@
 package game.engine;
 
+import game.creatures.*;
+import game.dice.Dice;
+
 public class ScoreSheet {
-    public String toString(){
-        return" Emberfall Dominion: Pyroclast Dragon (RED REALM):\n" +
-                "            +-----------------------------------+\n" +
-                "            |  #  |D1   |D2   |D3   |D4   |R    |\n" +
-                "            +-----------------------------------+\n" +
-                "            |  F  |3    |6    |5    |X    |GB   |\n" +
-                "            |  W  |2    |1    |X    |5    |YB   |\n" +
-                "            |  T  |1    |X    |2    |4    |BB   |\n" +
-                "            |  H  |X    |3    |4    |6    |EC   |\n" +
-                "            +-----------------------------------+\n" +
-                "            |  S  |10   |14   |16   |20   |AB   |\n" +
-                "            +-----------------------------------+\n" +
-                "\n" +
-                "\n" +
-                "    Terra's Heartland: Gaia Guardians (GREEN REALM): \n" +
-                "            +-----------------------------------+\n" +
-                "            |  #  |1    |2    |3    |4    |R    |\n" +
-                "            +-----------------------------------+\n" +
-                "            |  1  |X    |2    |3    |4    |YB   |\n" +
-                "            |  2  |5    |6    |7    |8    |RB   |\n" +
-                "            |  3  |9    |10   |11   |12   |EC   |\n" +
-                "            +-----------------------------------+\n" +
-                "            |  R  |TW   |BB   |MB   |AB   |     |\n" +
-                "            +-----------------------------------------------------------------------------+\n" +
-                "            |  S  |0    |1    |2    |4    |7    |11   |16   |22   |29   |37   |46   |56   |\n" +
-                "            +-----------------------------------------------------------------------------+\n" +
-                "\n" +
-                "\n" +
-                "    Tide Abyss: Hydra Serpents (BLUE REALM):\n" +
-                "            +-----------------------------------------------------------------------+\n" +
-                "            |  #  |H11  |H12  |H13  |H14  |H15  |H21  |H22  |H23  |H24  |H25  |H26  |\n" +
-                "            +-----------------------------------------------------------------------+\n" +
-                "            |  H  |---  |---  |---  |---  |---  |---  |---  |---  |---  |---  |---  |\n" +
-                "            |  C  |≥1   |≥2   |≥3   |≥4   |≥5   |≥1   |≥2   |≥3   |≥4   |≥5   |≥6   |\n" +
-                "            |  R  |     |     |     |AB   |     |GB   |EC   |     |MB   |TW   |     |\n" +
-                "            +-----------------------------------------------------------------------+\n" +
-                "            |  S  |1    |3    |6    |10   |15   |21   |28   |36   |45   |55   |66   |\n" +
-                "            +-----------------------------------------------------------------------+\n" +
-                "\n" +
-                "\n" +
-                "    Mystical Sky: Majestic Phoenix (MAGENTA REALM):\n" +
-                "            +-----------------------------------------------------------------------+\n" +
-                "            |  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
-                "            +-----------------------------------------------------------------------+\n" +
-                "            |  H  |0    |0    |0    |0    |0    |0    |0    |0    |0    |0    |0    |\n" +
-                "            |  C  |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |<    |\n" +
-                "            |  R  |     |     |TW   |GB   |AB   |RB   |EC   |TW   |BB   |YB   |AB   |\n" +
-                "            +-----------------------------------------------------------------------+\n" +
-                "\n" +
-                "\n" +
-                "    Radiant Savanna: Solar Lion (YELLOW REALM):\n" +
-                "            +-----------------------------------------------------------------------+\n" +
-                "            |  #  |1    |2    |3    |4    |5    |6    |7    |8    |9    |10   |11   |\n" +
-                "            +-----------------------------------------------------------------------+\n" +
-                "            |  H  |0    |0    |0    |0    |0    |0    |0    |0    |0    |0    |0    |\n" +
-                "            |  M  |     |     |     |x2   |     |     |x2   |     |x2   |     |x3   |\n" +
-                "            |  R  |     |     |TW   |     |RB   |AB   |     |EC   |     |MB   |     |\n" +
-                "            +-----------------------------------------------------------------------+";
+     private Dragon dragon;
+     private Gaia gaia;
+     private Hydra hydra;
+     private Phoenix phoenix;
+     private Lion lion;
+
+    public ScoreSheet() {
+        this.dragon = new Dragon();
+        this.gaia = new Gaia();
+        this.hydra = new Hydra();
+        this.phoenix = new Phoenix();
+        this.lion = new Lion();
     }
+
+    public String toString(){
+        return "\u001B[31m"+dragon.toString()+"\u001B[0m"+
+                "\u001B[32m"+gaia.toString()+"\u001B[0m"+
+                "\u001B[34m"+hydra.toString()+"\u001B[0m"+
+                "\u001B[35m"+phoenix.toString()+"\u001B[0m"+
+                "\u001B[33m"+lion.toString()+"\u001B[0m";
+     }
+    public Creature getCreatureByRealm(Dice dice) {
+        switch (dice.getRealm()) {
+            case RED:
+                return dragon;
+            case GREEN:
+                return gaia;
+            case BLUE:
+                return hydra;
+            case MAGENTA:
+                return phoenix;
+            case YELLOW:
+                return lion;
+            default:
+                return null;
+        }
+    }
+
+    public Dragon getDragon() {
+        return dragon;
+    }
+    public Gaia getGaia() {
+        return gaia;
+    }
+    public Hydra getHydra() {
+        return hydra;
+    }
+    public Phoenix getPhoenix() {
+        return phoenix;
+    }
+    public Lion getLion() {
+        return lion;
+    }
+
+
 
 }

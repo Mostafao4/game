@@ -1,4 +1,8 @@
 package game.collectibles;
 
-public class EssenceBonus extends Bonus{
+
+public class EssenceBonus extends Reward{
+    public EssenceBonus() {
+        
+    }
 }
